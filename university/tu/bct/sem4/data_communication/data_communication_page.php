@@ -1,5 +1,5 @@
 <?php
-$subjectName = "data communication";
+$subjectName = "Data Communication";
 
 $resources = [
     'notes' => [

@@ -21,21 +21,19 @@ $subjects = [
     ],
     3 => [
         "Engineering Mathematics III",
-        "Object Oriented Programming",
-        "Electrical Circuit Theory",
+        "Communication English",
+        "Computer Graphics and Visualization",
+        "Foundation of Data Science",
         "Theory of Computation",
-        "Electronics Devices and Circuit",
-        "Digital Logic",
-        "Electromagnetism"
+        "Microprocessors"
     ],
     4 => [
-        "Electrical Machine",
-        "Numerical Method",
-        "Applied Mathematics",
+        "Numerical Methods",
         "Instrumentation",
+        "Electromagnetics",
         "Data Structure and Algorithm",
-        "Microprocessor",
-        "Discrete Structure"
+        "Data Communication",
+        "Operating System"
     ],
     5 => [
         "Communication English",
