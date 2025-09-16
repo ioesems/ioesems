@@ -130,10 +130,10 @@
         <p class="subtitle">Organize your digital life in one place.</p>
 
         <div class="btn-group">
-            <a href="index.php" class="btn btn-links">
+            <a href="./z/tools/link/index.php" class="btn btn-links">
                 <i class="fas fa-link"></i> Manage Links
             </a>
-            <a href="note_index.php" class="btn btn-notes">
+            <a href="./z/tools/prompt/index.php" class="btn btn-notes">
                 <i class="fas fa-sticky-note"></i> Manage Notes
             </a>
         </div>
