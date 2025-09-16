@@ -1,6 +1,4 @@
 <?php
-// receive_from_ai.php
-
 function formatQuestionResponse($rawJson) {
     $data = json_decode($rawJson, true);
     if (json_last_error() !== JSON_ERROR_NONE) {

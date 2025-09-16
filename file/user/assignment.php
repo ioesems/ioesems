@@ -61,6 +61,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment Management</title>
     <link rel="icon" type="image/png" href="../../images/logo.png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Shared Stylesheet -->
     <link rel="stylesheet" href="styles_page.css">
 </head>
 
@@ -69,83 +72,96 @@ $conn->close();
     <?php include '../../components/head-foot/header.php'; ?>
 
     <div class="container">
-        <h1>Available Assignments</h1>
+        <h1>📚 Assignments</h1>
 
         <!-- Filter Section -->
         <div class="filter-section">
+            <h2><i class="fas fa-filter"></i> Filter Assignments</h2>
             <form action="assignment.php" method="GET">
-                <label for="semester">Filter by Semester:</label>
-                <select name="semester" id="semester" onchange="this.form.submit()">
-                    <option value="">All Semesters</option>
-                    <?php foreach ($predefined_semesters as $semester) { ?>
-                        <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?>>
-                            Semester <?php echo $semester; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-
-                <?php if ($selected_semester) { ?>
-                    <label for="subject">Filter by Subject:</label>
-                    <select name="subject" id="subject" onchange="this.form.submit()">
-                        <option value="">All Subjects</option>
-                        <?php foreach ($subjects[$selected_semester] as $subject) { ?>
-                            <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($subject); ?>
+                <div>
+                    <label for="semester">Filter by Semester:</label>
+                    <select name="semester" id="semester" onchange="this.form.submit()">
+                        <option value="">All Semesters</option>
+                        <?php foreach ($predefined_semesters as $semester) { ?>
+                            <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?>>
+                                Semester <?php echo $semester; ?>
                             </option>
                         <?php } ?>
                     </select>
+                </div>
+
+                <?php if ($selected_semester) { ?>
+                    <div>
+                        <label for="subject">Filter by Subject:</label>
+                        <select name="subject" id="subject" onchange="this.form.submit()">
+                            <option value="">All Subjects</option>
+                            <?php foreach ($subjects[$selected_semester] as $subject) { ?>
+                                <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($subject); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 <?php } ?>
 
-                <button type="submit">Filter</button>
+                <button type="submit">
+                    <i class="fas fa-search"></i> Apply Filter
+                </button>
             </form>
         </div>
 
         <?php if (!empty($assignments_by_semester)) { ?>
             <?php foreach ($assignments_by_semester as $semester => $assignments_list) { ?>
                 <div class="semester-section">
-                    <div class="semester-header" onclick="toggleVisibility('assignments-sem<?php echo $semester; ?>', this)">
-                        Semester <?php echo $semester; ?>
+                    <div class="semester-header" onclick="toggleVisibility('assignments-sem<?php echo $semester; ?>')">
+                        <span>Semester <?php echo $semester; ?></span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div id="assignments-sem<?php echo $semester; ?>" class="assignments-list">
+                    <div id="assignments-sem<?php echo $semester; ?>" class="notes-list">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Subject</th>
                                     <th>Description</th>
-                                    <th>File Actions</th>
+                                    <th>Access</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($assignments_list as $assignment) { ?>
                                     <tr>
-                                        <td data-label="Subject"><?php echo htmlspecialchars($assignment['subject']); ?></td>
-                                        <td data-label="Description"><?php echo htmlspecialchars($assignment['description']); ?></td>
-                                        <td data-label="File Actions">
-                                            <?php
-                                            // Check if file exists
-                                            if (!empty($assignment['material_file'])) {
+                                        <td><?php echo htmlspecialchars($assignment['subject']); ?></td>
+                                        <td><?php echo htmlspecialchars($assignment['description']); ?></td>
+                                        <td class="file-cell">
+                                            <?php 
+                                            $hasFile = !empty($assignment['material_file']);
+                                            $hasLink = !empty($assignment['external_link']);
+                                            ?>
+
+                                            <?php if ($hasFile): ?>
+                                                <?php
                                                 $file_path = '../admin/' . $assignment['material_file'];
                                                 ?>
                                                 <!-- Download link -->
-                                                <a href="<?php echo $file_path; ?>" target="_blank" download>Download</a>
-                                                <!-- View link -->
-                                                <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">View</a>
-                                            <?php } ?>
-                                            
-                                            <?php
-                                            // Check if external link exists
-                                            if (!empty($assignment['external_link'])) {
-                                                ?>
-                                                <!-- Go to Page link -->
-                                                <a href="<?php echo htmlspecialchars($assignment['external_link']); ?>" target="_blank" rel="noopener noreferrer">Go to Page</a>
-                                            <?php } ?>
-                                            
-                                            <?php
-                                            // If neither file nor link exists
-                                            if (empty($assignment['material_file']) && empty($assignment['external_link'])) {
-                                                echo '<span class="no-content">No content available</span>';
-                                            }
-                                            ?>
+                                                <a href="<?php echo htmlspecialchars($file_path); ?>" target="_blank" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <!-- View link (only show if file exists) -->
+                                                <a href="view.php?id=<?php echo (int)$assignment['id']; ?>" target="_blank">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <?php if ($hasLink): ?>
+                                                <!-- External Link -->
+                                                <!-- If no file exists, label it as "View" for better UX -->
+                                                <a href="<?php echo htmlspecialchars($assignment['external_link']); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <i class="fas fa-external-link-alt"></i> <?php echo $hasFile ? 'External Link' : 'View'; ?>
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <?php if (!$hasFile && !$hasLink): ?>
+                                                <span class="text-muted">No content available</span>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -155,7 +171,11 @@ $conn->close();
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p>No assignments found for the selected criteria. Please try a different filter or check back later.</p>
+            <div class="no-results">
+                <i class="fas fa-clipboard-check"></i>
+                <h3>No assignments found for the selected filters.</h3>
+                <p>Please try adjusting your search criteria.</p>
+            </div>
         <?php } ?>
     </div>
 
@@ -163,56 +183,37 @@ $conn->close();
     <?php include '../../components/head-foot/footer.php'; ?>
 
     <script>
-        function toggleVisibility(id, headerElement) {
+        function toggleVisibility(id) {
             const section = document.getElementById(id);
-            const isVisible = section.style.display === 'block';
-            
-            if (isVisible) {
-                section.style.display = 'none';
-                section.classList.remove('show');
-                headerElement.classList.remove('active');
-            } else {
+            const header = section.previousElementSibling;
+            if (section.style.display === 'none' || section.style.display === '') {
                 section.style.display = 'block';
-                section.classList.add('show');
-                headerElement.classList.add('active');
+                header.classList.add('active');
+            } else {
+                section.style.display = 'none';
+                header.classList.remove('active');
             }
         }
 
-        // Add loading animation to filter form
+        // Optional: Add smooth scroll or accessibility enhancements
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('.filter-section form');
-            const selects = form.querySelectorAll('select');
-            
-            selects.forEach(select => {
-                select.addEventListener('change', function() {
-                    const button = form.querySelector('button');
-                    button.innerHTML = '<span class="loading"></span> Filtering...';
-                    button.disabled = true;
-                });
+            // Ensure all external links have security attributes
+            document.querySelectorAll('a[target="_blank"]').forEach(link => {
+                if (!link.hasAttribute('rel')) {
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
             });
 
-            // Add smooth scroll behavior
+            // Keyboard accessibility for headers
             document.querySelectorAll('.semester-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    setTimeout(() => {
-                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
+                header.setAttribute('tabindex', '0');
+                header.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
                 });
             });
-        });
-
-        // Add keyboard navigation support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.target.classList.contains('semester-header')) {
-                e.target.click();
-            }
-        });
-
-        // Enhanced link security
-        document.querySelectorAll('a[target="_blank"]').forEach(link => {
-            if (!link.getAttribute('rel')) {
-                link.setAttribute('rel', 'noopener noreferrer');
-            }
         });
     </script>
 </body>

@@ -22,4 +22,11 @@ comments
 https://chat.qwen.ai/c/cd40eb75-4141-42fc-a627-7139de530caf
 
 fun-question
-https://chat.qwen.ai/c/3ed2ff3c-1b3e-4513-a0dd-460548299fc7
+mainly-> https://chat.qwen.ai/c/3ed2ff3c-1b3e-4513-a0dd-460548299fc7
+https://chatgpt.com/c/68c9059e-1be8-832d-a06f-a1fc09ff21d1
+
+user files (pyq/assifnment/note/etc) design updated
+https://chat.qwen.ai/c/185920ca-e8f3-4174-b259-e830dcb6c396
+
+footer dynamic comment
+https://chat.qwen.ai/c/2c41e42b-fc61-4bc8-8726-541198147773

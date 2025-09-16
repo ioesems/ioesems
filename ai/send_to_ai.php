@@ -1,14 +1,12 @@
 <?php
-// send_to_ai.php
-
 function sendToGroqAI($messages, $model = "llama-3.3-70b-versatile") {
-    $apiKey = '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'; // Your key
+    $apiKey = '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';
 
     $data = [
         'messages' => $messages,
         'model' => $model,
         'response_format' => ['type' => 'json_object'],
-        'temperature' => 0.9,  // 🔥 Higher randomness for fun variation
+        'temperature' => 0.9,
         'max_tokens' => 500
     ];
 
