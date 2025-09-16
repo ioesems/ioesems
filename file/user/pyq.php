@@ -12,7 +12,7 @@ if ($conn === null || $conn->connect_error) {
 }
 
 // Fetch all distinct semesters for the dropdown
-$sql_semesters = "SELECT DISTINCT semester FROM materials WHERE material_title = 'ASSIGNMENT' ORDER BY semester ASC";
+$sql_semesters = "SELECT DISTINCT semester FROM materials WHERE material_title = 'PYQ' ORDER BY semester ASC";
 $result_semesters = $conn->query($sql_semesters);
 
 // Initialize an array for semesters
@@ -28,24 +28,24 @@ $predefined_semesters = range(1, 8);
 
 include '../admin/subjects.php'; // Include the subjects array from subjects.php
 
-// Fetch assignments based on the selected semester (if any)
+// Fetch PYQs based on the selected semester (if any)
 $selected_semester = isset($_GET['semester']) ? intval($_GET['semester']) : null;
 $selected_subject = isset($_GET['subject']) ? $_GET['subject'] : null;
-$sql_assignments = "SELECT * FROM materials WHERE material_title = 'ASSIGNMENT'";
+$sql_pyqs = "SELECT * FROM materials WHERE material_title = 'PYQ'";
 if ($selected_semester) {
-    $sql_assignments .= " AND semester = $selected_semester";
+    $sql_pyqs .= " AND semester = $selected_semester";
 }
 if ($selected_subject) {
-    $sql_assignments .= " AND subject = '" . $conn->real_escape_string($selected_subject) . "'";
+    $sql_pyqs .= " AND subject = '" . $conn->real_escape_string($selected_subject) . "'";
 }
-$sql_assignments .= " ORDER BY semester ASC, subject ASC";
-$result_assignments = $conn->query($sql_assignments);
+$sql_pyqs .= " ORDER BY semester ASC, subject ASC";
+$result_pyqs = $conn->query($sql_pyqs);
 
-// Initialize an array to group assignments by semester
-$assignments_by_semester = [];
-if ($result_assignments->num_rows > 0) {
-    while ($row = $result_assignments->fetch_assoc()) {
-        $assignments_by_semester[$row['semester']][] = $row;
+// Initialize an array to group PYQs by semester
+$pyqs_by_semester = [];
+if ($result_pyqs->num_rows > 0) {
+    while ($row = $result_pyqs->fetch_assoc()) {
+        $pyqs_by_semester[$row['semester']][] = $row;
     }
 }
 
@@ -59,262 +59,106 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment Management</title>
+    <title>Previous Year Questions (PYQ)</title>
     <link rel="icon" type="image/png" href="../../images/logo.png">
-
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        select {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .semester-section {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #f4f4f4;
-        }
-
-        .semester-header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 15px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .assignments-list {
-            display: none;
-            /* Initially hidden */
-            padding: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #eaeaea;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007BFF;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Media Queries for Responsive Design */
-        @media only screen and (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            select {
-                font-size: 14px;
-                padding: 8px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-
-            .semester-header {
-                font-size: 16px;
-                padding: 8px 12px;
-            }
-
-            .semester-section {
-                padding: 10px;
-            }
-
-            table th,
-            table td {
-                padding: 10px;
-            }
-
-            table td {
-                font-size: 14px;
-            }
-
-            table td a {
-                font-size: 14px;
-            }
-        }
-
-        @media only screen and (max-width: 480px) {
-            .container {
-                padding: 5px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            select {
-                font-size: 12px;
-                padding: 6px;
-            }
-
-            button {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-
-            .semester-header {
-                font-size: 14px;
-                padding: 6px 10px;
-            }
-
-            .semester-section {
-                padding: 8px;
-            }
-
-            table th,
-            table td {
-                padding: 8px;
-            }
-
-            table td a {
-                font-size: 12px;
-                padding: 5px 8px;
-            }
-
-            table td {
-                font-size: 12px;
-            }
-        }
-    </style>
-
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Custom Stylesheet (Shared with note.php) -->
+    <link rel="stylesheet" href="styles_page.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Available Assignments</h1>
+        <h1>❓ Previous Year Questions (PYQ)</h1>
 
         <!-- Filter Section -->
         <div class="filter-section">
-            <form action="assignment.php" method="GET">
-                <label for="semester">Filter by Semester:</label>
-                <select name="semester" id="semester" onchange="this.form.submit()">
-                    <option value="">All Semesters</option>
-                    <?php foreach ($predefined_semesters as $semester) { ?>
-                        <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?> >
-                            Semester <?php echo $semester; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-
-                <?php if ($selected_semester) { ?>
-                    <label for="subject">Filter by Subject:</label>
-                    <select name="subject" id="subject" onchange="this.form.submit()">
-                        <option value="">All Subjects</option>
-                        <?php foreach ($subjects[$selected_semester] as $subject) { ?>
-                            <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?> >
-                                <?php echo htmlspecialchars($subject); ?>
+            <h2><i class="fas fa-filter"></i> Filter PYQs</h2>
+            <form action="pyq.php" method="GET">
+                <div>
+                    <label for="semester">Filter by Semester:</label>
+                    <select name="semester" id="semester" onchange="this.form.submit()">
+                        <option value="">All Semesters</option>
+                        <?php foreach ($predefined_semesters as $semester) { ?>
+                            <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?>>
+                                Semester <?php echo $semester; ?>
                             </option>
                         <?php } ?>
                     </select>
+                </div>
+
+                <?php if ($selected_semester) { ?>
+                    <div>
+                        <label for="subject">Filter by Subject:</label>
+                        <select name="subject" id="subject" onchange="this.form.submit()">
+                            <option value="">All Subjects</option>
+                            <?php foreach ($subjects[$selected_semester] as $subject) { ?>
+                                <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($subject); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 <?php } ?>
 
-                <button type="submit">Filter</button>
+                <button type="submit">
+                    <i class="fas fa-search"></i> Apply Filter
+                </button>
             </form>
         </div>
 
-        <?php if (!empty($assignments_by_semester)) { ?>
-            <?php foreach ($assignments_by_semester as $semester => $assignments_list) { ?>
+        <?php if (!empty($pyqs_by_semester)) { ?>
+            <?php foreach ($pyqs_by_semester as $semester => $pyqs_list) { ?>
                 <div class="semester-section">
-                    <div class="semester-header" onclick="toggleVisibility('assignments-sem<?php echo $semester; ?>')">
-                        Semester <?php echo $semester; ?>
+                    <div class="semester-header" onclick="toggleVisibility('pyq-sem<?php echo $semester; ?>')">
+                        <span>Semester <?php echo $semester; ?></span>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div id="assignments-sem<?php echo $semester; ?>" class="assignments-list">
+                    <div id="pyq-sem<?php echo $semester; ?>" class="notes-list">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Subject</th>
                                     <th>Description</th>
-                                    <th>File</th>
+                                    <th>Access</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($assignments_list as $assignment) { ?>
+                                <?php foreach ($pyqs_list as $pyq) { ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($assignment['subject']); ?></td>
-                                        <td><?php echo htmlspecialchars($assignment['description']); ?></td>
-                                        <td>
-                                            <?php
-                                            // Assuming the file is stored in the "admin/uploads" directory
-                                            $file_path = '../admin/' . $assignment['material_file'];
+                                        <td><?php echo htmlspecialchars($pyq['subject']); ?></td>
+                                        <td><?php echo htmlspecialchars($pyq['description']); ?></td>
+                                        <td class="file-cell">
+                                            <?php 
+                                            $hasFile = !empty($pyq['material_file']);
+                                            $hasLink = !empty($pyq['external_link']);
                                             ?>
-                                            <!-- Download link -->
-                                            <a href="<?php echo $file_path; ?>" target="_blank" download>Download</a><br>
-                                            <!-- View link (assuming 'view.php' handles file viewing) -->
-                                            <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">View</a>
+
+                                            <?php if ($hasFile): ?>
+                                                <?php
+                                                $file_path = '../admin/' . $pyq['material_file'];
+                                                ?>
+                                                <!-- Download link -->
+                                                <a href="<?php echo htmlspecialchars($file_path); ?>" target="_blank" download>
+                                                    <i class="fas fa-download"></i> Download
+                                                </a>
+                                                <!-- View link (only show if file exists) -->
+                                                <a href="view.php?id=<?php echo (int)$pyq['id']; ?>" target="_blank">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <?php if ($hasLink): ?>
+                                                <!-- External Link -->
+                                                <!-- If no file exists, label it as "View" for better UX -->
+                                                <a href="<?php echo htmlspecialchars($pyq['external_link']); ?>" target="_blank" rel="noopener noreferrer">
+                                                    <i class="fas fa-external-link-alt"></i> <?php echo $hasFile ? 'External Link' : 'View'; ?>
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <?php if (!$hasFile && !$hasLink): ?>
+                                                <span class="text-muted">No content available</span>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -324,17 +168,24 @@ $conn->close();
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p>No assignments found for the selected semester.</p>
+            <div class="no-results">
+                <i class="fas fa-question-circle"></i>
+                <h3>No PYQs found for the selected filters.</h3>
+                <p>Please try adjusting your search criteria.</p>
+            </div>
         <?php } ?>
     </div>
 
     <script>
         function toggleVisibility(id) {
             const section = document.getElementById(id);
+            const header = section.previousElementSibling;
             if (section.style.display === 'none' || section.style.display === '') {
                 section.style.display = 'block';
+                header.classList.add('active');
             } else {
                 section.style.display = 'none';
+                header.classList.remove('active');
             }
         }
     </script>

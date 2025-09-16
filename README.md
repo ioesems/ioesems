@@ -20,3 +20,6 @@ most-> https://chat.qwen.ai/c/6b8a75af-4968-4434-9bb5-2c4b3aa4fbee
 
 comments
 https://chat.qwen.ai/c/cd40eb75-4141-42fc-a627-7139de530caf
+
+fun-question
+https://chat.qwen.ai/c/3ed2ff3c-1b3e-4513-a0dd-460548299fc7
