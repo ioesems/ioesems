@@ -25,6 +25,9 @@ if ($result && $result->num_rows > 0) {
 $conn->close();
 ?>
 
+<?php include __DIR__ . '/../../head-foot/header.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,6 +201,8 @@ $conn->close();
     </style>
 </head>
 <body>
+
+
     <div class="comment-container">
         <h1>Discussion</h1>
         
@@ -282,3 +287,5 @@ $conn->close();
     </script>
 </body>
 </html>
+
+

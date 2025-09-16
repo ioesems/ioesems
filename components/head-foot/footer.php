@@ -46,7 +46,7 @@ try {
       <div id="commentCarousel" class="comment-track" style="display: flex; transition: transform 0.5s ease-in-out;">
         <?php if (!empty($comments)): ?>
           <?php foreach ($comments as $row): ?>
-            <div class="comment-item" style="min-width: 100%; padding: 0 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-style: italic; color: #95ff0aff; text-shadow: 1px 1px 2px #000;">
+            <div class="comment-item" style="min-width: 100%; padding: 0 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-style: italic; color: #ffe601ff; text-shadow: 1px 1px 2px #000;">
               <strong><?= htmlspecialchars($row['username']) ?>:</strong> <?= htmlspecialchars($row['comment_text']) ?>
             </div>
           <?php endforeach; ?>
