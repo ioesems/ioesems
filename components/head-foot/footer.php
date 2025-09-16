@@ -13,7 +13,7 @@ if (!defined('ROOT_PATH')) {
 
   <!-- Comment Button -->
   <div class="container mt-4">
-    <a href="<?php echo ROOT_PATH; ?>components/head-foot/comment.php" class="btn btn-success w-100">
+    <a href="<?php echo ROOT_PATH; ?>components/head-foot/comment/comment.php" class="btn btn-success w-100">
       Go to Comments
     </a>
   </div>

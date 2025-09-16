@@ -23,7 +23,7 @@ if ($result_semesters->num_rows > 0) {
     }
 }
 
-// Adding predefined semesters 1 to 8 to the filter dropdown (you can modify this as needed)
+// Adding predefined semesters 1 to 8 to the filter dropdown
 $predefined_semesters = range(1, 8);
 
 include '../admin/subjects.php'; // Include the subjects array from subjects.php
@@ -65,6 +65,9 @@ $conn->close();
 </head>
 
 <body>
+    <!-- Include Header -->
+    <?php include '../../components/head-foot/header.php'; ?>
+
     <div class="container">
         <h1>Available Assignments</h1>
 
@@ -119,13 +122,30 @@ $conn->close();
                                         <td data-label="Description"><?php echo htmlspecialchars($assignment['description']); ?></td>
                                         <td data-label="File Actions">
                                             <?php
-                                            // Assuming the file is stored in the "admin/uploads" directory
-                                            $file_path = '../admin/' . $assignment['material_file'];
+                                            // Check if file exists
+                                            if (!empty($assignment['material_file'])) {
+                                                $file_path = '../admin/' . $assignment['material_file'];
+                                                ?>
+                                                <!-- Download link -->
+                                                <a href="<?php echo $file_path; ?>" target="_blank" download>Download</a>
+                                                <!-- View link -->
+                                                <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">View</a>
+                                            <?php } ?>
+                                            
+                                            <?php
+                                            // Check if external link exists
+                                            if (!empty($assignment['external_link'])) {
+                                                ?>
+                                                <!-- Go to Page link -->
+                                                <a href="<?php echo htmlspecialchars($assignment['external_link']); ?>" target="_blank" rel="noopener noreferrer">Go to Page</a>
+                                            <?php } ?>
+                                            
+                                            <?php
+                                            // If neither file nor link exists
+                                            if (empty($assignment['material_file']) && empty($assignment['external_link'])) {
+                                                echo '<span class="no-content">No content available</span>';
+                                            }
                                             ?>
-                                            <!-- Download link -->
-                                            <a href="<?php echo $file_path; ?>" target="_blank" download>📥 Download</a>
-                                            <!-- View link (assuming 'view.php' handles file viewing) -->
-                                            <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">👁️ View</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -135,9 +155,12 @@ $conn->close();
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p>🔍 No assignments found for the selected criteria. Please try a different filter or check back later.</p>
+            <p>No assignments found for the selected criteria. Please try a different filter or check back later.</p>
         <?php } ?>
     </div>
+
+    <!-- Include Footer -->
+    <?php include '../../components/head-foot/footer.php'; ?>
 
     <script>
         function toggleVisibility(id, headerElement) {
@@ -182,6 +205,13 @@ $conn->close();
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && e.target.classList.contains('semester-header')) {
                 e.target.click();
+            }
+        });
+
+        // Enhanced link security
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            if (!link.getAttribute('rel')) {
+                link.setAttribute('rel', 'noopener noreferrer');
             }
         });
     </script>

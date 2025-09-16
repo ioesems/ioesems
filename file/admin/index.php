@@ -4,7 +4,6 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    // Redirect to the login page if not logged in
     header("Location: login.php");
     exit();
 }
@@ -53,87 +52,8 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
     $stmt->close();
 }
 
-// ===== STATE PERSISTENCE VARIABLES =====
-// Store form values to maintain state after submission
-$form_semester = isset($_POST['semester']) ? $_POST['semester'] : '';
-$form_subject = isset($_POST['subject']) ? $_POST['subject'] : '';
-$form_material_title = isset($_POST['material_title']) ? $_POST['material_title'] : '';
-$form_custom_title = isset($_POST['custom_title']) ? $_POST['custom_title'] : '';
-$form_description = isset($_POST['description']) ? $_POST['description'] : '';
-
-// Handle form submission for file upload
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['upload_material'])) {
-    $semester = $_POST['semester'];
-    $subject = $_POST['subject'];
-    $description = $_POST['description'];
-    $file = $_FILES['file'];
-    $material_title = $_POST['material_title'];
-    
-    if ($material_title === 'CUSTOM') {
-        $material_title = $_POST['custom_title']; // Get the custom title input
-    }
-
-    // Validate inputs
-    if (empty($semester) || empty($subject) || empty($description) || empty($material_title)) {
-        $message = "Please fill in all required fields.";
-        $message_type = "error";
-    } else {
-        // Handle new file upload
-        if ($file['error'] == UPLOAD_ERR_OK) {
-            $allowedTypes = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'txt', 'jpg', 'jpeg', 'png'];
-            $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            
-            if (!in_array($fileExtension, $allowedTypes)) {
-                $message = "File type not allowed. Please upload PDF, DOC, DOCX, PPT, PPTX, TXT, or image files.";
-                $message_type = "error";
-            } else if ($file['size'] > 50 * 1024 * 1024) { // 50MB limit
-                $message = "File size too large. Maximum size is 50MB.";
-                $message_type = "error";
-            } else {
-                $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9\.\-_]/", "", basename($file['name']));
-                $uploadDir = '../user/uploads/';
-                
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
-                
-                $filePath = $uploadDir . $fileName;
-
-                if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                    $stmt = $conn->prepare("INSERT INTO materials (semester, subject, material_file, material_title, description) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("issss", $semester, $subject, $filePath, $material_title, $description);
-                    if ($stmt->execute()) {
-                        $message = "Material uploaded successfully.";
-                        $message_type = "success";
-                        
-                        // ===== CLEAR FORM DATA ON SUCCESS =====
-                        // Reset form values after successful upload (optional - remove if you want to keep values)
-                        // $form_semester = $form_subject = $form_material_title = $form_custom_title = $form_description = '';
-                    } else {
-                        $message = "Error: " . $stmt->error;
-                        $message_type = "error";
-                    }
-                    $stmt->close();
-                } else {
-                    $message = "Failed to upload file.";
-                    $message_type = "error";
-                }
-            }
-        } else {
-            $message = "Error in file upload. Please try again.";
-            $message_type = "error";
-        }
-    }
-}
-
 // Determine the sort order (either 'ASC' or 'DESC')
 $order = isset($_GET['order']) && $_GET['order'] == 'asc' ? 'ASC' : 'DESC';
-
-// ===== SEARCH FILTER STATE PERSISTENCE =====
-// Store search filter values to maintain state after filtering
-$search_semester = isset($_GET['semester']) ? $_GET['semester'] : '';
-$search_subject = isset($_GET['subject']) ? $_GET['subject'] : '';
-$search_material_title = isset($_GET['material_title']) ? $_GET['material_title'] : '';
 
 // Build search query
 $searchConditions = [];
@@ -168,6 +88,29 @@ if (count($params) > 0) {
 }
 $stmt->execute();
 $result = $stmt->get_result();
+
+// Initialize form persistence variables
+$persist_semester = '';
+$persist_subject = '';
+$persist_material_title = '';
+$persist_custom_title = '';
+$persist_description = '';
+$persist_external_link = '';
+
+// If upload was just done, restore from POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_material'])) {
+    $persist_semester = $_POST['semester'] ?? '';
+    $persist_subject = $_POST['subject'] ?? '';
+    $persist_material_title = $_POST['material_title'] ?? '';
+    $persist_custom_title = ($_POST['material_title'] === 'CUSTOM') ? ($_POST['custom_title'] ?? '') : '';
+    $persist_description = $_POST['description'] ?? '';
+    $persist_external_link = $_POST['external_link'] ?? '';
+} 
+// Or restore from session (if redirected after upload)
+elseif (isset($_SESSION['upload_form_data'])) {
+    extract($_SESSION['upload_form_data']);
+    unset($_SESSION['upload_form_data']); // Clear after use
+}
 ?>
 
 <!DOCTYPE html>
@@ -446,6 +389,36 @@ $result = $stmt->get_result();
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .upload-progress-container {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .progress-bar-animated {
+            animation: progress-bar-stripes 1s linear infinite;
+        }
+
+        .spinner-border {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-width: 0.2em;
+        }
+
+        .upload-alert {
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -464,7 +437,7 @@ $result = $stmt->get_result();
     </nav>
 
     <div class="container main-container">
-        <!-- Alert Messages -->
+        <!-- Alert Messages (from deletion or other actions) -->
         <?php if (!empty($message)): ?>
             <div class="alert alert-<?php echo $message_type == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show">
                 <i class="fas fa-<?php echo $message_type == 'success' ? 'check-circle' : 'exclamation-triangle'; ?>"></i>
@@ -509,32 +482,32 @@ $result = $stmt->get_result();
                 </h2>
             </div>
             <div class="card-body">
-                <form action="index.php" method="POST" enctype="multipart/form-data">
+                <form action="upload_material.php" method="POST" enctype="multipart/form-data" id="uploadForm">
+                    <input type="hidden" name="upload_material" value="1">
+
                     <div class="row">
                         <div class="col-md-6">
                             <label for="semester" class="form-label">Select Semester</label>
                             <select name="semester" id="semester" class="form-select" required>
                                 <option value="">Choose Semester</option>
-                                <?php foreach (array_keys($subjects) as $semester) { ?>
-                                    <option value="<?php echo $semester; ?>" <?php echo ($form_semester == $semester) ? 'selected' : ''; ?>>
-                                        Semester <?php echo $semester; ?>
+                                <?php foreach (array_keys($subjects) as $sem): ?>
+                                    <option value="<?php echo $sem; ?>" <?php echo ($persist_semester == $sem) ? 'selected' : ''; ?>>
+                                        Semester <?php echo $sem; ?>
                                     </option>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="subject" class="form-label">Select Subject</label>
                             <select name="subject" id="subject" class="form-select" required>
                                 <option value="">Choose Subject</option>
-                                <?php 
-                                // ===== POPULATE SUBJECTS BASED ON SELECTED SEMESTER =====
-                                if (!empty($form_semester) && isset($subjects[$form_semester])) {
-                                    foreach ($subjects[$form_semester] as $subject) {
-                                        $selected = ($form_subject == $subject) ? 'selected' : '';
-                                        echo "<option value=\"$subject\" $selected>$subject</option>";
-                                    }
-                                }
-                                ?>
+                                <?php if ($persist_semester && isset($subjects[$persist_semester])): ?>
+                                    <?php foreach ($subjects[$persist_semester] as $sub): ?>
+                                        <option value="<?php echo $sub; ?>" <?php echo ($persist_subject == $sub) ? 'selected' : ''; ?>>
+                                            <?php echo $sub; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>
@@ -544,22 +517,23 @@ $result = $stmt->get_result();
                             <label for="material_title" class="form-label">Material Type</label>
                             <select name="material_title" id="material_title" class="form-select" required>
                                 <option value="">Select Type</option>
-                                <option value="NOTE" <?php echo ($form_material_title == 'NOTE') ? 'selected' : ''; ?>>📝 Notes</option>
-                                <option value="PYQ" <?php echo ($form_material_title == 'PYQ') ? 'selected' : ''; ?>>❓ Previous Year Questions</option>
-                                <option value="SYLLABUS" <?php echo ($form_material_title == 'SYLLABUS') ? 'selected' : ''; ?>>📋 Syllabus</option>
-                                <option value="LAB REPORT" <?php echo ($form_material_title == 'LAB REPORT') ? 'selected' : ''; ?>>🔬 Lab Report</option>
-                                <option value="ASSIGNMENT" <?php echo ($form_material_title == 'ASSIGNMENT') ? 'selected' : ''; ?>>📚 Assignment</option>
-                                <option value="CUSTOM" <?php echo ($form_material_title == 'CUSTOM') ? 'selected' : ''; ?>>✏️ Custom Type</option>
+                                <option value="NOTE" <?php echo ($persist_material_title == 'NOTE') ? 'selected' : ''; ?>>📝 Notes</option>
+                                <option value="PYQ" <?php echo ($persist_material_title == 'PYQ') ? 'selected' : ''; ?>>❓ Previous Year Questions</option>
+                                <option value="SYLLABUS" <?php echo ($persist_material_title == 'SYLLABUS') ? 'selected' : ''; ?>>📋 Syllabus</option>
+                                <option value="LAB REPORT" <?php echo ($persist_material_title == 'LAB REPORT') ? 'selected' : ''; ?>>🔬 Lab Report</option>
+                                <option value="ASSIGNMENT" <?php echo ($persist_material_title == 'ASSIGNMENT') ? 'selected' : ''; ?>>📚 Assignment</option>
+                                <option value="CUSTOM" <?php echo ($persist_material_title == 'CUSTOM') ? 'selected' : ''; ?>>✏️ Custom Type</option>
                             </select>
                             <input type="text" id="custom_title" name="custom_title" class="form-control custom-title-input" 
-                                   placeholder="Enter custom material type" value="<?php echo htmlspecialchars($form_custom_title); ?>" 
-                                   <?php echo ($form_material_title == 'CUSTOM') ? 'style="display:block;"' : ''; ?>>
+                                   placeholder="Enter custom material type"
+                                   value="<?php echo htmlspecialchars($persist_custom_title); ?>"
+                                   <?php echo ($persist_material_title === 'CUSTOM') ? 'style="display:block;" required' : ''; ?>>
                         </div>
                         <div class="col-md-6">
                             <label for="file" class="form-label">Upload File</label>
                             <div class="upload-area">
                                 <i class="fas fa-file-upload fa-2x mb-2" style="color: var(--light-green);"></i>
-                                <input type="file" name="file" id="file" class="form-control" required>
+                                <input type="file" name="file" id="file" class="form-control">
                                 <small class="text-muted">Supported: PDF, DOC, DOCX, PPT, PPTX, TXT, Images (Max: 50MB)</small>
                             </div>
                         </div>
@@ -567,11 +541,24 @@ $result = $stmt->get_result();
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" placeholder="Enter detailed description of the material..." required><?php echo htmlspecialchars($form_description); ?></textarea>
+                        <textarea name="description" id="description" class="form-control" rows="3" placeholder="Enter detailed description of the material..." required><?php echo htmlspecialchars($persist_description); ?></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="external_link" class="form-label">External Link (Optional)</label>
+                        <input type="url" name="external_link" id="external_link" class="form-control" placeholder="https://example.com/material.pdf" value="<?php echo htmlspecialchars($persist_external_link); ?>">
+                        <small class="text-muted">Provide an external URL if you're not uploading a file.</small>
+                    </div>
+
+                    <div class="upload-progress-container" id="uploadProgressContainer">
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%" id="uploadProgressBar">0%</div>
+                        </div>
+                        <p class="text-center" id="uploadProgressText">Uploading...</p>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" name="upload_material" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             <i class="fas fa-upload"></i> Upload Material
                         </button>
                     </div>
@@ -593,11 +580,11 @@ $result = $stmt->get_result();
                             <label for="semester_search" class="form-label">Semester</label>
                             <select name="semester" id="semester_search" class="form-select">
                                 <option value="">All Semesters</option>
-                                <?php foreach (array_keys($subjects) as $sem) { ?>
-                                    <option value="<?php echo $sem; ?>" <?php echo ($search_semester == $sem) ? 'selected' : ''; ?>>
+                                <?php foreach (array_keys($subjects) as $sem): ?>
+                                    <option value="<?php echo $sem; ?>" <?php if (isset($_GET['semester']) && $_GET['semester'] == $sem) echo 'selected'; ?>>
                                         Semester <?php echo $sem; ?>
                                     </option>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -605,11 +592,14 @@ $result = $stmt->get_result();
                             <select name="subject" id="subject_search" class="form-select">
                                 <option value="">All Subjects</option>
                                 <?php 
-                                // ===== POPULATE SEARCH SUBJECTS BASED ON SELECTED SEMESTER =====
-                                if (!empty($search_semester) && isset($subjects[$search_semester])) {
-                                    foreach ($subjects[$search_semester] as $sub) {
-                                        $selected = ($search_subject == $sub) ? 'selected' : '';
-                                        echo "<option value=\"$sub\" $selected>$sub</option>";
+                                if (isset($_GET['semester']) && $_GET['semester'] != '') {
+                                    $sel_sem = $_GET['semester'];
+                                    if (isset($subjects[$sel_sem])) {
+                                        foreach ($subjects[$sel_sem] as $sub) { ?>
+                                            <option value="<?php echo $sub; ?>" <?php if (isset($_GET['subject']) && $_GET['subject'] == $sub) echo 'selected'; ?>>
+                                                <?php echo $sub; ?>
+                                            </option>
+                                <?php     }
                                     }
                                 }
                                 ?>
@@ -619,11 +609,11 @@ $result = $stmt->get_result();
                             <label for="material_title_search" class="form-label">Material Type</label>
                             <select name="material_title" id="material_title_search" class="form-select">
                                 <option value="">All Types</option>
-                                <option value="NOTE" <?php echo ($search_material_title == 'NOTE') ? 'selected' : ''; ?>>📝 Notes</option>
-                                <option value="PYQ" <?php echo ($search_material_title == 'PYQ') ? 'selected' : ''; ?>>❓ PYQ</option>
-                                <option value="SYLLABUS" <?php echo ($search_material_title == 'SYLLABUS') ? 'selected' : ''; ?>>📋 Syllabus</option>
-                                <option value="LAB REPORT" <?php echo ($search_material_title == 'LAB REPORT') ? 'selected' : ''; ?>>🔬 Lab Report</option>
-                                <option value="ASSIGNMENT" <?php echo ($search_material_title == 'ASSIGNMENT') ? 'selected' : ''; ?>>📚 Assignment</option>
+                                <option value="NOTE" <?php if (isset($_GET['material_title']) && $_GET['material_title'] == 'NOTE') echo 'selected'; ?>>📝 Notes</option>
+                                <option value="PYQ" <?php if (isset($_GET['material_title']) && $_GET['material_title'] == 'PYQ') echo 'selected'; ?>>❓ PYQ</option>
+                                <option value="SYLLABUS" <?php if (isset($_GET['material_title']) && $_GET['material_title'] == 'SYLLABUS') echo 'selected'; ?>>📋 Syllabus</option>
+                                <option value="LAB REPORT" <?php if (isset($_GET['material_title']) && $_GET['material_title'] == 'LAB REPORT') echo 'selected'; ?>>🔬 Lab Report</option>
+                                <option value="ASSIGNMENT" <?php if (isset($_GET['material_title']) && $_GET['material_title'] == 'ASSIGNMENT') echo 'selected'; ?>>📚 Assignment</option>
                             </select>
                         </div>
                     </div>
@@ -644,11 +634,11 @@ $result = $stmt->get_result();
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3><i class="fas fa-list"></i> Materials Library</h3>
                 <div class="btn-group">
-                    <a href="?order=desc<?php echo !empty($search_semester) ? '&semester=' . urlencode($search_semester) : ''; ?><?php echo !empty($search_subject) ? '&subject=' . urlencode($search_subject) : ''; ?><?php echo !empty($search_material_title) ? '&material_title=' . urlencode($search_material_title) : ''; ?>" 
+                    <a href="?order=desc<?php echo isset($_GET['semester']) ? '&semester=' . urlencode($_GET['semester']) : ''; ?><?php echo isset($_GET['subject']) ? '&subject=' . urlencode($_GET['subject']) : ''; ?><?php echo isset($_GET['material_title']) ? '&material_title=' . urlencode($_GET['material_title']) : ''; ?>" 
                        class="btn btn-outline-secondary <?php echo $order == 'DESC' ? 'active' : ''; ?>">
                         <i class="fas fa-sort-amount-down"></i> Newest First
                     </a>
-                    <a href="?order=asc<?php echo !empty($search_semester) ? '&semester=' . urlencode($search_semester) : ''; ?><?php echo !empty($search_subject) ? '&subject=' . urlencode($search_subject) : ''; ?><?php echo !empty($search_material_title) ? '&material_title=' . urlencode($search_material_title) : ''; ?>" 
+                    <a href="?order=asc<?php echo isset($_GET['semester']) ? '&semester=' . urlencode($_GET['semester']) : ''; ?><?php echo isset($_GET['subject']) ? '&subject=' . urlencode($_GET['subject']) : ''; ?><?php echo isset($_GET['material_title']) ? '&material_title=' . urlencode($_GET['material_title']) : ''; ?>" 
                        class="btn btn-outline-secondary <?php echo $order == 'ASC' ? 'active' : ''; ?>">
                         <i class="fas fa-sort-amount-up"></i> Oldest First
                     </a>
@@ -665,13 +655,13 @@ $result = $stmt->get_result();
                                 <th>Subject</th>
                                 <th>Type</th>
                                 <th>Description</th>
-                                <th>File</th>
+                                <th>Link/File</th>
                                 <th>Upload Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = $result->fetch_assoc()) { ?>
+                            <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr>
                                     <td><strong>#<?php echo $row['id']; ?></strong></td>
                                     <td><span class="badge badge-semester">Sem <?php echo $row['semester']; ?></span></td>
@@ -695,9 +685,31 @@ $result = $stmt->get_result();
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="<?php echo htmlspecialchars($row['material_file']); ?>" target="_blank" class="file-link">
-                                            <i class="fas fa-download"></i> Download
-                                        </a>
+                                        <?php 
+                                        $hasFile = !empty($row['material_file']);
+                                        $hasLink = !empty($row['external_link']);
+                                        ?>
+
+                                        <?php if ($hasFile && $hasLink): ?>
+                                            <div class="d-flex flex-column gap-1">
+                                                <a href="<?php echo htmlspecialchars($row['material_file']); ?>" target="_blank" class="file-link">
+                                                    <i class="fas fa-download"></i> Download File
+                                                </a>
+                                                <a href="<?php echo htmlspecialchars($row['external_link']); ?>" target="_blank" class="file-link">
+                                                    <i class="fas fa-external-link-alt"></i> External Link
+                                                </a>
+                                            </div>
+                                        <?php elseif ($hasFile): ?>
+                                            <a href="<?php echo htmlspecialchars($row['material_file']); ?>" target="_blank" class="file-link">
+                                                <i class="fas fa-download"></i> Download
+                                            </a>
+                                        <?php elseif ($hasLink): ?>
+                                            <a href="<?php echo htmlspecialchars($row['external_link']); ?>" target="_blank" class="file-link">
+                                                <i class="fas fa-external-link-alt"></i> External Link
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="text-muted">No file or link</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td><?php echo date('M j, Y', strtotime($row['date_of_modification'])); ?></td>
                                     <td>
@@ -713,7 +725,7 @@ $result = $stmt->get_result();
                                         </div>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -740,63 +752,50 @@ $result = $stmt->get_result();
             const customTitleInput = document.getElementById('custom_title');
             if (this.value === 'CUSTOM') {
                 customTitleInput.style.display = 'block';
-                customTitleInput.classList.add('custom-title-input');
                 customTitleInput.required = true;
             } else {
                 customTitleInput.style.display = 'none';
                 customTitleInput.required = false;
-                customTitleInput.value = '';
             }
         });
 
-        // ===== MAINTAIN FORM STATE ON PAGE LOAD =====
-        // Populate subjects in the upload form based on selected semester (on page load)
-        document.addEventListener('DOMContentLoaded', function() {
-            const semester = document.getElementById('semester').value;
+        // Populate subjects in the upload form based on selected semester
+        document.getElementById('semester').addEventListener('change', function () {
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Choose Subject</option>';
             if (semester) {
-                populateSubjects('semester', 'subject', semester, '<?php echo $form_subject; ?>');
-            }
-            
-            const searchSemester = document.getElementById('semester_search').value;
-            if (searchSemester) {
-                populateSubjects('semester_search', 'subject_search', searchSemester, '<?php echo $search_subject; ?>');
-            }
-        });
-
-        // ===== SUBJECT POPULATION FUNCTION =====
-        // Reusable function to populate subjects dropdown
-        function populateSubjects(semesterSelectId, subjectSelectId, selectedSemester, selectedSubject = '') {
-            const subjectSelect = document.getElementById(subjectSelectId);
-            const placeholder = subjectSelectId.includes('search') ? 'All Subjects' : 'Choose Subject';
-            subjectSelect.innerHTML = `<option value="">${placeholder}</option>`;
-            
-            if (selectedSemester) {
                 const subjects = <?php echo json_encode($subjects); ?>;
-                if (subjects[selectedSemester]) {
-                    subjects[selectedSemester].forEach(subject => {
+                if (subjects[semester]) {
+                    subjects[semester].forEach(subject => {
                         const option = document.createElement('option');
                         option.value = subject;
                         option.textContent = subject;
-                        if (subject === selectedSubject) {
-                            option.selected = true;
-                        }
                         subjectSelect.appendChild(option);
                     });
                 }
             }
-        }
-
-        // Populate subjects in the upload form based on selected semester
-        document.getElementById('semester').addEventListener('change', function () {
-            populateSubjects('semester', 'subject', this.value);
         });
 
         // For the search form: update subjects based on the selected semester
         document.getElementById('semester_search').addEventListener('change', function () {
-            populateSubjects('semester_search', 'subject_search', this.value);
+            const semester = this.value;
+            const subjectSelect = document.getElementById('subject_search');
+            subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+            if (semester) {
+                const subjects = <?php echo json_encode($subjects); ?>;
+                if (subjects[semester]) {
+                    subjects[semester].forEach(subject => {
+                        const option = document.createElement('option');
+                        option.value = subject;
+                        option.textContent = subject;
+                        subjectSelect.appendChild(option);
+                    });
+                }
+            }
         });
 
-        // File upload preview
+        // File upload preview and size check
         document.getElementById('file').addEventListener('change', function(e) {
             const file = e.target.files[0];
             const uploadArea = this.closest('.upload-area');
@@ -805,7 +804,6 @@ $result = $stmt->get_result();
                 const fileSize = (file.size / 1024 / 1024).toFixed(2);
                 const fileName = file.name;
                 
-                // Show file info
                 let fileInfo = uploadArea.querySelector('.file-info');
                 if (!fileInfo) {
                     fileInfo = document.createElement('div');
@@ -813,14 +811,6 @@ $result = $stmt->get_result();
                     uploadArea.appendChild(fileInfo);
                 }
                 
-                fileInfo.innerHTML = `
-                    <small class="text-success">
-                        <i class="fas fa-check-circle"></i> 
-                        <strong>${fileName}</strong> (${fileSize} MB)
-                    </small>
-                `;
-                
-                // Check file size
                 if (file.size > 50 * 1024 * 1024) {
                     fileInfo.innerHTML = `
                         <small class="text-danger">
@@ -829,27 +819,158 @@ $result = $stmt->get_result();
                         </small>
                     `;
                     this.value = '';
+                } else {
+                    fileInfo.innerHTML = `
+                        <small class="text-success">
+                            <i class="fas fa-check-circle"></i> 
+                            <strong>${fileName}</strong> (${fileSize} MB)
+                        </small>
+                    `;
                 }
             }
         });
 
-        // Auto-hide alerts after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => {
-                setTimeout(() => {
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                }, 5000);
+        // ✅ REAL-TIME UPLOAD → HIDE PROGRESS → SHOW MESSAGE
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            const progressContainer = document.getElementById('uploadProgressContainer');
+            const progressBar = document.getElementById('uploadProgressBar');
+            const progressText = document.getElementById('uploadProgressText');
+
+            // Clear any previous alerts
+            const existingAlert = document.querySelector('.upload-alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Show progress container
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            progressText.textContent = 'Preparing upload...';
+
+            const xhr = new XMLHttpRequest();
+
+            // Track upload progress
+            xhr.upload.addEventListener('progress', function(event) {
+                if (event.lengthComputable) {
+                    const percent = Math.round((event.loaded / event.total) * 100);
+                    progressBar.style.width = percent + '%';
+                    progressBar.textContent = percent + '%';
+                    progressText.textContent = 'Uploading: ' + percent + '%';
+                }
             });
+
+            // Handle completion
+            xhr.addEventListener('load', function() {
+                // ✅ STEP 1: IMMEDIATELY HIDE PROGRESS BAR
+                progressContainer.style.display = 'none';
+
+                // ✅ STEP 2: SHOW COMPLETION MESSAGE
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-dismissible fade show upload-alert';
+                alertDiv.style.marginTop = '1rem';
+
+                if (xhr.status === 200) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alertDiv.classList.add('alert-success');
+                            alertDiv.innerHTML = `
+                                <i class="fas fa-check-circle"></i> 
+                                ${response.message}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            `;
+                        } else {
+                            alertDiv.classList.add('alert-danger');
+                            alertDiv.innerHTML = `
+                                <i class="fas fa-exclamation-triangle"></i> 
+                                ${response.message}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            `;
+                        }
+                    } catch (e) {
+                        alertDiv.classList.add('alert-danger');
+                        alertDiv.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            Upload completed but received invalid response.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        `;
+                    }
+                } else {
+                    alertDiv.classList.add('alert-danger');
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        Upload failed. Server error (${xhr.status}).
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                }
+
+                // Insert alert after the (now hidden) progress container
+                progressContainer.insertAdjacentElement('afterend', alertDiv);
+
+                // Auto-hide success message after 5 seconds
+                if (xhr.status === 200) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            setTimeout(() => {
+                                const bsAlert = new bootstrap.Alert(alertDiv);
+                                bsAlert.close();
+                            }, 5000);
+                        }
+                    } catch (e) {
+                        // Not success or not valid JSON → don't auto-hide
+                    }
+                }
+            });
+
+            // Handle network errors
+            xhr.addEventListener('error', function() {
+                progressContainer.style.display = 'none';
+
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-danger alert-dismissible fade show upload-alert';
+                alertDiv.style.marginTop = '1rem';
+                alertDiv.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    Network error. Please check your connection.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                progressContainer.insertAdjacentElement('afterend', alertDiv);
+            });
+
+            // Send the request
+            xhr.open('POST', 'upload_material.php', true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.send(formData);
         });
 
-        // Smooth scrolling for form submission
-        if (window.location.hash) {
-            document.querySelector(window.location.hash).scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
+        // Display session message (from upload_material.php after redirect)
+        document.addEventListener('DOMContentLoaded', function() {
+            <?php if (isset($_SESSION['upload_message'])): ?>
+                const message = "<?php echo addslashes($_SESSION['upload_message']); ?>";
+                const messageType = "<?php echo $_SESSION['upload_message_type']; ?>";
+                
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${messageType === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+                alertDiv.innerHTML = `
+                    <i class="fas fa-${messageType === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.querySelector('.main-container').prepend(alertDiv);
+
+                setTimeout(() => {
+                    const bsAlert = new bootstrap.Alert(alertDiv);
+                    bsAlert.close();
+                }, 5000);
+
+                <?php unset($_SESSION['upload_message'], $_SESSION['upload_message_type']); ?>
+            <?php endif; ?>
+        });
     </script>
 </body>
 </html>

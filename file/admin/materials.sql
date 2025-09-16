@@ -11,3 +11,11 @@ CREATE TABLE IF NOT EXISTS materials (
   date_of_modification TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+
+
+
+-- then applied
+
+ALTER TABLE materials 
+ADD COLUMN external_link TEXT NULL 
+COMMENT 'External link for Google Drive, webpage, or other online resources';
