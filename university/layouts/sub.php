@@ -398,7 +398,7 @@ include $base_path . 'components/head-foot/header.php';
                         <?php foreach ($resources[$key] as $label => $url): ?>
                             <div class="col-12 col-md-6">
                                 <div class="resource-card">
-                                    <a href="<?php echo htmlspecialchars($url); ?>" target="_blank" rel="noopener noreferrer">
+                                    <a href="<?php echo htmlspecialchars($url); ?>">
                                         <i class="fas fa-file-alt"></i> <?php echo htmlspecialchars($label); ?>
                                     </a>
                                 </div>

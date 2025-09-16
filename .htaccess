@@ -1,1 +1,6 @@
+# Custom error pages
 ErrorDocument 404 /std/components/error/404.php
+ErrorDocument 403 /std/components/error/forbiden.php
+
+# Stop directory listing
+Options -Indexes

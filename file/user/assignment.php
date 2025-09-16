@@ -61,196 +61,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignment Management</title>
     <link rel="icon" type="image/png" href="../../images/logo.png">
-
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        select {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .semester-section {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #f4f4f4;
-        }
-
-        .semester-header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 15px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .assignments-list {
-            display: none;
-            /* Initially hidden */
-            padding: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #eaeaea;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007BFF;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Media Queries for Responsive Design */
-        @media only screen and (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            select {
-                font-size: 14px;
-                padding: 8px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-
-            .semester-header {
-                font-size: 16px;
-                padding: 8px 12px;
-            }
-
-            .semester-section {
-                padding: 10px;
-            }
-
-            table th,
-            table td {
-                padding: 10px;
-            }
-
-            table td {
-                font-size: 14px;
-            }
-
-            table td a {
-                font-size: 14px;
-            }
-        }
-
-        @media only screen and (max-width: 480px) {
-            .container {
-                padding: 5px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            select {
-                font-size: 12px;
-                padding: 6px;
-            }
-
-            button {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-
-            .semester-header {
-                font-size: 14px;
-                padding: 6px 10px;
-            }
-
-            .semester-section {
-                padding: 8px;
-            }
-
-            table th,
-            table td {
-                padding: 8px;
-            }
-
-            table td a {
-                font-size: 12px;
-                padding: 5px 8px;
-            }
-
-            table td {
-                font-size: 12px;
-            }
-        }
-    </style>
-
+    <link rel="stylesheet" href="styles_page.css">
 </head>
 
 <body>
@@ -264,7 +75,7 @@ $conn->close();
                 <select name="semester" id="semester" onchange="this.form.submit()">
                     <option value="">All Semesters</option>
                     <?php foreach ($predefined_semesters as $semester) { ?>
-                        <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?> >
+                        <option value="<?php echo $semester; ?>" <?php echo ($semester == $selected_semester) ? 'selected' : ''; ?>>
                             Semester <?php echo $semester; ?>
                         </option>
                     <?php } ?>
@@ -275,7 +86,7 @@ $conn->close();
                     <select name="subject" id="subject" onchange="this.form.submit()">
                         <option value="">All Subjects</option>
                         <?php foreach ($subjects[$selected_semester] as $subject) { ?>
-                            <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?> >
+                            <option value="<?php echo htmlspecialchars($subject); ?>" <?php echo ($subject == $selected_subject) ? 'selected' : ''; ?>>
                                 <?php echo htmlspecialchars($subject); ?>
                             </option>
                         <?php } ?>
@@ -289,7 +100,7 @@ $conn->close();
         <?php if (!empty($assignments_by_semester)) { ?>
             <?php foreach ($assignments_by_semester as $semester => $assignments_list) { ?>
                 <div class="semester-section">
-                    <div class="semester-header" onclick="toggleVisibility('assignments-sem<?php echo $semester; ?>')">
+                    <div class="semester-header" onclick="toggleVisibility('assignments-sem<?php echo $semester; ?>', this)">
                         Semester <?php echo $semester; ?>
                     </div>
                     <div id="assignments-sem<?php echo $semester; ?>" class="assignments-list">
@@ -298,23 +109,23 @@ $conn->close();
                                 <tr>
                                     <th>Subject</th>
                                     <th>Description</th>
-                                    <th>File</th>
+                                    <th>File Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($assignments_list as $assignment) { ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($assignment['subject']); ?></td>
-                                        <td><?php echo htmlspecialchars($assignment['description']); ?></td>
-                                        <td>
+                                        <td data-label="Subject"><?php echo htmlspecialchars($assignment['subject']); ?></td>
+                                        <td data-label="Description"><?php echo htmlspecialchars($assignment['description']); ?></td>
+                                        <td data-label="File Actions">
                                             <?php
                                             // Assuming the file is stored in the "admin/uploads" directory
                                             $file_path = '../admin/' . $assignment['material_file'];
                                             ?>
                                             <!-- Download link -->
-                                            <a href="<?php echo $file_path; ?>" target="_blank" download>Download</a><br>
+                                            <a href="<?php echo $file_path; ?>" target="_blank" download>📥 Download</a>
                                             <!-- View link (assuming 'view.php' handles file viewing) -->
-                                            <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">View</a>
+                                            <a href="view.php?id=<?php echo $assignment['id']; ?>" target="_blank">👁️ View</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -324,19 +135,55 @@ $conn->close();
                 </div>
             <?php } ?>
         <?php } else { ?>
-            <p>No assignments found for the selected semester.</p>
+            <p>🔍 No assignments found for the selected criteria. Please try a different filter or check back later.</p>
         <?php } ?>
     </div>
 
     <script>
-        function toggleVisibility(id) {
+        function toggleVisibility(id, headerElement) {
             const section = document.getElementById(id);
-            if (section.style.display === 'none' || section.style.display === '') {
-                section.style.display = 'block';
-            } else {
+            const isVisible = section.style.display === 'block';
+            
+            if (isVisible) {
                 section.style.display = 'none';
+                section.classList.remove('show');
+                headerElement.classList.remove('active');
+            } else {
+                section.style.display = 'block';
+                section.classList.add('show');
+                headerElement.classList.add('active');
             }
         }
+
+        // Add loading animation to filter form
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.filter-section form');
+            const selects = form.querySelectorAll('select');
+            
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const button = form.querySelector('button');
+                    button.innerHTML = '<span class="loading"></span> Filtering...';
+                    button.disabled = true;
+                });
+            });
+
+            // Add smooth scroll behavior
+            document.querySelectorAll('.semester-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                });
+            });
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.classList.contains('semester-header')) {
+                e.target.click();
+            }
+        });
     </script>
 </body>
 
