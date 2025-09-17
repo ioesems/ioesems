@@ -1,6 +1,6 @@
 <?php
 // login.php
-// Receives { "idToken": "..." } via POST JSON from the client (fetch).
+// Receives { "idToken": "...", "returnTo": "/path" } via POST JSON from the client (fetch).
 // Verifies with Firebase REST API (accounts:lookup), creates a secure session, and returns JSON
 declare(strict_types=1);
 
@@ -23,6 +23,22 @@ session_set_cookie_params([
     'samesite' => 'Lax'   // reasonable default
 ]);
 session_start();
+
+// --- small helper: validate safe internal redirect paths ---
+// Accept only origin-relative internal paths that start with '/' and do not contain protocol or traversal.
+function is_safe_internal_path($candidate): bool {
+    if (!is_string($candidate)) return false;
+    $candidate = trim($candidate);
+    if ($candidate === '') return false;
+    if ($candidate[0] !== '/') return false;                // must start with '/'
+    if (strpos($candidate, "\0") !== false) return false;    // no null bytes
+    if (substr($candidate, 0, 2) === '//') return false;    // disallow protocol-relative URLs
+    if (stripos($candidate, 'http://') !== false) return false;
+    if (stripos($candidate, 'https://') !== false) return false;
+    if (strpos($candidate, '..') !== false) return false;    // no path traversal
+    // allow query string and hash (#) after path
+    return true;
+}
 
 // --- Read and validate JSON body ---
 $raw = file_get_contents('php://input');
@@ -134,6 +150,23 @@ $_SESSION['email'] = $email ?? '';
 $_SESSION['picture'] = $picture ?? '';
 $_SESSION['user_logged_in'] = true;
 
+// --- Determine safe redirect target ---
+// Priority: client-provided $data['returnTo'] -> session $_SESSION['login_return_to'] -> default
+$redirect = $REDIRECT_AFTER_LOGIN;
+$clientReturn = $data['returnTo'] ?? null;
+$sessionReturn = $_SESSION['login_return_to'] ?? null;
+
+if (is_safe_internal_path($clientReturn)) {
+    $redirect = $clientReturn;
+} elseif (is_safe_internal_path($sessionReturn)) {
+    $redirect = $sessionReturn;
+}
+
+// Clear stored session return so it cannot be reused
+if (isset($_SESSION['login_return_to'])) {
+    unset($_SESSION['login_return_to']);
+}
+
 // --- Return success JSON for client (index.php expects status==='success' and redirect) ---
 http_response_code(200);
 echo json_encode([
@@ -143,6 +176,6 @@ echo json_encode([
     'email' => $_SESSION['email'],
     'user_id' => $_SESSION['user_id'],
     'picture' => $_SESSION['picture'],
-    'redirect' => $REDIRECT_AFTER_LOGIN
+    'redirect' => $redirect
 ]);
 exit;

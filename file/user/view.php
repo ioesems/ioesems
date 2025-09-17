@@ -217,6 +217,7 @@ $conn->close();
             .pdf-page:hover {
                 transform: none;
             }
+            
         }
         .fullscreen .pdf-page {
             border: 1px solid #555;
@@ -290,6 +291,7 @@ $conn->close();
             border-radius: 25px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            display: none !important;
         }
         .page-info {
             background-color: #f0f0f0;
@@ -298,7 +300,10 @@ $conn->close();
             font-size: 14px;
             font-weight: 500;
             min-width: 120px;
+            /* display: none !important; */
+
         }
+
         .page-navigation button {
             background: #4CAF50;
             border: none;
@@ -522,6 +527,34 @@ $conn->close();
                 padding: 10px 14px;
                 font-size: 12px;
             }
+
+     /* Hide ALL elements in fullscreen except PDF content and exit button */
+        .fullscreen h1,
+        .fullscreen h2,
+        .fullscreen .device-info,
+        .fullscreen .toolbar,
+        .fullscreen .page-navigation,
+        .fullscreen .back-button,
+        .fullscreen .progress-container,
+        .fullscreen .loading,
+        .fullscreen .error,
+        .fullscreen #pdf-controls .page-navigation,
+        .fullscreen #pdf-controls .progress-container,
+        .fullscreen .swipe-indicator,
+        .fullscreen .thumbnail-nav,
+        .fullscreen .shortcuts-info,
+        .fullscreen .rotate-indicator {
+            display: none !important;
+        }
+        /* Hide ALL text content in fullscreen - only show PDF viewer */
+        .fullscreen .container > h1,
+        .fullscreen .container > .device-info,
+        .fullscreen .pdf-container > h2,
+        .fullscreen .container > .toolbar,
+        .fullscreen .container > .back-button {
+            display: none !important;
+        }
+
         }
         /* Keyboard shortcuts indicator */
         .shortcuts-info {
@@ -569,6 +602,63 @@ $conn->close();
         .fullscreen .pdf-canvas-container {
             height: 100vh !important;
         }
+
+        /* --- START: Fullscreen-mode: hide everything except PDF and Exit button --- */
+        body.fullscreen-mode * {
+            display: none !important;
+        }
+
+        /* Keep the pdf container + its contents visible */
+        body.fullscreen-mode .pdf-container,
+        body.fullscreen-mode .pdf-container * {
+            display: block !important;
+        }
+
+        /* Make the PDF viewer fill the screen exactly */
+        body.fullscreen-mode .custom-pdf-viewer,
+        body.fullscreen-mode .pdf-container iframe,
+        body.fullscreen-mode .pdf-canvas-container {
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            overflow: hidden !important;
+        }
+
+        /* Show the floating exit fullscreen button on top */
+        body.fullscreen-mode .exit-fullscreen-btn {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 10001;
+            background: rgba(244, 67, 54, 0.95) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35) !important;
+        }
+
+        /* Ensure pdf pages are centered and use full-height scrolling */
+        body.fullscreen-mode .pdf-canvas-container {
+            display: block !important;
+            -webkit-overflow-scrolling: touch;
+            overflow-y: auto;
+            touch-action: pan-y;
+        }
+
+        /* Hide any overlays that might have been shown accidentally */
+        body.fullscreen-mode .search-overlay,
+        body.fullscreen-mode .thumbnail-nav,
+        body.fullscreen-mode .shortcuts-info,
+        body.fullscreen-mode .rotate-indicator,
+        body.fullscreen-mode .loading,
+        body.fullscreen-mode .error {
+            display: none !important;
+        }
+        /* --- END: Fullscreen-mode rules --- */
     </style>
     <!-- PDF.js library for Android users -->
     <?php if ($isAndroid): ?>
@@ -585,27 +675,22 @@ $conn->close();
         <i class="fas fa-times"></i> Exit Fullscreen
     </button>
     <div class="container" id="main-container">
-        <h1>View <?php echo htmlspecialchars($material['material_title']); ?></h1>
-        <div class="device-info">
-            <i class="fas fa-info-circle"></i>
-            <?php if ($isAndroid): ?>
-                Using custom PDF viewer optimized for Android devices
-            <?php else: ?>
-                Using standard PDF viewer for desktop browsers
-            <?php endif; ?>
-        </div>
+
         <div class="pdf-container" id="pdf-container">
             <h2>
                 <?php echo htmlspecialchars($material['subject']); ?> 
                 - Semester <?php echo htmlspecialchars($material['semester']); ?>
             </h2>
             <?php if ($isAndroid): ?>
+
                 <!-- Custom PDF viewer for Android -->
                 <div id="loading" class="loading">
                     <div class="loading-spinner"></div>
                     <div>Loading PDF...</div>
                     <div class="loading-percentage" id="loading-percentage">0%</div>
                 </div>
+
+
                 <div id="error" class="error" style="display: none;">
                     <i class="fas fa-exclamation-triangle"></i>
                     <p>Error loading PDF.</p>
@@ -621,6 +706,8 @@ $conn->close();
                         </button>
                     </div>
                 </div>
+
+                
                 <div id="pdf-controls" style="display: none;">
                     <div class="page-navigation">
                         <button id="prev-page" onclick="previousPage()"><i class="fas fa-chevron-left"></i></button>
@@ -629,20 +716,19 @@ $conn->close();
                         </span>
                         <button id="next-page" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
                     </div>
+                    
+
                     <div class="progress-container">
                         <div class="progress-bar" id="progress-bar"></div>
                     </div>
                     <div class="custom-pdf-viewer" id="pdf-viewer-container">
                         <div id="pdf-canvas" class="pdf-canvas-container"></div>
-                        <!-- Swipe indicators -->
-                        <div class="swipe-indicator left" id="swipe-left">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-                        <div class="swipe-indicator right" id="swipe-right">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                        <!-- Swipe indicators --> 
                     </div>
                 </div>
+
+
+
                 <!-- Thumbnail navigation -->
                 <div class="thumbnail-nav" id="thumbnail-nav">
                     <!-- Thumbnails will be generated here -->
@@ -714,7 +800,6 @@ $conn->close();
     </div>
     <script>
         // Global variables for PDF.js
-        <?php if ($isAndroid): ?>
         let pdfDoc = null;
         let pageNum = 1;
         let pageRendering = false;
@@ -722,42 +807,60 @@ $conn->close();
         let scale = 1.0;
         let currentCanvas = null;
         let rotation = 0;
-        let isFullscreen = false;
+        let isFullscreen = false; // unified fullscreen state
         let thumbnailsVisible = false;
         let touchStartX = 0;
         let touchStartY = 0;
         let isSwipeEnabled = true;
         let pagesRendered = 0;
         let totalPages = 0;
+
         // Initialize PDF viewer when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            initializePDFViewer();
             setupEventListeners();
+            <?php if ($isAndroid): ?>
+            initializePDFViewer();
+            <?php else: ?>
+            // Desktop: nothing to initialize for pdf.js
+            <?php endif; ?>
         });
+
+        <?php if ($isAndroid): ?>
         function initializePDFViewer() {
             const pdfUrl = '../user/<?php echo htmlspecialchars($material['material_file']); ?>';
             // Create loading task
             const loadingTask = pdfjsLib.getDocument(pdfUrl);
             loadingTask.onProgress = function(progressData) {
-                const percentLoaded = Math.round((progressData.loaded / progressData.total) * 100);
-                document.getElementById('loading-percentage').textContent = percentLoaded + '%';
+                if (progressData && progressData.total) {
+                    const percentLoaded = Math.round((progressData.loaded / progressData.total) * 100);
+                    const el = document.getElementById('loading-percentage');
+                    if (el) el.textContent = percentLoaded + '%';
+                }
             };
             loadingTask.promise.then(function(pdf) {
                 pdfDoc = pdf;
                 totalPages = pdf.numPages;
-                document.getElementById('page-count').textContent = pdf.numPages;
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('pdf-controls').style.display = 'block';
+                const pc = document.getElementById('page-count');
+                if (pc) pc.textContent = pdf.numPages;
+                const loadEl = document.getElementById('loading');
+                if (loadEl) loadEl.style.display = 'none';
+                const controls = document.getElementById('pdf-controls');
+                if (controls) controls.style.display = 'block';
                 // Start rendering all pages sequentially for vertical scroll
                 renderAllPages();
                 updateNavigationButtons();
+                generateThumbnails();
             }).catch(function(error) {
                 console.error('Error loading PDF:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
+                const loadEl = document.getElementById('loading');
+                if (loadEl) loadEl.style.display = 'none';
+                const err = document.getElementById('error');
+                if (err) err.style.display = 'block';
             });
         }
+
         function renderAllPages() {
+            if (!pdfDoc) return;
             pagesRendered = 0;
             const canvasContainer = document.getElementById('pdf-canvas');
             canvasContainer.innerHTML = ''; // Clear any existing content
@@ -766,14 +869,16 @@ $conn->close();
                 renderPage(i, true); // true = isPartOfBatch
             }
         }
+
         function renderPage(num, isPartOfBatch = false) {
+            if (!pdfDoc) return;
             pdfDoc.getPage(num).then(function(page) {
                 // Create new canvas for this page
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 // Calculate scale based on container width
                 const container = document.getElementById('pdf-canvas');
-                const containerWidth = container.clientWidth - 40; // Account for padding/margin
+                const containerWidth = Math.max(container.clientWidth - 40, 100); // Account for padding/margin
                 const viewport = page.getViewport({ scale: 1.0, rotation: rotation });
                 const calculatedScale = containerWidth / viewport.width;
                 const finalScale = scale * calculatedScale;
@@ -781,7 +886,7 @@ $conn->close();
                 canvas.height = scaledViewport.height;
                 canvas.width = scaledViewport.width;
                 canvas.className = 'pdf-page';
-                canvas.dataset.pageNumber = num;
+                canvas.dataset.pagenumber = num;
                 const renderContext = {
                     canvasContext: ctx,
                     viewport: scaledViewport
@@ -811,204 +916,13 @@ $conn->close();
                 console.error('Error getting page ' + num + ':', error);
             });
             if (!isPartOfBatch) {
-                document.getElementById('page-num').textContent = num;
+                const pn = document.getElementById('page-num');
+                if (pn) pn.textContent = num;
                 pageNum = num;
                 updateNavigationButtons();
             }
         }
-        function setupEventListeners() {
-            // Touch events for swipe navigation
-            const pdfContainer = document.getElementById('pdf-canvas');
-            pdfContainer.addEventListener('touchstart', function(e) {
-                if (!isSwipeEnabled) return;
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-            }, { passive: true });
-            pdfContainer.addEventListener('touchend', function(e) {
-                if (!isSwipeEnabled) return;
-                const touchEndX = e.changedTouches[0].clientX;
-                const touchEndY = e.changedTouches[0].clientY;
-                const deltaX = touchEndX - touchStartX;
-                const deltaY = touchEndY - touchStartY;
-                // Only register swipe if horizontal movement is greater than vertical
-                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-                    if (deltaX > 0) {
-                        // Swipe right - previous page
-                        showSwipeIndicator('left');
-                        previousPage();
-                    } else {
-                        // Swipe left - next page
-                        showSwipeIndicator('right');
-                        nextPage();
-                    }
-                }
-            }, { passive: true });
-            // Keyboard shortcuts
-            document.addEventListener('keydown', function(e) {
-                if (e.target.tagName === 'INPUT') return; // Don't interfere with input fields
-                switch(e.key) {
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        previousPage();
-                        break;
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        nextPage();
-                        break;
-                    case 'Escape':
-                        e.preventDefault();
-                        if (isFullscreen) {
-                            exitFullscreen();
-                        }
-                        break;
-                    case 'f':
-                    case 'F':
-                        e.preventDefault();
-                        toggleFullscreen();
-                        break;
-                    case ' ':
-                        e.preventDefault();
-                        nextPage();
-                        break;
-                    case '+':
-                    case '=':
-                        e.preventDefault();
-                        zoomIn();
-                        break;
-                    case '-':
-                        e.preventDefault();
-                        zoomOut();
-                        break;
-                    case 'r':
-                    case 'R':
-                        e.preventDefault();
-                        rotatePage();
-                        break;
-                    case 't':
-                    case 'T':
-                        e.preventDefault();
-                        toggleThumbnails();
-                        break;
-                }
-            });
-            // Fullscreen change detection
-            document.addEventListener('fullscreenchange', updateFullscreenButton);
-            document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
-            document.addEventListener('mozfullscreenchange', updateFullscreenButton);
-            document.addEventListener('MSFullscreenChange', updateFullscreenButton);
-        }
-        function previousPage() {
-            if (pageNum <= 1) {
-                return;
-            }
-            pageNum--;
-            // Scroll to the previous page element
-            const prevPageElement = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
-            if (prevPageElement) {
-                prevPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            updateNavigationButtons();
-            document.getElementById('page-num').textContent = pageNum;
-        }
-        function nextPage() {
-            if (pageNum >= totalPages) {
-                return;
-            }
-            pageNum++;
-            // Scroll to the next page element
-            const nextPageElement = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
-            if (nextPageElement) {
-                nextPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            updateNavigationButtons();
-            document.getElementById('page-num').textContent = pageNum;
-        }
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prev-page');
-            const nextBtn = document.getElementById('next-page');
-            if (prevBtn) prevBtn.disabled = (pageNum <= 1);
-            if (nextBtn) nextBtn.disabled = (pageNum >= totalPages);
-        }
-        function updateProgress() {
-            if (totalPages > 0) {
-                const progress = (pageNum / totalPages) * 100;
-                const progressBar = document.getElementById('progress-bar');
-                if (progressBar) {
-                    progressBar.style.width = progress + '%';
-                }
-            }
-        }
-        function zoomIn() {
-            scale += 0.25;
-            renderAllPages(); // Re-render all pages with new scale
-        }
-        function zoomOut() {
-            if (scale > 0.5) {
-                scale -= 0.25;
-                renderAllPages(); // Re-render all pages with new scale
-            }
-        }
-        function fitToWidth() {
-            scale = 1.0;
-            renderAllPages(); // Re-render all pages with new scale
-        }
-        function rotatePage() {
-            showRotationIndicator();
-            rotation = (rotation + 90) % 360;
-            renderAllPages(); // Re-render all pages with new rotation
-            setTimeout(hideRotationIndicator, 1000);
-        }
-        function toggleFullscreen() {
-            const container = document.getElementById('main-container');
-            if (!isFullscreen) {
-                // Enter fullscreen
-                if (container.requestFullscreen) {
-                    container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) {
-                    container.webkitRequestFullscreen();
-                } else if (container.mozRequestFullScreen) {
-                    container.mozRequestFullScreen();
-                } else if (container.msRequestFullscreen) {
-                    container.msRequestFullscreen();
-                } else {
-                    // Fallback for browsers that don't support fullscreen API
-                    container.classList.add('fullscreen');
-                    document.body.classList.add('fullscreen');
-                    isFullscreen = true;
-                    updateFullscreenButton();
-                    setTimeout(() => renderAllPages(), 100);
-                }
-            } else {
-                exitFullscreen();
-            }
-        }
-        function exitFullscreen() {
-            const container = document.getElementById('main-container');
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            } else {
-                // Fallback
-                container.classList.remove('fullscreen');
-                document.body.classList.remove('fullscreen');
-                isFullscreen = false;
-                updateFullscreenButton();
-                setTimeout(() => renderAllPages(), 100);
-            }
-        }
-        function updateFullscreenButton() {
-            const isCurrentlyFullscreen = document.fullscreenElement || 
-                                        document.webkitFullscreenElement || 
-                                        document.mozFullScreenElement || 
-                                        document.msFullscreenElement ||
-                                        document.body.classList.contains('fullscreen');
-            isFullscreen = !!isCurrentlyFullscreen;
-        }
+
         function generateThumbnails() {
             if (!pdfDoc) return;
             const thumbnailContainer = document.getElementById('thumbnail-nav');
@@ -1042,6 +956,7 @@ $conn->close();
                 });
             }
         }
+
         function updateThumbnailSelection() {
             const thumbnails = document.querySelectorAll('.thumbnail');
             thumbnails.forEach(thumb => {
@@ -1052,31 +967,189 @@ $conn->close();
                 }
             });
         }
+        <?php endif; ?>
+
+        function setupEventListeners() {
+            // Touch events for swipe navigation (Android viewer canvas)
+            const pdfContainer = document.getElementById('pdf-canvas');
+            if (pdfContainer) {
+                pdfContainer.addEventListener('touchstart', function(e) {
+                    if (!isSwipeEnabled) return;
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                pdfContainer.addEventListener('touchend', function(e) {
+                    if (!isSwipeEnabled) return;
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const deltaX = touchEndX - touchStartX;
+                    const deltaY = touchEndY - touchStartY;
+                    // Only register swipe if horizontal movement is greater than vertical
+                    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                        if (deltaX > 0) {
+                            // Swipe right - previous page
+                            showSwipeIndicator('left');
+                            previousPage();
+                        } else {
+                            // Swipe left - next page
+                            showSwipeIndicator('right');
+                            nextPage();
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.target.tagName === 'INPUT') return; // Don't interfere with input fields
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        previousPage();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        nextPage();
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        if (isFullscreen) {
+                            exitFullscreen();
+                        }
+                        break;
+                    case 'f':
+                    case 'F':
+                        e.preventDefault();
+                        toggleFullscreen();
+                        break;
+                    case ' ':
+                        e.preventDefault();
+                        nextPage();
+                        break;
+                    case '+':
+                    case '=':
+                        e.preventDefault();
+                        if (typeof zoomIn === 'function') zoomIn();
+                        break;
+                    case '-':
+                        e.preventDefault();
+                        if (typeof zoomOut === 'function') zoomOut();
+                        break;
+                    case 'r':
+                    case 'R':
+                        e.preventDefault();
+                        if (typeof rotatePage === 'function') rotatePage();
+                        break;
+                    case 't':
+                    case 'T':
+                        e.preventDefault();
+                        if (typeof toggleThumbnails === 'function') toggleThumbnails();
+                        break;
+                }
+            });
+            // Fullscreen change detection
+            document.addEventListener('fullscreenchange', updateFullscreenButton);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+            document.addEventListener('mozfullscreenchange', updateFullscreenButton);
+            document.addEventListener('MSFullscreenChange', updateFullscreenButton);
+        }
+
+        function previousPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            // Scroll to the previous page element
+            const prevPageElement = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
+            if (prevPageElement) {
+                prevPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            updateNavigationButtons();
+            const pn = document.getElementById('page-num'); if (pn) pn.textContent = pageNum;
+        }
+        function nextPage() {
+            if (pageNum >= totalPages) {
+                return;
+            }
+            pageNum++;
+            // Scroll to the next page element
+            const nextPageElement = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
+            if (nextPageElement) {
+                nextPageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            updateNavigationButtons();
+            const pn = document.getElementById('page-num'); if (pn) pn.textContent = pageNum;
+        }
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            if (prevBtn) prevBtn.disabled = (pageNum <= 1);
+            if (nextBtn) nextBtn.disabled = (pageNum >= totalPages);
+        }
+        function updateProgress() {
+            if (totalPages > 0) {
+                const progress = (pageNum / totalPages) * 100;
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                }
+            }
+        }
+        function zoomIn() {
+            scale += 0.25;
+            if (typeof renderAllPages === 'function') renderAllPages(); // Re-render all pages with new scale
+        }
+        function zoomOut() {
+            if (scale > 0.5) {
+                scale -= 0.25;
+                if (typeof renderAllPages === 'function') renderAllPages(); // Re-render all pages with new scale
+            }
+        }
+        function fitToWidth() {
+            scale = 1.0;
+            if (typeof renderAllPages === 'function') renderAllPages(); // Re-render all pages with new scale
+        }
+        function rotatePage() {
+            showRotationIndicator();
+            rotation = (rotation + 90) % 360;
+            if (typeof renderAllPages === 'function') renderAllPages(); // Re-render all pages with new rotation
+            setTimeout(hideRotationIndicator, 1000);
+        }
+
         function toggleThumbnails() {
             const thumbnailNav = document.getElementById('thumbnail-nav');
             thumbnailsVisible = !thumbnailsVisible;
-            thumbnailNav.style.display = thumbnailsVisible ? 'block' : 'none';
+            if (thumbnailNav) thumbnailNav.style.display = thumbnailsVisible ? 'block' : 'none';
         }
         function showSwipeIndicator(direction) {
-            const indicator = document.getElementById('swipe-' + direction);
+            // left/right indicators are optional; keep simple: create if missing
+            let indicator = document.getElementById('swipe-' + direction);
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'swipe-' + direction;
+                indicator.className = 'swipe-indicator ' + direction;
+                indicator.textContent = direction === 'left' ? '\u25C0' : '\u25B6';
+                document.body.appendChild(indicator);
+            }
             indicator.classList.add('show');
-            setTimeout(() => {
-                indicator.classList.remove('show');
-            }, 300);
+            setTimeout(() => { indicator.classList.remove('show'); }, 300);
         }
         function showRotationIndicator() {
-            document.getElementById('rotate-indicator').style.display = 'block';
+            const el = document.getElementById('rotate-indicator');
+            if (el) el.style.display = 'block';
         }
         function hideRotationIndicator() {
-            document.getElementById('rotate-indicator').style.display = 'none';
+            const el = document.getElementById('rotate-indicator');
+            if (el) el.style.display = 'none';
         }
         function showSearch() {
-            document.getElementById('search-overlay').style.display = 'flex';
-            document.getElementById('search-input').focus();
+            const ov = document.getElementById('search-overlay');
+            if (ov) { ov.style.display = 'flex'; document.getElementById('search-input').focus(); }
         }
         function closeSearch() {
-            document.getElementById('search-overlay').style.display = 'none';
-            document.getElementById('search-input').value = '';
+            const ov = document.getElementById('search-overlay');
+            if (ov) { ov.style.display = 'none'; }
+            const si = document.getElementById('search-input'); if (si) si.value = '';
         }
         function performSearch() {
             const searchTerm = document.getElementById('search-input').value.trim();
@@ -1095,7 +1168,7 @@ $conn->close();
             }, 5000);
         }
         function hideShortcuts() {
-            document.getElementById('shortcuts-info').classList.remove('show');
+            const s = document.getElementById('shortcuts-info'); if (s) s.classList.remove('show');
         }
         function sharePDF() {
             if (navigator.share) {
@@ -1115,7 +1188,7 @@ $conn->close();
         }
         // Handle window resize
         window.addEventListener('resize', function() {
-            if (pdfDoc) {
+            if (pdfDoc && typeof renderAllPages === 'function') {
                 setTimeout(function() {
                     renderAllPages();
                 }, 100);
@@ -1128,121 +1201,99 @@ $conn->close();
             window.open(googleViewerUrl, '_blank');
         }
         function tryEmbedViewer() {
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('embed-viewer').style.display = 'block';
+            const err = document.getElementById('error'); if (err) err.style.display = 'none';
+            const emb = document.getElementById('embed-viewer'); if (emb) emb.style.display = 'block';
         }
-        <?php endif; ?>
+
+        // Unified Fullscreen functions (works for Android and Desktop)
+        function toggleFullscreen() {
+            const container = document.getElementById('main-container');
+            const exitBtn = document.getElementById('exit-fullscreen-btn');
+
+            if (!isFullscreen) {
+                // Try standard Fullscreen API first
+                const requestFS = container.requestFullscreen || container.webkitRequestFullscreen || container.mozRequestFullScreen || container.msRequestFullscreen;
+                if (requestFS) {
+                    try {
+                        requestFS.call(container);
+                        // the fullscreenchange event will set body.fullscreen-mode
+                    } catch (err) {
+                        // fallback to class-based fullscreen
+                        document.body.classList.add('fullscreen-mode');
+                    }
+                } else {
+                    // Browser doesn't support Fullscreen API -> class fallback
+                    document.body.classList.add('fullscreen-mode');
+                }
+
+                // show exit button immediately (in case change event is slow)
+                if (exitBtn) exitBtn.style.display = 'flex';
+                isFullscreen = true;
+                if (typeof renderAllPages === 'function') setTimeout(() => renderAllPages(), 120);
+            } else {
+                exitFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            const exitBtn = document.getElementById('exit-fullscreen-btn');
+
+            const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+            if (exitFS && (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement)) {
+                try {
+                    exitFS.call(document);
+                } catch (err) {
+                    // ignore and fallback to removing class
+                }
+            }
+            // Ensure class removed (covers API fallback)
+            document.body.classList.remove('fullscreen-mode');
+
+            // hide exit button (will be re-shown when entering again)
+            if (exitBtn) exitBtn.style.display = 'none';
+
+            isFullscreen = false;
+            if (typeof renderAllPages === 'function') setTimeout(() => renderAllPages(), 120);
+        }
+
+        // Keep UI state synced when fullscreen actually changes (important for API flow)
+        function updateFullscreenButton() {
+            const active = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+            if (active) {
+                document.body.classList.add('fullscreen-mode');
+                const exitBtn = document.getElementById('exit-fullscreen-btn');
+                if (exitBtn) exitBtn.style.display = 'flex';
+                isFullscreen = true;
+            } else {
+                document.body.classList.remove('fullscreen-mode');
+                const exitBtn = document.getElementById('exit-fullscreen-btn');
+                if (exitBtn) exitBtn.style.display = 'none';
+                isFullscreen = false;
+            }
+        }
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+        document.addEventListener('webkitfullscreenchange', function(){ document.dispatchEvent(new Event('fullscreenchange')); });
+        document.addEventListener('mozfullscreenchange', function(){ document.dispatchEvent(new Event('fullscreenchange')); });
+        document.addEventListener('MSFullscreenChange', function(){ document.dispatchEvent(new Event('fullscreenchange')); });
+
         // Desktop iframe functions
         <?php if (!$isAndroid): ?>
         function zoomInIframe() {
             const iframe = document.getElementById('pdf-viewer');
+            if (!iframe) return;
             let currentWidth = iframe.offsetWidth;
             iframe.style.width = (currentWidth + 100) + 'px';
         }
         function zoomOutIframe() {
             const iframe = document.getElementById('pdf-viewer');
+            if (!iframe) return;
             let currentWidth = iframe.offsetWidth;
             if (currentWidth > 100) {
                 iframe.style.width = (currentWidth - 100) + 'px';
             }
         }
-        function toggleFullscreen() {
-            const container = document.getElementById('main-container');
-            if (!isFullscreen) {
-                if (container.requestFullscreen) {
-                    container.requestFullscreen();
-                } else if (container.webkitRequestFullscreen) {
-                    container.webkitRequestFullscreen();
-                } else if (container.mozRequestFullScreen) {
-                    container.mozRequestFullScreen();
-                } else if (container.msRequestFullscreen) {
-                    container.msRequestFullscreen();
-                } else {
-                    container.classList.add('fullscreen');
-                    document.body.classList.add('fullscreen');
-                    isFullscreen = true;
-                    updateFullscreenButton();
-                }
-            } else {
-                exitFullscreen();
-            }
-        }
-        function exitFullscreen() {
-            const container = document.getElementById('main-container');
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            } else {
-                container.classList.remove('fullscreen');
-                document.body.classList.remove('fullscreen');
-                isFullscreen = false;
-                updateFullscreenButton();
-            }
-        }
-        function updateFullscreenButton() {
-            const isCurrentlyFullscreen = document.fullscreenElement || 
-                                        document.webkitFullscreenElement || 
-                                        document.mozFullScreenElement || 
-                                        document.msFullscreenElement ||
-                                        document.body.classList.contains('fullscreen');
-            isFullscreen = !!isCurrentlyFullscreen;
-        }
-        function showShortcuts() {
-            const shortcutsInfo = document.getElementById('shortcuts-info');
-            shortcutsInfo.classList.add('show');
-            setTimeout(() => {
-                hideShortcuts();
-            }, 5000);
-        }
-        function hideShortcuts() {
-            document.getElementById('shortcuts-info').classList.remove('show');
-        }
-        function sharePDF() {
-            if (navigator.share) {
-                navigator.share({
-                    title: '<?php echo htmlspecialchars($material['material_title']); ?>',
-                    text: 'Check out this PDF document',
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('PDF link copied to clipboard!');
-                }).catch(() => {
-                    alert('Share URL: ' + window.location.href);
-                });
-            }
-        }
-        let isFullscreen = false;
-        // Setup event listeners for desktop
-        document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('fullscreenchange', updateFullscreenButton);
-            document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
-            document.addEventListener('mozfullscreenchange', updateFullscreenButton);
-            document.addEventListener('MSFullscreenChange', updateFullscreenButton);
-            // Keyboard shortcuts for desktop
-            document.addEventListener('keydown', function(e) {
-                if (e.target.tagName === 'INPUT') return;
-                switch(e.key) {
-                    case 'f':
-                    case 'F':
-                        e.preventDefault();
-                        toggleFullscreen();
-                        break;
-                    case 'Escape':
-                        e.preventDefault();
-                        if (isFullscreen) {
-                            exitFullscreen();
-                        }
-                        break;
-                }
-            });
-        });
         <?php endif; ?>
+
         function downloadPDF() {
             const pdfUrl = "../user/<?php echo htmlspecialchars($material['material_file']); ?>";
             const link = document.createElement('a');
