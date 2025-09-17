@@ -1,12 +1,10 @@
 <?php
-// manage_motivational_videos.php
-// NOTE: This file must be placed where your original file was.
-// The AJAX handler runs BEFORE any includes that output HTML.
+// motivational_video.php
+session_start();
 
-// -------------------- AJAX: find_video (must run first) --------------------
+// -------------------- AJAX: find_video (must run BEFORE any HTML output) --------------------
 if (isset($_GET['action']) && $_GET['action'] === 'find_video') {
-
-    // --- Candidate list: add or update entries as you like ---
+    // candidate list (same as other files)
     $candidates = [
         ['title'=>'The Power of Yet - Growth Mindset for Students','video_id'=>'hiiEeMN7vbQ','description'=>'Learn about the growth mindset and how adding "yet" to your vocabulary can transform your learning experience.'],
         ['title'=>'Why Engineering Students Should Never Give Up','video_id'=>'KxGRhd_iWuE','description'=>'Inspiring stories of engineers who overcame failures and challenges to achieve success.'],
@@ -20,14 +18,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'find_video') {
         ['title'=>'Engineering Ethics and Social Responsibility','video_id'=>'kVk9a5Jcd1k','description'=>'Understanding the role of engineers in society and ethical decision-making.']
     ];
 
-    // --- Helpers (local to AJAX) ---
+    // local helpers
     function extractId_local($s) {
         if (!$s) return false;
         if (preg_match('/(?:v=|vi=|\/v\/|\/vi\/|youtu\.be\/|\/embed\/|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/i', $s, $m)) return $m[1];
         if (preg_match('/^[a-zA-Z0-9_-]{11}$/', $s)) return $s;
         return false;
     }
-
     function youtubeExists_local($id) {
         if (!$id) return false;
         $oembed = 'https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=' . urlencode($id) . '&format=json';
@@ -46,7 +43,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'find_video') {
         }
     }
 
-    // Try to load DB config to check existing IDs
+    // try to read DB normalized ids
     $existingIds = [];
     $cfg = __DIR__ . '/../../../components/login/config.php';
     if (file_exists($cfg)) {
@@ -62,19 +59,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'find_video') {
         }
     }
 
-    // Shuffle and check: DB first, then YouTube existence
     shuffle($candidates);
     $found = null;
     foreach ($candidates as $c) {
         $id = extractId_local($c['video_id']);
         if (!$id) continue;
-        if (in_array($id, $existingIds, true)) continue; // already in DB -> skip
-        if (!youtubeExists_local($id)) continue;         // not on YouTube -> skip
+        if (in_array($id, $existingIds, true)) continue;       // DB check first
+        if (!youtubeExists_local($id)) continue;               // then verify on YouTube
         $found = ['status'=>'success','video'=>['title'=>$c['title'],'video_id'=>$id,'description'=>$c['description']]];
         break;
     }
 
-    // fallback (if DB contains all candidates or oEmbed blocked): find any existing YouTube candidate
+    // fallback: try again without DB check (useful when DB contains all candidates)
     if (!$found) {
         foreach ($candidates as $c) {
             $id = extractId_local($c['video_id']);
@@ -91,11 +87,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'find_video') {
     exit();
 }
 
-// -------------------- Normal page flow --------------------
+// -------------------- normal page flow --------------------
 include '../../../components/login/config.php';
 include '../../../components/head-foot/header.php';
 
-// -------------------- Utilities --------------------
+// -------------------- helpers --------------------
 function extractYouTubeId($input) {
     if (!$input) return false;
     if (preg_match('/(?:youtube\.com\/watch\?v=|youtube\.com\/.*?\/|youtube\.com\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/i', $input, $m)) return $m[1];
@@ -105,7 +101,6 @@ function extractYouTubeId($input) {
     if (preg_match('/^[a-zA-Z0-9_-]{11}$/', $input)) return $input;
     return false;
 }
-
 function youtubeVideoExists($videoId) {
     if (!$videoId) return false;
     $oembed = 'https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=' . urlencode($videoId) . '&format=json';
@@ -123,7 +118,6 @@ function youtubeVideoExists($videoId) {
         return ($res !== false);
     }
 }
-
 function getNormalizedExistingIdsFromDB($conn) {
     $out = [];
     if (!($conn instanceof mysqli)) return $out;
@@ -137,15 +131,11 @@ function getNormalizedExistingIdsFromDB($conn) {
     return $out;
 }
 
-// -------------------- Optional: run-once normalization helper --------------------
+// -------------------- optional run-once normalization (uncomment to run) --------------------
+// WARNING: backup DB before running. Uncomment the block below and load page once, then comment back.
 /*
-If you want to normalize your DB rows to store only the 11-char ID, you can run this snippet ONCE.
-Uncomment the block below, load this page in your browser or run php from CLI, then comment it back.
-
-Warning: do a DB backup before running.
-
-if (isset($_GET['run_normalize']) && $_GET['run_normalize'] == '1') {
-    $res = $conn->query("SELECT id, youtube_link FROM motivational_videos");
+if (isset($_GET['run_normalize']) && $_GET['run_normalize']=='1') {
+    $res = $conn->query("SELECT id,youtube_link FROM motivational_videos");
     while ($r = $res->fetch_assoc()) {
         $nid = extractYouTubeId(trim($r['youtube_link']));
         if ($nid && $nid !== trim($r['youtube_link'])) {
@@ -156,16 +146,16 @@ if (isset($_GET['run_normalize']) && $_GET['run_normalize'] == '1') {
             echo "Updated id {$r['id']} -> {$nid}<br>";
         }
     }
-    echo "Normalization complete. Please remove the run_normalize parameter or comment out this block.";
+    echo "Normalization complete. Remove run_normalize param or comment out this block.";
     exit();
 }
 */
 
-// -------------------- Handlers: Add found / Manual / Edit / Delete --------------------
+// -------------------- handle form actions (add_found, add_manual, edit, delete) --------------------
 $action_message = "";
 
-// Add from found search
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_found_video'])) {
+// Add video that was found by AJAX (hidden fields set by JS)
+if ($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['add_found_video'])) {
     $title = trim($_POST['found_title'] ?? '');
     $video_id = trim($_POST['found_video_id'] ?? '');
     $description = trim($_POST['found_description'] ?? '');
@@ -181,7 +171,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_found_video'])) {
             if (!youtubeVideoExists($videoId)) {
                 $action_message = "<div class='alert alert-danger'>YouTube does not confirm this video exists. Not saved.</div>";
             } else {
-                // Insert with ON DUPLICATE KEY UPDATE id = id to avoid race-duplicates (requires unique index on youtube_link)
                 $stmt = $conn->prepare("
                     INSERT INTO motivational_videos (title, youtube_link, description)
                     VALUES (?, ?, ?)
@@ -197,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_found_video'])) {
 }
 
 // Manual add
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_manual_video'])) {
+if ($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['add_manual_video'])) {
     $title = trim($_POST['title'] ?? '');
     $link = trim($_POST['youtube_link'] ?? '');
     $description = trim($_POST['description'] ?? '');
@@ -224,8 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_manual_video'])) 
     }
 }
 
-// Edit video
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_video'])) {
+// Edit
+if ($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['edit_video'])) {
     $id = intval($_POST['edit_id'] ?? 0);
     $title = trim($_POST['edit_title'] ?? '');
     $link = trim($_POST['edit_youtube_link'] ?? '');
@@ -234,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_video'])) {
     $videoId = extractYouTubeId($link);
     if ($videoId === false) $videoId = $link;
 
-    // check for duplicates by normalizing other rows
+    // check duplicates (except self)
     $dup = false;
     $stmt = $conn->prepare("SELECT id, youtube_link FROM motivational_videos WHERE id != ?");
     $stmt->bind_param("i", $id);
@@ -246,9 +235,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_video'])) {
     }
     $stmt->close();
 
-    if ($dup) {
-        $action_message = "<div class='alert alert-warning'>Another video with the same YouTube ID already exists.</div>";
-    } else {
+    if ($dup) $action_message = "<div class='alert alert-warning'>Another video with the same YouTube ID already exists.</div>";
+    else {
         if (!youtubeVideoExists($videoId)) {
             $action_message = "<div class='alert alert-warning'>YouTube did not confirm the video exists. Updating record anyway.</div>";
         }
@@ -260,8 +248,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_video'])) {
     }
 }
 
-// Delete video
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_video'])) {
+// Delete
+if ($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['delete_video'])) {
     $id = intval($_POST['delete_id'] ?? 0);
     if ($id > 0) {
         $del = $conn->prepare("DELETE FROM motivational_videos WHERE id = ?");
@@ -274,12 +262,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_video'])) {
     }
 }
 
-// -------------------- Fetch recent videos --------------------
+// -------------------- fetch recent videos --------------------
 $videos = [];
 $res = $conn->query("SELECT * FROM motivational_videos ORDER BY id DESC LIMIT 50");
-if ($res) {
-    while ($r = $res->fetch_assoc()) $videos[] = $r;
-}
+if ($res) while ($r = $res->fetch_assoc()) $videos[] = $r;
+
+// -------------------- read AI session messages (if any) --------------------
+$ai_message = $_SESSION['ai_message'] ?? null;
+$ai_debug = $_SESSION['ai_debug'] ?? null;
+$ai_last_inserted = $_SESSION['ai_last_inserted'] ?? null;
+// clear session debug for next time (optional)
+//unset($_SESSION['ai_message'], $_SESSION['ai_debug'], $_SESSION['ai_last_inserted']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -290,27 +284,54 @@ if ($res) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { padding: 32px; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right,#667eea 0%, #764ba2 100%); min-height:100vh; }
+        body { padding: 28px; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right,#667eea 0%, #764ba2 100%); min-height:100vh; }
         .container { max-width: 980px; background: rgba(255,255,255,0.98); padding:26px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.12) }
         .video-card { position: relative; background: rgba(255,255,255,0.96); border-radius:10px; padding:14px; margin-bottom:16px; box-shadow:0 4px 10px rgba(0,0,0,0.06) }
         .card-controls { position:absolute; right:10px; top:8px; z-index:5; display:flex; gap:6px; align-items:center; }
-        .card-controls .btn { padding:6px 8px; font-size:0.88rem; border-radius:8px }
         .video-thumbnail { width:100%; max-width:200px; height:112px; border-radius:8px; object-fit:cover; }
         .found-video-display { background: rgba(255,255,255,0.93); padding:14px; border-radius:10px; margin:14px 0; display:none; border-left:5px solid #667eea; }
         .video-preview { width:100%; max-width:420px; height:236px; border-radius:8px; margin-bottom:10px; }
         .confirm-box { display:flex; gap:8px; align-items:center; background:#fff5f5; border:1px solid #f5c2c2; padding:8px; border-radius:8px; margin-left:8px; }
         .confirm-placeholder { min-height:38px; }
+        .ai-debug { font-family: monospace; white-space: pre-wrap; background:#f8f9fa; padding:10px; border-radius:6px; border:1px solid #e9ecef; margin-top:10px; }
     </style>
 </head>
 <body>
 <div class="container">
     <h3 class="text-center mb-3"><i class="fas fa-video"></i> Manage Motivational Videos</h3>
 
-    <!-- Finder -->
-    <div class="mb-3 p-3" style="background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%); border-radius:10px;">
-        <div class="text-center mb-2">
-            <button class="btn btn-primary" onclick="findVideo()"><i class="fas fa-search"></i> Find Motivational Video</button>
+    <!-- show action messages -->
+    <?= $action_message ?>
+
+    <!-- AI messages area -->
+    <?php if ($ai_message): ?>
+        <div class="mb-3">
+            <div class="alert alert-info"><strong>AI:</strong> <?= htmlspecialchars($ai_message) ?></div>
+            <?php if ($ai_last_inserted): ?>
+                <div class="alert alert-success">AI added: <strong><?= htmlspecialchars($ai_last_inserted['title'] ?? '') ?></strong></div>
+            <?php endif; ?>
+            <?php if ($ai_debug): ?>
+                <div class="ai-debug"><strong>AI debug:</strong><br><?= htmlspecialchars(implode("\n", (array)$ai_debug)) ?></div>
+            <?php endif; ?>
         </div>
+    <?php
+        // clear AI messages so they don't reappear (optional)
+        unset($_SESSION['ai_message'], $_SESSION['ai_debug'], $_SESSION['ai_last_inserted']);
+    endif; ?>
+
+    <!-- Finder and AI-trigger -->
+    <div class="mb-3 p-3" style="background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%); border-radius:10px;">
+        <div class="d-flex gap-2 mb-2 justify-content-center">
+            <button class="btn btn-primary" onclick="findVideo()"><i class="fas fa-search"></i> Find Motivational Video</button>
+
+            <!-- button to send seed to AI (calls the file you created) -->
+            <form method="GET" action="sent_to_ai_for_motivational_vidoe.php" style="display:inline;">
+                <!-- optional seed_index param -->
+                <input type="hidden" name="seed_index" value="0">
+                <button type="submit" class="btn btn-outline-dark"><i class="fas fa-robot"></i> Ask AI for search queries</button>
+            </form>
+        </div>
+
         <div id="loadingSpinner" style="display:none; text-align:center; padding:8px;">
             <div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
             <div class="small mt-2">Searching for videos... thank you for your patience</div>
@@ -338,7 +359,6 @@ if ($res) {
     <!-- Manual Add -->
     <div class="mb-3">
         <h5 class="mb-2"><i class="fas fa-plus-circle"></i> Add Video Manually</h5>
-        <?= $action_message ?>
         <form method="POST" class="row g-3 mb-2">
             <div class="col-md-6">
                 <label class="form-label">Title</label>
@@ -384,14 +404,13 @@ if ($res) {
                     </div>
                     <div class="col-7">
                         <h6 style="font-weight:600;"><?= $safeTitle ?></h6>
-                        <p class="small text-muted"><?= htmlspecialchars(substr($video['description'],0,100)) ?>...</p>
+                        <p class="small text-muted"><?= htmlspecialchars(substr($video['description'] ?? '',0,100)) ?>...</p>
 
                         <!-- Play in modal (no redirect) -->
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="openPlayerModal('<?= $vlink ?>', <?= json_encode($safeTitle) ?>)">
                             <i class="fas fa-play"></i> Watch
                         </button>
 
-                        <!-- placeholder where a small confirmation box can be inserted -->
                         <div class="confirm-placeholder mt-2" id="confirm-placeholder-<?= $vid ?>"></div>
                     </div>
                 </div>
@@ -449,7 +468,7 @@ if ($res) {
   </div>
 </div>
 
-<!-- Hidden delete form (submitted programmatically) -->
+<!-- Hidden delete form -->
 <form id="deleteForm" method="POST" style="display:none;">
     <input type="hidden" name="delete_id" id="delete_id">
     <input type="hidden" name="delete_video" value="1">
@@ -458,8 +477,6 @@ if ($res) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 let isLoading = false;
-
-// Find video via AJAX
 function findVideo() {
     if (isLoading) return;
     isLoading = true;
@@ -477,9 +494,8 @@ function findVideo() {
             document.getElementById('loadingSpinner').style.display = 'none';
             if (data.status === 'success' && data.video) {
                 const returnedId = data.video.video_id;
-                // defense-in-depth: if this ID already exists in DOM, ask server again once
+                // defense: if returnedId already in DOM, try server once more
                 if (document.querySelector('[data-video-id="'+returnedId+'"]')) {
-                    // try once more (server should have avoided duplicates but double-check)
                     setTimeout(() => { findVideo(); }, 300);
                     return;
                 }
@@ -505,7 +521,6 @@ function findVideo() {
         });
 }
 
-// Edit modal helper
 function openEditModal(id, title, youtube_link, description) {
     document.getElementById('edit_id').value = id;
     document.getElementById('edit_title').value = title;
@@ -515,7 +530,6 @@ function openEditModal(id, title, youtube_link, description) {
     modal.show();
 }
 
-// Inline delete confirm (no browser popup)
 function showDeleteConfirm(id, btnElement) {
     const placeholder = document.getElementById('confirm-placeholder-' + id);
     if (!placeholder) return;
@@ -551,7 +565,6 @@ function showDeleteConfirm(id, btnElement) {
     }, 8000);
 }
 
-// Player modal helpers
 function openPlayerModal(videoId, title) {
   const iframe = document.getElementById('playerFrame');
   const t = document.getElementById('playerTitle');
