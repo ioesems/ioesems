@@ -136,6 +136,9 @@
             <a href="./z/tools/prompt/index.php" class="btn btn-notes">
                 <i class="fas fa-sticky-note"></i> Manage Notes
             </a>
+            <a href="./file/admin/m.php" class="btn btn-notes">
+                <i class="fas fa-message"></i> Admin Panel
+            </a>
         </div>
 
         <div class="footer">

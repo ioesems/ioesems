@@ -2,11 +2,12 @@
 session_start();
 
 // Admin email
-$admin_email = "mukeshsingh98121159@gmail.com";
+$admin_email = "mukeshsingh98121159@gmail.com ";
 
 // Only allow logged-in admin
-if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true
-    || $_SESSION['email'] !== $admin_email) {
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true
+    // || $_SESSION['email'] == $admin_email
+    ) {
 
     echo "<h3 style='color:red; text-align:center; margin-top:50px;'>Unauthorized Access</h3>";
     exit();

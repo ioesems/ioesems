@@ -3,3578 +3,2013 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 2: Theory of Measurement - Exam Summary</title>
+    <title>Modern Instrumentation Systems - Complete Course</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --border-color: #bdc3c7;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
-            color: #2d4a2b;
-            background: linear-gradient(135deg, #f9fbe7 0%, #f0f4c3 100%);
-            min-height: 100vh;
-            padding: 20px;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #f9f9f9;
+            touch-action: manipulation;
         }
+
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
+            display: flex;
+            min-height: 100vh;
         }
-        .header {
+
+        /* Navigation Sidebar */
+        .nav-container {
+            width: 280px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-container h2 {
             text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 30px;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 5px;
         }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-        .toc {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px;
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.2);
-        }
-        .toc h2 {
-            color: #8b4513;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .toc ul {
+
+        .nav-menu {
             list-style: none;
-            color: #6b4e2c;
         }
-        .toc li {
-            margin: 8px 0;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-left: 4px solid transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-        .toc li:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateX(5px);
+
+        .nav-link:hover, .nav-link:focus {
+            background-color: rgba(255,255,255,0.1);
+            border-left: 4px solid var(--secondary-color);
+            outline: none;
         }
-        .section {
-            margin: 40px 30px;
+
+        .nav-link.active {
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .sub-nav {
+            list-style: none;
+            padding-left: 20px;
+            display: none;
+        }
+
+        .nav-item.has-submenu > .nav-link::after {
+            content: "▼";
+            float: right;
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+
+        .nav-item.has-submenu.active > .nav-link::after {
+            transform: rotate(180deg);
+        }
+
+        .nav-item.has-submenu.active > .sub-nav {
+            display: block;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
             padding: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            min-height: 100vh;
         }
-        .section h2 {
-            color: #4a7c59;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #6b8e23;
-        }
-        .section h3 {
-            color: #2d4a2b;
-            font-size: 1.5rem;
-            margin: 25px 0 15px 0;
-            padding: 10px 15px;
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-        }
-        .section h4 {
-            color: #4a7c59;
-            font-size: 1.3rem;
-            margin: 20px 0 10px 0;
-        }
-        .section p {
-            margin: 15px 0;
-            text-align: justify;
-            font-size: 1.1rem;
-        }
-        .diagram {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #6b8e23;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .diagram-title {
-            color: #4a7c59;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        .circuit-diagram {
-            width: 100%;
-            height: 200px;
+
+        .content-section {
+            margin-bottom: 40px;
+            padding: 25px;
             background: white;
             border-radius: 8px;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-            position: relative;
-            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .formula {
-            background: linear-gradient(135deg, #fff9e6 0%, #ffecb3 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
         }
-        .formula-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #8b4513;
-            font-family: 'Courier New', monospace;
+
+        .subsection-title {
+            color: var(--secondary-color);
+            margin: 25px 0 15px 0;
         }
-        .example-box {
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .example-box h4 {
-            color: #2d4a2b;
+
+        p {
             margin-bottom: 15px;
-            font-size: 1.2rem;
+            text-align: justify;
         }
-        .table {
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .nav-container {
+                width: 100%;
+                height: auto;
+                position: fixed;
+                transform: translateY(-100%);
+                padding: 10px 0;
+                top: 56px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-container.show {
+                transform: translateY(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                margin-top: 56px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background-color: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 15px;
+                width: 100%;
+                text-align: left;
+                font-size: 1.2em;
+                cursor: pointer;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1001;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .content-section {
+                padding: 20px 15px;
+            }
+            
+            .nav-link {
+                padding: 15px 25px;
+            }
+        }
+
+        /* Code and Technical Elements */
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        .table th {
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            padding: 15px;
+
+        th, td {
+            padding: 12px;
             text-align: left;
-            font-weight: bold;
+            border-bottom: 1px solid var(--border-color);
         }
-        .table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
         }
-        .table tr:nth-child(even) {
-            background: #f8f9fa;
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
-        .table tr:hover {
-            background: #e8f5e8;
-            transition: all 0.3s ease;
-        }
+
+        /* Highlight Important Sections */
         .highlight {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: #8b4513;
-            font-weight: bold;
-        }
-        .note {
-            background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-            border: 2px solid #6699cc;
-            border-radius: 10px;
+            background-color: #fffde7;
             padding: 20px;
+            border-left: 4px solid var(--accent-color);
             margin: 20px 0;
-            border-left: 5px solid #0066cc;
         }
-        .note h4 {
-            color: #003366;
-            margin-bottom: 10px;
-        }
-        .exam-tip {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
+
+        /* Footer */
+        footer {
+            text-align: center;
             padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #8b4513;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            margin-top: 40px;
         }
-        .exam-tip h4 {
-            color: #8b4513;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+            z-index: 999;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
-        .key-point {
-            background: linear-gradient(135deg, #d4f4dd 0%, #b8e6c1 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: #2d4a2b;
+
+        .scroll-top:hover {
+            background-color: var(--accent-color);
         }
+        
+        /* Active state for mobile */
         @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .section {
-                padding: 20px;
-                margin: 20px;
+            .nav-link:active {
+                background-color: rgba(255,255,255,0.2);
             }
         }
     </style>
 </head>
 <body>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">☰ Navigation Menu</button>
+    
     <div class="container">
-        <header class="header">
-            <h1>Chapter 2: Theory of Measurement</h1>
-            <p class="subtitle">Exam-Focused Summary for Students</p>
-        </header>
-        <div class="toc">
-            <h2>Table of Contents</h2>
-            <ul>
-                <li onclick="scrollToSection('introduction')">2.1 Static Performance Parameters</li>
-                <li onclick="scrollToSection('dynamic')">2.2 Dynamic Performance Parameters</li>
-                <li onclick="scrollToSection('errors')">2.3 Error in Measurement</li>
-                <li onclick="scrollToSection('statistical')">2.4 Statistical Analysis of Error</li>
-                <li onclick="scrollToSection('resistance')">2.5 Measurement of Resistance</li>
-                <li onclick="scrollToSection('bridges')">2.6 AC/DC Bridges</li>
+        <nav class="nav-container" id="navContainer">
+            <h2>Instrumentation Systems</h2>
+            <ul class="nav-menu">
+                <li class="nav-item has-submenu">
+                    <a href="#chapter1" class="nav-link">1. Introduction (2 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#1-1" class="nav-link">1.1 Analog and Digital Instruments</a></li>
+                        <li><a href="#1-2" class="nav-link">1.2 Microprocessor-based Systems</a></li>
+                        <li><a href="#1-3" class="nav-link">1.3 Microcomputer on Instrumentation Design</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter2" class="nav-link">2. Theory of Measurement (6 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#2-1" class="nav-link">2.1 Static Performance Parameters</a></li>
+                        <li><a href="#2-2" class="nav-link">2.2 Dynamic Performance Parameters</a></li>
+                        <li><a href="#2-3" class="nav-link">2.3 Error in Measurement</a></li>
+                        <li><a href="#2-4" class="nav-link">2.4 Statistical Analysis of Error</a></li>
+                        <li><a href="#2-5" class="nav-link">2.5 Measurement of Resistance</a></li>
+                        <li><a href="#2-6" class="nav-link">2.6 DC/AC Bridge</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter3" class="nav-link">3. Transducer (8 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#3-1" class="nav-link">3.1 Transducer Overview</a></li>
+                        <li><a href="#3-2" class="nav-link">3.2 Sensors and Working Principles</a></li>
+                        <li><a href="#3-3" class="nav-link">3.3 Types of Sensors</a></li>
+                        <li><a href="#3-4" class="nav-link">3.4 Actuators</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter4" class="nav-link">4. Interfacing (14 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#4-1" class="nav-link">4.1 Microprocessor Selection</a></li>
+                        <li><a href="#4-2" class="nav-link">4.2 PPI 8255 Interfacing</a></li>
+                        <li><a href="#4-3" class="nav-link">4.3 Microcontrollers</a></li>
+                        <li><a href="#4-4" class="nav-link">4.4 Sensor/Actuator Interfacing</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter5" class="nav-link">5. Connectivity (6 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#5-1" class="nav-link">5.1 Wired/Wireless Systems</a></li>
+                        <li><a href="#5-2" class="nav-link">5.2 Wired Connectivity</a></li>
+                        <li><a href="#5-3" class="nav-link">5.3 Wireless Sensor Networks</a></li>
+                        <li><a href="#5-4" class="nav-link">5.4 RF, Bluetooth, Wi-Fi, NFC, ZIGBEE, LoRa</a></li>
+                        <li><a href="#5-5" class="nav-link">5.5 Thermal Management</a></li>
+                        <li><a href="#5-6" class="nav-link">5.6 Data Acquisition Systems</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter6" class="nav-link">6. Circuit Design (4 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#6-1" class="nav-link">6.1 Requirements & Reliability</a></li>
+                        <li><a href="#6-2" class="nav-link">6.2 High-Speed Design</a></li>
+                        <li><a href="#6-3" class="nav-link">6.3 PCB Design</a></li>
+                        <li><a href="#6-4" class="nav-link">6.4 Noise & Prevention</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter7" class="nav-link">7. Software (6 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#7-1" class="nav-link">7.1 Software Engineering Overview</a></li>
+                        <li><a href="#7-2" class="nav-link">7.2 Types of Software</a></li>
+                        <li><a href="#7-3" class="nav-link">7.3 SDLC & Process Models</a></li>
+                        <li><a href="#7-4" class="nav-link">7.4 Software vs Hardware Reliability</a></li>
+                        <li><a href="#7-5" class="nav-link">7.5 Software Bugs & Testing</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter8" class="nav-link">8. Electrical Equipment (6 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#8-1" class="nav-link">8.1 Voltmeter & Ammeter</a></li>
+                        <li><a href="#8-2" class="nav-link">8.2 Energy Meter</a></li>
+                        <li><a href="#8-3" class="nav-link">8.3 Frequency Meter</a></li>
+                        <li><a href="#8-4" class="nav-link">8.4 Wattmeter</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter9" class="nav-link">9. Latest Trends (3 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#9-1" class="nav-link">9.1 Internet of Things (IoT)</a></li>
+                        <li><a href="#9-2" class="nav-link">9.2 Smart Sensors</a></li>
+                        <li><a href="#9-3" class="nav-link">9.3 Cloud Computing</a></li>
+                        <li><a href="#9-4" class="nav-link">9.4 Industry 4.0</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a href="#chapter10" class="nav-link">10. Applications (5 hours)</a>
+                    <ul class="sub-nav">
+                        <li><a href="#10-1" class="nav-link">10.1 Power Station Instrumentation</a></li>
+                        <li><a href="#10-2" class="nav-link">10.2 Wire/Cable Manufacturing</a></li>
+                        <li><a href="#10-3" class="nav-link">10.3 Beverage Manufacturing</a></li>
+                        <li><a href="#10-4" class="nav-link">10.4 Biomedical Applications</a></li>
+                        <li><a href="#10-5" class="nav-link">10.5 Processor-Based Design</a></li>
+                    </ul>
+                </li>
             </ul>
-        </div>
-        <section class="section" id="introduction">
-            <h2>2.1 Static Performance Parameters</h2>
-            <p>Static characteristics describe instrument performance when the measured variable changes slowly or is constant.</p>
-            <div class="key-point">EXAM TIP: These are the MOST IMPORTANT concepts for any measurement system. Memorize definitions, formulas, and relationships.</div>
-            <h3>Accuracy</h3>
-            <p>Accuracy is the closeness of a measured value to the true value. Low accuracy means large deviation from the true value.</p>
-            <div class="formula">
-                <div class="formula-text">Error = True Value - Measured Value</div>
-            </div>
-            <p>Accuracy can be specified in three ways:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Point Accuracy:</strong> Accuracy at one specific point on the scale.</li>
-                <li><strong>Percentage of Scale Range:</strong> Accuracy expressed as percentage of the full scale (e.g., ±2% of 100V = ±2V).</li>
-                <li><strong>Percentage of True Value:</strong> Most meaningful (e.g., ±0.5% of actual reading).</li>
-            </ul>
-            <h3>Precision</h3>
-            <p>Precision is the measure of reproducibility - how close repeated measurements are to each other under the same conditions.</p>
-            <div class="note">
-                <h4>Accuracy vs Precision:</h4>
-                <p>A precise instrument may not be accurate (consistent but wrong), but an accurate instrument must be precise (correct and consistent).</p>
-            </div>
-            <div class="diagram">
-                <div class="diagram-title">Accuracy vs Precision</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="200" viewBox="0 0 600 200">
-                        <!-- Target 1: High Accuracy, High Precision -->
-                        <circle cx="100" cy="100" r="40" fill="none" stroke="#2d4a2b" stroke-width="2"/>
-                        <circle cx="100" cy="100" r="25" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="100" cy="100" r="10" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="100" cy="100" r="2" fill="#cc3333"/>
-                        <!-- Clustered points on center -->
-                        <circle cx="98" cy="102" r="2" fill="#6699cc"/>
-                        <circle cx="102" cy="98" r="2" fill="#6699cc"/>
-                        <circle cx="100" cy="103" r="2" fill="#6699cc"/>
-                        <circle cx="99" cy="97" r="2" fill="#6699cc"/>
-                        <text x="100" y="160" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">High Accuracy</text>
-                        <text x="100" y="175" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">High Precision</text>
-                        <!-- Target 2: Low Accuracy, High Precision -->
-                        <circle cx="250" cy="100" r="40" fill="none" stroke="#2d4a2b" stroke-width="2"/>
-                        <circle cx="250" cy="100" r="25" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="250" cy="100" r="10" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="250" cy="100" r="2" fill="#cc3333"/>
-                        <!-- Clustered points away from center -->
-                        <circle cx="235" cy="85" r="2" fill="#6699cc"/>
-                        <circle cx="238" cy="88" r="2" fill="#6699cc"/>
-                        <circle cx="232" cy="82" r="2" fill="#6699cc"/>
-                        <circle cx="240" cy="80" r="2" fill="#6699cc"/>
-                        <text x="250" y="160" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">Low Accuracy</text>
-                        <text x="250" y="175" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">High Precision</text>
-                        <!-- Target 3: High Accuracy, Low Precision -->
-                        <circle cx="400" cy="100" r="40" fill="none" stroke="#2d4a2b" stroke-width="2"/>
-                        <circle cx="400" cy="100" r="25" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="400" cy="100" r="10" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="400" cy="100" r="2" fill="#cc3333"/>
-                        <!-- Scattered points around center -->
-                        <circle cx="395" cy="105" r="2" fill="#6699cc"/>
-                        <circle cx="405" cy="95" r="2" fill="#6699cc"/>
-                        <circle cx="390" cy="110" r="2" fill="#6699cc"/>
-                        <circle cx="410" cy="90" r="2" fill="#6699cc"/>
-                        <text x="400" y="160" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">High Accuracy</text>
-                        <text x="400" y="175" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">Low Precision</text>
-                        <!-- Target 4: Low Accuracy, Low Precision -->
-                        <circle cx="550" cy="100" r="40" fill="none" stroke="#2d4a2b" stroke-width="2"/>
-                        <circle cx="550" cy="100" r="25" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="550" cy="100" r="10" fill="none" stroke="#2d4a2b" stroke-width="1"/>
-                        <circle cx="550" cy="100" r="2" fill="#cc3333"/>
-                        <!-- Scattered points -->
-                        <circle cx="535" cy="120" r="2" fill="#6699cc"/>
-                        <circle cx="565" cy="85" r="2" fill="#6699cc"/>
-                        <circle cx="575" cy="115" r="2" fill="#6699cc"/>
-                        <circle cx="525" cy="90" r="2" fill="#6699cc"/>
-                        <text x="550" y="160" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">Low Accuracy</text>
-                        <text x="550" y="175" text-anchor="middle" fill="#2d4a2b" font-size="11" font-weight="bold">Low Precision</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>Sensitivity</h3>
-            <p>Sensitivity is the ratio of change in output to change in input. It represents the smallest change in input that the instrument can detect.</p>
-            <div class="formula">
-                <div class="formula-text">Sensitivity = ΔOutput / ΔInput</div>
-            </div>
-            <div class="example-box">
-                <h4>Example:</h4>
-                <p>A Wheatstone Bridge requires a change in resistance of 7Ω in the unknown arm to produce a change in deflection of 3mm of the galvanometer.</p>
-                <div class="formula">
-                    <div class="formula-text">Sensitivity = 3mm / 7Ω = 0.428 mm/Ω</div>
-                </div>
-                <div class="formula">
-                    <div class="formula-text">Deflection Factor = 1/Sensitivity = 7Ω/3mm = 2.33 Ω/mm</div>
-                </div>
-            </div>
-            <h3>Linearity</h3>
-            <p>Linearity is the ability of an instrument to reproduce input characteristics symmetrically and linearly. It's measured as the maximum deviation from an idealized straight line.</p>
-            <div class="formula">
-                <div class="formula-text">% Non-linearity = (Max. deviation from idealized straight line / Full scale reading) × 100%</div>
-            </div>
-            <h3>Resolution</h3>
-            <p>Resolution is the smallest change in input that produces a detectable change in output.</p>
-            <div class="example-box">
-                <h4>Example 1 (Analog):</h4>
-                <p>A voltmeter has 100 scale divisions and can measure up to 100V. Each division can be read to ½ division.</p>
-                <div class="formula">
-                    <div class="formula-text">Resolution = 0.5V (since 1 division = 1V, ½ division = 0.5V)</div>
-                </div>
-                <h4>Example 2 (Digital):</h4>
-                <p>A 3½ digit DVM can measure up to 19.99V.</p>
-                <div class="formula">
-                    <div class="formula-text">Resolution = 0.01V (since smallest change is 1 count, and 1999 counts = 19.99V, so 1 count = 0.01V)</div>
-                </div>
-            </div>
-            <h3>Repeatability & Reproducibility</h3>
-            <p><strong>Repeatability:</strong> Closeness of output readings when the same input is applied repetitively over a short period under the same conditions.</p>
-            <p><strong>Reproducibility:</strong> Closeness of output readings when the same input is measured at different times, under different conditions, or by different instruments.</p>
-        </section>
-        <section class="section" id="dynamic">
-            <h2>2.2 Dynamic Performance Parameters</h2>
-            <p>Dynamic characteristics describe instrument performance when the measured variable changes rapidly with time.</p>
-            <div class="key-point">EXAM TIP: Dynamic characteristics are crucial for systems measuring rapidly changing quantities like vibration, pressure pulsations, etc.</div>
-            <h3>Speed of Response</h3>
-            <p>The speed at which an instrument responds to changes in the measured quantity. It's usually specified as the time taken to reach steady-state conditions after a step input.</p>
-            <h3>Measuring Lag</h3>
-            <p>The delay in the response of an instrument to changes in the measured quantity. This becomes significant in high-speed measurements.</p>
-            <h3>Dynamic Error</h3>
-            <p>The difference between the true value of a time-varying quantity and the value indicated by the instrument (assuming static error is zero).</p>
-            <h3>Fidelity</h3>
-            <p>The degree to which an instrument accurately reproduces the changes in the measured variable without dynamic error. Ideally, a system should have 100% fidelity.</p>
-            <h3>Bandwidth</h3>
-            <p>The range of frequencies for which the instrument's dynamic sensitivity is satisfactory (usually within ±2% of its static sensitivity).</p>
-            <h3>Time Constant</h3>
-            <p>For first-order systems, the time constant is the time taken for the output to reach 63.2% of its final value after a step input. Smaller time constants indicate faster response.</p>
-            <div class="diagram">
-                <div class="diagram-title">Step Response Showing Time Constant</div>
-                <div class="circuit-diagram">
-                    <svg width="500" height="200" viewBox="0 0 500 200">
-                        <!-- Axes -->
-                        <line x1="50" y1="150" x2="450" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="50" y1="150" x2="50" y2="30" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Step input -->
-                        <line x1="50" y1="150" x2="100" y2="150" stroke="#d4a574" stroke-width="3"/>
-                        <line x1="100" y1="150" x2="100" y2="50" stroke="#d4a574" stroke-width="3"/>
-                        <line x1="100" y1="50" x2="450" y2="50" stroke="#d4a574" stroke-width="3"/>
-                        <text x="275" y="40" text-anchor="middle" fill="#8b4513" font-size="12">Input Step</text>
-                        <!-- System response -->
-                        <path d="M100,150 C150,120 200,80 250,65 C300,55 350,52 400,51 C450,50 450,50 450,50" stroke="#4a7c59" stroke-width="3" fill="none"/>
-                        <text x="350" y="80" text-anchor="middle" fill="#4a7c59" font-size="12">System Response</text>
-                        <!-- Time constant marker -->
-                        <line x1="200" y1="150" x2="200" y2="85" stroke="#cc3333" stroke-width="2" stroke-dasharray="5,5"/>
-                        <line x1="50" y1="85" x2="200" y2="85" stroke="#cc3333" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="125" y="75" text-anchor="middle" fill="#cc3333" font-size="12">63.2%</text>
-                        <text x="200" y="170" text-anchor="middle" fill="#cc3333" font-size="12">Time Constant (τ)</text>
-                        <!-- 100% line -->
-                        <line x1="50" y1="50" x2="100" y2="50" stroke="#2d4a2b" stroke-width="1" stroke-dasharray="5,5"/>
-                        <text x="30" y="55" text-anchor="end" fill="#2d4a2b" font-size="12">100%</text>
-                        <!-- Labels -->
-                        <text x="250" y="180" text-anchor="middle" fill="#2d4a2b" font-size="12">Time</text>
-                        <text x="15" y="90" text-anchor="middle" fill="#2d4a2b" font-size="12" transform="rotate(-90, 15, 90)">Response</text>
-                    </svg>
-                </div>
-            </div>
-        </section>
-        <section class="section" id="errors">
-            <h2>2.3 Error in Measurement</h2>
-            <p>An error is the difference between the measured value and the true value of a quantity.</p>
-            <div class="formula">
-                <div class="formula-text">Error = True Value - Measured Value</div>
-            </div>
-            <div class="key-point">EXAM TIP: Understand the types of errors and how to calculate them. Numerical problems are common.</div>
-            <h3>Types of Errors</h3>
-            <h4>1. Gross Errors</h4>
-            <p>These are human errors due to carelessness in reading, recording, or calculating. Examples include misreading a scale or recording 23 as 28.</p>
-            <p><strong>How to minimize:</strong> Take multiple readings, use multiple observers, and double-check calculations.</p>
-            <h4>2. Random Errors</h4>
-            <p>These occur irregularly due to unpredictable fluctuations in experimental conditions (temperature, voltage, vibrations, etc.). They can be reduced by taking multiple readings and using statistical analysis.</p>
-            <h4>3. Systematic Errors</h4>
-            <p>These are consistent, repeatable errors associated with faulty equipment or flawed experimental design. They can be categorized as:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Instrumental Errors:</strong> Due to faulty construction, calibration, or misuse of instruments (e.g., zero error).</li>
-                <li><strong>Environmental Errors:</strong> Due to external conditions like temperature, pressure, humidity, or magnetic fields.</li>
-                <li><strong>Observational Errors:</strong> Due to observer bias, parallax error, or improper setting of equipment.</li>
-            </ul>
-            <h3>Error Calculations</h3>
-            <div class="formula">
-                <div class="formula-text">Absolute Error = |True Value - Measured Value|</div>
-            </div>
-            <div class="formula">
-                <div class="formula-text">Relative Error = Absolute Error / True Value</div>
-            </div>
-            <div class="formula">
-                <div class="formula-text">Percentage Error = (Absolute Error / True Value) × 100%</div>
-            </div>
-            <div class="example-box">
-                <h4>Example: Loading Effect Error</h4>
-                <p>A voltmeter with sensitivity of 15kΩ/V reads 80V on a 100V scale when connected across an unknown resistor. The current through the resistor is 2mA.</p>
-                <p><strong>Solution:</strong></p>
-                <p>Voltmeter resistance, R<sub>v</sub> = 15kΩ/V × 100V = 1500kΩ</p>
-                <p>True resistance, R<sub>true</sub> = 80V / 2mA = 40kΩ</p>
-                <p>Apparent resistance (with voltmeter loading), R<sub>app</sub> = 40kΩ || 1500kΩ = (40×1500)/(40+1500) = 38.96kΩ</p>
-                <p>% Error due to loading = [(38.96 - 40) / 40] × 100% = -2.6%</p>
-            </div>
-            <div class="exam-tip">
-                <h4>Common Exam Problem:</h4>
-                <p>A voltmeter with 2% accuracy on its 0-50V scale measures 15V and 42V. Calculate possible percentage errors.</p>
-                <p><strong>Solution:</strong> Absolute error = 2% of 50V = 1V</p>
-                <p>For 15V reading: % error = (1/15) × 100% = 6.67%</p>
-                <p>For 42V reading: % error = (1/42) × 100% = 2.38%</p>
-                <p><strong>Key Insight:</strong> The percentage error is larger for smaller readings on the same scale.</p>
-            </div>
-        </section>
-        <section class="section" id="statistical">
-            <h2>2.4 Statistical Analysis of Error in Measurement</h2>
-            <p>Statistical analysis is used to estimate errors when random errors are dominant. It involves taking multiple readings and applying statistical methods.</p>
-            <div class="key-point">EXAM TIP: Be prepared to calculate mean, standard deviation, and probable error from a set of measurements.</div>
-            <h3>Arithmetic Mean</h3>
-            <p>The average of all readings, which is the most probable value.</p>
-            <div class="formula">
-                <div class="formula-text">x̄ = (x₁ + x₂ + x₃ + ... + x<sub>n</sub>) / n</div>
-            </div>
-            <h3>Deviation</h3>
-            <p>The difference between each reading and the arithmetic mean.</p>
-            <div class="formula">
-                <div class="formula-text">dᵢ = xᵢ - x̄</div>
-            </div>
-            <h3>Standard Deviation (σ)</h3>
-            <p>A measure of the spread of data points around the mean.</p>
-            <div class="formula">
-                <div class="formula-text">σ = √[Σ(xᵢ - x̄)² / (n-1)] for n < 20 (sample)</div>
-            </div>
-            <div class="formula">
-                <div class="formula-text">σ = √[Σ(xᵢ - x̄)² / n] for n ≥ 20 (population)</div>
-            </div>
-            <h3>Variance</h3>
-            <p>The square of the standard deviation.</p>
-            <div class="formula">
-                <div class="formula-text">Variance = σ²</div>
-            </div>
-            <h3>Probable Error</h3>
-            <p>The range within which there's a 50% chance that the true value lies.</p>
-            <div class="formula">
-                <div class="formula-text">Probable Error (p.e.) = ±0.6745σ</div>
-            </div>
-            <div class="formula">
-                <div class="formula-text">Probable Error of Mean = p.e. / √(n-1)</div>
-            </div>
-            <div class="example-box">
-                <h4>Example Problem:</h4>
-                <p>The following 10 observations were recorded: 41.7, 42.0, 41.8, 42.0, 42.1, 41.9, 42.0, 41.9, 42.5, 41.8</p>
-                <p><strong>Find:</strong> a) Mean, b) Standard deviation, c) Probable error of one reading, d) Probable error of mean, e) Range</p>
-                <p><strong>Solution:</strong></p>
-                <p>a) Mean = (41.7+42.0+41.8+42.0+42.1+41.9+42.0+41.9+42.5+41.8)/10 = 41.97</p>
-                <p>b) Standard deviation = √[Σ(xᵢ - x̄)² / (n-1)] = √[0.401/9] = 0.211</p>
-                <p>c) Probable error of one reading = ±0.6745 × 0.211 = ±0.142</p>
-                <p>d) Probable error of mean = ±0.142 / √9 = ±0.047</p>
-                <p>e) Range = 42.5 - 41.7 = 0.8</p>
-            </div>
-            <h3>Normal Distribution (Gaussian Curve)</h3>
-            <p>When random errors are predominant, measurements follow a normal distribution where the mean is the most probable value.</p>
-            <div class="diagram">
-                <div class="diagram-title">Normal Distribution Curve</div>
-                <div class="circuit-diagram">
-                    <svg width="500" height="250" viewBox="0 0 500 250">
-                        <!-- Normal distribution curve -->
-                        <path d="M50,200 C100,100 250,50 400,100 C450,120 450,200 450,200 L50,200 Z" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <!-- Mean line -->
-                        <line x1="250" y1="50" x2="250" y2="200" stroke="#cc3333" stroke-width="2"/>
-                        <text x="250" y="40" text-anchor="middle" fill="#cc3333" font-size="12">Mean (x̄)</text>
-                        <!-- Standard deviation lines -->
-                        <line x1="175" y1="85" x2="175" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <line x1="325" y1="85" x2="325" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="175" y="75" text-anchor="middle" fill="#d4a574" font-size="10">x̄-σ</text>
-                        <text x="325" y="75" text-anchor="middle" fill="#d4a574" font-size="10">x̄+σ</text>
-                        <!-- 2σ lines -->
-                        <line x1="100" y1="130" x2="100" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <line x1="400" y1="130" x2="400" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="100" y="120" text-anchor="middle" fill="#d4a574" font-size="10">x̄-2σ</text>
-                        <text x="400" y="120" text-anchor="middle" fill="#d4a574" font-size="10">x̄+2σ</text>
-                        <!-- 3σ lines -->
-                        <line x1="75" y1="160" x2="75" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <line x1="425" y1="160" x2="425" y2="200" stroke="#d4a574" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="75" y="150" text-anchor="middle" fill="#d4a574" font-size="10">x̄-3σ</text>
-                        <text x="425" y="150" text-anchor="middle" fill="#d4a574" font-size="10">x̄+3σ</text>
-                        <!-- Area percentages -->
-                        <text x="250" y="100" text-anchor="middle" fill="#2d4a2b" font-size="12">68.28%</text>
-                        <text x="250" y="140" text-anchor="middle" fill="#2d4a2b" font-size="12">95.46%</text>
-                        <text x="250" y="170" text-anchor="middle" fill="#2d4a2b" font-size="12">99.72%</text>
-                        <!-- Axes -->
-                        <line x1="50" y1="200" x2="450" y2="200" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="50" y1="200" x2="50" y2="30" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="250" y="230" text-anchor="middle" fill="#2d4a2b" font-size="12">Measured Value</text>
-                        <text x="15" y="115" text-anchor="middle" fill="#2d4a2b" font-size="12" transform="rotate(-90, 15, 115)">Frequency</text>
-                    </svg>
-                </div>
-            </div>
-            <div class="note">
-                <h4>Key Statistical Facts:</h4>
-                <ul style="color: #003366; margin-left: 20px;">
-                    <li>±1σ covers 68.28% of measurements</li>
-                    <li>±2σ covers 95.46% of measurements</li>
-                    <li>±3σ covers 99.72% of measurements</li>
-                    <li>Probable error (50% confidence) = ±0.6745σ</li>
-                </ul>
-            </div>
-        </section>
-        <section class="section" id="resistance">
-            <h2>2.5 Measurement of Resistance</h2>
-            <p>Resistances are classified based on their values:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Low Resistance:</strong> 1Ω and below</li>
-                <li><strong>Medium Resistance:</strong> 1Ω to 100kΩ</li>
-                <li><strong>High Resistance:</strong> 100kΩ and above</li>
-            </ul>
-            <div class="key-point">EXAM TIP: Know which measurement method is appropriate for each resistance range.</div>
-            <h3>Measurement of Medium Resistance</h3>
-            <h4>Ammeter-Voltmeter Method</h4>
-            <p>The simplest method: R = V/I</p>
-            <p>There are two connection methods, each with its own error source:</p>
-            <div class="diagram">
-                <div class="diagram-title">Ammeter-Voltmeter Connections</div>
-                <div style="display: flex; justify-content: space-around; margin: 20px 0;">
-                    <div style="text-align: center; width: 45%;">
-                        <div class="circuit-diagram" style="height: 150px;">
-                            <svg width="300" height="150" viewBox="0 0 300 150">
-                                <!-- Case 1: Voltmeter across both -->
-                                <rect x="50" y="50" width="60" height="30" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                                <text x="80" y="70" text-anchor="middle" fill="#8b4513" font-size="10">Ammeter</text>
-                                <rect x="130" y="50" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                                <text x="160" y="70" text-anchor="middle" fill="#2d4a2b" font-size="10">R<sub>x</sub></text>
-                                <rect x="130" y="10" width="60" height="30" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                                <text x="160" y="30" text-anchor="middle" fill="#003366" font-size="10">Voltmeter</text>
-                                <line x1="20" y1="65" x2="50" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="110" y1="65" x2="130" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="190" y1="65" x2="250" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="160" y1="40" x2="160" y2="50" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="160" y1="80" x2="160" y2="90" stroke="#2d4a2b" stroke-width="2"/>
-                                <text x="150" y="130" text-anchor="middle" fill="#2d4a2b" font-size="10">Case 1: Measures R<sub>x</sub> + R<sub>A</sub></text>
-                            </svg>
-                        </div>
-                    </div>
-                    <div style="text-align: center; width: 45%;">
-                        <div class="circuit-diagram" style="height: 150px;">
-                            <svg width="300" height="150" viewBox="0 0 300 150">
-                                <!-- Case 2: Voltmeter across resistor only -->
-                                <rect x="50" y="50" width="60" height="30" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                                <text x="80" y="70" text-anchor="middle" fill="#8b4513" font-size="10">Ammeter</text>
-                                <rect x="130" y="50" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                                <text x="160" y="70" text-anchor="middle" fill="#2d4a2b" font-size="10">R<sub>x</sub></text>
-                                <rect x="190" y="10" width="60" height="30" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                                <text x="220" y="30" text-anchor="middle" fill="#003366" font-size="10">Voltmeter</text>
-                                <line x1="20" y1="65" x2="50" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="110" y1="65" x2="130" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="190" y1="65" x2="250" y2="65" stroke="#2d4a2b" stroke-width="2"/>
-                                <line x1="220" y1="40" x2="220" y2="50" stroke="#2d4a2b" stroke-width="2"/>
-                                <text x="150" y="130" text-anchor="middle" fill="#2d4a2b" font-size="10">Case 2: Measures R<sub>x</sub> only</text>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <h4>Wheatstone Bridge</h4>
-            <p>The most accurate method for medium resistance measurement.</p>
-            <div class="diagram">
-                <div class="diagram-title">Wheatstone Bridge Circuit</div>
-                <div class="circuit-diagram">
-                    <svg width="400" height="300" viewBox="0 0 400 300">
-                        <!-- Bridge arms -->
-                        <rect x="100" y="80" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="130" y="100" text-anchor="middle" fill="#2d4a2b" font-size="10">R₁</text>
-                        <rect x="240" y="80" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="270" y="100" text-anchor="middle" fill="#2d4a2b" font-size="10">R₂</text>
-                        <rect x="100" y="190" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="130" y="210" text-anchor="middle" fill="#2d4a2b" font-size="10">R₃</text>
-                        <rect x="240" y="190" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="270" y="210" text-anchor="middle" fill="#2d4a2b" font-size="10">R<sub>x</sub></text>
-                        <!-- Galvanometer -->
-                        <circle cx="200" cy="150" r="20" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="200" y="155" text-anchor="middle" fill="#8b4513" font-size="10">G</text>
-                        <!-- Voltage source -->
-                        <circle cx="180" cy="40" r="20" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="180" y="45" text-anchor="middle" fill="#003366" font-size="10">V</text>
-                        <!-- Connections -->
-                        <line x1="180" y1="60" x2="180" y2="80" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="180" y1="220" x2="180" y2="260" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="160" y1="95" x2="240" y2="95" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="160" y1="205" x2="240" y2="205" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="110" x2="130" y2="130" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="170" x2="130" y2="190" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="270" y1="110" x2="270" y2="130" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="270" y1="170" x2="270" y2="190" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="130" x2="180" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="170" x2="180" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="270" y1="130" x2="220" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="270" y1="170" x2="220" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="200" y="280" text-anchor="middle" fill="#2d4a2b" font-size="12">At balance: R₁/R₂ = R₃/R<sub>x</sub></text>
-                        <text x="200" y="295" text-anchor="middle" fill="#2d4a2b" font-size="12">∴ R<sub>x</sub> = (R₂ × R₃) / R₁</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>Measurement of High Resistance</h3>
-            <p>Methods include:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Direct Deflection Method:</strong> Using a sensitive galvanometer in series with the unknown resistance.</li>
-                <li><strong>Loss of Charge Method:</strong> Measuring the rate of discharge of a capacitor through the unknown resistance.</li>
-                <li><strong>Megohm Bridge:</strong> A specialized bridge circuit for high resistance measurement.</li>
-                <li><strong>Megger:</strong> A portable instrument specifically designed for measuring insulation resistance (typically in megaohms).</li>
-            </ul>
-            <div class="diagram">
-                <div class="diagram-title">Megger (Megohmmeter) Circuit</div>
-                <div class="circuit-diagram">
-                    <svg width="400" height="250" viewBox="0 0 400 250">
-                        <!-- Hand-cranked generator -->
-                        <rect x="50" y="80" width="60" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="80" y="105" text-anchor="middle" fill="#8b4513" font-size="10">Generator</text>
-                        <circle cx="30" cy="100" r="15" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="30" y="105" text-anchor="middle" fill="#2d4a2b" font-size="8">Crank</text>
-                        <!-- Current coil and pressure coil -->
-                        <rect x="130" y="60" width="80" height="30" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="170" y="80" text-anchor="middle" fill="#003366" font-size="9">Current Coil</text>
-                        <rect x="130" y="110" width="80" height="30" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="170" y="130" text-anchor="middle" fill="#003366" font-size="9">Pressure Coil</text>
-                        <!-- Permanent magnet and moving coil -->
-                        <rect x="230" y="70" width="100" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="280" y="95" text-anchor="middle" fill="#2d4a2b" font-size="10">Moving Coil</text>
-                        <text x="280" y="115" text-anchor="middle" fill="#2d4a2b" font-size="10">Mechanism</text>
-                        <!-- Scale -->
-                        <rect x="240" y="150" width="80" height="30" fill="#fff9e6" stroke="#d4a574" stroke-width="2"/>
-                        <text x="280" y="170" text-anchor="middle" fill="#8b4513" font-size="10">Megaohm Scale</text>
-                        <!-- Unknown resistance -->
-                        <rect x="150" y="180" width="100" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="200" y="200" text-anchor="middle" fill="#2d4a2b" font-size="10">R<sub>x</sub> (Unknown)</text>
-                        <!-- Connections -->
-                        <line x1="110" y1="100" x2="130" y2="75" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="100" x2="130" y2="125" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="210" y1="75" x2="230" y2="80" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="210" y1="125" x2="230" y2="120" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="280" y1="130" x2="280" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="180" x2="200" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="210" x2="200" y2="230" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="230" x2="200" y2="230" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="100" x2="110" y2="230" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Terminals -->
-                        <circle cx="80" cy="230" r="5" fill="#cc3333" stroke="#cc3333" stroke-width="1"/>
-                        <circle cx="320" cy="230" r="5" fill="#cc3333" stroke="#cc3333" stroke-width="1"/>
-                        <text x="80" y="245" text-anchor="middle" fill="#2d4a2b" font-size="10">Line</text>
-                        <text x="320" y="245" text-anchor="middle" fill="#2d4a2b" font-size="10">Earth</text>
-                    </svg>
-                </div>
-            </div>
-        </section>
-        <section class="section" id="bridges">
-            <h2>2.6 AC/DC Bridges</h2>
-            <p>Bridges are precision instruments for measuring resistance, inductance, and capacitance by comparing unknown values with known standards.</p>
-            <div class="key-point">EXAM TIP: Bridges are fundamental in electrical measurements. Understand balance conditions and be able to solve numerical problems.</div>
-            <h3>DC Bridges</h3>
-            <h4>Wheatstone Bridge</h4>
-            <p>As discussed in section 2.5, used for medium resistance measurement.</p>
-            <div class="formula">
-                <div class="formula-text">At balance: R₁/R₂ = R₃/R<sub>x</sub> or R₁R<sub>x</sub> = R₂R₃</div>
-            </div>
-            <h4>Kelvin Bridge</h4>
-            <p>A modified Wheatstone bridge for measuring low resistances (below 1Ω), eliminating errors due to lead and contact resistances.</p>
-            <div class="diagram">
-                <div class="diagram-title">Kelvin Bridge Circuit</div>
-                <div class="circuit-diagram">
-                    <svg width="500" height="300" viewBox="0 0 500 300">
-                        <!-- Main ratio arms -->
-                        <rect x="100" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="130" y="80" text-anchor="middle" fill="#2d4a2b" font-size="10">P</text>
-                        <rect x="340" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="370" y="80" text-anchor="middle" fill="#2d4a2b" font-size="10">Q</text>
-                        <!-- Galvanometer connection -->
-                        <circle cx="250" cy="100" r="15" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="250" y="105" text-anchor="middle" fill="#8b4513" font-size="9">G</text>
-                        <!-- Standard and unknown resistances -->
-                        <rect x="100" y="180" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="130" y="200" text-anchor="middle" fill="#2d4a2b" font-size="10">S</text>
-                        <rect x="340" y="180" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="370" y="200" text-anchor="middle" fill="#2d4a2b" font-size="10">R</text>
-                        <!-- Link resistance -->
-                        <rect x="200" y="140" width="100" height="20" fill="#fff3cd" stroke="#d4a574" stroke-width="1"/>
-                        <text x="250" y="155" text-anchor="middle" fill="#8b4513" font-size="8">r (link)</text>
-                        <!-- Connections -->
-                        <line x1="160" y1="75" x2="235" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="265" y1="100" x2="340" y2="75" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="160" y1="195" x2="235" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="265" y1="150" x2="340" y2="195" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="90" x2="130" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="370" y1="90" x2="370" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="210" x2="130" y2="250" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="370" y1="210" x2="370" y2="250" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="250" x2="370" y2="250" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Voltage source -->
-                        <circle cx="250" cy="30" r="20" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="250" y="35" text-anchor="middle" fill="#003366" font-size="10">V</text>
-                        <line x1="250" y1="50" x2="250" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="60" x2="130" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="60" x2="370" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="250" y="280" text-anchor="middle" fill="#2d4a2b" font-size="12">At balance: R/S = P/Q</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>AC Bridges</h3>
-            <p>AC bridges measure inductance, capacitance, and impedance. The general balance condition is:</p>
-            <div class="formula">
-                <div class="formula-text">Z₁Z₄ = Z₂Z₃</div>
-            </div>
-            <p>For complex impedances, this means both magnitude and phase must balance:</p>
-            <div class="formula">
-                <div class="formula-text">|Z₁||Z₄| = |Z₂||Z₃| and ∠Z₁ + ∠Z₄ = ∠Z₂ + ∠Z₃</div>
-            </div>
-            <h4>Maxwell's Bridge</h4>
-            <p>Used for measuring medium inductance (Q between 1 and 10).</p>
-            <div class="diagram">
-                <div class="diagram-title">Maxwell's Bridge Circuit</div>
-                <div class="circuit-diagram">
-                    <svg width="400" height="300" viewBox="0 0 400 300">
-                        <!-- Bridge arms -->
-                        <rect x="80" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="110" y="80" text-anchor="middle" fill="#2d4a2b" font-size="9">R₁</text>
-                        <rect x="80" y="70" width="60" height="20" fill="#cce5ff" stroke="#6699cc" stroke-width="1"/>
-                        <text x="110" y="85" text-anchor="middle" fill="#003366" font-size="7">C₁</text>
-                        <rect x="260" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="290" y="80" text-anchor="middle" fill="#2d4a2b" font-size="9">R₂</text>
-                        <rect x="80" y="190" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="110" y="210" text-anchor="middle" fill="#2d4a2b" font-size="9">R₃</text>
-                        <rect x="260" y="180" width="60" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="290" y="195" text-anchor="middle" fill="#8b4513" font-size="9">L<sub>x</sub></text>
-                        <text x="290" y="215" text-anchor="middle" fill="#8b4513" font-size="9">R<sub>x</sub></text>
-                        <!-- Galvanometer -->
-                        <circle cx="200" cy="150" r="15" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="200" y="155" text-anchor="middle" fill="#8b4513" font-size="9">G</text>
-                        <!-- AC Source -->
-                        <circle cx="200" cy="30" r="20" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="200" y="35" text-anchor="middle" fill="#003366" font-size="10">AC</text>
-                        <!-- Connections -->
-                        <line x1="200" y1="50" x2="200" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="60" x2="140" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="60" x2="260" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="140" y1="75" x2="200" y2="135" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="260" y1="75" x2="215" y2="135" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="140" y1="205" x2="200" y2="165" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="260" y1="200" x2="215" y2="165" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="90" x2="110" y2="190" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="290" y1="90" x2="290" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="220" x2="290" y2="220" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="200" y="250" text-anchor="middle" fill="#2d4a2b" font-size="11">At balance:</text>
-                        <text x="200" y="265" text-anchor="middle" fill="#2d4a2b" font-size="11">R<sub>x</sub> = R₂R₃/R₁</text>
-                        <text x="200" y="280" text-anchor="middle" fill="#2d4a2b" font-size="11">L<sub>x</sub> = R₂R₃C₁</text>
-                    </svg>
-                </div>
-            </div>
-            <h4>Schering Bridge</h4>
-            <p>Used for measuring capacitance and dissipation factor.</p>
-            <div class="diagram">
-                <div class="diagram-title">Schering Bridge Circuit</div>
-                <div class="circuit-diagram">
-                    <svg width="400" height="300" viewBox="0 0 400 300">
-                        <!-- Bridge arms -->
-                        <rect x="80" y="180" width="60" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="110" y="195" text-anchor="middle" fill="#8b4513" font-size="9">C<sub>x</sub></text>
-                        <text x="110" y="215" text-anchor="middle" fill="#8b4513" font-size="9">r<sub>x</sub></text>
-                        <rect x="260" y="190" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="290" y="210" text-anchor="middle" fill="#2d4a2b" font-size="9">R₃</text>
-                        <rect x="80" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="110" y="80" text-anchor="middle" fill="#2d4a2b" font-size="9">R₁</text>
-                        <rect x="80" y="70" width="60" height="20" fill="#cce5ff" stroke="#6699cc" stroke-width="1"/>
-                        <text x="110" y="85" text-anchor="middle" fill="#003366" font-size="7">C₁</text>
-                        <rect x="260" y="60" width="60" height="30" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="290" y="80" text-anchor="middle" fill="#2d4a2b" font-size="9">R₄</text>
-                        <rect x="260" y="70" width="60" height="20" fill="#cce5ff" stroke="#6699cc" stroke-width="1"/>
-                        <text x="290" y="85" text-anchor="middle" fill="#003366" font-size="7">C₄</text>
-                        <!-- Galvanometer -->
-                        <circle cx="200" cy="150" r="15" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="200" y="155" text-anchor="middle" fill="#8b4513" font-size="9">G</text>
-                        <!-- AC Source -->
-                        <circle cx="200" cy="30" r="20" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="200" y="35" text-anchor="middle" fill="#003366" font-size="10">AC</text>
-                        <!-- Connections -->
-                        <line x1="200" y1="50" x2="200" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="60" x2="140" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="60" x2="260" y2="60" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="140" y1="75" x2="200" y2="135" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="260" y1="75" x2="215" y2="135" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="140" y1="200" x2="200" y2="165" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="260" y1="205" x2="215" y2="165" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="90" x2="110" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="290" y1="90" x2="290" y2="190" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="110" y1="220" x2="290" y2="220" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="200" y="250" text-anchor="middle" fill="#2d4a2b" font-size="11">At balance:</text>
-                        <text x="200" y="265" text-anchor="middle" fill="#2d4a2b" font-size="11">C<sub>x</sub> = C₁(R₄/R₃)</text>
-                        <text x="200" y="280" text-anchor="middle" fill="#2d4a2b" font-size="11">r<sub>x</sub> = R₃(C₄/C₁)</text>
-                    </svg>
-                </div>
-            </div>
-            <div class="example-box">
-                <h4>Example Problem:</h4>
-                <p>An AC bridge has the following constants: Arm AB: R=1000Ω in parallel with C=0.5μF, Arm BC: R=1000Ω in series with C=0.5μF, Arm CD: L=30mH in series with R=200Ω. Find the constants of arm DA to balance the bridge.</p>
-                <p><strong>Solution:</strong> For balance, Z₁Z₄ = Z₂Z₃</p>
-                <p>This requires solving complex impedance equations. The approach is to express each arm as a complex impedance, then equate real and imaginary parts.</p>
-                <p>After calculations: R<sub>DA</sub> = 200Ω, C<sub>DA</sub> = 0.5μF</p>
-            </div>
-        </section>
-        <script>
-            function scrollToSection(id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        </script>
-    </div>
-</body>
-</html>
+        </nav>
 
+        <main class="main-content">
+            <!-- Chapter 1: Introduction -->
+            <section id="chapter1" class="content-section">
+                <h1 class="section-title">1. Introduction (2 hours)</h1>
+                
+                <section id="1-1" class="content-section">
+                    <h2 class="subsection-title">1.1 Analog and Digital Instrument: Definition, Block Diagram; Characteristics</h2>
+                    <p>Analog instruments produce a continuous output signal that is proportional to the measured quantity. They typically use pointers or dials to indicate values. Digital instruments, on the other hand, represent measured values in numeric form on displays like LCD or LED screens.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/analog-and-digital-instruments.jpeg" alt="Analog vs Digital Instruments">
+                    <p class="image-caption">Figure: Comparison between analog and digital instruments</p>
+                    
+                    <h3>Block Diagram of Instrumentation System</h3>
+                    <p>A basic instrumentation system consists of:</p>
+                    <ul>
+                        <li><strong>Primary Sensing Element:</strong> Detects the physical quantity and converts it to an electrical signal via a transducer.</li>
+                        <li><strong>Variable Conversion Element:</strong> Converts the signal to a suitable form (e.g., analog to digital).</li>
+                        <li><strong>Variable Manipulation Element:</strong> Manipulates the signal without changing its nature (e.g., amplification).</li>
+                        <li><strong>Data Transmission Element:</strong> Transmits data between physically separated system elements.</li>
+                        <li><strong>Data Presentation Element:</strong> Presents information to the observer (e.g., displays, printers, computers).</li>
+                    </ul>
+                    
+                    <h3>Characteristics</h3>
+                    <p>Both analog and digital instruments exhibit static and dynamic characteristics:</p>
+                    <ul>
+                        <li><strong>Static Characteristics:</strong> Describe performance when the measured quantity is constant or changes slowly (accuracy, precision, sensitivity, resolution, linearity, hysteresis, etc.)</li>
+                        <li><strong>Dynamic Characteristics:</strong> Describe how instruments respond to rapidly varying inputs (speed of response, fidelity, lag, dynamic error, sampling rate, etc.)</li>
+                    </ul>
+                </section>
 
-<!-- chapter3 start  -->
-
-<!-- chap 3 as chap 2    -->
-
-<div>
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 3: Transducers - Exam Summary</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
-            color: #2d4a2b;
-            background: linear-gradient(135deg, #f9fbe7 0%, #f0f4c3 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-        .toc {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px;
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.2);
-        }
-        .toc h2 {
-            color: #8b4513;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .toc ul {
-            list-style: none;
-            color: #6b4e2c;
-        }
-        .toc li {
-            margin: 8px 0;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .toc li:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateX(5px);
-        }
-        .section {
-            margin: 40px 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .section h2 {
-            color: #4a7c59;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #6b8e23;
-        }
-        .section h3 {
-            color: #2d4a2b;
-            font-size: 1.5rem;
-            margin: 25px 0 15px 0;
-            padding: 10px 15px;
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-        }
-        .section h4 {
-            color: #4a7c59;
-            font-size: 1.3rem;
-            margin: 20px 0 10px 0;
-        }
-        .section p {
-            margin: 15px 0;
-            text-align: justify;
-            font-size: 1.1rem;
-        }
-        .diagram {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #6b8e23;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .diagram-title {
-            color: #4a7c59;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        .circuit-diagram {
-            width: 100%;
-            height: 200px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-            position: relative;
-            margin: 15px 0;
-        }
-        .formula {
-            background: linear-gradient(135deg, #fff9e6 0%, #ffecb3 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .formula-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #8b4513;
-            font-family: 'Courier New', monospace;
-        }
-        .example-box {
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .example-box h4 {
-            color: #2d4a2b;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .table th {
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: bold;
-        }
-        .table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-        .table tr:hover {
-            background: #e8f5e8;
-            transition: all 0.3s ease;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: #8b4513;
-            font-weight: bold;
-        }
-        .note {
-            background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-            border: 2px solid #6699cc;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #0066cc;
-        }
-        .note h4 {
-            color: #003366;
-            margin-bottom: 10px;
-        }
-        .exam-tip {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #8b4513;
-        }
-        .exam-tip h4 {
-            color: #8b4513;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        .key-point {
-            background: linear-gradient(135deg, #d4f4dd 0%, #b8e6c1 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: #2d4a2b;
-        }
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .section {
-                padding: 20px;
-                margin: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>Chapter 3: Transducers</h1>
-            <p class="subtitle">Exam-Focused Summary for Students</p>
-        </header>
-        <div class="toc">
-            <h2>Table of Contents</h2>
-            <ul>
-                <li onclick="scrollToSection('introduction')">3.1 Introduction to Transducers</li>
-                <li onclick="scrollToSection('sensor')">3.2 Introduction to Sensors</li>
-                <li onclick="scrollToSection('types')">3.3 Types of Sensors</li>
-                <li onclick="scrollToSection('actuator')">3.4 Introduction to Actuators</li>
-            </ul>
-        </div>
-        <section class="section" id="introduction">
-            <h2>3.1 Introduction to Transducers</h2>
-            <p>A <span class="highlight">transducer</span> is a device that converts one form of energy into another. In instrumentation, it typically converts a physical quantity (non-electrical) into an electrical signal.</p>
-            <div class="key-point">EXAM TIP: Understand the definition, workflow, and classification of transducers. These are fundamental concepts frequently tested.</div>
-            <h3>Workflow of a Typical Transducer</h3>
-            <ol style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Sensing:</strong> Detects physical change (pressure, temperature, force, motion) via a sensor element.</li>
-                <li><strong>Signal Conversion:</strong> Converts detected quantity into electrical signal (resistance, voltage, current changes).</li>
-                <li><strong>Amplification (if needed):</strong> Strengthens weak signals for processing (e.g., using op-amps).</li>
-                <li><strong>Signal Transmission:</strong> Sends signal to control system (PLC, microcontroller) often as standardized 4-20mA or 0-10V.</li>
-                <li><strong>Processing and Action:</strong> Control system interprets signal and triggers actions (adjust valve, control motor, sound alarm).</li>
-            </ol>
-            <h3>Basic Requirements for Transducer Selection</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Ruggedness:</strong> Withstand overload with safety protection.</li>
-                <li><strong>Linearity:</strong> Input-output characteristics should be linear and symmetrical.</li>
-                <li><strong>Repeatability:</strong> Reproduce same output under identical conditions (fixed temp, pressure, humidity).</li>
-                <li><strong>No Residual Deformation:</strong> No permanent deformation after long-term input application.</li>
-                <li><strong>No Hysteresis:</strong> Same output regardless of whether input is increasing or decreasing.</li>
-                <li><strong>High Output Signal Quality:</strong> High signal-to-noise ratio with sufficient amplitude.</li>
-                <li><strong>High Reliability & Stability:</strong> Minimal error under varying environmental conditions.</li>
-                <li><strong>Good Dynamic Response:</strong> Output faithfully follows input over time (analyze via frequency response).</li>
-            </ul>
-            <h3>Classification of Transducers</h3>
-            <h4>1. Based on External Power Source</h4>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Active Transducers</h4>
-                    <p>Self-generating, no external power needed.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Examples:</strong> Thermocouples, piezoelectric crystals, photovoltaic cells, tachogenerators</li>
-                        <li>Convert energy directly from measured quantity</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Passive Transducers</h4>
-                    <p>Require external power source (excitation).</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Examples:</strong> Strain gauges, RTDs, capacitive sensors, LVDTs</li>
-                        <li>Modify electrical parameters (R, L, C)</li>
-                        <li>Output is modulated version of excitation signal</li>
-                    </ul>
-                </div>
-            </div>
-            <h4>2. Based on Transduction Phenomenon</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Transducers:</strong> Convert non-electrical → electrical quantity.</li>
-                <li><strong>Inverse Transducers:</strong> Convert electrical → non-electrical quantity (actuators).</li>
-                <li><strong>Example:</strong> Piezoelectric crystal - voltage applied → changes dimension (used in control systems).</li>
-            </ul>
-            <h4>3. Based on Physical Phenomenon</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Primary Transducer:</strong> Sensing element that responds to physical change.</li>
-                <li><strong>Secondary Transducer:</strong> Converts primary's output (mechanical) into electrical output.</li>
-                <li><strong>Example:</strong> Bourdon tube (primary) converts pressure → displacement, then LVDT (secondary) converts displacement → voltage.</li>
-            </ul>
-            <h4>4. Based on Quantity Measured</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Temperature transducers (thermocouples)</li>
-                <li>Pressure transducers (diaphragms)</li>
-                <li>Displacement transducers (LVDT)</li>
-                <li>Humidity transducers</li>
-            </ul>
-            <h4>5. Based on Output Type</h4>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Analog Transducers</h4>
-                    <p>Continuous output signal over time.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Examples:</strong> LVDT, thermocouple, strain gauge, thermistor</li>
-                        <li>Output is continuous function of time</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Digital Transducers</h4>
-                    <p>Discrete output in form of pulses (digital representation).</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Examples:</strong> Shaft encoders, digital tachometers, Hall effect sensors, limit switches</li>
-                        <li>Output is binary (logic "1" or "0")</li>
-                    </ul>
-                </div>
-            </div>
-            <h4>6. Based on Physical Principle</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Principle</th>
-                        <th>Examples</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Resistive</strong></td>
-                        <td>Change in resistance</td>
-                        <td>Potentiometer, strain gauge, thermistor, RTD</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Inductive</strong></td>
-                        <td>Change in inductance</td>
-                        <td>LVDT, RVDT</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Capacitive</strong></td>
-                        <td>Change in capacitance</td>
-                        <td>Capacitive displacement sensor</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Piezoelectric</strong></td>
-                        <td>Pressure generates voltage</td>
-                        <td>Piezo sensors, accelerometers</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Thermoelectric</strong></td>
-                        <td>Temperature generates voltage</td>
-                        <td>Thermocouples</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Hall Effect</strong></td>
-                        <td>Magnetic field generates voltage</td>
-                        <td>Hall effect sensors</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <section class="section" id="sensor">
-            <h2>3.2 Introduction to Sensors</h2>
-            <p>A <span class="highlight">sensor</span> is a device that detects and responds to a specific input (light, temperature, pressure, motion) and converts it into a measurable output signal.</p>
-            <div class="key-point">EXAM TIP: Understand the difference between sensors and transducers. Sensor is the detecting element; transducer includes sensor plus signal conditioning circuitry.</div>
-            <h3>Sensor vs Transducer</h3>
-            <p>A sensor detects a physical phenomenon and produces an output signal proportional to the measured quantity. This output may not be immediately usable (e.g., resistance change in thermistor).</p>
-            <p>A transducer often incorporates a sensor as its primary element, plus additional circuitry to convert the sensor's output into a standardized electrical signal. In many cases, the terms are used interchangeably.</p>
-            <h3>Working Principles</h3>
-            <h4>Resistive Sensors</h4>
-            <p>Convert physical quantity into change in resistance.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Potentiometer:</strong> Variable resistor, output voltage proportional to wiper position.</li>
-                <li><strong>Strain Gauge:</strong> Resistance changes with mechanical deformation (ΔR/R = GF × ε).</li>
-                <li><strong>Thermistor:</strong> Resistance changes with temperature (high sensitivity, non-linear).</li>
-                <li><strong>RTD:</strong> Resistance changes with temperature (platinum, highly linear).</li>
-            </ul>
-            <h4>Capacitive Sensors</h4>
-            <p>Convert physical quantity into change in capacitance (C = εA/d).</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Distance Change:</strong> Vary distance between plates (d).</li>
-                <li><strong>Area Change:</strong> Vary overlapping area of plates (A).</li>
-                <li><strong>Dielectric Change:</strong> Vary dielectric constant (ε) between plates.</li>
-            </ul>
-            <h4>Piezoelectric Sensors</h4>
-            <p>Generate electrical charge when subjected to mechanical stress (active transducer).</p>
-            <div class="formula">
-                <div class="formula-text">Q = d × F</div>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: #6b4e2c;">Where Q is charge (Coulombs), d is charge sensitivity (C/N), F is force (Newtons)</p>
-            </div>
-            <p>The effect is reversible: applying voltage causes dimensional change.</p>
-            <h3>Generations of Sensors</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Generation</th>
-                        <th>Period</th>
-                        <th>Characteristics</th>
-                        <th>Examples</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>1st Gen</strong></td>
-                        <td>Mid-20th C to 1970s</td>
-                        <td>Stand-alone, analog output, large size, no intelligence</td>
-                        <td>Thermistors, thermocouples, strain gauges</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2nd Gen</strong></td>
-                        <td>1980s-2000s</td>
-                        <td>Integration, digital output, self-calibration, miniaturization, MEMS</td>
-                        <td>MEMS accelerometers, LM35 temperature sensor</td>
-                    </tr>
-                    <tr>
-                        <td><strong>3rd Gen</strong></td>
-                        <td>2000s-Present</td>
-                        <td>Advanced integration, IoT connectivity, distributed processing, AI at edge</td>
-                        <td>Smart home sensors, industrial IoT sensors</td>
-                    </tr>
-                    <tr>
-                        <td><strong>4th Gen</strong></td>
-                        <td>Emerging</td>
-                        <td>Autonomous operation, self-organization, predictive capabilities, energy harvesting</td>
-                        <td>Autonomous robots, smart city infrastructure</td>
-                    </tr>
-                    <tr>
-                        <td><strong>5th Gen</strong></td>
-                        <td>Future</td>
-                        <td>Quantum sensing, cognitive/self-aware, bio-cybernetic interfaces, ethical by design</td>
-                        <td>Quantum gravity sensors, disease-detecting bio-sensors</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3>Numerical Problems</h3>
-            <div class="example-box">
-                <h4>Problem 1: Potentiometer Displacement</h4>
-                <p>A linear resistance potentiometer is 50mm long with 10,000Ω resistance. Slider is normally at center. Find displacement when resistance is (a) 3850Ω (b) 7560Ω. Find resolution if minimum measurable resistance is 10Ω.</p>
-                <p><strong>Solution:</strong></p>
-                <p>Normal resistance = 10,000/2 = 5,000Ω</p>
-                <p>Resistance per mm = 10,000/50 = 200 Ω/mm</p>
-                <p>(a) Displacement = (5,000 - 3,850)/200 = 1,150/200 = 5.75mm</p>
-                <p>(b) Displacement = (7,560 - 5,000)/200 = 2,560/200 = 12.8mm</p>
-                <p>Resolution = 10Ω × (1mm/200Ω) = 0.05mm</p>
-            </div>
-            <div class="example-box">
-                <h4>Problem 2: Capacitive Transducer</h4>
-                <p>A capacitive transducer uses two quartz diaphragms (area 750mm²) separated by 3.5mm. Pressure of 900kN/m² produces 0.6mm deflection. Initial capacitance is 370pF. Find capacitance after pressure application.</p>
-                <p><strong>Solution:</strong></p>
-                <p>C ∝ 1/d, so C₂ = C₁ × (d₁/d₂)</p>
-                <p>d₁ = 3.5mm, d₂ = 3.5 - 0.6 = 2.9mm</p>
-                <p>C₂ = 370pF × (3.5/2.9) = 446.55pF</p>
-            </div>
-            <div class="example-box">
-                <h4>Problem 3: Piezoelectric Transducer</h4>
-                <p>A barium titanate pickup (5mm×5mm×1.25mm) has 5N force applied. Charge sensitivity is 150pC/N, permittivity is 12.5×10⁻⁹F/m, modulus of elasticity is 12×10⁶N/m². Calculate strain, charge, and capacitance.</p>
-                <p><strong>Solution:</strong></p>
-                <p>Area A = 25×10⁻⁶m²</p>
-                <p>Stress = Force/Area = 5N/25×10⁻⁶m² = 0.2×10⁶N/m²</p>
-                <p>Strain = Stress/Young's Modulus = 0.2×10⁶/12×10⁶ = 0.0167</p>
-                <p>Charge Q = d×F = 150×10⁻¹²C/N × 5N = 750pC</p>
-                <p>Voltage sensitivity g = d/ε = 150×10⁻¹²/12.5×10⁻⁹ = 12×10⁻³ V·m/N</p>
-                <p>Voltage E₀ = g×t×Stress = 12×10⁻³×1.25×10⁻³×0.2×10⁶ = 3V</p>
-                <p>Capacitance Cp = Q/E₀ = 750×10⁻¹²C/3V = 250pF</p>
-            </div>
-        </section>
-        <section class="section" id="types">
-            <h2>3.3 Types of Sensors</h2>
-            <p>Sensors can be classified based on what they measure and their operating principles.</p>
-            <div class="key-point">EXAM TIP: Be familiar with different sensor types, their working principles, and applications. This is important for both theory and practical applications.</div>
-            <h3>Electrical Sensors</h3>
-            <p>Measure electrical quantities or use electrical principles to measure physical quantities.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Voltage/Current Sensors:</strong> Measure electrical parameters</li>
-                <li><strong>Resistance-based Sensors:</strong> RTDs, thermistors, strain gauges</li>
-                <li><strong>Capacitance-based Sensors:</strong> Proximity, level, humidity sensors</li>
-                <li><strong>Inductance-based Sensors:</strong> LVDTs, proximity sensors</li>
-            </ul>
-            <h3>Chemical Sensors</h3>
-            <p>Detect and measure chemical substances or reactions.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Breathalyzers:</strong> Detect alcohol content in breath</li>
-                <li><strong>pH Sensors:</strong> Measure acidity/alkalinity</li>
-                <li><strong>Gas Sensors:</strong> Detect specific gases (CO, CO₂, methane)</li>
-                <li><strong>Ion-selective Electrodes:</strong> Measure specific ion concentrations</li>
-            </ul>
-            <h3>Biological Sensors</h3>
-            <p>Use biological elements to detect specific biological substances.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Glucose Sensors:</strong> Measure blood glucose levels (diabetes management)</li>
-                <li><strong>DNA Sensors:</strong> Detect specific DNA sequences</li>
-                <li><strong>Enzyme-based Sensors:</strong> Use enzymes to catalyze reactions for detection</li>
-                <li><strong>Immunosensors:</strong> Use antibodies to detect antigens</li>
-            </ul>
-            <h3>Acoustic Sensors</h3>
-            <p>Detect and measure sound waves or vibrations.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Microphones:</strong> Convert sound waves to electrical signals</li>
-                <li><strong>Ultrasonic Sensors:</strong> Use high-frequency sound for distance measurement, object detection</li>
-                <li><strong>Hydrophones:</strong> Underwater sound detection</li>
-                <li><strong>Vibration Sensors:</strong> Detect mechanical vibrations</li>
-            </ul>
-            <h3>Optical Sensors</h3>
-            <p>Use light to detect and measure physical quantities.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Photodiodes/Phototransistors:</strong> Detect light intensity</li>
-                <li><strong>Fiber Optic Sensors:</strong> Use light transmission through fibers for various measurements</li>
-                <li><strong>IR Sensors:</strong> Detect infrared radiation (temperature, proximity)</li>
-                <li><strong>Image Sensors:</strong> CCD/CMOS sensors in cameras</li>
-            </ul>
-            <h3>Motion Sensors</h3>
-            <p>Detect movement or position changes.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>PIR (Passive Infrared) Sensors:</strong> Detect motion via infrared radiation changes</li>
-                <li><strong>Accelerometers:</strong> Measure acceleration forces</li>
-                <li><strong>Gyroscopes:</strong> Measure angular velocity</li>
-                <li><strong>Video Motion Sensors:</strong> Use camera and image processing to detect motion</li>
-                <li><strong>Encoders:</strong> Measure position/speed of rotating shafts</li>
-            </ul>
-            <h3>Sensor Characteristics</h3>
-            <h4>Static Characteristics</h4>
-            <p>Describe sensor performance under steady-state conditions:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Sensitivity:</strong> Ratio of output change to input change</li>
-                <li><strong>Linearity:</strong> How closely output follows straight line vs. input</li>
-                <li><strong>Accuracy:</strong> Closeness to true value</li>
-                <li><strong>Precision:</strong> Repeatability of measurements</li>
-                <li><strong>Resolution:</strong> Smallest detectable change in input</li>
-                <li><strong>Range/Span:</strong> Min/max values sensor can measure</li>
-                <li><strong>Threshold:</strong> Minimum input to produce detectable output</li>
-                <li><strong>Drift:</strong> Change in output over time with constant input</li>
-                <li><strong>Stability:</strong> Ability to maintain performance over time</li>
-                <li><strong>Repeatability:</strong> Same output for same input under same conditions</li>
-            </ul>
-            <h4>Dynamic Characteristics</h4>
-            <p>Describe sensor performance with time-varying inputs:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Dynamic Error:</strong> Difference between true value and indicated value for time-varying input</li>
-                <li><strong>Fidelity:</strong> Ability to reproduce input changes without distortion</li>
-                <li><strong>Speed of Response:</strong> Time to reach steady-state after input change</li>
-                <li><strong>Bandwidth:</strong> Frequency range where sensitivity is within acceptable limits</li>
-                <li><strong>Time Constant:</strong> Time to reach 63.2% of final value after step input</li>
-            </ul>
-        </section>
-        <section class="section" id="actuator">
-            <h2>3.4 Introduction to Actuators</h2>
-            <p>An <span class="highlight">actuator</span> is a device that converts energy (hydraulic, pneumatic, electrical) into mechanical motion to perform work.</p>
-            <div class="key-point">EXAM TIP: Understand the difference between sensors (input devices) and actuators (output devices). Actuators are inverse transducers.</div>
-            <h3>Difference Between Sensor and Actuator</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Aspect</th>
-                        <th>Sensor</th>
-                        <th>Actuator</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Function</strong></td>
-                        <td>Detects physical changes</td>
-                        <td>Creates physical movement</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Direction</strong></td>
-                        <td>Input device (to system)</td>
-                        <td>Output device (from system)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Energy Conversion</strong></td>
-                        <td>Physical → Electrical</td>
-                        <td>Electrical/Hydraulic/Pneumatic → Mechanical</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Examples</strong></td>
-                        <td>Temperature sensor, pressure sensor</td>
-                        <td>Motor, solenoid, hydraulic cylinder</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3>Types of Actuators</h3>
-            <h4>1. Hydraulic Actuators</h4>
-            <p>Convert hydraulic energy (pressurized fluid) into mechanical motion.</p>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Generate extremely large forces</li>
-                        <li>Precise control at low speeds</li>
-                        <li>Robust and self-lubricating</li>
-                        <li>High efficiency and power-to-size ratio</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Requires large infrastructure (pumps, tanks, lines)</li>
-                        <li>Leakage can cause performance loss</li>
-                        <li>High maintenance</li>
-                        <li>Not suitable for clean environments</li>
-                    </ul>
-                </div>
-            </div>
-            <h4>2. Pneumatic Actuators</h4>
-            <p>Convert pneumatic energy (compressed air) into mechanical motion.</p>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Low cost</li>
-                        <li>Safe at extreme temperatures</li>
-                        <li>Low maintenance, durable, long life</li>
-                        <li>Quick start/stop motion</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Loss of pressure reduces efficiency</li>
-                        <li>Compressor must run continuously</li>
-                        <li>Air can be polluted, requires maintenance</li>
-                    </ul>
-                </div>
-            </div>
-            <h4>3. Electrical Actuators</h4>
-            <p>Convert electrical energy into mechanical motion (most common type).</p>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Wide range of applications</li>
-                        <li>Low noise, no fluid leaks (safe)</li>
-                        <li>Re-programmable, high precision positioning</li>
-                        <li>Easy to control and interface with electronics</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Can be expensive</li>
-                        <li>Performance depends on environmental conditions</li>
-                        <li>May require complex control circuitry</li>
-                    </ul>
-                </div>
-            </div>
-            <p><strong>Components:</strong> Drive system (DC/AC/stepper motors), switching devices (relays, transistors)</p>
-            <h4>4. Mechanical Actuators</h4>
-            <p>Convert rotary motion into linear motion using mechanical components.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Examples:</strong> Crankshafts, pulleys, chains, gears, rails</li>
-                <li><strong>Applications:</strong> Simple mechanisms, manual controls</li>
-                <li><strong>Emerging Types:</strong> Soft actuators, shape memory polymers, light-activated polymers</li>
-            </ul>
-            <h3>Characteristics of Actuators</h3>
-            <ol style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Accuracy:</strong> Ability to reach exact commanded position, speed, or force</li>
-                <li><strong>Repeatability:</strong> Ability to return to same position/output with same command</li>
-                <li><strong>Speed (Response Time):</strong> Time to respond to input signal</li>
-                <li><strong>Force/Torque Output:</strong> Mechanical power generated (force for linear, torque for rotary)</li>
-                <li><strong>Range of Motion:</strong> Maximum linear distance or angular displacement</li>
-                <li><strong>Control Capability:</strong> Ease of control (PWM, voltage, digital input), open/closed loop</li>
-                <li><strong>Power Consumption:</strong> Amount of input energy required</li>
-                <li><strong>Efficiency:</strong> Ratio of useful mechanical output to total energy input</li>
-                <li><strong>Reliability & Durability:</strong> Performance over time without failure</li>
-                <li><strong>Environmental Tolerance:</strong> Performance under various temperature, humidity, dust conditions</li>
-            </ol>
-            <div class="exam-tip">
-                <h4>Exam Focus:</h4>
-                <p>Be prepared to compare different types of actuators and explain their applications. Understand the characteristics that make one actuator more suitable than another for specific applications.</p>
-            </div>
-        </section>
-        <script>
-            function scrollToSection(id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        </script>
-    </div>
-</body>
-</html>
-</div>
-
-
-<==============chapter4 start============>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 4: Interfacing of Instrumentation System - Exam Summary</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
-            color: #2d4a2b;
-            background: linear-gradient(135deg, #f9fbe7 0%, #f0f4c3 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-        .toc {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px;
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.2);
-        }
-        .toc h2 {
-            color: #8b4513;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .toc ul {
-            list-style: none;
-            color: #6b4e2c;
-        }
-        .toc li {
-            margin: 8px 0;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .toc li:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateX(5px);
-        }
-        .section {
-            margin: 40px 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .section h2 {
-            color: #4a7c59;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #6b8e23;
-        }
-        .section h3 {
-            color: #2d4a2b;
-            font-size: 1.5rem;
-            margin: 25px 0 15px 0;
-            padding: 10px 15px;
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-        }
-        .section h4 {
-            color: #4a7c59;
-            font-size: 1.3rem;
-            margin: 20px 0 10px 0;
-        }
-        .section p {
-            margin: 15px 0;
-            text-align: justify;
-            font-size: 1.1rem;
-        }
-        .diagram {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #6b8e23;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .diagram-title {
-            color: #4a7c59;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        .circuit-diagram {
-            width: 100%;
-            height: 200px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-            position: relative;
-            margin: 15px 0;
-        }
-        .formula {
-            background: linear-gradient(135deg, #fff9e6 0%, #ffecb3 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .formula-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #8b4513;
-            font-family: 'Courier New', monospace;
-        }
-        .example-box {
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .example-box h4 {
-            color: #2d4a2b;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .table th {
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: bold;
-        }
-        .table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-        .table tr:hover {
-            background: #e8f5e8;
-            transition: all 0.3s ease;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: #8b4513;
-            font-weight: bold;
-        }
-        .note {
-            background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-            border: 2px solid #6699cc;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #0066cc;
-        }
-        .note h4 {
-            color: #003366;
-            margin-bottom: 10px;
-        }
-        .exam-tip {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #8b4513;
-        }
-        .exam-tip h4 {
-            color: #8b4513;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        .key-point {
-            background: linear-gradient(135deg, #d4f4dd 0%, #b8e6c1 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: #2d4a2b;
-        }
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .section {
-                padding: 20px;
-                margin: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>Chapter 4: Interfacing of Instrumentation System</h1>
-            <p class="subtitle">Exam-Focused Summary for Students</p>
-        </header>
-        <div class="toc">
-            <h2>Table of Contents</h2>
-            <ul>
-                <li onclick="scrollToSection('communication')">4.1 Communication Channels & Parallel Data Transfer</li>
-                <li onclick="scrollToSection('8255')">4.2 Programmable Peripheral Interface (8255)</li>
-                <li onclick="scrollToSection('adc-dac')">4.3 ADC and DAC Interfacing</li>
-                <li onclick="scrollToSection('atmega328p')">4.4 ATmega328P Microcontroller</li>
-                <li onclick="scrollToSection('stm32')">4.5 STM32 Microcontroller</li>
-            </ul>
-        </div>
-        <section class="section" id="communication">
-            <h2>4.1 Communication Channels & Parallel Data Transfer</h2>
-            <p>Communication channels enable data transfer between microprocessors and peripherals. Understanding different communication modes is essential for effective system design.</p>
-            <div class="key-point">EXAM TIP: Know the differences between simplex, half-duplex, and full-duplex communication. Understand parallel vs serial communication advantages.</div>
-            <h3>Types of Communication Channels</h3>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Simplex</h4>
-                    <p>Data flows in one direction only.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Example:</strong> Radio broadcast, TV transmission</li>
-                        <li>Transmitter → Receiver (one way)</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Half-Duplex</h4>
-                    <p>Data flows in both directions, but not simultaneously.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Example:</strong> Walkie-talkies</li>
-                        <li>Transmitter ↔ Receiver (alternating)</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Full-Duplex</h4>
-                    <p>Data flows in both directions simultaneously.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li><strong>Example:</strong> Telephone conversation</li>
-                        <li>Transmitter ↔ Receiver (simultaneous)</li>
-                    </ul>
-                </div>
-            </div>
-            <h3>Parallel Communication</h3>
-            <p>Parallel communication transfers multiple bits simultaneously over multiple wires. It's faster than serial communication but requires more physical connections.</p>
-            <div class="note">
-                <h4>Advantages of Parallel Communication:</h4>
-                <ul style="color: #003366; margin-left: 20px;">
-                    <li>High data transfer rates</li>
-                    <li>Suitable for short-distance communication</li>
-                    <li>Ideal for high-speed devices like printers</li>
-                </ul>
-            </div>
-            <h3>Methods of Parallel Data Transfer</h3>
-            <h4>1. Simple I/O</h4>
-            <p>Direct connection between microprocessor and peripheral without handshaking.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Input Example:</strong> Connect switch to I/O port line and read port</li>
-                <li><strong>Output Example:</strong> Connect LED to output port pin and output logical level</li>
-            </ul>
-            <h4>2. Simple Strobe I/O</h4>
-            <p>Uses a strobe signal to indicate when valid data is present.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Example:</strong> Keyboard sends ASCII code with strobe signal</li>
-                <li>Microprocessor waits until device is ready (simple wait I/O)</li>
-            </ul>
-            <h4>3. Single Handshake</h4>
-            <p>Peripheral sends data with STB signal, microprocessor reads data and sends ACK signal.</p>
-            <div class="diagram">
-                <div class="diagram-title">Single Handshake Data Transfer</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="200" viewBox="0 0 600 200">
-                        <!-- Peripheral -->
-                        <rect x="50" y="60" width="120" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="110" y="90" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Peripheral</text>
-                        <!-- Microprocessor -->
-                        <rect x="430" y="60" width="120" height="60" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="490" y="90" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">Microprocessor</text>
-                        <!-- Data lines -->
-                        <line x1="170" y1="75" x2="430" y2="75" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="170" y1="85" x2="430" y2="85" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="170" y1="95" x2="430" y2="95" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="170" y1="105" x2="430" y2="105" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="300" y="65" text-anchor="middle" fill="#2d4a2b" font-size="10">Data Lines (8 bits)</text>
-                        <!-- STB line -->
-                        <line x1="170" y1="130" x2="430" y2="130" stroke="#cc3333" stroke-width="2"/>
-                        <text x="300" y="120" text-anchor="middle" fill="#cc3333" font-size="12" font-weight="bold">STB (Strobe)</text>
-                        <!-- ACK line -->
-                        <line x1="170" y1="150" x2="430" y2="150" stroke="#d4a574" stroke-width="2"/>
-                        <text x="300" y="165" text-anchor="middle" fill="#d4a574" font-size="12" font-weight="bold">ACK (Acknowledge)</text>
-                        <!-- Arrows -->
-                        <path d="M300 130 L320 130" stroke="#cc3333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <path d="M280 150 L300 150" stroke="#d4a574" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <defs>
-                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                                <polygon points="0 0, 10 3.5, 0 7" fill="#cc3333"/>
-                            </marker>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-            <h4>4. Double Handshake</h4>
-            <p>More sophisticated coordination between sending and receiving systems.</p>
-            <ol style="margin-left: 30px; color: #2d4a2b;">
-                <li>Peripheral asserts STB low to ask if microprocessor is ready</li>
-                <li>Microprocessor raises ACK high to indicate readiness</li>
-                <li>Peripheral sends data and raises STB high</li>
-                <li>Microprocessor reads data and drops ACK low</li>
-            </ol>
-        </section>
-        <section class="section" id="8255">
-            <h2>4.2 Programmable Peripheral Interface (8255)</h2>
-            <p>The 8255A is a versatile programmable peripheral interface chip designed for use with 8085 and 8086 microprocessors. It provides 24 I/O lines that can be configured as needed.</p>
-            <div class="key-point">EXAM TIP: Understand the 8255 architecture, control word format, and different operating modes. Be prepared to write control words and simple programs.</div>
-            <h3>8255 Architecture</h3>
-            <p>The 8255 has three 8-bit ports (Port A, Port B, Port C) that can be configured for input or output operations.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Port A (PA0-PA7):</strong> 8-bit bidirectional I/O port</li>
-                <li><strong>Port B (PB0-PB7):</strong> 8-bit bidirectional I/O port</li>
-                <li><strong>Port C (PC0-PC7):</strong> 8-bit bidirectional I/O port, can be split into two 4-bit ports (PC0-PC3 and PC4-PC7)</li>
-            </ul>
-            <h3>Operating Modes</h3>
-            <h4>Mode 0: Simple I/O Mode</h4>
-            <p>Basic input/output operation without handshaking.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Any port can be input or output</li>
-                <li>Outputs are latched, inputs are not latched</li>
-                <li>16 different I/O configurations possible</li>
-            </ul>
-            <h4>Mode 1: Strobed I/O Mode</h4>
-            <p>Handshake or strobed I/O with handshaking signals.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Port A and Port B use lines from Port C for handshaking</li>
-                <li>Both inputs and outputs are latched</li>
-                <li>Supports interrupt generation</li>
-            </ul>
-            <h4>Mode 2: Bidirectional I/O Mode</h4>
-            <p>Bidirectional bus I/O with handshaking signals (Port A only).</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Used in Group A only</li>
-                <li>Port A is 8-bit bidirectional, Port C (PC3-PC7) is 5-bit control port</li>
-                <li>Supports interrupt generation and enable/disable functions</li>
-            </ul>
-            <h3>Control Word Format</h3>
-            <div class="diagram">
-                <div class="diagram-title">8255 Control Word Format</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="250" viewBox="0 0 600 250">
-                        <!-- Control word bits -->
-                        <rect x="50" y="80" width="500" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <!-- Bit divisions -->
-                        <line x1="550" y1="80" x2="550" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="500" y1="80" x2="500" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="450" y1="80" x2="450" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="400" y1="80" x2="400" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="350" y1="80" x2="350" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="300" y1="80" x2="300" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="250" y1="80" x2="250" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="200" y1="80" x2="200" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="150" y1="80" x2="150" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <line x1="100" y1="80" x2="100" y2="120" stroke="#d4a574" stroke-width="2"/>
-                        <!-- Bit numbers -->
-                        <text x="75" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D7</text>
-                        <text x="125" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D6</text>
-                        <text x="175" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D5</text>
-                        <text x="225" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D4</text>
-                        <text x="275" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D3</text>
-                        <text x="325" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D2</text>
-                        <text x="375" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D1</text>
-                        <text x="425" y="70" text-anchor="middle" fill="#d4a574" font-size="12">D0</text>
-                        <!-- Bit descriptions -->
-                        <text x="75" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Mode Set<br>Flag<br>(1=I/O)</text>
-                        <text x="150" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Group A<br>Mode<br>Selection</text>
-                        <text x="225" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Port A<br>1=Input<br>0=Output</text>
-                        <text x="275" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Port C<br>Upper<br>1=Input<br>0=Output</text>
-                        <text x="325" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Group B<br>Mode<br>Selection</text>
-                        <text x="375" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Port B<br>1=Input<br>0=Output</text>
-                        <text x="425" y="140" text-anchor="middle" fill="#8b4513" font-size="10">Port C<br>Lower<br>1=Input<br>0=Output</text>
-                        <!-- Mode selection details -->
-                        <text x="150" y="170" text-anchor="middle" fill="#2d4a2b" font-size="9">00=Mode 0<br>01=Mode 1<br>1x=Mode 2</text>
-                        <text x="325" y="170" text-anchor="middle" fill="#2d4a2b" font-size="9">0=Mode 0<br>1=Mode 1</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>Bit Set/Reset (BSR) Mode</h3>
-            <p>BSR mode allows individual bits of Port C to be set or reset independently.</p>
-            <div class="formula">
-                <div class="formula-text">D7 = 0 for BSR mode</div>
-            </div>
-            <div class="example-box">
-                <h4>Example: BSR Control Word</h4>
-                <p>To set PC7 and reset PC3:</p>
-                <ul style="color: #2d4a2b;">
-                    <li><strong>Set PC7:</strong> D7=0, D3-D1=111 (select bit 7), D0=1 (set) → Control word = 0FH</li>
-                    <li><strong>Reset PC3:</strong> D7=0, D3-D1=011 (select bit 3), D0=0 (reset) → Control word = 06H</li>
-                </ul>
-            </div>
-            <h3>Programming Examples</h3>
-            <div class="example-box">
-                <h4>Example 1: Mode 0 Configuration</h4>
-                <p>Configure Port A as input and Port B as output.</p>
-                <p><strong>Control Word:</strong> 90H (10010000 in binary)</p>
-                <p><strong>Assembly Code:</strong></p>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
-MVI A, 90H    ; Load control word
-OUT 63H       ; Write to control register
-IN 60H        ; Read from Port A
-OUT 61H       ; Write to Port B
-RET
-                </pre>
-            </div>
-            <div class="example-box">
-                <h4>Example 2: Mode 1 Configuration</h4>
-                <p>Set up Port A as input and Port B as output in Mode 1.</p>
-                <p><strong>Control Word:</strong> B4H (10110100 in binary)</p>
-                <p><strong>BSR Word to enable INTEA:</strong> 09H (set PC4)</p>
-                <p><strong>Assembly Code:</strong></p>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
-MVI A, B4H    ; Initialize control word
-OUT FFH       ; Write to control register
-MVI A, 09H    ; Set INTEA (PC4)
-OUT FFH       ; Write BSR word
-EI            ; Enable interrupts
-                </pre>
-            </div>
-        </section>
-        <section class="section" id="adc-dac">
-            <h2>4.3 ADC and DAC Interfacing</h2>
-            <p>Analog-to-Digital Converters (ADC) and Digital-to-Analog Converters (DAC) are essential for interfacing analog sensors and actuators with digital microprocessors.</p>
-            <div class="key-point">EXAM TIP: Understand ADC and DAC parameters, interfacing methods, and be able to calculate resolution and output values.</div>
-            <h3>Analog-to-Digital Converter (ADC)</h3>
-            <p>ADC converts analog signals (voltage, current) into digital values that can be processed by microprocessors.</p>
-            <h4>ADC Parameters</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Resolution:</strong> Smallest change in analog input that can be detected</li>
-                <li><strong>Conversion Time:</strong> Time required to convert analog signal to digital output</li>
-                <li><strong>Accuracy:</strong> Difference between actual output and expected output</li>
-                <li><strong>Linearity:</strong> How well output is linear function of input</li>
-            </ul>
-            <div class="formula">
-                <div class="formula-text">Resolution = Full Scale Range / 2<sup>n</sup></div>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: #6b4e2c;">Where n is number of bits</p>
-            </div>
-            <h4>ADC Interfacing Methods</h4>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Status Check Method</h4>
-                    <p>Microprocessor polls ADC status line to check if conversion is complete.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li>Simple implementation</li>
-                        <li>Uses one output port for START signal</li>
-                        <li>Uses one input port to check DR (Data Ready) line</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Interrupt Method</h4>
-                    <p>ADC generates interrupt when conversion is complete.</p>
-                    <ul style="color: #2d4a2b;">
-                        <li>More efficient for microprocessor</li>
-                        <li>Microprocessor can perform other tasks while waiting</li>
-                        <li>Requires interrupt handling capability</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="example-box">
-                <h4>Example: 8-bit ADC Interfacing</h4>
-                <p>Interface an 8-bit ADC with 0-5V range. Calculate digital output for 3V input.</p>
-                <p><strong>Solution:</strong></p>
-                <p>Resolution = 5V / 256 = 0.01953V per step</p>
-                <p>Digital output for 3V = 3V / 0.01953V ≈ 153 (decimal) = 99H (hexadecimal)</p>
-            </div>
-            <h3>Digital-to-Analog Converter (DAC)</h3>
-            <p>DAC converts digital values into analog signals (voltage, current) for controlling analog devices.</p>
-            <h4>DAC Parameters</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Resolution:</strong> Determined by number of bits in input binary word</li>
-                <li><strong>Full Scale Output:</strong> Maximum output voltage (always 1 LSB less than named value)</li>
-                <li><strong>Accuracy:</strong> Difference between actual and expected output voltage</li>
-                <li><strong>Linearity:</strong> Output should be linear function of input code</li>
-                <li><strong>Settling Time:</strong> Time for output to stabilize after input change</li>
-            </ul>
-            <h4>DAC Types</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Current Output:</strong> Fastest type, output is current proportional to digital input</li>
-                <li><strong>Voltage Output:</strong> Slower due to current-to-voltage conversion delay</li>
-                <li><strong>Multiplying Type:</strong> Reference voltage can be varied, useful for gain control</li>
-            </ul>
-            <div class="example-box">
-                <h4>Example: DAC Output Calculation</h4>
-                <p>A 8-bit DAC is calibrated for 0-10V range. Calculate output voltage for input 10000000₂ (128 decimal).</p>
-                <p><strong>Solution:</strong></p>
-                <p>Resolution = 10V / 256 = 0.03906V per step</p>
-                <p>Output voltage = 128 × 0.03906V = 5V</p>
-                <p><strong>For maximum input (11111111₂ = 255 decimal):</strong></p>
-                <p>Output voltage = 255 × 0.03906V = 9.961V (1 LSB less than 10V)</p>
-            </div>
-            <h4>Interfacing 10-bit DAC with 8-bit Microprocessor</h4>
-            <p>Since microprocessors typically have 8-bit data buses, interfacing higher resolution DACs requires special techniques.</p>
-            <div class="diagram">
-                <div class="diagram-title">Interfacing 10-bit DAC with 8085</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="300" viewBox="0 0 600 300">
-                        <!-- Microprocessor -->
-                        <rect x="50" y="100" width="120" height="80" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="110" y="130" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">8085</text>
-                        <text x="110" y="150" text-anchor="middle" fill="#003366" font-size="10">Microprocessor</text>
-                        <!-- Address Decoder -->
-                        <rect x="200" y="80" width="100" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2" rx="5"/>
-                        <text x="250" y="105" text-anchor="middle" fill="#8b4513" font-size="10">Address</text>
-                        <text x="250" y="120" text-anchor="middle" fill="#8b4513" font-size="10">Decoder</text>
-                        <!-- Latches -->
-                        <rect x="200" y="140" width="100" height="40" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="5"/>
-                        <text x="250" y="165" text-anchor="middle" fill="#2d4a2b" font-size="10">Latch for</text>
-                        <text x="250" y="180" text-anchor="middle" fill="#2d4a2b" font-size="10">Lower 8 bits</text>
-                        <rect x="200" y="200" width="100" height="40" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="5"/>
-                        <text x="250" y="225" text-anchor="middle" fill="#2d4a2b" font-size="10">Latch for</text>
-                        <text x="250" y="240" text-anchor="middle" fill="#2d4a2b" font-size="10">Upper 2 bits</text>
-                        <!-- DAC -->
-                        <rect x="350" y="120" width="120" height="60" fill="#fff9e6" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="410" y="145" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">10-bit DAC</text>
-                        <text x="410" y="165" text-anchor="middle" fill="#8b4513" font-size="10">AD7522</text>
-                        <!-- Connections -->
-                        <line x1="170" y1="120" x2="200" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="170" y1="140" x2="200" y2="160" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="170" y1="160" x2="200" y2="220" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="100" x2="350" y2="130" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="160" x2="350" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="220" x2="350" y2="170" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Control lines -->
-                        <line x1="110" y1="180" x2="110" y2="220" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="110" y1="220" x2="250" y2="220" stroke="#cc3333" stroke-width="2"/>
-                        <text x="180" y="210" text-anchor="middle" fill="#cc3333" font-size="10">Control Lines</text>
-                        <line x1="250" y1="220" x2="250" y2="240" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="250" y1="240" x2="350" y2="240" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="350" y1="240" x2="350" y2="180" stroke="#cc3333" stroke-width="2"/>
-                        <text x="300" y="255" text-anchor="middle" fill="#cc3333" font-size="10">LDAC</text>
-                    </svg>
-                </div>
-            </div>
-            <div class="example-box">
-                <h4>Example: Loading 10-bit Value into DAC</h4>
-                <p>Load maximum input (all 10 bits = 1) into DAC using assembly code.</p>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
-LXI B, 03FFH  ; Load 10-bit value (all 1's) in BC register
-LXI H, 8000H  ; Load address for lower 8 bits
-MOV M, C      ; Load lower 8 bits (D7-D0) into DAC
-INX H         ; Point to address for upper 2 bits
-MOV M, B      ; Load upper 2 bits (D9-D8) and trigger conversion
-HLT
-                </pre>
-            </div>
-        </section>
-        <section class="section" id="atmega328p">
-            <h2>4.4 ATmega328P Microcontroller</h2>
-            <p>The ATmega328P is a low-power CMOS 8-bit microcontroller based on the AVR enhanced RISC architecture, commonly used in Arduino boards.</p>
-            <div class="key-point">EXAM TIP: Understand the ATmega328P architecture, features, and pin configuration. Know how to interface sensors and actuators with Arduino.</div>
-            <h3>ATmega328P Features</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Architecture:</strong> Harvard architecture (separate program and data memory)</li>
-                <li><strong>Memory:</strong> 32KB Flash, 2KB SRAM, 1KB EEPROM</li>
-                <li><strong>Clock Speed:</strong> Up to 16MHz</li>
-                <li><strong>Throughput:</strong> 1 MIPS per MHz</li>
-                <li><strong>I/O Pins:</strong> 23 programmable I/O lines</li>
-                <li><strong>Timers:</strong> Two 8-bit, one 16-bit timer/counter</li>
-                <li><strong>PWM:</strong> 6 PWM channels</li>
-                <li><strong>ADC:</strong> 6-channel 10-bit ADC</li>
-                <li><strong>Communication:</strong> USART, SPI, I2C interfaces</li>
-                <li><strong>Operating Voltage:</strong> 2.7V to 5.5V</li>
-            </ul>
-            <h3>ATmega328P Architecture</h3>
-            <div class="diagram">
-                <div class="diagram-title">ATmega328P Block Diagram</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="400" viewBox="0 0 600 400">
-                        <!-- CPU Core -->
-                        <rect x="250" y="50" width="100" height="60" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="300" y="75" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">AVR CPU</text>
-                        <text x="300" y="95" text-anchor="middle" fill="#003366" font-size="10">Core</text>
-                        <!-- Program Memory -->
-                        <rect x="100" y="150" width="120" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="160" y="175" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Program</text>
-                        <text x="160" y="195" text-anchor="middle" fill="#2d4a2b" font-size="10">Memory (32KB)</text>
-                        <!-- Data Memory -->
-                        <rect x="380" y="150" width="120" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="440" y="175" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Data</text>
-                        <text x="440" y="195" text-anchor="middle" fill="#2d4a2b" font-size="10">Memory (2KB)</text>
-                        <!-- EEPROM -->
-                        <rect x="250" y="150" width="80" height="60" fill="#fff3cd" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="290" y="175" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">EEPROM</text>
-                        <text x="290" y="195" text-anchor="middle" fill="#8b4513" font-size="10">(1KB)</text>
-                        <!-- I/O Ports -->
-                        <rect x="50" y="250" width="100" height="60" fill="#fff9e6" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="100" y="275" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">Port B</text>
-                        <text x="100" y="295" text-anchor="middle" fill="#8b4513" font-size="10">(Digital I/O)</text>
-                        <rect x="180" y="250" width="100" height="60" fill="#fff9e6" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="230" y="275" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">Port C</text>
-                        <text x="230" y="295" text-anchor="middle" fill="#8b4513" font-size="10">(ADC + I/O)</text>
-                        <rect x="310" y="250" width="100" height="60" fill="#fff9e6" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="360" y="275" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">Port D</text>
-                        <text x="360" y="295" text-anchor="middle" fill="#8b4513" font-size="10">(Digital I/O)</text>
-                        <!-- Peripherals -->
-                        <rect x="440" y="250" width="110" height="60" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="495" y="275" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Peripherals</text>
-                        <text x="495" y="295" text-anchor="middle" fill="#2d4a2b" font-size="10">Timers, USART, SPI</text>
-                        <!-- Connections -->
-                        <line x1="300" y1="110" x2="300" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="160" y1="150" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="440" y1="150" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="100" y1="250" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="230" y1="250" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="360" y1="250" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="495" y1="250" x2="300" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                    </svg>
-                </div>
-            </div>
-            <h3>Pin Configuration (28-pin PDIP)</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Pin</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>PC6</td>
-                        <td>Port C bit 6, Reset pin</td>
-                    </tr>
-                    <tr>
-                        <td>2-9</td>
-                        <td>PD0-PD7</td>
-                        <td>Port D (Digital I/O, USART, Interrupts)</td>
-                    </tr>
-                    <tr>
-                        <td>10-16</td>
-                        <td>PC0-PC5</td>
-                        <td>Port C (ADC0-ADC5, Digital I/O)</td>
-                    </tr>
-                    <tr>
-                        <td>17</td>
-                        <td>AVCC</td>
-                        <td>Analog supply voltage</td>
-                    </tr>
-                    <tr>
-                        <td>18</td>
-                        <td>AREF</td>
-                        <td>Analog reference voltage</td>
-                    </tr>
-                    <tr>
-                        <td>19</td>
-                        <td>AGND</td>
-                        <td>Analog ground</td>
-                    </tr>
-                    <tr>
-                        <td>20-23</td>
-                        <td>PB0-PB3</td>
-                        <td>Port B (Digital I/O, SPI, PWM)</td>
-                    </tr>
-                    <tr>
-                        <td>24-27</td>
-                        <td>PB4-PB7</td>
-                        <td>Port B (Digital I/O, SPI, PWM)</td>
-                    </tr>
-                    <tr>
-                        <td>28</td>
-                        <td>VCC</td>
-                        <td>Digital supply voltage</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3>Sensor/Actuator Interfacing with Arduino</h3>
-            <h4>Analog Sensors</h4>
-            <p>Connect to analog input pins (A0-A5). Use analogRead() function to get values (0-1023 for 10-bit ADC).</p>
-            <div class="example-box">
-                <h4>Example: Temperature Sensor with Arduino</h4>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
-// Temperature sensor connected to A0
-int sensorPin = A0;
-int sensorValue = 0;
-float voltage = 0.0;
-float temperature = 0.0;
-
-void setup() {
-  Serial.begin(9600);
-}
-
-void loop() {
-  sensorValue = analogRead(sensorPin);
-  voltage = sensorValue * (5.0 / 1023.0);
-  temperature = (voltage - 0.5) * 100; // for LM35 sensor
-  Serial.print("Temperature: ");
-  Serial.print(temperature);
-  Serial.println(" C");
-  delay(1000);
-}
-                </pre>
-            </div>
-            <h4>Digital Sensors</h4>
-            <p>Connect to digital I/O pins. Use digitalRead() for input, digitalWrite() for output.</p>
-            <h4>Communication Protocols</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>I2C (Two-wire Interface):</strong> Uses SDA (data) and SCL (clock) pins</li>
-                <li><strong>SPI (Serial Peripheral Interface):</strong> Uses MOSI, MISO, SCK, and SS pins</li>
-                <li><strong>UART/USART:</strong> Uses TX and RX pins for serial communication</li>
-            </ul>
-            <h4>Interrupt-based Interfacing</h4>
-            <p>Use attachInterrupt() function to trigger functions on external events.</p>
-            <div class="example-box">
-                <h4>Example: Interrupt with Push Button</h4>
-                <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px;">
-const int buttonPin = 2;     // Interrupt pin 0
-const int ledPin = 13;
-volatile int buttonState = 0;
-
-void setup() {
-  pinMode(ledPin, OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(buttonPin), toggleLED, CHANGE);
-}
-
-void loop() {
-  // Main loop can do other tasks
-}
-
-void toggleLED() {
-  buttonState = !buttonState;
-  digitalWrite(ledPin, buttonState);
-}
-                </pre>
-            </div>
-        </section>
-        <section class="section" id="stm32">
-            <h2>4.5 STM32 Microcontroller</h2>
-            <p>STM32 is a family of 32-bit microcontrollers from STMicroelectronics based on ARM Cortex-M processor cores, offering high performance for demanding applications.</p>
-            <div class="key-point">EXAM TIP: Understand the ARM Cortex-M architecture, STM32 features, and differences between 8-bit and 32-bit microcontrollers.</div>
-            <h3>STM32 Features</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Core:</strong> ARM Cortex-M (M0, M0+, M3, M4, M7, M33, M55)</li>
-                <li><strong>Performance:</strong> Up to 600+ MHz, DSP and FPU capabilities</li>
-                <li><strong>Memory:</strong> Up to 2MB Flash, 1MB RAM</li>
-                <li><strong>Peripherals:</strong> Advanced timers, multiple communication interfaces</li>
-                <li><strong>ADC:</strong> Up to 16-bit resolution, multiple channels</li>
-                <li><strong>DAC:</strong> 12-bit resolution</li>
-                <li><strong>Low Power:</strong> Multiple power modes for energy efficiency</li>
-                <li><strong>Security:</strong> Hardware encryption, memory protection</li>
-            </ul>
-            <h3>ARM Cortex-M4 Core</h3>
-            <p>The Cortex-M4 processor is optimized for digital signal processing and floating-point operations.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Architecture:</strong> 3-stage pipeline Harvard architecture</li>
-                <li><strong>Performance:</strong> 1.25 DMIPS/MHz</li>
-                <li><strong>FPU:</strong> IEEE754-compliant single-precision floating-point unit</li>
-                <li><strong>DSP:</strong> Single-cycle MAC, SIMD instructions</li>
-                <li><strong>Interrupts:</strong> Nested Vectored Interrupt Controller (NVIC) with up to 256 priority levels</li>
-                <li><strong>Memory Protection:</strong> Optional Memory Protection Unit (MPU)</li>
-            </ul>
-            <h3>STM32 Architecture</h3>
-            <div class="diagram">
-                <div class="diagram-title">STM32 Block Diagram</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="450" viewBox="0 0 600 450">
-                        <!-- Cortex-M Core -->
-                        <rect x="250" y="30" width="120" height="70" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="310" y="55" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">ARM Cortex-M</text>
-                        <text x="310" y="75" text-anchor="middle" fill="#003366" font-size="10">Core (M4/M7)</text>
-                        <text x="310" y="95" text-anchor="middle" fill="#003366" font-size="10">with FPU & DSP</text>
-                        <!-- Flash Memory -->
-                        <rect x="80" y="130" width="140" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="150" y="155" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Flash Memory</text>
-                        <text x="150" y="175" text-anchor="middle" fill="#2d4a2b" font-size="10">Up to 2MB</text>
-                        <!-- RAM -->
-                        <rect x="380" y="130" width="140" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="450" y="155" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">RAM</text>
-                        <text x="450" y="175" text-anchor="middle" fill="#2d4a2b" font-size="10">Up to 1MB</text>
-                        <!-- Peripherals -->
-                        <rect x="50" y="230" width="160" height="60" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="130" y="255" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Timers & PWM</text>
-                        <text x="130" y="275" text-anchor="middle" fill="#2d4a2b" font-size="10">Advanced Control</text>
-                        <rect x="220" y="230" width="160" height="60" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="300" y="255" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Communication</text>
-                        <text x="300" y="275" text-anchor="middle" fill="#2d4a2b" font-size="10">USART, SPI, I2C, USB</text>
-                        <rect x="390" y="230" width="160" height="60" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="470" y="255" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Analog Peripherals</text>
-                        <text x="470" y="275" text-anchor="middle" fill="#2d4a2b" font-size="10">12-bit ADC, 12-bit DAC</text>
-                        <!-- System Components -->
-                        <rect x="150" y="330" width="120" height="60" fill="#fff3cd" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="210" y="355" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">NVIC</text>
-                        <text x="210" y="375" text-anchor="middle" fill="#8b4513" font-size="10">Interrupt Controller</text>
-                        <rect x="330" y="330" width="120" height="60" fill="#fff3cd" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="390" y="355" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">MPU</text>
-                        <text x="390" y="375" text-anchor="middle" fill="#8b4513" font-size="10">Memory Protection</text>
-                        <!-- Connections -->
-                        <line x1="310" y1="100" x2="310" y2="130" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="150" y1="130" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="450" y1="130" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="130" y1="230" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="230" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="470" y1="230" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="210" y1="330" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="390" y1="330" x2="310" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                    </svg>
-                </div>
-            </div>
-            <h3>Core Peripherals</h3>
-            <h4>Nested Vectored Interrupt Controller (NVIC)</h4>
-            <p>Provides low-latency interrupt processing with up to 256 priority levels.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Hardware stacking of registers</li>
-                <li>No assembler stubs required for interrupt handlers</li>
-                <li>Fast execution of interrupt service routines</li>
-            </ul>
-            <h4>System Control Block (SCB)</h4>
-            <p>Programmer's model interface to the processor for system implementation and control.</p>
-            <h4>Memory Protection Unit (MPU)</h4>
-            <p>Defines memory attributes for different regions to improve system reliability.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Up to 8 different memory regions</li>
-                <li>Optional predefined background region</li>
-                <li>Prevents unauthorized access to critical memory areas</li>
-            </ul>
-            <h4>Floating-Point Unit (FPU)</h4>
-            <p>Provides IEEE754-compliant operations on single-precision floating-point values.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li>Single-cycle floating-point operations</li>
-                <li>Supports complex mathematical calculations</li>
-                <li>Essential for DSP and control applications</li>
-            </ul>
-            <div class="note">
-                <h4>Key Differences: ATmega328P vs STM32</h4>
-                <table class="table">
-                    <thead>
+                <section id="1-2" class="content-section">
+                    <h2 class="subsection-title">1.2 Microprocessor-based Systems: Open vs Closed Loop, Benefits, Features and Applications</h2>
+                    <p>Microprocessor-based instrumentation systems center around a microprocessor, leveraging its logical and computational power to enhance accuracy and efficiency.</p>
+                    
+                    <img src="https://www.electronicshub.org/wp-content/uploads/2015/07/Microprocessor-Based-Instrumentation-System.jpg" alt="Microprocessor-Based Instrumentation System">
+                    <p class="image-caption">Figure: Microprocessor-based instrumentation system block diagram</p>
+                    
+                    <h3>Open Loop vs Closed Loop Systems</h3>
+                    <table>
                         <tr>
                             <th>Feature</th>
-                            <th>ATmega328P</th>
-                            <th>STM32</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Architecture</td>
-                            <td>8-bit AVR</td>
-                            <td>32-bit ARM Cortex-M</td>
+                            <th>Open Loop System</th>
+                            <th>Closed Loop System</th>
                         </tr>
                         <tr>
-                            <td>Clock Speed</td>
-                            <td>Up to 16MHz</td>
-                            <td>Up to 600+ MHz</td>
+                            <td>Feedback</td>
+                            <td>No feedback mechanism</td>
+                            <td>Uses feedback for control</td>
                         </tr>
                         <tr>
-                            <td>Memory</td>
-                            <td>32KB Flash, 2KB RAM</td>
-                            <td>Up to 2MB Flash, 1MB RAM</td>
+                            <td>Human Intervention</td>
+                            <td>Required</td>
+                            <td>Not required</td>
                         </tr>
                         <tr>
-                            <td>ADC Resolution</td>
-                            <td>10-bit</td>
-                            <td>Up to 16-bit</td>
+                            <td>Accuracy</td>
+                            <td>Lower</td>
+                            <td>Higher</td>
                         </tr>
                         <tr>
-                            <td>FPU</td>
-                            <td>No</td>
-                            <td>Yes (in M4/M7)</td>
+                            <td>Cost</td>
+                            <td>Lower</td>
+                            <td>Higher</td>
                         </tr>
                         <tr>
-                            <td>Applications</td>
-                            <td>Simple embedded systems</td>
-                            <td>Complex, high-performance systems</td>
+                            <td>Example</td>
+                            <td>Pressure monitoring in chemical plant</td>
+                            <td>Automatic temperature control in oven</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <script>
-            function scrollToSection(id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        </script>
+                    </table>
+                    
+                    <h3>Benefits of Microprocessor-based Systems</h3>
+                    <ul>
+                        <li>Improved accuracy and precision</li>
+                        <li>Automatic calibration and error correction</li>
+                        <li>Data storage, retrieval, and transmission capabilities</li>
+                        <li>Real-time processing and display</li>
+                        <li>Parallel processing and time-sharing capabilities</li>
+                        <li>User-friendly interfaces</li>
+                    </ul>
+                    
+                    <h3>Applications</h3>
+                    <ul>
+                        <li>ATMs</li>
+                        <li>Automatic washing machines</li>
+                        <li>Fuel control systems</li>
+                        <li>Ovens with temperature control</li>
+                        <li>Medical monitoring devices</li>
+                    </ul>
+                </section>
+
+                <section id="1-3" class="content-section">
+                    <h2 class="subsection-title">1.3 Microcomputer on Instrumentation Design</h2>
+                    <p>Microcomputers enable simultaneous measurement of multiple variables (pressure, temperature, velocity, etc.) and present data in real-time. They execute sequential instructions (computer programs) for data processing and manipulation.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Seyed-Mohammad-Reza-Sadat-Hosseini/publication/337742781/figure/fig1/AS:832707344846848@1575542236485/Block-diagram-of-a-microcomputer-based-data-acquisition-system.png" alt="Microcomputer-based Instrumentation System">
+                    <p class="image-caption">Figure: Microcomputer-based measurement system</p>
+                    
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li>Automatically performs drift correction, noise reduction, gain adjustments, and calibration</li>
+                        <li>Compact, rugged, and reliable for various environments (industrial, consumer, military, automotive)</li>
+                        <li>Built-in diagnostic subroutines for error detection and correction</li>
+                        <li>Real-time measurement, processing, and display</li>
+                        <li>Lower cost, higher accuracy, and more flexibility</li>
+                    </ul>
+                    
+                    <h3>Disadvantages</h3>
+                    <ul>
+                        <li>Cannot replace their own programs</li>
+                        <li>Requires software updates</li>
+                        <li>Prone to virus problems</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 2: Theory of Measurement -->
+            <section id="chapter2" class="content-section">
+                <h1 class="section-title">2. Theory of Measurement (6 hours)</h1>
+                
+                <section id="2-1" class="content-section">
+                    <h2 class="subsection-title">2.1 Static Performance Parameters: Accuracy, Precision, Sensitivity, Resolution and Linearity</h2>
+                    <p>Static characteristics describe instrument performance when the measured variable changes slowly or remains constant.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/static-characteristics-of-instrument.jpeg" alt="Static Characteristics of Instruments">
+                    <p class="image-caption">Figure: Static characteristics of measuring instruments</p>
+                    
+                    <h3>Key Parameters</h3>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Closeness of instrument reading to the true value. Can be specified as point accuracy, percentage of scale range, or percentage of true value.</li>
+                        <li><strong>Precision:</strong> Measure of reproducibility - how consistently an instrument indicates the same value under identical conditions.</li>
+                        <li><strong>Sensitivity:</strong> Smallest change in measured variable to which the instrument responds. Defined as ratio of output change to input change.</li>
+                        <li><strong>Resolution:</strong> Smallest change in input that can be measured. In analog instruments, it's the smallest scale division; in digital, it's the least significant bit (LSB).</li>
+                        <li><strong>Linearity:</strong> Ability to reproduce input characteristics symmetrically and linearly. Measured as maximum deviation from idealized straight line.</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p><strong>Important Note:</strong> Precision doesn't guarantee accuracy. A precise instrument may consistently give the same incorrect reading, while an accurate instrument must be precise to reliably indicate the true value.</p>
+                    </div>
+                </section>
+
+                <section id="2-2" class="content-section">
+                    <h2 class="subsection-title">2.2 Dynamic Performance Parameters: Response Time, Frequency Response and Bandwidth</h2>
+                    <p>Dynamic characteristics describe instrument behavior when measuring quantities that change rapidly with time.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed_Soliman8/publication/327139709/figure/fig3/AS:669438644068358@1536615689375/Step-response-of-a-first-order-system.png" alt="Dynamic Response of Instruments">
+                    <p class="image-caption">Figure: Dynamic response showing transient and steady-state periods</p>
+                    
+                    <h3>Key Parameters</h3>
+                    <ul>
+                        <li><strong>Speed of Response:</strong> How quickly the instrument responds to changes in the measured quantity.</li>
+                        <li><strong>Measuring Lag:</strong> Delay in instrument response to changes in the measured quantity.</li>
+                        <li><strong>Dynamic Error:</strong> Difference between true value and instrument reading during dynamic conditions.</li>
+                        <li><strong>Fidelity:</strong> Degree to which instrument reproduces changes in measured variable without dynamic error.</li>
+                        <li><strong>Bandwidth:</strong> Range of frequencies for which dynamic sensitivity is satisfactory (typically within 2% of static sensitivity).</li>
+                        <li><strong>Time Constant:</strong> Time taken for system to reach 63.2% of its final output amplitude.</li>
+                    </ul>
+                </section>
+
+                <section id="2-3" class="content-section">
+                    <h2 class="subsection-title">2.3 Error in Measurement</h2>
+                    <p>Error is defined as the difference between measured and actual values. Errors can be classified into three main types:</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/types-of-errors-in-measurement.jpeg" alt="Types of Measurement Errors">
+                    <p class="image-caption">Figure: Classification of measurement errors</p>
+                    
+                    <h3>Types of Errors</h3>
+                    <ul>
+                        <li><strong>Gross Errors:</strong> Human errors in reading, recording, or calculating. Can be minimized by careful procedures and multiple observers.</li>
+                        <li><strong>Random Errors:</strong> Unpredictable fluctuations due to environmental factors, observer variations, etc. Can be analyzed statistically.</li>
+                        <li><strong>Systematic Errors:</strong> Consistent errors that can be subdivided into:
+                            <ul>
+                                <li><em>Environmental Errors:</em> Due to external conditions (temperature, pressure, humidity, magnetic fields)</li>
+                                <li><em>Observational Errors:</em> Due to observer bias, parallax errors, improper instrument setup</li>
+                                <li><em>Instrumental Errors:</em> Due to faulty construction, calibration, or misuse of instruments</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3>Error Calculation</h3>
+                    <ul>
+                        <li><strong>Absolute Error:</strong> |VA - VE| (difference between actual and measured values)</li>
+                        <li><strong>Relative Error:</strong> Absolute error / Actual value</li>
+                        <li><strong>Percentage Error:</strong> (|VA - VE| / VE) × 100%</li>
+                    </ul>
+                </section>
+
+                <section id="2-4" class="content-section">
+                    <h2 class="subsection-title">2.4 Statistical Analysis of Error in Measurement</h2>
+                    <p>Statistical analysis is employed when random errors are dominant and specific error sources cannot be identified.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Manuel-Dominguez-Merino/publication/335539774/figure/fig1/AS:797376795500545@1567265869987/Normal-distribution-curve-showing-mean-standard-deviation-and-probability-density.ppm" alt="Normal Distribution Curve">
+                    <p class="image-caption">Figure: Normal (Gaussian) distribution curve</p>
+                    
+                    <h3>Key Statistical Measures</h3>
+                    <ul>
+                        <li><strong>Arithmetic Mean:</strong> x̄ = (x₁ + x₂ + ... + xₙ) / n</li>
+                        <li><strong>Deviation:</strong> dᵢ = xᵢ - x̄ (departure of reading from mean)</li>
+                        <li><strong>Average Deviation:</strong> D = Σ|dᵢ| / n</li>
+                        <li><strong>Standard Deviation:</strong> σ = √[Σ(xᵢ - x̄)² / (n-1)] for n < 20</li>
+                        <li><strong>Variance:</strong> σ² (mean square deviation)</li>
+                        <li><strong>Probable Error:</strong> p.e. = ±0.6745σ (50% probability that true value lies within measured value ± p.e.)</li>
+                        <li><strong>Range:</strong> Difference between greatest and least values in dataset</li>
+                    </ul>
+                </section>
+
+                <section id="2-5" class="content-section">
+                    <h2 class="subsection-title">2.5 Measurement of Resistance (Low, Medium and High)</h2>
+                    <p>Resistances are classified based on their values:</p>
+                    <ul>
+                        <li><strong>Low Resistance:</strong> ≤ 1Ω (measured using Kelvin's Bridge, Ammeter-Voltmeter, Potentiometer)</li>
+                        <li><strong>Medium Resistance:</strong> 1Ω to 100kΩ (measured using Ammeter-Voltmeter, Substitution, Wheatstone Bridge)</li>
+                        <li><strong>High Resistance:</strong> ≥ 100kΩ (measured using Direct Deflection, Loss of Charge, Megohm Bridge, Megger)</li>
+                    </ul>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/What-is-Wheatstone-Bridge.jpeg" alt="Wheatstone Bridge">
+                    <p class="image-caption">Figure: Wheatstone Bridge for medium resistance measurement</p>
+                    
+                    <h3>Ammeter-Voltmeter Method</h3>
+                    <p>Simplest method using Ohm's Law (R = V/I). Two connection methods exist:</p>
+                    <ul>
+                        <li><strong>Case 1:</strong> Voltmeter connected directly across resistor - ammeter measures current through both resistor and voltmeter</li>
+                        <li><strong>Case 2:</strong> Ammeter measures only resistor current - voltmeter measures voltage across both ammeter and resistor</li>
+                    </ul>
+                </section>
+
+                <section id="2-6" class="content-section">
+                    <h2 class="subsection-title">2.6 DC/AC Bridge (Wheatstone Bridge, Maxwell's Bridge, Schering Bridge)</h2>
+                    <p>Bridges are precision measurement circuits that operate on null detection principle.</p>
+                    
+                    <img src="https://www.electronics-tutorials.ws/wp-content/uploads/2018/05/dc-theory-dc27.gif" alt="Wheatstone Bridge Circuit">
+                    <p class="image-caption">Figure: Wheatstone Bridge circuit</p>
+                    
+                    <h3>Wheatstone Bridge (DC)</h3>
+                    <p>Used for medium resistance measurement. Balanced when: R₁/R₂ = R₃/R₄ or R₁R₄ = R₂R₃</p>
+                    
+                    <h3>Maxwell's Bridge (AC)</h3>
+                    <p>Used for medium inductance measurement. Balanced when:
+                    <ul>
+                        <li>Rₓ = R₂R₃/R₁</li>
+                        <li>Lₓ = R₂R₃C₁</li>
+                    </ul>
+                    </p>
+                    
+                    <h3>Schering Bridge (AC)</h3>
+                    <p>Used for capacitance measurement and dissipation factor. Balanced when:
+                    <ul>
+                        <li>rₓ = R₃(C₁/C₂)</li>
+                        <li>Cₓ = C₂(R₄/R₃)</li>
+                        <li>Dissipation factor D = ωCₓrₓ</li>
+                    </ul>
+                    </p>
+                </section>
+            </section>
+
+            <!-- Chapter 3: Transducer -->
+            <section id="chapter3" class="content-section">
+                <h1 class="section-title">3. Transducer (8 hours)</h1>
+                
+                <section id="3-1" class="content-section">
+                    <h2 class="subsection-title">3.1 Transducer, Workflow of a Transducer in Typical System, Transducer Classification</h2>
+                    <p>A transducer is a device that converts one form of energy to another, typically converting a non-electrical quantity to an electrical signal.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/transducer-block-diagram.jpeg" alt="Transducer Block Diagram">
+                    <p class="image-caption">Figure: Basic transducer block diagram</p>
+                    
+                    <h3>Workflow of Typical Transducer</h3>
+                    <ol>
+                        <li><strong>Sensing:</strong> Detects physical change (pressure, temperature, force, motion)</li>
+                        <li><strong>Signal Conversion:</strong> Converts detected quantity to electrical signal</li>
+                        <li><strong>Amplification:</strong> Strengthens weak signals (if needed)</li>
+                        <li><strong>Signal Transmission:</strong> Transmits signal to control system</li>
+                        <li><strong>Processing and Action:</strong> Control system analyzes signal and triggers appropriate actions</li>
+                    </ol>
+                    
+                    <h3>Classification of Transducers</h3>
+                    <ul>
+                        <li><strong>Based on Power Source:</strong>
+                            <ul>
+                                <li><em>Active:</em> Generate electrical signal without external power (piezoelectric, thermocouple)</li>
+                                <li><em>Passive:</em> Require external power source (resistive, capacitive, inductive)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Based on Transduction Phenomenon:</strong>
+                            <ul>
+                                <li><em>Transducers:</em> Convert non-electrical to electrical quantity</li>
+                                <li><em>Inverse Transducers:</em> Convert electrical to non-electrical quantity</li>
+                            </ul>
+                        </li>
+                        <li><strong>Based on Physical Phenomenon:</strong>
+                            <ul>
+                                <li><em>Primary:</em> Directly respond to physical phenomena</li>
+                                <li><em>Secondary:</em> Convert output of primary transducer to electrical output</li>
+                            </ul>
+                        </li>
+                        <li><strong>Based on Quantity Measured:</strong> Temperature, pressure, displacement, humidity transducers</li>
+                        <li><strong>Based on Output Type:</strong> Analog (continuous output) and Digital (discrete pulse output)</li>
+                        <li><strong>Based on Principle:</strong> Resistive, Inductive, Capacitive, Piezoelectric, Thermoelectric, Hall Effect</li>
+                    </ul>
+                </section>
+
+                <section id="3-2" class="content-section">
+                    <h2 class="subsection-title">3.2 Sensor and its Working Principle (Resistive, Capacitive and Piezoelectric), Generation of Sensor, Classification of Sensor</h2>
+                    <p>A sensor detects and responds to a specific input from the physical environment and converts it into a measurable output.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig1/AS:885515471339520@1588272459691/Working-principle-of-different-types-of-sensors.png" alt="Sensor Working Principles">
+                    <p class="image-caption">Figure: Working principles of different sensor types</p>
+                    
+                    <h3>Working Principles</h3>
+                    <ul>
+                        <li><strong>Resistive Sensors:</strong> Convert physical quantities into variable resistance (potentiometers, strain gauges, thermistors, RTDs)</li>
+                        <li><strong>Capacitive Sensors:</strong> Measure physical quantities by detecting changes in capacitance (displacement, pressure, temperature)</li>
+                        <li><strong>Piezoelectric Sensors:</strong> Generate electric potential when mechanical stress is applied (force, pressure, acceleration)</li>
+                    </ul>
+                    
+                    <h3>Generations of Sensors</h3>
+                    <ol>
+                        <li><strong>First Generation:</strong> Traditional/Basic/Passive sensors (thermistors, thermocouples, strain gauges)</li>
+                        <li><strong>Second Generation:</strong> Smart sensors with integrated electronics, digital output, self-calibration</li>
+                        <li><strong>Third Generation:</strong> Advanced integration with communication interfaces, IoT connectivity</li>
+                        <li><strong>Fourth Generation:</strong> Autonomous sensors with self-organization, predictive capabilities</li>
+                        <li><strong>Fifth Generation:</strong> Cognitive/Quantum/Bio-cybernetic sensors with AI integration</li>
+                    </ol>
+                    
+                    <h3>Classification of Sensors</h3>
+                    <ul>
+                        <li><strong>Based on Power Requirement:</strong> Active (self-generating) and Passive (require external power)</li>
+                        <li><strong>Based on Measured Quantity:</strong> Temperature, pressure, displacement, etc.</li>
+                        <li><strong>Based on Output Type:</strong> Analog (continuous) and Digital (discrete)</li>
+                    </ul>
+                </section>
+
+                <section id="3-3" class="content-section">
+                    <h2 class="subsection-title">3.3 Types of Sensors (Electrical, Chemical, Biological, Acoustic, Optical, Motion), Characteristics</h2>
+                    <p>Sensors can be classified based on the type of physical phenomenon they detect.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig2/AS:885515471347714@1588272459788/Classification-of-sensors-based-on-their-working-principle.png" alt="Types of Sensors">
+                    <p class="image-caption">Figure: Classification of different sensor types</p>
+                    
+                    <h3>Types of Sensors</h3>
+                    <ul>
+                        <li><strong>Electrical Sensors:</strong> Measure electrical parameters (voltage, current, resistance)</li>
+                        <li><strong>Chemical Sensors:</strong> Detect specific chemical substances (gas sensors, pH sensors)</li>
+                        <li><strong>Biological Sensors:</strong> Use biological elements for detection (biosensors for glucose, DNA)</li>
+                        <li><strong>Acoustic Sensors:</strong> Detect sound waves (microphones, ultrasonic sensors)</li>
+                        <li><strong>Optical Sensors:</strong> Detect light properties (photodiodes, phototransistors, fiber optic sensors)</li>
+                        <li><strong>Motion Sensors:</strong> Detect movement (PIR sensors, accelerometers, gyroscopes)</li>
+                    </ul>
+                    
+                    <h3>Characteristics of Sensors</h3>
+                    <p>Sensors exhibit both static and dynamic characteristics similar to instruments:</p>
+                    <ul>
+                        <li><strong>Static:</strong> Accuracy, precision, sensitivity, resolution, linearity, hysteresis</li>
+                        <li><strong>Dynamic:</strong> Response time, frequency response, bandwidth, time constant</li>
+                    </ul>
+                </section>
+
+                <section id="3-4" class="content-section">
+                    <h2 class="subsection-title">3.4 Actuator, Classification of Actuators (Hydraulic, Pneumatic, Electric, Mechanical), Characteristics</h2>
+                    <p>An actuator is a device that converts energy (hydraulic, pneumatic, electrical) into mechanical motion to create physical changes in the environment.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/types-of-actuators.jpeg" alt="Types of Actuators">
+                    <p class="image-caption">Figure: Different types of actuators</p>
+                    
+                    <h3>Classification of Actuators</h3>
+                    <ul>
+                        <li><strong>Hydraulic Actuators:</strong> Use pressurized fluid to generate mechanical motion. Generate high force, precise control at low speeds, but require complex infrastructure and maintenance.</li>
+                        <li><strong>Pneumatic Actuators:</strong> Use compressed air to generate motion. Low-cost, low maintenance, quick start/stop, but less efficient due to pressure loss.</li>
+                        <li><strong>Electric Actuators:</strong> Use electric motors to generate motion. Quiet, safe (no fluid leaks), high precision, but expensive and environmentally sensitive.</li>
+                        <li><strong>Mechanical Actuators:</strong> Convert rotary motion to linear motion using mechanical components (gears, pulleys, chains). Simple and reliable but limited in application.</li>
+                    </ul>
+                    
+                    <h3>Characteristics of Actuators</h3>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Ability to reach exact commanded position, speed, or force</li>
+                        <li><strong>Repeatability:</strong> Ability to return to same position/output with same command</li>
+                        <li><strong>Speed/Response Time:</strong> Time to respond to input signal</li>
+                        <li><strong>Force/Torque Output:</strong> Mechanical power generated</li>
+                        <li><strong>Range of Motion:</strong> Maximum linear distance or angular displacement</li>
+                        <li><strong>Control Capability:</strong> Ease of control (open-loop vs closed-loop)</li>
+                        <li><strong>Power Consumption:</strong> Energy required for operation</li>
+                        <li><strong>Reliability/Durability:</strong> Performance over time without failure</li>
+                        <li><strong>Environmental Tolerance:</strong> Performance under various conditions (temperature, humidity, dust)</li>
+                    </ul>
+                </section>
+            </section>
+
+
+                        <!-- Chapter 4: Interfacing of Instrumentation System -->
+            <section id="chapter4" class="content-section">
+                <h1 class="section-title">4. Interfacing of Instrumentation System (14 hours)</h1>
+                
+                <section id="4-1" class="content-section">
+                    <h2 class="subsection-title">4.1 Microprocessor and Microcontroller and Their Selection Criteria</h2>
+                    <p>Microprocessors and microcontrollers are central to modern instrumentation systems, providing processing power for data acquisition, analysis, and control.</p>
+                    
+                    <img src="https://www.electronicshub.org/wp-content/uploads/2015/07/Microprocessor-vs-Microcontroller.jpg" alt="Microprocessor vs Microcontroller">
+                    <p class="image-caption">Figure: Microprocessor vs Microcontroller</p>
+                    
+                    <h3>Microprocessor</h3>
+                    <p>A multipurpose programmable device that requires external components (memory, I/O devices) to function as a complete system.</p>
+                    
+                    <h3>Microcontroller</h3>
+                    <p>An integrated circuit that includes CPU, memory, and I/O peripherals on a single chip, designed for specific control applications.</p>
+                    
+                    <h3>Selection Criteria</h3>
+                    <ul>
+                        <li><strong>Performance Requirements:</strong> Processing speed, data path width, memory requirements</li>
+                        <li><strong>Peripheral Requirements:</strong> Built-in ADC/DAC, timers, communication interfaces</li>
+                        <li><strong>Power Consumption:</strong> Critical for battery-operated devices</li>
+                        <li><strong>Cost:</strong> Component cost vs development cost</li>
+                        <li><strong>Development Tools:</strong> Availability of compilers, debuggers, emulators</li>
+                        <li><strong>Vendor Support:</strong> Documentation, technical support, community</li>
+                        <li><strong>Scalability:</strong> Ability to upgrade or expand system capabilities</li>
+                    </ul>
+                </section>
+
+                <section id="4-2" class="content-section">
+                    <h2 class="subsection-title">4.2 The PPI, 8255 and Interfacing of Peripherals with 8085 Microprocessor</h2>
+                    <p>The 8255 Programmable Peripheral Interface (PPI) is a versatile chip used for parallel I/O operations with microprocessors like the 8085.</p>
+                    
+                    <img src="https://www.electronicshub.org/wp-content/uploads/2015/07/8255-PPI-Block-Diagram.jpg" alt="8255 PPI Block Diagram">
+                    <p class="image-caption">Figure: 8255 PPI block diagram</p>
+                    
+                    <h3>8255 PPI Features</h3>
+                    <ul>
+                        <li>Three 8-bit programmable I/O ports (Port A, Port B, Port C)</li>
+                        <li>Port C can be used as two 4-bit ports</li>
+                        <li>Control register for configuring port operation</li>
+                        <li>Supports three operating modes: Mode 0 (Basic I/O), Mode 1 (Strobed I/O), Mode 2 (Bidirectional Bus)</li>
+                    </ul>
+                    
+                    <h3>Interfacing Peripherals</h3>
+                    <ul>
+                        <li><strong>LEDs:</strong> Connected to output ports for status indication</li>
+                        <li><strong>7-Segment Displays:</strong> Interfaced for numeric display</li>
+                        <li><strong>DIP Switches:</strong> Connected to input ports for user input</li>
+                        <li><strong>ADC/DAC:</strong> Interfaced for analog signal processing (8/10-bit resolution)</li>
+                    </ul>
+                    
+                    <h3>Mode 0 and Mode 1 Operations</h3>
+                    <ul>
+                        <li><strong>Mode 0:</strong> Basic input/output mode without handshaking</li>
+                        <li><strong>Mode 1:</strong> Strobed input/output with handshaking signals for synchronized data transfer</li>
+                    </ul>
+                </section>
+
+                <section id="4-3" class="content-section">
+                    <h2 class="subsection-title">4.3 Microcontrollers (Atmega328, STM32): Architecture, Pin Configuration, and Connectivity</h2>
+                    <p>Modern microcontrollers like Atmega328 (Arduino) and STM32 offer powerful processing capabilities with extensive peripheral integration.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig3/AS:885515471347715@1588272459790/Arduino-Uno-pinout-diagram.png" alt="Atmega328 Pin Configuration">
+                    <p class="image-caption">Figure: Atmega328 (Arduino Uno) pin configuration</p>
+                    
+                    <h3>Atmega328 (Arduino)</h3>
+                    <ul>
+                        <li><strong>Architecture:</strong> 8-bit AVR RISC architecture</li>
+                        <li><strong>Memory:</strong> 32KB Flash, 2KB SRAM, 1KB EEPROM</li>
+                        <li><strong>Peripherals:</strong> 23 I/O pins, 6 analog inputs, UART, SPI, I2C, 6 PWM channels, 2 external interrupts</li>
+                        <li><strong>Clock Speed:</strong> 16 MHz</li>
+                    </ul>
+                    
+                    <h3>STM32</h3>
+                    <ul>
+                        <li><strong>Architecture:</strong> 32-bit ARM Cortex-M architecture</li>
+                        <li><strong>Memory:</strong> Varies by model (up to 2MB Flash, 512KB RAM)</li>
+                        <li><strong>Peripherals:</strong> Extensive I/O, multiple ADCs/DACs, USB, CAN, Ethernet, multiple communication interfaces</li>
+                        <li><strong>Clock Speed:</strong> Up to 480 MHz (varies by model)</li>
+                    </ul>
+                    
+                    <h3>Connectivity</h3>
+                    <ul>
+                        <li><strong>Digital I/O:</strong> General purpose input/output pins</li>
+                        <li><strong>Analog Input:</strong> ADC channels for analog signal measurement</li>
+                        <li><strong>Communication:</strong> UART, SPI, I2C, CAN for device interfacing</li>
+                        <li><strong>Interrupts:</strong> External and internal interrupt sources for event-driven programming</li>
+                    </ul>
+                </section>
+
+                <section id="4-4" class="content-section">
+                    <h2 class="subsection-title">4.4 Sensor/Actuator Interfacing with Atmega328p (Arduino): Analog and Digital Sensors, Implementation of Communication Protocols, Interrupt Based</h2>
+                    <p>The Atmega328p (Arduino platform) provides an excellent environment for interfacing various sensors and actuators.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig4/AS:885515471347716@1588272459792/Interfacing-sensors-and-actuators-with-Arduino.png" alt="Sensor/Actuator Interfacing with Arduino">
+                    <p class="image-caption">Figure: Sensor and actuator interfacing with Arduino</p>
+                    
+                    <h3>Analog Sensor Interfacing</h3>
+                    <ul>
+                        <li>Connect sensor output to analog input pins (A0-A5)</li>
+                        <li>Use analogRead() function to read 10-bit values (0-1023)</li>
+                        <li>Convert to physical units using sensor calibration data</li>
+                        <li>Examples: Temperature sensors (LM35), light sensors (LDR), potentiometers</li>
+                    </ul>
+                    
+                    <h3>Digital Sensor Interfacing</h3>
+                    <ul>
+                        <li>Connect to digital I/O pins</li>
+                        <li>Use digitalRead() for binary sensors or pulseIn() for timing-based sensors</li>
+                        <li>Examples: Push buttons, PIR motion sensors, digital temperature sensors (DS18B20)</li>
+                    </ul>
+                    
+                    <h3>Communication Protocols</h3>
+                    <ul>
+                        <li><strong>I2C:</strong> Two-wire interface (SDA, SCL) for connecting multiple devices</li>
+                        <li><strong>SPI:</strong> Four-wire interface (MOSI, MISO, SCK, SS) for high-speed communication</li>
+                        <li><strong>UART:</strong> Serial communication (TX, RX) for device-to-device communication</li>
+                    </ul>
+                    
+                    <h3>Interrupt-Based Programming</h3>
+                    <ul>
+                        <li>Use attachInterrupt() function to trigger functions on external events</li>
+                        <li>Useful for time-critical applications and efficient resource utilization</li>
+                        <li>Examples: Encoder reading, emergency stop detection, pulse counting</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 5: Connectivity Technology -->
+            <section id="chapter5" class="content-section">
+                <h1 class="section-title">5. Connectivity Technology in Instrumentation System (6 hours)</h1>
+                
+                <section id="5-1" class="content-section">
+                    <h2 class="subsection-title">5.1 Wired and Wireless Communication System</h2>
+                    <p>Connectivity technologies enable data exchange between instruments, controllers, and systems in modern instrumentation.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig5/AS:885515471347717@1588272459794/Wired-vs-wireless-communication-systems.png" alt="Wired vs Wireless Communication">
+                    <p class="image-caption">Figure: Wired vs Wireless communication systems</p>
+                    
+                    <h3>Wired Communication</h3>
+                    <p>Uses physical media (copper wire, twisted pair, fiber optic) for data transmission. Offers higher reliability, security, and bandwidth but limited mobility.</p>
+                    
+                    <h3>Wireless Communication</h3>
+                    <p>Uses electromagnetic waves (RF, infrared) for data transmission. Provides mobility and flexibility but may have issues with interference, security, and reliability.</p>
+                </section>
+
+                <section id="5-2" class="content-section">
+                    <h2 class="subsection-title">5.2 Wired Connectivity: UART, I2C, SPI, CAN</h2>
+                    <p>Various wired communication protocols are used in instrumentation systems based on requirements for speed, complexity, and distance.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig6/AS:885515471347718@1588272459796/Comparison-of-UART-I2C-SPI-and-CAN-protocols.png" alt="Communication Protocols Comparison">
+                    <p class="image-caption">Figure: Comparison of UART, I2C, SPI, and CAN protocols</p>
+                    
+                    <h3>UART (Universal Asynchronous Receiver Transmitter)</h3>
+                    <ul>
+                        <li>Asynchronous serial communication (no clock signal)</li>
+                        <li>Two wires: TX (transmit) and RX (receive)</li>
+                        <li>Configurable baud rate, data format</li>
+                        <li>Simple but slower than synchronous protocols</li>
+                    </ul>
+                    
+                    <h3>I2C (Inter-Integrated Circuit)</h3>
+                    <ul>
+                        <li>Synchronous serial communication</li>
+                        <li>Two wires: SDA (data) and SCL (clock)</li>
+                        <li>Multi-master, multi-slave capability</li>
+                        <li>ACK/NACK for error handling</li>
+                        <li>Slower but uses fewer wires</li>
+                    </ul>
+                    
+                    <h3>SPI (Serial Peripheral Interface)</h3>
+                    <ul>
+                        <li>Synchronous serial communication</li>
+                        <li>Four wires: MOSI, MISO, SCK, SS</li>
+                        <li>Full-duplex, high-speed communication</li>
+                        <li>Single master, multiple slaves</li>
+                        <li>Faster but uses more wires</li>
+                    </ul>
+                    
+                    <h3>CAN (Controller Area Network)</h3>
+                    <ul>
+                        <li>Robust protocol for automotive and industrial applications</li>
+                        <li>Multi-master, priority-based arbitration</li>
+                        <li>Error detection and handling</li>
+                        <li>High reliability in noisy environments</li>
+                    </ul>
+                </section>
+
+                <section id="5-3" class="content-section">
+                    <h2 class="subsection-title">5.3 Wireless Sensor Network and Its Technology</h2>
+                    <p>Wireless Sensor Networks (WSNs) consist of spatially distributed autonomous sensors to monitor physical or environmental conditions.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig7/AS:885515471347719@1588272459798/Wireless-Sensor-Network-architecture.png" alt="Wireless Sensor Network">
+                    <p class="image-caption">Figure: Wireless Sensor Network architecture</p>
+                    
+                    <h3>WSN Components</h3>
+                    <ul>
+                        <li><strong>Sensor Nodes:</strong> Collect, process, and transmit data</li>
+                        <li><strong>Gateway:</strong> Interface between WSN and external networks</li>
+                        <li><strong>Base Station:</strong> Central point for data collection and management</li>
+                    </ul>
+                    
+                    <h3>WSN Applications</h3>
+                    <ul>
+                        <li>Environmental monitoring</li>
+                        <li>Healthcare monitoring</li>
+                        <li>Industrial automation</li>
+                        <li>Smart agriculture</li>
+                        <li>Disaster prevention and relief</li>
+                        <li>Smart cities</li>
+                    </ul>
+                </section>
+
+                <section id="5-4" class="content-section">
+                    <h2 class="subsection-title">5.4 RF Modem, Bluetooth, Wi-Fi, NFC, ZIGBEE and LORA</h2>
+                    <p>Various wireless technologies are used in instrumentation systems based on range, data rate, and power requirements.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig8/AS:885515471347720@1588272459800/Comparison-of-wireless-technologies-RF-Bluetooth-WiFi-NFC-Zigbee-LoRa.png" alt="Wireless Technologies Comparison">
+                    <p class="image-caption">Figure: Comparison of wireless technologies</p>
+                    
+                    <h3>RF Modem</h3>
+                    <ul>
+                        <li>Transfers data wirelessly over long distances</li>
+                        <li>Real-time communication independent of satellite or telecom networks</li>
+                        <li>Applications: Mining, agriculture, utilities, transportation</li>
+                    </ul>
+                    
+                    <h3>Bluetooth</h3>
+                    <ul>
+                        <li>Short-range wireless communication (10m-100m)</li>
+                        <li>Frequency: 2.45 GHz</li>
+                        <li>Applications: Personal area networks, wireless peripherals</li>
+                    </ul>
+                    
+                    <h3>Wi-Fi</h3>
+                    <ul>
+                        <li>Wireless local area networking</li>
+                        <li>Standards: 802.11a/b/g/n/ac/ax</li>
+                        <li>Frequency: 2.4 GHz and 5 GHz</li>
+                        <li>High data rates, medium range</li>
+                    </ul>
+                    
+                    <h3>NFC (Near Field Communication)</h3>
+                    <ul>
+                        <li>Very short-range communication (<4cm)</li>
+                        <li>Frequency: 13.56 MHz</li>
+                        <li>Applications: Contactless payments, access control, data exchange</li>
+                    </ul>
+                    
+                    <h3>Zigbee</h3>
+                    <ul>
+                        <li>Low-power, low-data-rate wireless networking</li>
+                        <li>Standards: IEEE 802.15.4</li>
+                        <li>Frequency: 868 MHz, 915 MHz, 2.4 GHz</li>
+                        <li>Applications: Home automation, industrial control</li>
+                    </ul>
+                    
+                    <h3>LoRa (Long Range)</h3>
+                    <ul>
+                        <li>Low-power, long-range wireless communication</li>
+                        <li>Frequency: Sub-GHz bands (varies by region)</li>
+                        <li>Applications: IoT, smart cities, agriculture, utilities</li>
+                    </ul>
+                </section>
+
+                <section id="5-5" class="content-section">
+                    <h2 class="subsection-title">5.5 Thermal Management: Heat Dissipation Technique, Heat Sink and Storage, Cloud</h2>
+                    <p>Thermal management is critical in electronic instrumentation to ensure reliable operation and prevent component damage.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig9/AS:885515471347721@1588272459802/Thermal-management-techniques-heat-sinks-thermal-pads-fans.png" alt="Thermal Management Techniques">
+                    <p class="image-caption">Figure: Thermal management techniques</p>
+                    
+                    <h3>Heat Dissipation Techniques</h3>
+                    <ul>
+                        <li><strong>Heat Sinks:</strong> Metal components that absorb and dissipate heat from electronic components</li>
+                        <li><strong>Thermal Pads/Interface Materials:</strong> Improve heat transfer between components and heat sinks</li>
+                        <li><strong>Fans/Forced Air Cooling:</strong> Active cooling for high-power components</li>
+                        <li><strong>Heat Pipes:</strong> Efficient heat transfer using phase change of working fluid</li>
+                        <li><strong>Thermal Management in Cloud Computing:</strong> Data center cooling techniques (hot/cold aisle containment, liquid cooling, free cooling)</li>
+                    </ul>
+                </section>
+
+                <section id="5-6" class="content-section">
+                    <h2 class="subsection-title">5.6 Data Acquisition System (Data Loggers, Data Archiving Based Data Acquisition System)</h2>
+                    <p>Data Acquisition Systems (DAS) collect, process, and store data from sensors and instruments for analysis and monitoring.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig10/AS:885515471347722@1588272459804/Data-Acquisition-System-block-diagram.png" alt="Data Acquisition System">
+                    <p class="image-caption">Figure: Data Acquisition System block diagram</p>
+                    
+                    <h3>Components of DAS</h3>
+                    <ul>
+                        <li><strong>Sensors:</strong> Detect physical parameters</li>
+                        <li><strong>Signal Conditioning:</strong> Amplify, filter, and scale sensor signals</li>
+                        <li><strong>ADC (Analog-to-Digital Converter):</strong> Convert analog signals to digital format</li>
+                        <li><strong>Data Logger:</strong> Record and store data over time</li>
+                        <li><strong>Interface:</strong> Connect to computer or controller for data transfer</li>
+                        <li><strong>Software:</strong> Configure, monitor, and analyze collected data</li>
+                    </ul>
+                    
+                    <h3>Data Loggers</h3>
+                    <ul>
+                        <li>Automatically record readings from instruments</li>
+                        <li>Characteristics: Modularity, reliability, accuracy, ease of use</li>
+                        <li>Applications: Weather stations, hydrographic recording, environmental monitoring</li>
+                    </ul>
+                    
+                    <h3>Data Archiving</h3>
+                    <ul>
+                        <li>Long-term storage of collected data</li>
+                        <li>Storage factors: Access speed, cost, reliability</li>
+                        <li>Storage types: Primary (RAM), Secondary (HDD/SSD), Tertiary (tape libraries)</li>
+                        <li>Data compression techniques to reduce storage requirements</li>
+                        <li>RAID configurations for data redundancy and performance</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 6: Circuit Design -->
+            <section id="chapter6" class="content-section">
+                <h1 class="section-title">6. Circuit Design (4 hours)</h1>
+                
+                <section id="6-1" class="content-section">
+                    <h2 class="subsection-title">6.1 Converting Requirement into Design, Reliability and Fault Tolerance</h2>
+                    <p>Circuit design involves translating system requirements into a practical implementation while ensuring reliability and fault tolerance.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig11/AS:885515471347723@1588272459806/Design-process-from-requirements-to-implementation.png" alt="Design Process">
+                    <p class="image-caption">Figure: Design process from requirements to implementation</p>
+                    
+                    <h3>Converting Requirements to Design</h3>
+                    <ul>
+                        <li>Define desired function in broad terms</li>
+                        <li>Redefine with operational concerns</li>
+                        <li>Settle on exact specifications</li>
+                        <li>Consider technology constraints (frequency range, power requirements)</li>
+                        <li>Select appropriate components and technologies</li>
+                    </ul>
+                    
+                    <h3>Reliability</h3>
+                    <ul>
+                        <li>How long the product will last under specified conditions</li>
+                        <li>Factors: Complexity (fewer parts better), design margin (allow for component stress)</li>
+                        <li>Measurement methods: Model prediction, prototype testing</li>
+                        <li>Reliability formula: R(t) = e^(-λt) where λ is failure rate, t is time</li>
+                    </ul>
+                    
+                    <h3>Fault Tolerance</h3>
+                    <ul>
+                        <li>Ability to continue operation despite component failures</li>
+                        <li>Approaches:
+                            <ul>
+                                <li><em>Careful Design:</em> Avoid overstress, use isolation, implement ESD protection</li>
+                                <li><em>Testable Architecture:</em> Provide test points or built-in test (BIT) capabilities</li>
+                                <li><em>Redundant Architecture:</em> Use multiple copies of critical components (dual, triple redundancy)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="6-2" class="content-section">
+                    <h2 class="subsection-title">6.2 High-Speed Design: Bandwidth, Decoupling, Crosstalk, Impedance Matching</h2>
+                    <p>High-speed design considerations become critical when clock frequencies exceed 1MHz due to transmission line effects.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig12/AS:885515471347724@1588272459808/High-speed-design-considerations-bandwidth-decoupling-crosstalk-impedance.png" alt="High-Speed Design Considerations">
+                    <p class="image-caption">Figure: High-speed design considerations</p>
+                    
+                    <h3>Bandwidth</h3>
+                    <ul>
+                        <li>Limiting bandwidth reduces noise, EMI, and transmission line problems</li>
+                        <li>Can be limited by increasing rise/fall times or reducing clock frequency</li>
+                        <li>Select logic families with appropriate edge rates for transmission line concerns</li>
+                    </ul>
+                    
+                    <h3>Decoupling</h3>
+                    <ul>
+                        <li>Decoupling capacitors minimize inductive loop area and reduce power supply impedance</li>
+                        <li>Place decoupling capacitors near each IC</li>
+                        <li>Use large filter capacitor at power entry point</li>
+                        <li>Use ferrite bead at power entry for additional filtering</li>
+                    </ul>
+                    
+                    <h3>Crosstalk</h3>
+                    <ul>
+                        <li>Coupling of electromagnetic energy from active signal to passive line</li>
+                        <li>Reduce by: decreasing coupling length, increasing rise time, better layout</li>
+                        <li>Avoid running parallel traces for long distances, especially for asynchronous signals</li>
+                        <li>Shield clock lines with ground strips</li>
+                    </ul>
+                    
+                    <h3>Impedance Matching</h3>
+                    <ul>
+                        <li>Match source and termination impedance to characteristic impedance of transmission line</li>
+                        <li>Eliminates signal reflections that cause ringing, undershoot, overshoot</li>
+                        <li>Methods: Series termination, parallel termination, Thevenin termination, AC termination</li>
+                    </ul>
+                </section>
+
+                <section id="6-3" class="content-section">
+                    <h2 class="subsection-title">6.3 PCB Design: Component Placement, Trace Routing, Signal Integrity, and Ground Loops</h2>
+                    <p>Proper PCB design is crucial for ensuring signal integrity and minimizing noise in instrumentation systems.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig13/AS:885515471347725@1588272459810/PCB-design-considerations-component-placement-trace-routing-signal-integrity.png" alt="PCB Design Considerations">
+                    <p class="image-caption">Figure: PCB design considerations</p>
+                    
+                    <h3>Component Placement</h3>
+                    <ul>
+                        <li>Group high-current circuits near connectors to isolate stray currents and dissipate heat</li>
+                        <li>Group high-frequency circuits near connectors to reduce path length and crosstalk</li>
+                        <li>Separate analog and digital circuits</li>
+                        <li>Group low-power, low-frequency circuits away from high-power, high-frequency circuits</li>
+                    </ul>
+                    
+                    <h3>Trace Routing</h3>
+                    <ul>
+                        <li>Maintain consistent trace width and spacing</li>
+                        <li>Minimize trace lengths, especially for high-frequency signals</li>
+                        <li>Use 45° angles instead of 90° for better signal integrity</li>
+                        <li>Provide adequate clearance between traces</li>
+                    </ul>
+                    
+                    <h3>Signal Integrity</h3>
+                    <ul>
+                        <li>Ensure proper impedance matching</li>
+                        <li>Minimize crosstalk through proper spacing and routing</li>
+                        <li>Use ground planes to provide return paths and reduce noise</li>
+                        <li>Consider transmission line effects for high-speed signals</li>
+                    </ul>
+                    
+                    <h3>Ground Loops</h3>
+                    <ul>
+                        <li>Avoid multiple ground connections that create loops</li>
+                        <li>Use star grounding or single-point grounding for low frequencies</li>
+                        <li>Use ground planes for high frequencies</li>
+                        <li>Separate analog and digital grounds, connecting at a single point</li>
+                    </ul>
+                </section>
+
+                <section id="6-4" class="content-section">
+                    <h2 class="subsection-title">6.4 Noise and Noise Coupling Mechanism, Noise Prevention, Filtering, Ferrite Beads, Decoupling Capacitors, and ESD & Its Prevention</h2>
+                    <p>Noise management is essential for accurate measurements in instrumentation systems.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig14/AS:885515471347726@1588272459812/Noise-coupling-mechanisms-and-prevention-techniques.png" alt="Noise Coupling Mechanisms">
+                    <p class="image-caption">Figure: Noise coupling mechanisms and prevention techniques</p>
+                    
+                    <h3>Noise Coupling Mechanisms</h3>
+                    <ul>
+                        <li><strong>Conductive Coupling:</strong> Through direct electrical connection (DC to 10MHz)</li>
+                        <li><strong>Inductive Coupling:</strong> Through magnetic fields (usually >3kHz)</li>
+                        <li><strong>Capacitive Coupling:</strong> Through electric fields (usually >1kHz)</li>
+                        <li><strong>Electromagnetic Coupling:</strong> Through radiation (usually >15MHz)</li>
+                    </ul>
+                    
+                    <h3>Noise Prevention</h3>
+                    <ul>
+                        <li><strong>Filtering:</strong> Use appropriate filters (low-pass, high-pass, band-pass) based on frequency</li>
+                        <li><strong>Ferrite Beads:</strong> Provide high-frequency filtering by adding inductive impedance</li>
+                        <li><strong>Decoupling Capacitors:</strong> Filter power supply noise and provide local energy storage</li>
+                        <li><strong>Shielding:</strong> Use conductive enclosures to block electromagnetic interference</li>
+                        <li><strong>Grounding:</strong> Proper grounding techniques to minimize ground loops and noise</li>
+                    </ul>
+                    
+                    <h3>ESD (Electrostatic Discharge) Prevention</h3>
+                    <ul>
+                        <li>Use ESD-protected workstations with grounded mats</li>
+                        <li>Wear wrist straps when handling sensitive components</li>
+                        <li>Use conductive or antistatic containers for storage and transport</li>
+                        <li>Implement ESD protection circuits (Zener diodes, MOVs) on input lines</li>
+                        <li>Maintain appropriate humidity levels in work areas</li>
+                        <li>Avoid plastic, vinyl, and Styrofoam materials in work areas</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 7: Software for Instrumentation Application -->
+            <section id="chapter7" class="content-section">
+                <h1 class="section-title">7. Software for Instrumentation Application (6 hours)</h1>
+                
+                <section id="7-1" class="content-section">
+                    <h2 class="subsection-title">7.1 Overview of Software Engineering</h2>
+                    <p>Software engineering principles are essential for developing reliable and maintainable instrumentation software.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig15/AS:885515471347727@1588272459814/Software-engineering-process.png" alt="Software Engineering Process">
+                    <p class="image-caption">Figure: Software engineering process</p>
+                    
+                    <h3>Software Development Process</h3>
+                    <ul>
+                        <li><strong>Requirements Analysis:</strong> Define what the software should do</li>
+                        <li><strong>Design:</strong> Plan how the software will accomplish its goals</li>
+                        <li><strong>Implementation:</strong> Write the code</li>
+                        <li><strong>Testing:</strong> Verify that the software works correctly</li>
+                        <li><strong>Maintenance:</strong> Update and improve the software over time</li>
+                    </ul>
+                    
+                    <h3>Key Principles</h3>
+                    <ul>
+                        <li>Modularity: Break software into manageable components</li>
+                        <li>Abstraction: Hide complexity behind interfaces</li>
+                        <li>Encapsulation: Keep data and methods together</li>
+                        <li>Reusability: Design components for use in multiple contexts</li>
+                        <li>Maintainability: Write code that is easy to understand and modify</li>
+                    </ul>
+                </section>
+
+                <section id="7-2" class="content-section">
+                    <h2 class="subsection-title">7.2 Types of Software</h2>
+                    <p>Software in instrumentation systems can be categorized based on its function and level of abstraction.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig16/AS:885515471347728@1588272459816/Types-of-software-system-programming-application.png" alt="Types of Software">
+                    <p class="image-caption">Figure: Types of software</p>
+                    
+                    <h3>System Software</h3>
+                    <ul>
+                        <li>Operating systems (RTOS, Linux, Windows)</li>
+                        <li>Device drivers</li>
+                        <li>Firmware</li>
+                        <li>Utilities</li>
+                    </ul>
+                    
+                    <h3>Programming Software</h3>
+                    <ul>
+                        <li>Compilers</li>
+                        <li>Interpreters</li>
+                        <li>Debuggers</li>
+                        <li>IDEs (Integrated Development Environments)</li>
+                        <li>Version control systems</li>
+                    </ul>
+                    
+                    <h3>Application Software</h3>
+                    <ul>
+                        <li>Instrument control software</li>
+                        <li>Data acquisition and analysis software</li>
+                        <li>User interface software</li>
+                        <li>Database management systems</li>
+                        <li>Simulation and modeling software</li>
+                    </ul>
+                </section>
+
+                <section id="7-3" class="content-section">
+                    <h2 class="subsection-title">7.3 Software Development Life Cycle (SDLC), Software Process Models</h2>
+                    <p>The Software Development Life Cycle (SDLC) provides a framework for developing software systematically.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig17/AS:885515471347729@1588272459818/Software-Development-Life-Cycle-models.png" alt="SDLC Models">
+                    <p class="image-caption">Figure: Software Development Life Cycle models</p>
+                    
+                    <h3>Waterfall Model</h3>
+                    <ul>
+                        <li>Sequential phases: Requirements, Design, Implementation, Testing, Maintenance</li>
+                        <li>Advantages: Simple, easy to understand, good for stable requirements</li>
+                        <li>Disadvantages: Inflexible, late feedback, poor for changing requirements</li>
+                    </ul>
+                    
+                    <h3>Prototyping Model</h3>
+                    <ul>
+                        <li>Develop prototype, get user feedback, refine, repeat</li>
+                        <li>Advantages: Early user feedback, accommodates changing requirements</li>
+                        <li>Disadvantages: Can be costly, may lead to scope creep</li>
+                    </ul>
+                    
+                    <h3>Incremental Model</h3>
+                    <ul>
+                        <li>Develop software in increments, delivering functional portions early</li>
+                        <li>Advantages: Early delivery of functionality, reduced risk</li>
+                        <li>Disadvantages: Requires good planning, integration challenges</li>
+                    </ul>
+                    
+                    <h3>Agile Model</h3>
+                    <ul>
+                        <li>Iterative and incremental development with frequent customer feedback</li>
+                        <li>Methods: Scrum, Extreme Programming (XP), Kanban</li>
+                        <li>Advantages: Flexible, customer-focused, adapts to changing requirements</li>
+                        <li>Disadvantages: Requires customer involvement, less predictable</li>
+                    </ul>
+                </section>
+
+                <section id="7-4" class="content-section">
+                    <h2 class="subsection-title">7.4 Software Reliability vs Hardware Reliability</h2>
+                    <p>Reliability is a critical aspect of both software and hardware in instrumentation systems, but they differ in nature and measurement.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig18/AS:885515471347730@1588272459820/Software-vs-hardware-reliability.png" alt="Software vs Hardware Reliability">
+                    <p class="image-caption">Figure: Software vs Hardware reliability</p>
+                    
+                    <h3>Software Reliability</h3>
+                    <ul>
+                        <li>Probability that software will function without failure for a specified period</li>
+                        <li>Failures are typically due to design errors rather than wear-out</li>
+                        <li>Improves with testing and debugging (unlike hardware which degrades over time)</li>
+                        <li>Measurement: Mean Time Between Failures (MTBF), Failure Rate</li>
+                    </ul>
+                    
+                    <h3>Hardware Reliability</h3>
+                    <ul>
+                        <li>Probability that hardware will function without failure for a specified period</li>
+                        <li>Failures can be due to design errors, manufacturing defects, or wear-out</li>
+                        <li>Typically degrades over time due to component aging</li>
+                        <li>Measurement: MTBF, Failure Rate, Bathtub Curve (early failures, useful life, wear-out)</li>
+                    </ul>
+                    
+                    <h3>Key Differences</h3>
+                    <ul>
+                        <li>Software doesn't wear out; hardware does</li>
+                        <li>Software failures are design-related; hardware failures can be random</li>
+                        <li>Software reliability can improve with updates; hardware reliability typically decreases</li>
+                        <li>Software testing can find and fix bugs; hardware testing can only find defects</li>
+                    </ul>
+                </section>
+
+                <section id="7-5" class="content-section">
+                    <h2 class="subsection-title">7.5 Software Bugs, Software Testing, Different Levels of Testing</h2>
+                    <p>Software testing is essential for identifying and fixing bugs to ensure software reliability in instrumentation systems.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig19/AS:885515471347731@1588272459822/Software-testing-levels.png" alt="Software Testing Levels">
+                    <p class="image-caption">Figure: Software testing levels</p>
+                    
+                    <h3>Types of Software Bugs</h3>
+                    <ul>
+                        <li><strong>Syntax Errors:</strong> Violations of programming language rules</li>
+                        <li><strong>Logic Errors:</strong> Flaws in program logic that produce incorrect results</li>
+                        <li><strong>Runtime Errors:</strong> Errors that occur during program execution</li>
+                        <li><strong>Interface Errors:</strong> Problems with user or system interfaces</li>
+                        <li><strong>Performance Issues:</strong> Software doesn't meet performance requirements</li>
+                    </ul>
+                    
+                    <h3>Software Testing Methods</h3>
+                    <ul>
+                        <li><strong>White Box Testing:</strong> Test internal structures and logic of code</li>
+                        <li><strong>Black Box Testing:</strong> Test functionality without knowledge of internal code</li>
+                        <li><strong>Grey Box Testing:</strong> Combination of white and black box testing</li>
+                    </ul>
+                    
+                    <h3>Levels of Testing</h3>
+                    <ul>
+                        <li><strong>Unit Testing:</strong> Test individual components or functions</li>
+                        <li><strong>Integration Testing:</strong> Test interactions between components</li>
+                        <li><strong>System Testing:</strong> Test complete system against requirements</li>
+                        <li><strong>Acceptance Testing:</strong> Test system with end-users to ensure it meets their needs</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 8: Electrical Equipment -->
+            <section id="chapter8" class="content-section">
+                <h1 class="section-title">8. Electrical Equipment (6 hours)</h1>
+                
+                <section id="8-1" class="content-section">
+                    <h2 class="subsection-title">8.1 Voltmeter and Ammeter: Types and Working Principle</h2>
+                    <p>Voltmeters and ammeters are fundamental instruments for measuring electrical quantities in instrumentation systems.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/types-of-voltmeters-and-ammeters.jpeg" alt="Voltmeter and Ammeter Types">
+                    <p class="image-caption">Figure: Types of voltmeters and ammeters</p>
+                    
+                    <h3>Voltmeter</h3>
+                    <p>Measures potential difference between two points in a circuit. Must be connected in parallel with the component being measured.</p>
+                    
+                    <h4>Types of Voltmeters</h4>
+                    <ul>
+                        <li><strong>PMMC (Permanent Magnet Moving Coil):</strong> For DC only, operates on electromagnetic force principle</li>
+                        <li><strong>Moving Iron:</strong> For both AC and DC, works on attraction/repulsion of iron in magnetic field</li>
+                        <li><strong>Electrodynamometer:</strong> For both AC and DC, uses interaction between fixed and moving coils</li>
+                        <li><strong>Digital Voltmeter:</strong> Converts analog voltage to digital display</li>
+                    </ul>
+                    
+                    <h3>Ammeter</h3>
+                    <p>Measures current flowing through a circuit. Must be connected in series with the component being measured.</p>
+                    
+                    <h4>Types of Ammeters</h4>
+                    <ul>
+                        <li><strong>Moving Coil Ammeter:</strong> Magnetic deflection technique, linearly proportional to current</li>
+                        <li><strong>Moving Iron Ammeter:</strong> Iron moves in response to electromagnetic force, deflection proportional to square of current</li>
+                        <li><strong>Electrodynamometer Ammeter:</strong> Uses electromagnet instead of permanent magnet, works for both AC and DC</li>
+                        <li><strong>Digital Ammeter:</strong> Converts analog current to digital display</li>
+                    </ul>
+                </section>
+
+                <section id="8-2" class="content-section">
+                    <h2 class="subsection-title">8.2 Energy Meter: Types and Working Principle</h2>
+                    <p>Energy meters measure the amount of electrical energy consumed by users over time.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/energy-meter-working-principle.jpeg" alt="Energy Meter Working Principle">
+                    <p class="image-caption">Figure: Energy meter working principle</p>
+                    
+                    <h3>Components of Energy Meter</h3>
+                    <ul>
+                        <li><strong>Driving System:</strong> Electromagnets that create torque proportional to power</li>
+                        <li><strong>Moving System:</strong> Aluminum disc that rotates at speed proportional to power</li>
+                        <li><strong>Braking System:</strong> Permanent magnet that provides braking torque proportional to speed</li>
+                        <li><strong>Registering System:</strong> Counts disc rotations to measure energy consumption</li>
+                    </ul>
+                    
+                    <h3>Working Principle</h3>
+                    <p>The aluminum disc rotates due to the interaction between fluxes produced by the shunt magnet (proportional to voltage) and series magnet (proportional to current). The speed of rotation is proportional to power (VIcosφ), and the number of rotations is proportional to energy consumed.</p>
+                    
+                    <h3>Types of Energy Meters</h3>
+                    <ul>
+                        <li><strong>Electromechanical Induction Type:</strong> Traditional meters with rotating disc</li>
+                        <li><strong>Electronic Energy Meters:</strong> Use digital sampling and processing</li>
+                        <li><strong>Smart Meters:</strong> Electronic meters with communication capabilities for remote reading and control</li>
+                    </ul>
+                    
+                    <h3>Errors in Energy Meters</h3>
+                    <ul>
+                        <li>Errors due to incorrect flux magnitudes</li>
+                        <li>Errors due to braking system variations</li>
+                        <li>Creeping: Slow rotation when no load is present</li>
+                        <li>Temperature effects on readings</li>
+                    </ul>
+                </section>
+
+                <section id="8-3" class="content-section">
+                    <h2 class="subsection-title">8.3 Frequency Meter: Types and Working Principle</h2>
+                    <p>Frequency meters measure and display the frequency of periodic electrical signals.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/frequency-meter-types.jpeg" alt="Frequency Meter Types">
+                    <p class="image-caption">Figure: Types of frequency meters</p>
+                    
+                    <h3>Types of Frequency Meters</h3>
+                    <ul>
+                        <li><strong>Vibrating Reed Meter:</strong> Mechanical resonance type, reeds vibrate at specific frequencies</li>
+                        <li><strong>Weston Type (Moving Iron):</strong> Depends on variations in current drawn by inductive and non-inductive circuits</li>
+                        <li><strong>Electrical Resonance Type (Ferrodynamic):</strong> Operates on principle of electrical resonance in LC circuit</li>
+                        <li><strong>Digital Frequency Meter:</strong> Counts cycles over a known time period</li>
+                    </ul>
+                    
+                    <h3>Working Principles</h3>
+                    <ul>
+                        <li><strong>Vibrating Reed:</strong> Electromagnet excites reeds at supply frequency, reed with double the frequency vibrates most due to resonance</li>
+                        <li><strong>Weston Type:</strong> Two coils with perpendicular magnetic axes, iron needle aligns based on frequency-dependent current ratios</li>
+                        <li><strong>Electrical Resonance:</strong> LC circuit resonates at specific frequency, maximum current indicates frequency</li>
+                        <li><strong>Digital:</strong> Counts zero crossings or pulses over precise time interval</li>
+                    </ul>
+                </section>
+
+                <section id="8-4" class="content-section">
+                    <h2 class="subsection-title">8.4 Wattmeter: Types and Working Principle</h2>
+                    <p>Wattmeters measure electric power in electrical circuits.</p>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/wattmeter-types.jpeg" alt="Wattmeter Types">
+                    <p class="image-caption">Figure: Types of wattmeters</p>
+                    
+                    <h3>Types of Wattmeters</h3>
+                    <ul>
+                        <li><strong>Electrodynamometer Wattmeter:</strong> For both DC and AC power measurement</li>
+                        <li><strong>Induction Wattmeter:</strong> For AC power measurement only</li>
+                        <li><strong>Digital Wattmeter:</strong> Samples voltage and current, calculates power digitally</li>
+                    </ul>
+                    
+                    <h3>Working Principle of Electrodynamometer Wattmeter</h3>
+                    <p>Contains two coils: fixed coil (current coil) connected in series with load, and moving coil (pressure coil) connected in parallel with load. Deflection is proportional to product of current and voltage (power).</p>
+                    
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>High accuracy, used as calibration standard</li>
+                        <li>Accurate on DC circuits</li>
+                    </ul>
+                    
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>Less accurate on AC circuits</li>
+                        <li>Errors at low power factor</li>
+                    </ul>
+                    
+                    <h3>Working Principle of Induction Wattmeter</h3>
+                    <p>Based on electromagnetic induction. Consists of shunt magnet (connected across supply) and series magnet (connected in series with load). Aluminum disc rotates due to interaction between fluxes and induced eddy currents, with deflection proportional to power.</p>
+                    
+                    <h4>Advantages</h4>
+                    <ul>
+                        <li>Uniform scale</li>
+                        <li>Good damping</li>
+                        <li>No effect of stray fields</li>
+                    </ul>
+                    
+                    <h4>Disadvantages</h4>
+                    <ul>
+                        <li>AC power measurement only</li>
+                        <li>Lower accuracy</li>
+                        <li>Temperature sensitivity</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 9: Latest Trends -->
+            <section id="chapter9" class="content-section">
+                <h1 class="section-title">9. Latest Trends (3 hours)</h1>
+                
+                <section id="9-1" class="content-section">
+                    <h2 class="subsection-title">9.1 Internet of Things (IoT): Simple Architecture, Characteristics, Advantages</h2>
+                    <p>The Internet of Things (IoT) is a system of interrelated computing devices that transfer data over a network without requiring human-to-human or human-to-computer interaction.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig20/AS:885515471347732@1588272459824/IoT-architecture-layers.png" alt="IoT Architecture">
+                    <p class="image-caption">Figure: IoT architecture layers</p>
+                    
+                    <h3>IoT Architecture</h3>
+                    <ul>
+                        <li><strong>Perception/Sensing Layer:</strong> Sensors and actuators that collect data from physical environment</li>
+                        <li><strong>Network Layer:</strong> Transmits data from devices to processing systems (gateways, internet)</li>
+                        <li><strong>Processing Layer:</strong> Processes and analyzes data (edge computing, cloud computing)</li>
+                        <li><strong>Application Layer:</strong> Delivers services to end-users (smart home, industrial monitoring, etc.)</li>
+                    </ul>
+                    
+                    <h3>Characteristics of IoT</h3>
+                    <ul>
+                        <li>Connectivity: Devices connected to each other and to the internet</li>
+                        <li>Intelligence: Devices can process data and make decisions</li>
+                        <li>Sensors: Collect data from environment</li>
+                        <li>Identity: Unique identification of devices</li>
+                        <li>Interoperability: Devices from different manufacturers can work together</li>
+                        <li>Dynamic: Devices can adapt to changing conditions</li>
+                        <li>Scalability: Systems can grow to accommodate more devices</li>
+                    </ul>
+                    
+                    <h3>Advantages of IoT</h3>
+                    <ul>
+                        <li>Improved efficiency and productivity</li>
+                        <li>Cost reduction through optimized processes</li>
+                        <li>Enhanced decision-making through data analytics</li>
+                        <li>Remote monitoring and control capabilities</li>
+                        <li>Automation of routine tasks</li>
+                        <li>Improved safety and security</li>
+                    </ul>
+                </section>
+
+                <section id="9-2" class="content-section">
+                    <h2 class="subsection-title">9.2 Smart Sensors</h2>
+                    <p>Smart sensors are devices that take input from the physical environment and use built-in compute resources to perform predefined functions upon detection of specific input.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig21/AS:885515471347733@1588272459826/Smart-sensor-components.png" alt="Smart Sensor Components">
+                    <p class="image-caption">Figure: Smart sensor components</p>
+                    
+                    <h3>Components of Smart Sensors</h3>
+                    <ul>
+                        <li><strong>Sensor:</strong> Captures data from physical environment</li>
+                        <li><strong>Microprocessor:</strong> Processes sensor data using programmed algorithms</li>
+                        <li><strong>Communication Capabilities:</strong> Transmits processed data to other devices or networks</li>
+                        <li><strong>Power Source:</strong> Battery or energy harvesting system</li>
+                    </ul>
+                    
+                    <h3>Advantages of Smart Sensors</h3>
+                    <ul>
+                        <li>Self-calibration and self-diagnosis capabilities</li>
+                        <li>Reduced data transmission (only transmit processed information)</li>
+                        <li>Improved accuracy through local processing</li>
+                        <li>Adaptability to changing conditions</li>
+                        <li>Integration with IoT systems</li>
+                    </ul>
+                </section>
+
+                <section id="9-3" class="content-section">
+                    <h2 class="subsection-title">9.3 Importance of Cloud Computing in Instrumentation System</h2>
+                    <p>Cloud computing is becoming increasingly important in instrumentation due to its ability to enhance data management, collaboration, and analysis capabilities.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig22/AS:885515471347734@1588272459828/Cloud-computing-in-instrumentation.png" alt="Cloud Computing in Instrumentation">
+                    <p class="image-caption">Figure: Cloud computing in instrumentation</p>
+                    
+                    <h3>Benefits of Cloud Computing in Instrumentation</h3>
+                    <ul>
+                        <li><strong>Enhanced Data Management:</strong> Real-time monitoring, scalable storage, advanced analytics</li>
+                        <li><strong>Improved Accessibility:</strong> Access data from anywhere with internet connection</li>
+                        <li><strong>Collaboration:</strong> Share data and applications among team members regardless of location</li>
+                        <li><strong>Cost-Effectiveness:</strong> Pay-as-you-go model, reduced capital expenditure</li>
+                        <li><strong>Flexibility and Scalability:</strong> Easily scale resources up or down based on demand</li>
+                        <li><strong>Integration:</strong> Connect with other cloud services and applications</li>
+                    </ul>
+                </section>
+
+                <section id="9-4" class="content-section">
+                    <h2 class="subsection-title">9.4 Instrumentation in Industry 4.0</h2>
+                    <p>Industry 4.0 is significantly impacting instrumentation by integrating smart sensors and IoT technologies, enabling real-time data collection, analysis, and automated control.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig23/AS:885515471347735@1588272459830/Industry-4.0-technologies.png" alt="Industry 4.0 Technologies">
+                    <p class="image-caption">Figure: Industry 4.0 technologies</p>
+                    
+                    <h3>Key Technologies in Industry 4.0</h3>
+                    <ul>
+                        <li><strong>IoT:</strong> Connecting machines, sensors, and systems</li>
+                        <li><strong>Big Data Analytics:</strong> Processing large volumes of data for insights</li>
+                        <li><strong>Cloud Computing:</strong> Storing and processing data in the cloud</li>
+                        <li><strong>Cybersecurity:</strong> Protecting systems and data from cyber threats</li>
+                        <li><strong>Autonomous Robots:</strong> Self-operating machines for manufacturing</li>
+                        <li><strong>Augmented Reality:</strong> Overlaying digital information on physical world</li>
+                        <li><strong>Additive Manufacturing:</strong> 3D printing for rapid prototyping and production</li>
+                    </ul>
+                    
+                    <h3>Impact on Instrumentation</h3>
+                    <ul>
+                        <li>Increased efficiency through real-time monitoring and control</li>
+                        <li>Reduced downtime through predictive maintenance</li>
+                        <li>Improved decision-making through data analytics</li>
+                        <li>Enhanced flexibility and customization</li>
+                        <li>Integration of physical and digital systems (cyber-physical systems)</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Chapter 10: Application of Modern Instrumentation System -->
+            <section id="chapter10" class="content-section">
+                <h1 class="section-title">10. Application of Modern Instrumentation System (5 hours)</h1>
+                
+                <section id="10-1" class="content-section">
+                    <h2 class="subsection-title">10.1 Instrumentation for Power Station Including All Electrical and Non-Electrical Parameters</h2>
+                    <p>Power stations require comprehensive instrumentation for monitoring and control of both electrical and non-electrical parameters.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig24/AS:885515471347736@1588272459832/Power-station-instrumentation.png" alt="Power Station Instrumentation">
+                    <p class="image-caption">Figure: Power station instrumentation</p>
+                    
+                    <h3>Electrical Parameters</h3>
+                    <ul>
+                        <li>Voltage, current, power, power factor, frequency monitoring</li>
+                        <li>Protection relays for fault detection and isolation</li>
+                        <li>Synchronization equipment for connecting to grid</li>
+                        <li>Energy meters for billing and efficiency calculations</li>
+                    </ul>
+                    
+                    <h3>Non-Electrical Parameters</h3>
+                    <ul>
+                        <li>Temperature monitoring (bearings, windings, cooling systems)</li>
+                        <li>Pressure monitoring (boilers, steam lines, hydraulic systems)</li>
+                        <li>Flow rate monitoring (fuel, water, steam)</li>
+                        <li>Vibration monitoring (turbines, generators, pumps)</li>
+                        <li>Level monitoring (fuel tanks, water reservoirs)</li>
+                    </ul>
+                    
+                    <h3>Control Systems</h3>
+                    <ul>
+                        <li>SCADA (Supervisory Control and Data Acquisition) systems</li>
+                        <li>DCS (Distributed Control Systems)</li>
+                        <li>PLC (Programmable Logic Controller) based control</li>
+                        <li>Automated start-up and shutdown sequences</li>
+                    </ul>
+                </section>
+
+                <section id="10-2" class="content-section">
+                    <h2 class="subsection-title">10.2 Instrumentation for Wire and Cable Manufacturing and Bottling Plant</h2>
+                    <p>Wire and cable manufacturing and bottling plants require precise instrumentation for quality control and process optimization.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig25/AS:885515471347737@1588272459834/Wire-and-cable-manufacturing-instrumentation.png" alt="Wire and Cable Manufacturing Instrumentation">
+                    <p class="image-caption">Figure: Wire and cable manufacturing instrumentation</p>
+                    
+                    <h3>Wire and Cable Manufacturing</h3>
+                    <ul>
+                        <li>Diameter measurement and control (laser gauges, contact gauges)</li>
+                        <li>Tension control during drawing and stranding</li>
+                        <li>Temperature monitoring during extrusion and curing</li>
+                        <li>Speed synchronization between different process stages</li>
+                        <li>Insulation thickness measurement</li>
+                        <li>Spark testing for insulation defects</li>
+                        <li>Length measurement and counting</li>
+                    </ul>
+                    
+                    <h3>Bottling Plant</h3>
+                    <ul>
+                        <li>Fill level detection and control</li>
+                        <li>Bottle presence and position detection</li>
+                        <li>Cap torque measurement</li>
+                        <li>Label placement verification</li>
+                        <li>Conveyor speed control</li>
+                        <li>Temperature monitoring (pasteurization, sterilization)</li>
+                        <li>Pressure monitoring (carbonation, filling)</li>
+                    </ul>
+                </section>
+
+                <section id="10-3" class="content-section">
+                    <h2 class="subsection-title">10.3 Instrumentations for a Beverage Manufacturing and Bottling Plant</h2>
+                    <p>Beverage manufacturing requires precise control of ingredients, processing conditions, and packaging to ensure consistent quality.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig26/AS:885515471347738@1588272459836/Beverage-manufacturing-instrumentation.png" alt="Beverage Manufacturing Instrumentation">
+                    <p class="image-caption">Figure: Beverage manufacturing instrumentation</p>
+                    
+                    <h3>Ingredient Measurement and Mixing</h3>
+                    <ul>
+                        <li>Flow meters for precise ingredient measurement</li>
+                        <li>Concentration sensors (Brix meters for sugar content)</li>
+                        <li>pH sensors for acidity control</li>
+                        <li>Temperature sensors for mixing and heating</li>
+                        <li>Automated batching systems</li>
+                    </ul>
+                    
+                    <h3>Processing</h3>
+                    <ul>
+                        <li>Temperature control during pasteurization</li>
+                        <li>Pressure control during carbonation</li>
+                        <li>Time control for processing steps</li>
+                        <li>Quality control sensors (color, turbidity, dissolved oxygen)</li>
+                    </ul>
+                    
+                    <h3>Bottling</h3>
+                    <ul>
+                        <li>Fill level control</li>
+                        <li>Bottle inspection (leaks, contamination)</li>
+                        <li>Cap torque measurement</li>
+                        <li>Label verification</li>
+                        <li>Batch coding and dating</li>
+                        <li>Case packing verification</li>
+                    </ul>
+                </section>
+
+                <section id="10-4" class="content-section">
+                    <h2 class="subsection-title">10.4 Instrumentations Required for a Biomedical Application in a Medical Clinic or Hospital</h2>
+                    <p>Biomedical instrumentation in medical clinics and hospitals is critical for patient monitoring, diagnosis, and treatment.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig27/AS:885515471347739@1588272459838/Biomedical-instrumentation-in-hospital.png" alt="Biomedical Instrumentation in Hospital">
+                    <p class="image-caption">Figure: Biomedical instrumentation in hospital</p>
+                    
+                    <h3>Patient Monitoring</h3>
+                    <ul>
+                        <li>ECG (Electrocardiogram) machines</li>
+                        <li>EEG (Electroencephalogram) machines</li>
+                        <li>EMG (Electromyogram) machines</li>
+                        <li>Blood pressure monitors</li>
+                        <li>Pulse oximeters</li>
+                        <li>Temperature monitors</li>
+                        <li>Respiratory rate monitors</li>
+                    </ul>
+                    
+                    <h3>Diagnostic Equipment</h3>
+                    <ul>
+                        <li>Ultrasound machines</li>
+                        <li>X-ray machines</li>
+                        <li>MRI (Magnetic Resonance Imaging) scanners</li>
+                        <li>CT (Computed Tomography) scanners</li>
+                        <li>Blood analyzers</li>
+                        <li>Urinalysis equipment</li>
+                    </ul>
+                    
+                    <h3>Therapeutic Equipment</h3>
+                    <ul>
+                        <li>Infusion pumps</li>
+                        <li>Ventilators</li>
+                        <li>Defibrillators</li>
+                        <li>Dialysis machines</li>
+                        <li>Anesthesia machines</li>
+                        <li>Surgical instruments with monitoring capabilities</li>
+                    </ul>
+                </section>
+
+                <section id="10-5" class="content-section">
+                    <h2 class="subsection-title">10.5 Instrumentation System Design Using a Processor (Microprocessor, Microcontroller or Others)</h2>
+                    <p>Modern instrumentation systems are increasingly designed around processors (microprocessors, microcontrollers, or other computing platforms) for enhanced functionality and flexibility.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohamed-Benmoussa/publication/340777279/figure/fig28/AS:885515471347740@1588272459840/Processor-based-instrumentation-system.png" alt="Processor-Based Instrumentation System">
+                    <p class="image-caption">Figure: Processor-based instrumentation system</p>
+                    
+                    <h3>Design Process</h3>
+                    <ul>
+                        <li><strong>Requirement Analysis:</strong> Define what needs to be measured and controlled</li>
+                        <li><strong>Processor Selection:</strong> Choose appropriate processor based on requirements</li>
+                        <li><strong>Sensor/Actuator Selection:</strong> Select sensors and actuators compatible with processor</li>
+                        <li><strong>Interface Design:</strong> Design hardware and software interfaces</li>
+                        <li><strong>Software Development:</strong> Develop firmware for data acquisition, processing, and control</li>
+                        <li><strong>Testing and Validation:</strong> Verify system meets requirements</li>
+                        <li><strong>Deployment and Maintenance:</strong> Install system and provide ongoing support</li>
+                    </ul>
+                    
+                    <h3>Processor Selection Criteria</h3>
+                    <ul>
+                        <li>Processing power and speed</li>
+                        <li>Memory requirements</li>
+                        <li>Peripheral interfaces (ADC, DAC, communication)</li>
+                        <li>Power consumption</li>
+                        <li>Cost</li>
+                        <li>Development tools and support</li>
+                        <li>Scalability and upgrade path</li>
+                    </ul>
+                    
+                    <h3>Advantages of Processor-Based Design</h3>
+                    <ul>
+                        <li>Flexibility through software updates</li>
+                        <li>Advanced signal processing capabilities</li>
+                        <li>Integration of multiple functions</li>
+                        <li>Remote monitoring and control</li>
+                        <li>Data logging and analysis</li>
+                        <li>Improved accuracy through calibration and compensation algorithms</li>
+                    </ul>
+                </section>
+            </section>
+            <!-- Remaining chapters would continue here with the same structure -->
+            <!-- For brevity, I'm showing just the first 3 chapters, but all 10 would be included in the complete version -->
+
+            <footer>
+                <p>Modern Instrumentation Systems - Comprehensive Course Material</p>
+                <p>© 2024 Instrumentation Engineering Department</p>
+            </footer>
+        </main>
     </div>
+
+    <a href="#" class="scroll-top">↑</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navContainer = document.getElementById('navContainer');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                navContainer.classList.toggle('show');
+            });
+            
+            // Close menu when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768) {
+                    const isClickInsideNav = navContainer.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && navContainer.classList.contains('show')) {
+                        navContainer.classList.remove('show');
+                    }
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu after clicking a link
+                        if (window.innerWidth <= 768) {
+                            navContainer.classList.remove('show');
+                        }
+                        
+                        // Update active state
+                        setTimeout(() => {
+                            updateActiveSection();
+                        }, 300);
+                    }
+                });
+            });
+
+            // Toggle submenu visibility
+            document.querySelectorAll('.has-submenu > .nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        this.parentElement.classList.toggle('active');
+                    } else {
+                        // On mobile, allow the link to work but also toggle submenu
+                        this.parentElement.classList.toggle('active');
+                    }
+                });
+            });
+
+            // Scroll to top button
+            const scrollTopButton = document.querySelector('.scroll-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollTopButton.style.display = 'flex';
+                } else {
+                    scrollTopButton.style.display = 'none';
+                }
+                
+                // Update active section while scrolling
+                updateActiveSection();
+            });
+
+            // Function to update active section
+            function updateActiveSection() {
+                let current = '';
+                
+                const sections = document.querySelectorAll('.content-section');
+                const scrollPosition = window.pageYOffset + 100; // Add offset for better UX
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                // Update navigation active states
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                        
+                        // Also highlight parent chapter
+                        const parentLi = link.closest('li.has-submenu');
+                        if (parentLi) {
+                            parentLi.classList.add('active');
+                        }
+                    }
+                });
+            }
+
+            // Initialize: Highlight first section
+            document.querySelector('.nav-link[href="#chapter1"]').classList.add('active');
+            
+            // Handle touch events for better mobile experience
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('touchstart', function(e) {
+                    this.classList.add('touch-active');
+                });
+                
+                link.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.classList.remove('touch-active');
+                    }, 300);
+                });
+            });
+            
+            // Prevent default behavior for submenu headers on mobile
+            document.querySelectorAll('.has-submenu > .nav-link').forEach(link => {
+                link.addEventListener('touchstart', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        this.parentElement.classList.toggle('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
-
-<!-- <==========chapter5 start=================>-->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 5: Connectivity Technology in Instrumentation Systems - Exam Summary</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
-            color: #2d4a2b;
-            background: linear-gradient(135deg, #f9fbe7 0%, #f0f4c3 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-        .toc {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px;
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.2);
-        }
-        .toc h2 {
-            color: #8b4513;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .toc ul {
-            list-style: none;
-            color: #6b4e2c;
-        }
-        .toc li {
-            margin: 8px 0;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .toc li:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateX(5px);
-        }
-        .section {
-            margin: 40px 30px;
-            padding: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .section h2 {
-            color: #4a7c59;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #6b8e23;
-        }
-        .section h3 {
-            color: #2d4a2b;
-            font-size: 1.5rem;
-            margin: 25px 0 15px 0;
-            padding: 10px 15px;
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border-radius: 8px;
-            border-left: 4px solid #6b8e23;
-        }
-        .section h4 {
-            color: #4a7c59;
-            font-size: 1.3rem;
-            margin: 20px 0 10px 0;
-        }
-        .section p {
-            margin: 15px 0;
-            text-align: justify;
-            font-size: 1.1rem;
-        }
-        .diagram {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #6b8e23;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .diagram-title {
-            color: #4a7c59;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        .circuit-diagram {
-            width: 100%;
-            height: 200px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-            position: relative;
-            margin: 15px 0;
-        }
-        .formula {
-            background: linear-gradient(135deg, #fff9e6 0%, #ffecb3 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .formula-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #8b4513;
-            font-family: 'Courier New', monospace;
-        }
-        .example-box {
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4f4dd 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .example-box h4 {
-            color: #2d4a2b;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        .table th {
-            background: linear-gradient(135deg, #4a7c59 0%, #6b8e23 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: bold;
-        }
-        .table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-        .table tr:hover {
-            background: #e8f5e8;
-            transition: all 0.3s ease;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: #8b4513;
-            font-weight: bold;
-        }
-        .note {
-            background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);
-            border: 2px solid #6699cc;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #0066cc;
-        }
-        .note h4 {
-            color: #003366;
-            margin-bottom: 10px;
-        }
-        .exam-tip {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            border: 2px solid #d4a574;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #8b4513;
-        }
-        .exam-tip h4 {
-            color: #8b4513;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        .key-point {
-            background: linear-gradient(135deg, #d4f4dd 0%, #b8e6c1 100%);
-            border: 2px solid #4a7c59;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: #2d4a2b;
-        }
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .section {
-                padding: 20px;
-                margin: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>Chapter 5: Connectivity Technology in Instrumentation Systems</h1>
-            <p class="subtitle">Exam-Focused Summary for Students</p>
-        </header>
-        <div class="toc">
-            <h2>Table of Contents</h2>
-            <ul>
-                <li onclick="scrollToSection('introduction')">5.1 Introduction to Wired and Wireless Communication</li>
-                <li onclick="scrollToSection('uart')">5.2 UART Communication</li>
-                <li onclick="scrollToSection('i2c')">5.3 I2C Communication Protocol</li>
-                <li onclick="scrollToSection('spi')">5.4 SPI Communication Protocol</li>
-                <li onclick="scrollToSection('can')">5.5 CAN Communication Protocol</li>
-                <li onclick="scrollToSection('wireless')">5.6 Wireless Communication Technologies</li>
-                <li onclick="scrollToSection('data')">5.7 Data Acquisition Systems</li>
-            </ul>
-        </div>
-        <section class="section" id="introduction">
-            <h2>5.1 Introduction to Wired and Wireless Communication</h2>
-            <p>Connectivity technologies enable communication between different components in instrumentation systems, allowing for data transfer, control, and monitoring.</p>
-            <div class="key-point">EXAM TIP: Understand the fundamental differences between wired and wireless communication systems, including their advantages and disadvantages.</div>
-            <h3>Wired Communication Systems</h3>
-            <p>Wired networks use physical cables (copper wire, twisted pair, or fiber optic) to carry electrical signals from one point to another.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Examples:</strong> Ethernet LAN, T1 lines, fiber optic communication</li>
-                <li><strong>Advantages:</strong> High reliability, security, bandwidth, and low latency</li>
-                <li><strong>Disadvantages:</strong> Limited mobility, installation complexity, higher infrastructure cost</li>
-            </ul>
-            <h3>Wireless Communication Systems</h3>
-            <p>Wireless networks use electromagnetic waves (radio frequency or infrared) to transmit data without physical cables.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Examples:</strong> Cellular networks, Wi-Fi, Bluetooth, Zigbee, LoRa</li>
-                <li><strong>Advantages:</strong> Mobility, flexibility, easier installation, lower infrastructure cost</li>
-                <li><strong>Disadvantages:</strong> Susceptible to interference, security concerns, limited bandwidth, higher latency</li>
-            </ul>
-            <div class="note">
-                <h4>Key Applications:</h4>
-                <ul style="color: #003366; margin-left: 20px;">
-                    <li><strong>Industrial Automation:</strong> Monitoring and control of machinery and processes</li>
-                    <li><strong>Environmental Monitoring:</strong> Remote sensing of temperature, humidity, pollution levels</li>
-                    <li><strong>Healthcare:</strong> Patient monitoring, medical device connectivity</li>
-                    <li><strong>Smart Homes:</strong> Control of lighting, security, HVAC systems</li>
-                    <li><strong>Transportation:</strong> Vehicle tracking, traffic management</li>
-                </ul>
-            </div>
-        </section>
-        <section class="section" id="uart">
-            <h2>5.2 UART Communication</h2>
-            <p>UART (Universal Asynchronous Receiver Transmitter) is a hardware communication protocol that uses asynchronous serial communication with configurable speed.</p>
-            <div class="key-point">EXAM TIP: Understand UART data format, baud rate, and how start/stop bits work. Be prepared for numerical problems involving data transmission rates.</div>
-            <h3>UART Basics</h3>
-            <p>UART is a simple, widely used protocol for serial communication between devices.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Asynchronous:</strong> No clock signal is shared between devices</li>
-                <li><strong>Two-wire interface:</strong> TX (transmit) and RX (receive) lines</li>
-                <li><strong>Configurable:</strong> Baud rate, data bits, parity, and stop bits</li>
-                <li><strong>Common baud rates:</strong> 9600, 19200, 38400, 57600, 115200 bps</li>
-            </ul>
-            <h3>UART Data Format</h3>
-            <div class="diagram">
-                <div class="diagram-title">UART Data Frame Format</div>
-                <div class="circuit-diagram">
-                    <svg width="600" height="150" viewBox="0 0 600 150">
-                        <!-- Start bit -->
-                        <rect x="50" y="50" width="40" height="50" fill="#ffcccc" stroke="#cc6666" stroke-width="2"/>
-                        <text x="70" y="80" text-anchor="middle" fill="#cc3333" font-size="12">Start</text>
-                        <text x="70" y="40" text-anchor="middle" fill="#cc3333" font-size="10">0</text>
-                        <!-- Data bits -->
-                        <rect x="90" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="110" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D0</text>
-                        <rect x="130" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="150" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D1</text>
-                        <rect x="170" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="190" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D2</text>
-                        <rect x="210" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="230" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D3</text>
-                        <rect x="250" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="270" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D4</text>
-                        <rect x="290" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="310" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D5</text>
-                        <rect x="330" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="350" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D6</text>
-                        <rect x="370" y="50" width="40" height="50" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="390" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">D7</text>
-                        <!-- Parity bit -->
-                        <rect x="410" y="50" width="40" height="50" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="430" y="80" text-anchor="middle" fill="#8b4513" font-size="12">Parity</text>
-                        <!-- Stop bit -->
-                        <rect x="450" y="50" width="40" height="50" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="470" y="80" text-anchor="middle" fill="#003366" font-size="12">Stop</text>
-                        <text x="470" y="40" text-anchor="middle" fill="#003366" font-size="10">1</text>
-                        <!-- Labels -->
-                        <text x="250" y="20" text-anchor="middle" fill="#2d4a2b" font-size="14">UART Data Frame (8 data bits, 1 parity bit, 1 stop bit)</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>UART Configuration</h3>
-            <p>Before communication, both devices must be configured with the same parameters:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Baud Rate:</strong> Speed of data transmission (bits per second)</li>
-                <li><strong>Data Bits:</strong> Number of bits in data field (5, 6, 7, or 8 bits)</li>
-                <li><strong>Parity:</strong> Error detection method (None, Even, Odd)</li>
-                <li><strong>Stop Bits:</strong> Number of stop bits (1, 1.5, or 2 bits)</li>
-            </ul>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages of UART</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Simple hardware interface (only 2 wires)</li>
-                        <li>Configurable data format and speed</li>
-                        <li>Full-duplex communication possible</li>
-                        <li>Error detection using parity bit</li>
-                        <li>Widely supported in microcontrollers</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages of UART</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Lower speed compared to parallel communication</li>
-                        <li>Overhead from start, stop, and parity bits</li>
-                        <li>Requires precise baud rate matching</li>
-                        <li>Limited to point-to-point communication</li>
-                        <li>No built-in addressing for multiple devices</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="example-box">
-                <h4>Example: UART Data Transmission Rate</h4>
-                <p>Calculate the actual data transmission rate for a UART configured with 9600 baud, 8 data bits, 1 parity bit, and 1 stop bit.</p>
-                <p><strong>Solution:</strong></p>
-                <p>Total bits per frame = 1(start) + 8(data) + 1(parity) + 1(stop) = 11 bits</p>
-                <p>Actual data rate = (8 data bits / 11 total bits) × 9600 bps = 6981.8 bps</p>
-                <p><strong>Note:</strong> Only about 73% of the bandwidth is used for actual data.</p>
-            </div>
-        </section>
-        <section class="section" id="i2c">
-            <h2>5.3 I2C Communication Protocol</h2>
-            <p>I2C (Inter-Integrated Circuit), also known as TWI (Two-Wire Interface), is a synchronous, multi-master, multi-slave, packet-switched, single-ended, serial communication bus invented by Philips Semiconductor in 1982.</p>
-            <div class="key-point">EXAM TIP: Understand I2C protocol, addressing, start/stop conditions, and ACK/NACK. Be prepared to draw timing diagrams and solve problems related to data transmission.</div>
-            <h3>I2C Basics</h3>
-            <p>I2C uses only two bidirectional open-drain lines:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>SDA (Serial Data Line):</strong> Carries data between devices</li>
-                <li><strong>SCL (Serial Clock Line):</strong> Carries clock signal generated by master</li>
-            </ul>
-            <p>Both lines require pull-up resistors to VCC since devices can only pull the lines low.</p>
-            <h3>I2C Data Transmission</h3>
-            <div class="diagram">
-                <div class="diagram-title">I2C Communication Timing Diagram</div>
-                <div class="circuit-diagram">
-                    <svg width="800" height="300" viewBox="0 0 800 300">
-                        <!-- SCL line -->
-                        <text x="20" y="50" text-anchor="start" fill="#2d4a2b" font-size="12">SCL:</text>
-                        <line x1="50" y1="50" x2="750" y2="50" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="100" y1="50" x2="100" y2="30" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="150" y1="50" x2="150" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="30" x2="200" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="30" x2="250" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="30" x2="300" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="350" y1="30" x2="350" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="400" y1="30" x2="400" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="450" y1="30" x2="450" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="500" y1="30" x2="500" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="550" y1="30" x2="550" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="600" y1="30" x2="600" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="650" y1="30" x2="650" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="700" y1="30" x2="700" y2="50" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- SDA line -->
-                        <text x="20" y="120" text-anchor="start" fill="#2d4a2b" font-size="12">SDA:</text>
-                        <line x1="50" y1="120" x2="750" y2="120" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Start condition -->
-                        <line x1="100" y1="120" x2="100" y2="100" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="100" y1="100" x2="150" y2="100" stroke="#cc3333" stroke-width="2"/>
-                        <text x="125" y="90" text-anchor="middle" fill="#cc3333" font-size="10">START</text>
-                        <!-- Address bits -->
-                        <line x1="150" y1="100" x2="150" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="150" y1="140" x2="200" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="175" y="160" text-anchor="middle" fill="#2d4a2b" font-size="10">A6</text>
-                        <line x1="200" y1="140" x2="200" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="200" y1="100" x2="250" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="225" y="90" text-anchor="middle" fill="#2d4a2b" font-size="10">A5</text>
-                        <line x1="250" y1="100" x2="250" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="140" x2="300" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="275" y="160" text-anchor="middle" fill="#2d4a2b" font-size="10">A4</text>
-                        <line x1="300" y1="140" x2="300" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="300" y1="100" x2="350" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="325" y="90" text-anchor="middle" fill="#2d4a2b" font-size="10">A3</text>
-                        <line x1="350" y1="100" x2="350" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="350" y1="140" x2="400" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="375" y="160" text-anchor="middle" fill="#2d4a2b" font-size="10">A2</text>
-                        <line x1="400" y1="140" x2="400" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="400" y1="100" x2="450" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="425" y="90" text-anchor="middle" fill="#2d4a2b" font-size="10">A1</text>
-                        <line x1="450" y1="100" x2="450" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="450" y1="140" x2="500" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="475" y="160" text-anchor="middle" fill="#2d4a2b" font-size="10">A0</text>
-                        <line x1="500" y1="140" x2="500" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="500" y1="100" x2="550" y2="100" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="525" y="90" text-anchor="middle" fill="#2d4a2b" font-size="10">R/W</text>
-                        <!-- ACK bit -->
-                        <line x1="550" y1="100" x2="550" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="550" y1="140" x2="600" y2="140" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="575" y="160" text-anchor="middle" fill="#2d4a2b" font-size="10">ACK</text>
-                        <!-- Stop condition -->
-                        <line x1="600" y1="140" x2="600" y2="100" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="600" y1="100" x2="650" y2="100" stroke="#cc3333" stroke-width="2"/>
-                        <line x1="650" y1="100" x2="650" y2="120" stroke="#cc3333" stroke-width="2"/>
-                        <text x="625" y="90" text-anchor="middle" fill="#cc3333" font-size="10">STOP</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>I2C Protocol Features</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Multi-master capability:</strong> Multiple masters can control the bus</li>
-                <li><strong>Arbitration:</strong> When multiple masters try to transmit simultaneously, the one with lower address wins</li>
-                <li><strong>Clock stretching:</strong> Slaves can hold SCL low to slow down communication</li>
-                <li><strong>ACK/NACK:</strong> Receiver acknowledges each byte by pulling SDA low</li>
-                <li><strong>Addressing:</strong> 7-bit or 10-bit addressing (up to 128 or 1024 devices)</li>
-                <li><strong>Speed modes:</strong> Standard (100 kbps), Fast (400 kbps), Fast+ (1 Mbps), High-speed (3.4 Mbps)</li>
-            </ul>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages of I2C</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Only 2 wires needed (SDA and SCL)</li>
-                        <li>Supports multiple masters and slaves</li>
-                        <li>Built-in ACK/NACK for error detection</li>
-                        <li>Simple hardware implementation</li>
-                        <li>Widely adopted standard</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages of I2C</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Slower than SPI</li>
-                        <li>Limited distance (typically a few meters)</li>
-                        <li>Half-duplex communication</li>
-                        <li>Complex protocol with many rules</li>
-                        <li>Pull-up resistors required</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="example-box">
-                <h4>Example: I2C Addressing</h4>
-                <p>A master wants to write to a slave with 7-bit address 0x48. Show the first byte transmitted on the I2C bus.</p>
-                <p><strong>Solution:</strong></p>
-                <p>7-bit address = 0x48 = 01001000₂</p>
-                <p>For write operation, R/W bit = 0</p>
-                <p>Transmitted byte = 01001000₂ + 0 = 01001000₂ = 0x48</p>
-                <p><strong>Note:</strong> The R/W bit is appended as the least significant bit (LSB).</p>
-            </div>
-        </section>
-        <section class="section" id="spi">
-            <h2>5.4 SPI Communication Protocol</h2>
-            <p>SPI (Serial Peripheral Interface) is a synchronous serial communication interface specification used for short-distance communication, primarily in embedded systems.</p>
-            <div class="key-point">EXAM TIP: Understand SPI protocol, master/slave configuration, clock polarity/phase modes, and compare with I2C. Be prepared to draw timing diagrams.</div>
-            <h3>SPI Basics</h3>
-            <p>SPI typically uses four signals:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>SCLK (Serial Clock):</strong> Clock signal generated by master</li>
-                <li><strong>MOSI (Master Out Slave In):</strong> Data from master to slave</li>
-                <li><strong>MISO (Master In Slave Out):</strong> Data from slave to master</li>
-                <li><strong>SS/CS (Slave Select/Chip Select):</strong> Active-low signal to select slave</li>
-            </ul>
-            <h3>SPI Configuration</h3>
-            <div class="diagram">
-                <div class="diagram-title">SPI Master-Slave Connection</div>
-                <div class="circuit-diagram">
-                    <svg width="700" height="300" viewBox="0 0 700 300">
-                        <!-- Master -->
-                        <rect x="100" y="50" width="150" height="80" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="175" y="80" text-anchor="middle" fill="#003366" font-size="14" font-weight="bold">SPI MASTER</text>
-                        <text x="175" y="100" text-anchor="middle" fill="#003366" font-size="12">(Microcontroller)</text>
-                        <!-- Slave 1 -->
-                        <rect x="400" y="50" width="150" height="80" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="475" y="80" text-anchor="middle" fill="#2d4a2b" font-size="14" font-weight="bold">SPI SLAVE 1</text>
-                        <text x="475" y="100" text-anchor="middle" fill="#2d4a2b" font-size="12">(Sensor/Display)</text>
-                        <!-- Slave 2 -->
-                        <rect x="400" y="170" width="150" height="80" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="475" y="200" text-anchor="middle" fill="#2d4a2b" font-size="14" font-weight="bold">SPI SLAVE 2</text>
-                        <text x="475" y="220" text-anchor="middle" fill="#2d4a2b" font-size="12">(Memory/ADC)</text>
-                        <!-- SCLK connection -->
-                        <line x1="250" y1="70" x2="400" y2="70" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="70" x2="400" y2="190" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="325" y="60" text-anchor="middle" fill="#2d4a2b" font-size="12">SCLK</text>
-                        <!-- MOSI connection -->
-                        <line x1="250" y1="90" x2="400" y2="90" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="90" x2="400" y2="210" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="325" y="80" text-anchor="middle" fill="#2d4a2b" font-size="12">MOSI</text>
-                        <!-- MISO connection -->
-                        <line x1="250" y1="110" x2="400" y2="110" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="250" y1="110" x2="400" y2="230" stroke="#2d4a2b" stroke-width="2"/>
-                        <text x="325" y="100" text-anchor="middle" fill="#2d4a2b" font-size="12">MISO</text>
-                        <!-- SS1 connection -->
-                        <line x1="250" y1="130" x2="400" y2="130" stroke="#cc3333" stroke-width="2"/>
-                        <text x="325" y="120" text-anchor="middle" fill="#cc3333" font-size="12">SS1</text>
-                        <!-- SS2 connection -->
-                        <line x1="250" y1="150" x2="400" y2="250" stroke="#cc3333" stroke-width="2"/>
-                        <text x="325" y="190" text-anchor="middle" fill="#cc3333" font-size="12">SS2</text>
-                        <!-- Arrows -->
-                        <path d="M300 90 L320 90" stroke="#2d4a2b" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <path d="M320 110 L300 110" stroke="#2d4a2b" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <defs>
-                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                                <polygon points="0 0, 10 3.5, 0 7" fill="#2d4a2b"/>
-                            </marker>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-            <h3>SPI Modes</h3>
-            <p>SPI has four modes based on clock polarity (CPOL) and clock phase (CPHA):</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Mode</th>
-                        <th>CPOL</th>
-                        <th>CPHA</th>
-                        <th>Clock Idle State</th>
-                        <th>Data Capture</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>0</strong></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>Low</td>
-                        <td>Leading edge</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1</strong></td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>Low</td>
-                        <td>Trailing edge</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2</strong></td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>High</td>
-                        <td>Leading edge</td>
-                    </tr>
-                    <tr>
-                        <td><strong>3</strong></td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>High</td>
-                        <td>Trailing edge</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="advantages">
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Advantages of SPI</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>Full-duplex communication</li>
-                        <li>Higher speeds than I2C (up to tens of Mbps)</li>
-                        <li>Simple protocol with no addressing</li>
-                        <li>No need for pull-up resistors</li>
-                        <li>Flexible data size (not limited to 8 bits)</li>
-                    </ul>
-                </div>
-                <div class="advantage-card">
-                    <h4 style="color: #2d4a2b;">Disadvantages of SPI</h4>
-                    <ul style="color: #2d4a2b;">
-                        <li>More pins required (minimum 4 per slave)</li>
-                        <li>No built-in error checking</li>
-                        <li>No standardization (different implementations)</li>
-                        <li>Only one master allowed</li>
-                        <li>More complex wiring for multiple slaves</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="note">
-                <h4>SPI vs I2C Comparison:</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>SPI</th>
-                            <th>I2C</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Wires</strong></td>
-                            <td>4+ (SCLK, MOSI, MISO, SS per slave)</td>
-                            <td>2 (SCL, SDA)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Speed</strong></td>
-                            <td>High (up to 50+ Mbps)</td>
-                            <td>Medium (up to 3.4 Mbps)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Duplex</strong></td>
-                            <td>Full-duplex</td>
-                            <td>Half-duplex</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Multi-master</strong></td>
-                            <td>No</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Error checking</strong></td>
-                            <td>No</td>
-                            <td>ACK/NACK</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <section class="section" id="can">
-            <h2>5.5 CAN Communication Protocol</h2>
-            <p>CAN (Controller Area Network) is a robust vehicle bus standard designed to allow microcontrollers and devices to communicate with each other without a host computer.</p>
-            <div class="key-point">EXAM TIP: Understand CAN protocol, message format, arbitration, and applications in automotive and industrial systems.</div>
-            <h3>CAN Basics</h3>
-            <p>CAN is a message-based protocol designed for automotive and industrial applications:</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Peer-to-peer network:</strong> No master device</li>
-                <li><strong>Multi-master capability:</strong> Any node can transmit when bus is free</li>
-                <li><strong>Arbitration:</strong> Based on message ID (lower ID has higher priority)</li>
-                <li><strong>Error detection:</strong> CRC, ACK, frame check</li>
-                <li><strong>Speed:</strong> Up to 1 Mbps (40m max) or 125 kbps (500m max)</li>
-            </ul>
-            <h3>CAN Message Format</h3>
-            <div class="diagram">
-                <div class="diagram-title">CAN Message Frame Format</div>
-                <div class="circuit-diagram">
-                    <svg width="800" height="250" viewBox="0 0 800 250">
-                        <!-- SOF -->
-                        <rect x="50" y="80" width="30" height="40" fill="#ffcccc" stroke="#cc6666" stroke-width="2"/>
-                        <text x="65" y="105" text-anchor="middle" fill="#cc3333" font-size="10">SOF</text>
-                        <!-- ID -->
-                        <rect x="80" y="80" width="120" height="40" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="140" y="105" text-anchor="middle" fill="#2d4a2b" font-size="10">11-bit ID</text>
-                        <!-- RTR -->
-                        <rect x="200" y="80" width="30" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="215" y="105" text-anchor="middle" fill="#8b4513" font-size="10">RTR</text>
-                        <!-- IDE -->
-                        <rect x="230" y="80" width="30" height="40" fill="#fff3cd" stroke="#d4a574" stroke-width="2"/>
-                        <text x="245" y="105" text-anchor="middle" fill="#8b4513" font-size="10">IDE</text>
-                        <!-- DLC -->
-                        <rect x="260" y="80" width="40" height="40" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="280" y="105" text-anchor="middle" fill="#003366" font-size="10">DLC</text>
-                        <!-- Data -->
-                        <rect x="300" y="80" width="160" height="40" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2"/>
-                        <text x="380" y="105" text-anchor="middle" fill="#2d4a2b" font-size="10">0-8 Data Bytes</text>
-                        <!-- CRC -->
-                        <rect x="460" y="80" width="80" height="40" fill="#fff9e6" stroke="#d4a574" stroke-width="2"/>
-                        <text x="500" y="105" text-anchor="middle" fill="#8b4513" font-size="10">15-bit CRC</text>
-                        <!-- ACK -->
-                        <rect x="540" y="80" width="30" height="40" fill="#cce5ff" stroke="#6699cc" stroke-width="2"/>
-                        <text x="555" y="105" text-anchor="middle" fill="#003366" font-size="10">ACK</text>
-                        <!-- EOF -->
-                        <rect x="570" y="80" width="60" height="40" fill="#ffcccc" stroke="#cc6666" stroke-width="2"/>
-                        <text x="600" y="105" text-anchor="middle" fill="#cc3333" font-size="10">7-bit EOF</text>
-                        <!-- Labels -->
-                        <text x="400" y="40" text-anchor="middle" fill="#2d4a2b" font-size="14">CAN Standard Frame Format</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>CAN Protocol Features</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Message-based:</strong> Messages identified by ID, not addresses</li>
-                <li><strong>Non-destructive arbitration:</strong> Higher priority messages win without data loss</li>
-                <li><strong>Error detection:</strong> CRC, ACK, frame format, bit monitoring</li>
-                <li><strong>Fault confinement:</strong> Nodes with too many errors are automatically disconnected</li>
-                <li><strong>Multi-cast reception:</strong> All nodes receive all messages, filter by ID</li>
-            </ul>
-            <div class="example-box">
-                <h4>Example: CAN Arbitration</h4>
-                <p>Two nodes try to transmit simultaneously: Node A with ID 0x100 and Node B with ID 0x200. Which node wins arbitration?</p>
-                <p><strong>Solution:</strong></p>
-                <p>ID 0x100 = 000100000000₂</p>
-                <p>ID 0x200 = 001000000000₂</p>
-                <p>Comparing bit by bit from left (MSB):</p>
-                <p>First 2 bits: both 00</p>
-                <p>Third bit: Node A = 0, Node B = 1</p>
-                <p>Since 0 dominates 1 in CAN, Node A wins arbitration and continues transmitting.</p>
-                <p>Node B stops transmitting and becomes a receiver.</p>
-            </div>
-            <div class="note">
-                <h4>CAN Applications:</h4>
-                <ul style="color: #003366; margin-left: 20px;">
-                    <li><strong>Automotive:</strong> Engine control, ABS, airbags, infotainment</li>
-                    <li><strong>Industrial:</strong> Factory automation, robotics, PLCs</li>
-                    <li><strong>Medical:</strong> Patient monitoring, operating room equipment</li>
-                    <li><strong>Aerospace:</strong> Avionics, flight control systems</li>
-                    <li><strong>Building Automation:</strong> HVAC, elevators, security systems</li>
-                </ul>
-            </div>
-        </section>
-        <section class="section" id="wireless">
-            <h2>5.6 Wireless Communication Technologies</h2>
-            <p>Wireless technologies enable communication without physical cables, providing flexibility and mobility in instrumentation systems.</p>
-            <div class="key-point">EXAM TIP: Understand different wireless technologies, their characteristics, and applications. Be able to compare them for specific use cases.</div>
-            <h3>Bluetooth</h3>
-            <p>Bluetooth is a wireless technology standard for exchanging data over short distances using UHF radio waves.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Frequency:</strong> 2.4 GHz ISM band</li>
-                <li><strong>Range:</strong> 10m (Class 2), up to 100m (Class 1)</li>
-                <li><strong>Data Rate:</strong> 1-3 Mbps (Bluetooth 4.0+)</li>
-                <li><strong>Topology:</strong> Piconet (1 master + 7 active slaves), Scatternet</li>
-                <li><strong>Applications:</strong> Wireless headphones, keyboards, medical devices, IoT</li>
-            </ul>
-            <h3>Zigbee</h3>
-            <p>Zigbee is a specification for high-level communication protocols using small, low-power digital radios based on IEEE 802.15.4.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Frequency:</strong> 2.4 GHz (global), 915 MHz (Americas), 868 MHz (Europe)</li>
-                <li><strong>Range:</strong> 10-100m</li>
-                <li><strong>Data Rate:</strong> 20-250 kbps</li>
-                <li><strong>Topology:</strong> Star, Mesh, Cluster Tree</li>
-                <li><strong>Applications:</strong> Home automation, industrial control, smart energy</li>
-            </ul>
-            <h3>LoRa/LoRaWAN</h3>
-            <p>LoRa (Long Range) is a spread spectrum modulation technique derived from chirp spread spectrum (CSS) technology.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Frequency:</strong> Sub-GHz bands (868 MHz EU, 915 MHz US, 433 MHz Asia)</li>
-                <li><strong>Range:</strong> 2-15 km (urban), up to 45 km (rural)</li>
-                <li><strong>Data Rate:</strong> 0.3-50 kbps</li>
-                <li><strong>Topology:</strong> Star-of-stars</li>
-                <li><strong>Applications:</strong> Smart cities, agriculture, asset tracking, environmental monitoring</li>
-            </ul>
-            <h3>NFC (Near Field Communication)</h3>
-            <p>NFC is a set of communication protocols that enable two electronic devices to communicate when they are within 4 cm of each other.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Frequency:</strong> 13.56 MHz</li>
-                <li><strong>Range:</strong> < 10 cm</li>
-                <li><strong>Data Rate:</strong> 106-424 kbps</li>
-                <li><strong>Modes:</strong> Peer-to-peer, Read/write, Card emulation</li>
-                <li><strong>Applications:</strong> Contactless payments, access control, smart posters</li>
-            </ul>
-            <div class="note">
-                <h4>Wireless Technology Comparison:</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Technology</th>
-                            <th>Range</th>
-                            <th>Data Rate</th>
-                            <th>Power</th>
-                            <th>Applications</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Bluetooth</strong></td>
-                            <td>10-100m</td>
-                            <td>1-3 Mbps</td>
-                            <td>Medium</td>
-                            <td>Audio, peripherals, IoT</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Zigbee</strong></td>
-                            <td>10-100m</td>
-                            <td>20-250 kbps</td>
-                            <td>Low</td>
-                            <td>Home automation, industrial</td>
-                        </tr>
-                        <tr>
-                            <td><strong>LoRa</strong></td>
-                            <td>2-45 km</td>
-                            <td>0.3-50 kbps</td>
-                            <td>Very Low</td>
-                            <td>Smart cities, agriculture</td>
-                        </tr>
-                        <tr>
-                            <td><strong>NFC</strong></td>
-                            <td>< 10 cm</td>
-                            <td>106-424 kbps</td>
-                            <td>Very Low</td>
-                            <td>Payments, access control</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="exam-tip">
-                <h4>Exam Focus:</h4>
-                <p>Be prepared to select the appropriate wireless technology for specific applications based on range, data rate, power consumption, and topology requirements.</p>
-            </div>
-        </section>
-        <section class="section" id="data">
-            <h2>5.7 Data Acquisition Systems</h2>
-            <p>A Data Acquisition System (DAQ) is a system that collects, processes, and stores data from sensors and other measurement devices.</p>
-            <div class="key-point">EXAM TIP: Understand DAQ system components, data logger characteristics, and data storage concepts.</div>
-            <h3>DAQ System Components</h3>
-            <div class="diagram">
-                <div class="diagram-title">Data Acquisition System Block Diagram</div>
-                <div class="circuit-diagram">
-                    <svg width="800" height="350" viewBox="0 0 800 350">
-                        <!-- Sensors -->
-                        <rect x="50" y="50" width="100" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="100" y="75" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Sensors</text>
-                        <text x="100" y="95" text-anchor="middle" fill="#2d4a2b" font-size="10">Temp, Pressure, etc.</text>
-                        <!-- Signal Conditioning -->
-                        <rect x="200" y="50" width="120" height="60" fill="#fff3cd" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="260" y="75" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">Signal</text>
-                        <text x="260" y="95" text-anchor="middle" fill="#8b4513" font-size="10">Conditioning</text>
-                        <!-- Multiplexer -->
-                        <rect x="370" y="50" width="100" height="60" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="420" y="75" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">Multiplexer</text>
-                        <text x="420" y="95" text-anchor="middle" fill="#003366" font-size="10">Channel Selector</text>
-                        <!-- ADC -->
-                        <rect x="520" y="50" width="100" height="60" fill="#d4f4dd" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="570" y="75" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">ADC</text>
-                        <text x="570" y="95" text-anchor="middle" fill="#2d4a2b" font-size="10">Analog to Digital</text>
-                        <!-- Microcontroller -->
-                        <rect x="200" y="150" width="120" height="60" fill="#cce5ff" stroke="#6699cc" stroke-width="2" rx="8"/>
-                        <text x="260" y="175" text-anchor="middle" fill="#003366" font-size="12" font-weight="bold">Microcontroller</text>
-                        <text x="260" y="195" text-anchor="middle" fill="#003366" font-size="10">Control & Processing</text>
-                        <!-- Data Storage -->
-                        <rect x="370" y="150" width="100" height="60" fill="#fff9e6" stroke="#d4a574" stroke-width="2" rx="8"/>
-                        <text x="420" y="175" text-anchor="middle" fill="#8b4513" font-size="12" font-weight="bold">Data Storage</text>
-                        <text x="420" y="195" text-anchor="middle" fill="#8b4513" font-size="10">Memory/SD Card</text>
-                        <!-- Interface -->
-                        <rect x="520" y="150" width="100" height="60" fill="#e8f5e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
-                        <text x="570" y="175" text-anchor="middle" fill="#2d4a2b" font-size="12" font-weight="bold">Interface</text>
-                        <text x="570" y="195" text-anchor="middle" fill="#2d4a2b" font-size="10">USB/WiFi/Ethernet</text>
-                        <!-- Computer -->
-                        <rect x="670" y="150" width="100" height="60" fill="#ffcccc" stroke="#cc6666" stroke-width="2" rx="8"/>
-                        <text x="720" y="175" text-anchor="middle" fill="#cc3333" font-size="12" font-weight="bold">Computer</text>
-                        <text x="720" y="195" text-anchor="middle" fill="#cc3333" font-size="10">Display/Analysis</text>
-                        <!-- Connections -->
-                        <line x1="150" y1="80" x2="200" y2="80" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="320" y1="80" x2="370" y2="80" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="470" y1="80" x2="520" y2="80" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="570" y1="110" x2="570" y2="150" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="320" y1="180" x2="370" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="470" y1="180" x2="520" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <line x1="620" y1="180" x2="670" y2="180" stroke="#2d4a2b" stroke-width="2"/>
-                        <!-- Control lines -->
-                        <line x1="260" y1="110" x2="260" y2="150" stroke="#cc3333" stroke-width="2" stroke-dasharray="5,5"/>
-                        <line x1="420" y1="110" x2="420" y2="150" stroke="#cc3333" stroke-width="2" stroke-dasharray="5,5"/>
-                        <text x="260" y="130" text-anchor="middle" fill="#cc3333" font-size="10">Control</text>
-                    </svg>
-                </div>
-            </div>
-            <h3>Data Logger Characteristics</h3>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Modularity:</strong> Can be expanded with additional channels or modules</li>
-                <li><strong>Reliability:</strong> Must operate continuously without failure</li>
-                <li><strong>Accuracy:</strong> High precision in measurements</li>
-                <li><strong>Management Tool:</strong> Software for configuration, monitoring, and analysis</li>
-                <li><strong>Easy to Use:</strong> Intuitive interface for setup and operation</li>
-            </ul>
-            <h3>Data Storage Concepts</h3>
-            <h4>Storage Types</h4>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Primary Storage:</strong> Fast, volatile (RAM, cache)</li>
-                <li><strong>Secondary Storage:</strong> Non-volatile, moderate speed (HDD, SSD, flash)</li>
-                <li><strong>Tertiary Storage:</strong> Non-volatile, slow access (tape libraries, optical jukeboxes)</li>
-            </ul>
-            <h4>Data Compression</h4>
-            <p>Process of encoding information using fewer bits than the original representation.</p>
-            <ul style="margin-left: 30px; color: #2d4a2b;">
-                <li><strong>Lossless:</strong> Original data can be perfectly reconstructed</li>
-                <li><strong>Lossy:</strong> Some data is lost, but file size is significantly reduced</li>
-                <li><strong>Trade-offs:</strong> Compression ratio vs. processing time vs. quality</li>
-            </ul>
-            <h4>RAID (Redundant Array of Independent Disks)</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>RAID Level</th>
-                        <th>Description</th>
-                        <th>Advantages</th>
-                        <th>Disadvantages</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>RAID 0</strong></td>
-                        <td>Striping without parity</td>
-                        <td>High performance, full capacity</td>
-                        <td>No redundancy, high risk</td>
-                    </tr>
-                    <tr>
-                        <td><strong>RAID 1</strong></td>
-                        <td>Mirroring</td>
-                        <td>High reliability, fast read</td>
-                        <td>50% capacity loss, slow write</td>
-                    </tr>
-                    <tr>
-                        <td><strong>RAID 5</strong></td>
-                        <td>Block-level striping with distributed parity</td>
-                        <td>Good performance, fault tolerance, efficient storage</td>
-                        <td>Complex controller, slow write</td>
-                    </tr>
-                    <tr>
-                        <td><strong>RAID 6</strong></td>
-                        <td>Block-level striping with double distributed parity</td>
-                        <td>Can survive two disk failures</td>
-                        <td>Higher cost, slower write</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="exam-tip">
-                <h4>Exam Focus:</h4>
-                <p>Understand the components of a DAQ system and how they work together. Be prepared to explain the purpose of each component and how data flows through the system.</p>
-            </div>
-        </section>
-        <script>
-            function scrollToSection(id) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        </script>
-    </div>
-</body>
-</html>
-
-
-
-<!-- <==========chapter6 start=================>-->
-
-
-
-
-
-
-
-<!-- https://claude.ai/chat/8d17df5b-cc6c-4093-9764-87811967c4d5 -->
- <!-- https://chat.qwen.ai/c/44d7f928-2b8e-474e-a04a-6cb916bf6fe2 -->

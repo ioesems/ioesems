@@ -229,7 +229,10 @@ header("Content-Type: text/html; charset=utf-8");
             
             <h3>4. Signal Encoding Technique (15 hours)</h3>
             <ul>
-                <li>4.1 Digital data, digital signal: RZ, NRZ, AMI, Manchester, differential Manchester, B8ZS, HDB3 for data transmission</li>
+                <li>4.1 Analog data, analog signals: Modulation and its need, AM, FM, PM</li>
+                <li>4.2 Analog data, digital signals: PAM, PWM, PPM, PCM, DPCM, DM</li>
+                <li>4.3 Digital data, analog signal: ASK, FSK, PSK, QPSK, QAM</li>
+                <li>4.4 Digital data, digital signal: RZ, NRZ, AMI, Manchester, differential Manchester, B8ZS, HDB3 for data transmission</li>
             </ul>
             
             <h3>5. Multiplexing and Switching (8 hours)</h3>

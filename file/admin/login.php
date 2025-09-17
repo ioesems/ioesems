@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (isset($_GET['role'])) {
+    if ($_GET['role'] === 'admin') {
+        $_SESSION['admin_logged_in'] = true;
+        header("Location: ./m.php");
+        exit();
+    } else {
+        $_SESSION['user_logged_in'] = true;
+        header("Location: ../../index.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,55 +29,44 @@
       background: linear-gradient(135deg, #508bfc, #1e3c72);
       color: #ffffff;
     }
-
     .card {
       border-radius: 1rem;
       background: rgba(255, 255, 255, 0.9);
       box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     }
-
     .btn-primary {
       background: #508bfc;
       border: none;
     }
-
     .btn-primary:hover {
       background: #3a6bdb;
     }
-
     .btn-google {
       background-color: #dd4b39 !important;
       border: none;
     }
-
     .btn-facebook {
       background-color: #3b5998 !important;
       border: none;
     }
-
     .form-control {
       background-color: #f7f9fc;
       border: 1px solid #ced4da;
       border-radius: 0.5rem;
     }
-
     .form-control:focus {
       box-shadow: 0 0 5px rgba(80, 139, 252, 0.8);
       border-color: #508bfc;
     }
-
     .form-check-label {
       color: #333;
     }
-
     hr {
       border-top: 2px solid #ddd;
     }
-
     .password-container {
       position: relative;
     }
-
     .password-toggle {
       position: absolute;
       top: 50%;
@@ -71,12 +75,10 @@
       cursor: pointer;
       color: #6c757d;
     }
-
     @media (max-width: 768px) {
       h3 {
         font-size: 1.5rem;
       }
-
       .btn {
         font-size: 0.9rem;
       }
@@ -91,9 +93,7 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong">
             <div class="card-body p-5 text-center">
-
               <h3 class="mb-5">Sign in</h3>
-
               <button id="googleSignIn" class="btn btn-lg btn-block btn-google" type="button">
                 <i class="fab fa-google me-2"></i> Sign in with Google
               </button>
@@ -103,9 +103,10 @@
       </div>
     </div>
   </section>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBHsYpoIlg5qF4tbrjslegESa9VB9tHvEI",
@@ -117,45 +118,27 @@
       measurementId: "G-1P6YQRYR7K"
     };
 
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyDyCmJH8PoT3eTtRS52nZ5fyrofwIymMUk",
-    //     authDomain: "webapp-e3540.firebaseapp.com",
-    //     projectId: "webapp-e3540",
-    //     storageBucket: "webapp-e3540.firebasestorage.app",
-    //     messagingSenderId: "330320311086",
-    //     appId: "1:330320311086:web:56a6cc31dd4daad42d00bf"
-    //   };
-
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-
-    // Google Sign-In with Admin Check
     document.getElementById('googleSignIn').addEventListener('click', async () => {
       const provider = new GoogleAuthProvider();
       try {
         const result = await signInWithPopup(auth, provider);
         const userEmail = result.user.email;
 
-        if (userEmail === 'mukeshsingh98121159@gmail.com') {
-          <?php $_SESSION['admin_logged_in'] = true; ?>  
-          alert('Welcome Admin! You are successfully logged in.');
-          window.location.href = 'index.php';
-
+        if (userEmail === 'mukeshsingh98121159@gmail.com' ||
+            userEmail === 'ioesems@gmail.com' ||
+            userEmail === 'mukeshsingh9812115@gmail.com'
+        ) {
+          window.location.href = "login.php?role=admin";
         } else {
-        //   alert('Welcome! You are successfully logged in.');
-          <?php 
-        //   $_SESSION['user_logged_in'] = true;
-          ?>
-          window.location.href = '../../index.php';
+          window.location.href = "login.php?role=user";
         }
       } catch (error) {
         alert(error.message);
       }
     });
-
-
   </script>
 </body>
 </html>

@@ -2,1329 +2,1500 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Communication Syllabus - Complete Chapter Navigation | Engineering Curriculum</title>
-    <meta name="description" content="Comprehensive syllabus for Data Communication course covering principles, protocols, transmission media, signal encoding, multiplexing, switching, and wireless communications for engineering students.">
-    <meta name="keywords" content="data communication syllabus, engineering syllabus, communication protocols, transmission media, signal encoding, multiplexing, switching, wireless communications, cellular networks, 5G, IoT">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Data Communication and Networking Comprehensive Guide</title>
     <style>
-        :root {
-            --primary-green: #2e8b57;
-            --secondary-green: #3cb371;
-            --accent-yellow: #ffd700;
-            --light-yellow: #fffacd;
-            --text-dark: #333333;
-            --text-light: #ffffff;
-            --border-color: #3cb371;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: var(--light-yellow);
-            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            overflow-x: hidden;
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: var(--text-light);
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
             width: 100%;
-            height: 5px;
-            background: var(--accent-yellow);
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
         }
         
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 8px;
-            color: var(--accent-yellow);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            font-weight: 700;
+        header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 70%;
         }
         
-        .subtitle {
-            font-size: 1.4rem;
-            opacity: 0.9;
-            font-weight: 400;
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            border-radius: 3px;
+            transition: 0.3s;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            display: flex;
+            min-height: calc(100vh - 60px);
+            margin-top: 60px;
         }
         
-        /* Main Navigation Section */
-        .syllabus-nav {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-            border-left: 5px solid var(--accent-yellow);
-        }
-        
-        .syllabus-nav h2 {
-            color: var(--primary-green);
-            border-bottom: 3px solid var(--accent-yellow);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            position: relative;
-        }
-        
-        .syllabus-nav h2::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--accent-yellow);
-        }
-        
-        .nav-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-item {
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid var(--secondary-green);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .nav-item:hover {
-            transform: translateX(5px);
-            background-color: var(--light-yellow);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-        
-        .nav-item h3 {
-            color: var(--primary-green);
-            margin-bottom: 8px;
-            font-size: 1.4rem;
-        }
-        
-        .nav-item ul {
-            margin-left: 20px;
-            margin-top: 8px;
-            padding-left: 15px;
-        }
-        
-        .nav-item li {
-            margin-bottom: 6px;
-            color: var(--text-dark);
-            font-size: 1.05rem;
-            position: relative;
-            padding-left: 18px;
-        }
-        
-        .nav-item li:before {
-            content: "•";
-            color: var(--accent-yellow);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-        
-        .nav-item strong {
-            color: var(--primary-green);
-        }
-        
-        /* Content Sections */
-        .content-section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--accent-yellow);
+        nav {
+            width: 280px;
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 1rem 1rem;
+            height: calc(100vh - 60px);
+            position: fixed;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            z-index: 900;
+            -webkit-overflow-scrolling: touch;
         }
         
-        .content-section:hover {
-            transform: translateY(-5px);
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
-        .content-section h2 {
-            color: var(--primary-green);
-            border-bottom: 3px solid var(--accent-yellow);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 2rem;
-            position: relative;
+        nav li {
+            margin-bottom: 0.3rem;
         }
         
-        .content-section h2::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--accent-yellow);
-        }
-        
-        .content-section h3 {
-            color: var(--secondary-green);
-            margin-top: 20px;
-            margin-bottom: 12px;
-            font-size: 1.6rem;
-        }
-        
-        .content-section p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-        
-        .content-section ul, .content-section ol {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-        
-        .content-section li {
-            margin-bottom: 8px;
-            font-size: 1.05rem;
-            position: relative;
-            padding-left: 20px;
-        }
-        
-        .content-section li:before {
-            content: "•";
-            color: var(--accent-yellow);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-        
-        .content-section table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-radius: 8px;
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             overflow: hidden;
         }
         
-        .content-section th, .content-section td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        nav a:hover, nav a.active {
+            background: #34495e;
+            color: #fff;
+            transform: translateX(5px);
         }
         
-        .content-section th {
-            background-color: var(--secondary-green);
-            color: white;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+        nav ul ul {
+            padding-left: 1rem;
+            margin-top: 0.2rem;
         }
         
-        .content-section tr:nth-child(even) {
-            background-color: var(--light-yellow);
+        main {
+            flex: 1;
+            margin-left: 280px;
+            padding: 1.5rem;
+            background: white;
+            min-height: calc(100vh - 60px);
+            box-shadow: -2px 0 5px rgba(0,0,0,0.05);
+            overflow-x: hidden;
         }
         
-        .content-section tr:hover {
-            background-color: #fff8dc;
+        section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
         }
         
-        .highlight {
-            background-color: var(--light-yellow);
-            border-left: 5px solid var(--accent-yellow);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-            font-weight: 500;
-            font-size: 1.1rem;
+        h2 {
+            color: #2c3e50;
+            border-left: 5px solid #4a69bd;
+            padding-left: 1rem;
+            margin-top: 2rem;
+            font-size: 1.5rem;
         }
         
-        .references {
-            background-color: #f0f7f0;
-            border: 2px dashed var(--secondary-green);
-            border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
+        h3 {
+            color: #34495e;
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
         }
         
-        .references h2 {
-            color: var(--primary-green);
-            border-bottom: 2px solid var(--accent-yellow);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .reference-item {
-            margin-bottom: 10px;
-            padding-left: 15px;
-            position: relative;
-            font-size: 1.05rem;
-        }
-        
-        .reference-item:before {
-            content: "•";
-            color: var(--secondary-green);
-            position: absolute;
-            left: 0;
-        }
-        
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
-            color: var(--text-light);
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-radius: 8px;
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
             font-size: 1rem;
+            line-height: 1.7;
         }
         
-        /* Responsive Design */
+        .topic-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: block;
+        }
+        
+        .image-caption {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-top: -0.5rem;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Responsive Design */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
+            header {
+                padding: 0.8rem;
+                height: 55px;
             }
             
-            .subtitle {
+            header h1 {
+                font-size: 1.1rem;
+                max-width: 65%;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav {
+                transform: translateX(-100%);
+                width: 85%;
+                max-width: 300px;
+                padding-top: 1rem;
+                padding-bottom: 2rem;
+            }
+            
+            nav.active {
+                transform: translateX(0);
+            }
+            
+            main {
+                margin-left: 0;
+                padding: 1rem;
+                margin-top: 0;
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 800;
+                display: none;
+            }
+            
+            .overlay.active {
+                display: block;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+                padding-left: 0.8rem;
+            }
+            
+            h3 {
                 font-size: 1.2rem;
             }
             
-            .syllabus-nav h2,
-            .content-section h2 {
-                font-size: 1.8rem;
+            p {
+                font-size: 0.95rem;
+                line-height: 1.6;
             }
             
-            .content-section h3,
-            .nav-item h3 {
-                font-size: 1.3rem;
+            .topic-card {
+                padding: 1.2rem;
+                margin: 1.2rem 0;
             }
             
-            .nav-item,
-            .content-section,
-            .references,
-            .syllabus-nav {
-                padding: 20px;
-            }
-            
-            .content-section p,
-            .content-section li,
-            .nav-item li,
-            .reference-item {
-                font-size: 1rem;
-            }
-            
-            .content-section table,
-            .content-section th,
-            .content-section td {
-                padding: 8px;
+            nav a {
+                padding: 0.5rem 0.8rem;
                 font-size: 0.9rem;
-            }
-            
-            .content-section th {
-                font-size: 0.85rem;
-            }
-            
-            .nav-item ul {
-                margin-left: 15px;
-                padding-left: 10px;
-            }
-            
-            .nav-item li:before,
-            .reference-item:before {
-                font-size: 1.2rem;
             }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .syllabus-nav,
-            .content-section,
-            .references {
-                padding: 15px;
-            }
-            
-            .content-section h2,
-            .syllabus-nav h2 {
-                font-size: 1.6rem;
-            }
-            
-            .content-section h3,
-            .nav-item h3 {
-                font-size: 1.2rem;
-            }
-            
-            .content-section p,
-            .content-section li,
-            .nav-item li,
-            .reference-item {
-                font-size: 0.95rem;
-            }
-            
-            .highlight {
+            header h1 {
                 font-size: 1rem;
-                padding: 12px;
+                max-width: 60%;
+            }
+            
+            nav {
+                width: 90%;
+            }
+            
+            main {
+                padding: 0.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            h3 {
+                font-size: 1.15rem;
+            }
+            
+            p {
+                font-size: 0.9rem;
+            }
+            
+            .topic-card {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            
+            nav a {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.85rem;
+            }
+            
+            .image-caption {
+                font-size: 0.8rem;
             }
         }
         
-        /* Anchor Links for Navigation */
-        .anchor-link {
+        .highlight {
+            background: linear-gradient(120deg, #e0f7fa, #bbdefb);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .definition {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+            overflow-x: auto;
             display: block;
-            margin-top: 15px;
-            color: var(--accent-yellow);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
         }
         
-        .anchor-link:hover {
-            text-decoration: underline;
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        th {
+            background-color: #4a69bd;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .comparison-table th {
+            background-color: #2c3e50;
+        }
+        
+        /* Scrollbar styling for WebKit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Data Communication Syllabus</h1>
-        <div class="subtitle">Comprehensive Engineering Course Outline for Year II, Part II</div>
+        <h1>Data Communication and Networking</h1>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
+    
+    <div class="overlay" id="overlay"></div>
 
     <div class="container">
-        <!-- MAIN SYLLABUS NAVIGATION -->
-        <section class="syllabus-nav">
-            <h2>Course Structure & Chapter Navigation</h2>
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <h3>1. Introduction (4 hours)</h3>
+        <nav id="sidebar">
+            <ul>
+                <li><a href="#chapter1">Chapter 1: Introduction (4 hours)</a>
                     <ul>
-                        <li>1.1 Analog data communication, data representation, data flows</li>
-                        <li>1.2 Evolution of data communication</li>
-                        <li>1.3 A communication model, data communication model</li>
-                        <li>1.4 Networks (LAN, WAN), simplified network architecture, the OSI model</li>
-                        <li>1.5 Data communication and networking for today enterprise</li>
+                        <li><a href="#1-1">1.1 Analog data communication, data representation, data flows</a></li>
+                        <li><a href="#1-2">1.2 Evolution of data communication</a></li>
+                        <li><a href="#1-3">1.3 A communication model, data communication model</a></li>
+                        <li><a href="#1-4">1.4 Networks (LAN, WAN), simplified network architecture, the OSI model</a></li>
+                        <li><a href="#1-5">1.5 Data communication and networking for today enterprise</a></li>
                     </ul>
                 </li>
+                <li><a href="#chapter2">Chapter 2: Data Communication Fundamentals (5 hours)</a>
+                    <ul>
+                        <li><a href="#2-1">2.1 Analog and digital data</a></li>
+                        <li><a href="#2-2">2.2 Analog signals, periodic and aperiodic signals</a></li>
+                        <li><a href="#2-3">2.3 Fourier series and Fourier transform</a></li>
+                        <li><a href="#2-4">2.4 Analog and digital transmission, transmission mode, impairments</a></li>
+                        <li><a href="#2-5">2.5 Data rate limits, Nyquist and Shannon formulas</a></li>
+                        <li><a href="#2-6">2.6 Network performance metrics</a></li>
+                    </ul>
+                </li>
+                <li><a href="#chapter3">Chapter 3: Transmission Media and Data Compression (9 hours)</a>
+                    <ul>
+                        <li><a href="#3-1">3.1 Guided transmission media</a></li>
+                        <li><a href="#3-2">3.2 Unguided transmission media</a></li>
+                        <li><a href="#3-3">3.3 Antenna basics, satellite communication</a></li>
+                        <li><a href="#3-4">3.4 Wireless propagation</a></li>
+                        <li><a href="#3-5">3.5 Error detection and correction</a></li>
+                        <li><a href="#3-6">3.6 Data compression: Lossy and lossless</a></li>
+                    </ul>
+                </li>
+                <li><a href="#chapter4">Chapter 4: Signal Encoding Technique (15 hours)</a>
+                    <ul>
+                        <li><a href="#4-1">4.1 Digital data to digital signal encoding</a></li>
+                    </ul>
+                </li>
+                <li><a href="#chapter5">Chapter 5: Multiplexing and Switching (8 hours)</a>
+                    <ul>
+                        <li><a href="#5-1">5.1 Introduction to multiplexing</a></li>
+                        <li><a href="#5-2">5.2 Frequency Division Multiple Access (FDMA)</a></li>
+                        <li><a href="#5-3">5.3 Time Division Multiple Access (TDMA)</a></li>
+                        <li><a href="#5-4">5.4 Asymmetric Digital Subscriber Line (ADSL)</a></li>
+                        <li><a href="#5-5">5.5 Spread spectrum: DSSS, FHSS, CDMA</a></li>
+                        <li><a href="#5-6">5.6 Introduction to switched communication networks</a></li>
+                        <li><a href="#5-7">5.7 Switching devices</a></li>
+                        <li><a href="#5-8">5.8 Circuit switching and message switching</a></li>
+                        <li><a href="#5-9">5.9 Packet switching</a></li>
+                    </ul>
+                </li>
+                <li><a href="#chapter6">Chapter 6: Cellular Wireless Communications and Latest Trends (4 hours)</a>
+                    <ul>
+                        <li><a href="#6-1">6.1 Overview of 1G, 2G, 3G and 4G</a></li>
+                        <li><a href="#6-2">6.2 Cellular technology fundamentals</a></li>
+                        <li><a href="#6-3">6.3 Introduction to 5G, SDN, IoT, Cloud Computing</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Chapter 1 -->
+            <section id="chapter1">
+                <h2>Chapter 1: Introduction to Data Communication</h2>
                 
-                <li class="nav-item">
-                    <h3>2. Data Communication Fundamentals (5 hours)</h3>
+                <div class="topic-card" id="1-1">
+                    <h3>1.1 Analog Data Communication, Data Representation, Data Flows</h3>
+                    <p>Data is the entity which conveys meaning based on agreed rules or communication protocols. It represents the information we want to send. For example, the binary sequence "01000001" has no meaning unless both sender and receiver agree it represents the ASCII character 'A'.</p>
+                    
+                    <div class="definition">
+                        <strong>Analog Data:</strong> Information that has continuous (infinite) values within a time interval. Examples include sound waves and analog clock movements.
+                    </div>
+                    
+                    <div class="definition">
+                        <strong>Digital Data:</strong> Information that has a finite number of values within a certain time period. Examples include digital clocks and computer memory storage.
+                    </div>
+                    
+                    <p><strong>Data Representation:</strong> Information today comes in different forms:</p>
                     <ul>
-                        <li>2.1 Analog and digital data</li>
-                        <li>2.2 Analog signals, periodic and aperiodic signals, periodic signals characteristics (Time, frequency domain)</li>
-                        <li>2.3 Introduction to Fourier series representation of periodic signal, Fourier transform representation of aperiodic signals, digital signals and its characteristics</li>
-                        <li>2.4 Analog and digital transmission, transmission mode, transmission impairments (Attenuation, distortion, noise)</li>
-                        <li>2.5 Data rate limits channel capacity, Nyquist bandwidth, Shannon capacity formula</li>
-                        <li>2.6 Performance of network (Bandwidth, throughput, latency, jitter)</li>
+                        <li><strong>Text:</strong> Represented as bits or sequences of bits using encoding schemes like ASCII or Unicode.</li>
+                        <li><strong>Numbers:</strong> Represented by bit patterns to simplify mathematical operations.</li>
+                        <li><strong>Images:</strong> Composed of a matrix of pixels, where each pixel is assigned a bit pattern.</li>
+                        <li><strong>Audio:</strong> Refers to the recording of sound.</li>
+                        <li><strong>Video:</strong> Refers to broadcasting pictures or movies, either as a continuous entity or a combination of images arranged to convey motion.</li>
                     </ul>
-                </li>
+                    
+                    <p><strong>Data Flow (Transmission Modes):</strong></p>
+                    <ul>
+                        <li><strong>Simplex Mode:</strong> Unidirectional communication. Example: Keyboard (only sends) or Monitor (only receives).</li>
+                        <li><strong>Half-Duplex Mode:</strong> Bidirectional but not simultaneous. Example: Walkie-talkie.</li>
+                        <li><strong>Full-Duplex Mode:</strong> Simultaneous bidirectional communication. Example: Telephone conversation.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig1/AS:903533083209728@1592495699390/Types-of-data-flow.png" alt="Data Flow Transmission Modes">
+                    <div class="image-caption">Figure: Simplex, Half-duplex, and Full-duplex transmission modes</div>
+                </div>
                 
-                <li class="nav-item">
-                    <h3>3. Transmission Media and Data Compression (9 hours)</h3>
+                <div class="topic-card" id="1-2">
+                    <h3>1.2 Evolution of Data Communication</h3>
+                    <p>Data communication has evolved from simple analog systems to complex digital networks. Early systems used analog signals for voice communication over copper wires. The development of digital technology enabled more efficient, reliable, and secure data transmission.</p>
+                    <p>Key milestones include:</p>
                     <ul>
-                        <li>3.1 Guided transmission media: co-axial cable, twisted pair, optical fiber</li>
-                        <li>3.2 Unguided transmission media: Radio waves, microwaves, infrared</li>
-                        <li>3.3 Antenna basics, satellite communication</li>
-                        <li>3.4 Wireless propagation (Introduction to groundwave propagation, sky wave propagation and line of sight propagation), frequency bands</li>
-                        <li>3.5 Error detection and correction: Parity, check sum, cyclic redundancy check, hamming code</li>
-                        <li>3.6 Data compression: Lossy and lossless</li>
+                        <li>Telegraph systems (19th century)</li>
+                        <li>Telephone networks (late 19th century)</li>
+                        <li>Development of digital computers (mid-20th century)</li>
+                        <li>ARPANET and the birth of the Internet (1960s-1970s)</li>
+                        <li>Standardization with OSI model and TCP/IP (1980s)</li>
+                        <li>Wireless revolution and mobile data (1990s-present)</li>
                     </ul>
-                </li>
+                    
+                    <img src="https://www.researchgate.net/publication/348509465/figure/fig1/AS:980397246992385@1610685384750/Evolution-of-data-communication.png" alt="Evolution of Data Communication">
+                    <div class="image-caption">Figure: Evolution of data communication technologies</div>
+                </div>
                 
-                <li class="nav-item">
-                    <h3>4. Signal Encoding Techniques (15 hours)</h3>
+                <div class="topic-card" id="1-3">
+                    <h3>1.3 Communication Model and Data Communication Model</h3>
+                    <p>A data communications system consists of five components:</p>
+                    <ol>
+                        <li><strong>Message:</strong> The information (data) to be communicated (text, numbers, pictures, audio, and video).</li>
+                        <li><strong>Sender:</strong> The device that sends the data message (computer, workstation, telephone handset, video camera, and so on).</li>
+                        <li><strong>Receiver:</strong> The device that receives the message (computer, workstation, telephone handset, television, and so on).</li>
+                        <li><strong>Transmission medium:</strong> The physical path by which a message travels from sender to receiver (twisted-pair wire, coaxial cable, fiber-optic cable, and radio waves).</li>
+                        <li><strong>Protocol:</strong> A set of rules that govern data communications. It represents an agreement between the communicating devices.</li>
+                    </ol>
+                    
+                    <p><strong>Analog Communication System Components:</strong></p>
                     <ul>
-                        <li>4.1 Digital data, digital signal: RZ, NRZ, AMI, Manchester, differential Manchester, B8ZS, HDB3 for data transmission</li>
-                        <li>4.2 Analog data to analog signals: AM, FM, PM, DSBSC, SSBSC, VSBSC</li>
-                        <li>4.3 Analog data to digital signals: PCM, Delta Modulation</li>
-                        <li>4.4 Digital data to analog signals: ASK, FSK, PSK, QAM</li>
-                        <li>4.5 Pulse modulation: PAM, PWM, PPM</li>
-                        <li>4.6 Spread spectrum: DSSS, FHSS, CDMA</li>
-                        <li>4.7 Constellation diagrams and modulation efficiency</li>
+                        <li><strong>Input Transducer:</strong> Converts information into electrical energy.</li>
+                        <li><strong>Transmitter:</strong> Converts electrical signal for channel transmission (performs modulation).</li>
+                        <li><strong>Communication Channel:</strong> Medium for signal transmission.</li>
+                        <li><strong>Noise and Distortion:</strong> External signals combining with message signal.</li>
+                        <li><strong>Receiver:</strong> Extracts information from received signal (performs demodulation).</li>
+                        <li><strong>Output Transducer:</strong> Converts electrical energy back to original signal (speakers, motors, LEDs).</li>
                     </ul>
-                </li>
+                    
+                    <img src="https://www.electrical4u.com/wp-content/uploads/2013/10/data-communication-system-block-diagram.png" alt="Data Communication Model">
+                    <div class="image-caption">Figure: Basic data communication system model</div>
+                </div>
                 
-                <li class="nav-item">
-                    <h3>5. Multiplexing and Switching (8 hours)</h3>
+                <div class="topic-card" id="1-4">
+                    <h3>1.4 Networks (LAN, WAN), Simplified Network Architecture, OSI Model</h3>
+                    <p><strong>Computer Network:</strong> A system connecting multiple computers to share information and resources.</p>
+                    
+                    <p><strong>Types of Networks:</strong></p>
                     <ul>
-                        <li>5.1 Introduction to multiplexing, application of multiplexing</li>
-                        <li>5.2 Frequency division multiple access (FDMA)</li>
-                        <li>5.3 Time division multiple access (TDMA): Synchronous vs Statistical</li>
-                        <li>5.4 Asymmetric digital subscriber line (ADSL), XDSL</li>
-                        <li>5.5 Spread spectrum: DSSS, FHSS, CDMA</li>
-                        <li>5.6 Introduction to switching: Connection-oriented vs connectionless</li>
-                        <li>5.7 Switching devices: Types, importance and application (Hub, Switch, Router)</li>
-                        <li>5.8 Circuit switching: Concepts, message switching</li>
-                        <li>5.9 Packet switching: Virtual circuit switching, datagram switching</li>
+                        <li><strong>PAN (Personal Area Network):</strong> Connects devices within a short range around one person (smartphones, tablets, wearables).</li>
+                        <li><strong>LAN (Local Area Network):</strong> Connects computers within a limited area (office, building).</li>
+                        <li><strong>CAN (Campus Area Network):</strong> Larger than LAN but smaller than MAN (school or college campus).</li>
+                        <li><strong>MAN (Metropolitan Area Network):</strong> Connects computers over a city or metropolitan area.</li>
+                        <li><strong>WAN (Wide Area Network):</strong> Connects computers over large geographical distances (Internet).</li>
                     </ul>
-                </li>
+                    
+                    <p><strong>Simplified Network Architecture Components:</strong></p>
+                    <ul>
+                        <li><strong>Computers (Workstations):</strong> End-user devices connected via switch.</li>
+                        <li><strong>Switch:</strong> Central device connecting computers in LAN (Layer 2 of OSI).</li>
+                        <li><strong>Server:</strong> Handles services like file sharing, print services, authentication.</li>
+                        <li><strong>Printer:</strong> Often connected to server for print job management.</li>
+                        <li><strong>Router:</strong> Connects internal LAN to Internet (Layer 3 of OSI).</li>
+                    </ul>
+                    
+                    <p><strong>OSI Model (7 Layers):</strong></p>
+                    <ol>
+                        <li><strong>Physical Layer:</strong> Actual physical connection, bit synchronization, transmission rate, physical topologies.</li>
+                        <li><strong>Data Link Layer:</strong> Error-free data transfer between nodes, framing, physical addressing (MAC), flow control.</li>
+                        <li><strong>Network Layer:</strong> Data transmission between hosts in different networks, routing, logical addressing (IP).</li>
+                        <li><strong>Transport Layer:</strong> Services to application layer, takes services from network layer, segmentation and reassembly, connection-oriented/connectionless service.</li>
+                        <li><strong>Session Layer:</strong> Establishment, management, and termination of sessions between devices, synchronization.</li>
+                        <li><strong>Presentation Layer:</strong> Translation, encryption/decryption, compression.</li>
+                        <li><strong>Application Layer:</strong> Interface for applications to access network, services like NVT, FTAM, mail services, directory services.</li>
+                    </ol>
+                    
+                    <img src="https://www.cloudflare.com/img/learning/network-layer/osi-model/osi-model-7-layers.png" alt="OSI Model">
+                    <div class="image-caption">Figure: The 7-layer OSI model</div>
+                </div>
                 
-                <li class="nav-item">
-                    <h3>6. Cellular Wireless Communications and Latest Trends (4 hours)</h3>
+                <div class="topic-card" id="1-5">
+                    <h3>1.5 Data Communication and Networking for Today's Enterprise</h3>
+                    <p>Modern enterprises rely heavily on data communication and networking for their operations:</p>
+                    
+                    <p><strong>1. Internal Communication:</strong> Backbone of business operations using email, instant messaging, voice calls, and collaborative platforms (Microsoft Teams, Slack).</p>
+                    
+                    <p><strong>2. Cloud Computing & Remote Access:</strong> Essential for flexible work environments and distributed teams. Enables connection to cloud platforms (Google Workspace, Microsoft Azure, AWS).</p>
+                    
+                    <p><strong>3. Data Storage & Sharing:</strong> Supports centralized data storage and fast file sharing for smooth collaboration and secure access to business information.</p>
+                    
+                    <p><strong>4. Real-time Applications:</strong> Networks ensure low-latency connections for VoIP and video calls, enabling smooth communication for meetings and customer support.</p>
+                    
+                    <p><strong>5. IoT & Automation:</strong> Networking connects IoT devices (sensors, smart systems) enabling automation, monitoring, and improved efficiency in business processes.</p>
+                    
+                    <img src="https://www.cisco.com/c/dam/en_us/solutions/enterprise-networks/images/enterprise-network-architecture-diagram.png" alt="Enterprise Network">
+                    <div class="image-caption">Figure: Modern enterprise network architecture</div>
+                </div>
+            </section>
+
+            <!-- Chapter 2 -->
+            <section id="chapter2">
+                <h2>Chapter 2: Data Communication Fundamentals</h2>
+                
+                <div class="topic-card" id="2-1">
+                    <h3>2.1 Analog and Digital Data</h3>
+                    <p><strong>Analog Data:</strong> Information represented by continuous signals that can take any value within a range. Analog data uses values that change very smoothly over time.</p>
+                    <p><em>Examples:</em> Sound waves, analog clock (smoothly moving seconds hand), temperature sensors, microphone output.</p>
+                    
+                    <p><strong>Digital Data:</strong> Information represented by discrete values, typically binary (0s and 1s). Digital data jumps from one value to another in a step-by-step sequence.</p>
+                    <p><em>Examples:</em> Digital clock (jumps between seconds), computer memory storage, digital images.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>Analog Data</th>
+                                <th>Digital Data</th>
+                            </tr>
+                            <tr>
+                                <td>Values</td>
+                                <td>Continuous, infinite values</td>
+                                <td>Discrete, finite values</td>
+                            </tr>
+                            <tr>
+                                <td>Representation</td>
+                                <td>Smoothly varying signals</td>
+                                <td>Step-by-step sequence</td>
+                            </tr>
+                            <tr>
+                                <td>Examples</td>
+                                <td>Sound, analog clock, temperature</td>
+                                <td>Digital clock, computer data</td>
+                            </tr>
+                            <tr>
+                                <td>Noise Immunity</td>
+                                <td>Poor</td>
+                                <td>Good</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig2/AS:903533083217920@1592495699462/Analog-vs-Digital-Signal.png" alt="Analog vs Digital Data">
+                    <div class="image-caption">Figure: Comparison between analog and digital data</div>
+                </div>
+                
+                <div class="topic-card" id="2-2">
+                    <h3>2.2 Analog Signals, Periodic and Aperiodic Signals</h3>
+                    <p><strong>Signal:</strong> A function representing the variation of a physical quantity with respect to another parameter (usually time). Signals are electrical, electronic, or optical representations of data.</p>
+                    
+                    <p><strong>Analog Signal:</strong> A continuous signal where one time-varying quantity represents another time-based variable. When plotted on a voltage vs. time graph, it produces a smooth and continuous curve.</p>
+                    
+                    <p><strong>Periodic Signal:</strong> A signal that repeats itself after a specific interval of time (period T). Mathematically: x(t) = x(t + KT₀) for all integer K and positive value T₀.</p>
+                    <p><em>Examples:</em> Sine waves, cosine waves, square waves.</p>
+                    
+                    <p><strong>Aperiodic (Non-periodic) Signal:</strong> A signal that does not repeat itself after any specific interval. These are often random signals that cannot be represented by simple mathematical equations.</p>
+                    <p><em>Examples:</em> Sound signals from radio, noise signals.</p>
+                    
+                    <p><strong>Special Types of Signals:</strong></p>
                     <ul>
-                        <li>6.1 Overview of 1G, 2G, 3G, 4G, 5G evolution</li>
-                        <li>6.2 Cellular technology fundamentals: Cell, cluster, frequency reuse, adjacent channel interference, co-channel interference</li>
-                        <li>6.3 Handoff strategies: Mobile assisted handoff (MAHO), guard channels, umbrella cell concept</li>
-                        <li>6.4 Architecture of GSM basics</li>
-                        <li>6.5 Introduction to 5G networks: mmWave, Massive MIMO, Beamforming</li>
-                        <li>6.6 Software Defined Networking (SDN), Network Function Virtualization (NFV)</li>
-                        <li>6.7 IoT communication: H2M, M2M, M2H, M2C, technologies (Bluetooth, LoRaWAN, NB-IoT)</li>
-                        <li>6.8 Cloud computing and virtualization in data communication</li>
+                        <li><strong>Harmonic Signal:</strong> x(t) = A cos(2πft + θ)</li>
+                        <li><strong>Unit Step Function:</strong> u(t) = 1 for t ≥ 0, 0 for t < 0</li>
+                        <li><strong>Signum Function:</strong> sgn(t) = 1 for t > 0, -1 for t < 0, 0 for t = 0</li>
+                        <li><strong>Impulse Function:</strong> Mathematical model for phenomena occurring in very short periods.</li>
+                        <li><strong>Sinc Signal:</strong> sinc(t) = sin(πt)/πt for t ≠ 0, 1 for t = 0</li>
+                        <li><strong>Rectangular Signal:</strong> Produces a rectangular pulse with specific width and height.</li>
                     </ul>
-                </li>
-            </ul>
-        </section>
+                    
+                    <img src="https://www.gaussianwaves.com/gaussianwaves/wp-content/uploads/2013/11/Periodic_and_aperiodic_signals.png" alt="Periodic and Aperiodic Signals">
+                    <div class="image-caption">Figure: Examples of periodic and aperiodic signals</div>
+                </div>
+                
+                <div class="topic-card" id="2-3">
+                    <h3>2.3 Fourier Series and Fourier Transform</h3>
+                    <p><strong>Fourier Series:</strong> A mathematical representation that expresses any periodic signal as an infinite sum of sine and cosine functions (or complex exponentials). Developed by Jean-Baptiste Joseph Fourier.</p>
+                    
+                    <p>The Fourier series F(x) is represented as:<br>
+                    F(x) = a/2 + a₁cos(x) + b₁sin(x) + a₂cos(2x) + b₂sin(2x) + ... + aₙcos(nx) + bₙsin(nx) + ...</p>
+                    
+                    <p><strong>Dirichlet Conditions for Fourier Series:</strong> For a periodic function to be represented as a convergent Fourier series, it must:</p>
+                    <ol>
+                        <li>Have a finite number of maxima and minima over its time period.</li>
+                        <li>Have a finite number of discontinuities over its time period.</li>
+                        <li>Be absolutely integrable over its time period.</li>
+                    </ol>
+                    
+                    <p><strong>Fourier Transform:</strong> An extension of Fourier series to non-periodic (aperiodic) signals. It transforms signals between time domain and frequency domain.</p>
+                    
+                    <p>While Fourier series is applicable only to periodic signals and produces a discrete spectrum, Fourier transform can handle aperiodic signals and produces a continuous spectrum.</p>
+                    
+                    <p><strong>Properties of Fourier Transform:</strong></p>
+                    <ul>
+                        <li>Linearity</li>
+                        <li>Time shifting</li>
+                        <li>Frequency shifting</li>
+                        <li>Scaling</li>
+                        <li>Convolution</li>
+                        <li>Differentiation</li>
+                        <li>Integration</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Wei-Chang-32/publication/333585354/figure/fig1/AS:766359978946560@1559769193470/Fourier-transform-of-a-signal.png" alt="Fourier Transform">
+                    <div class="image-caption">Figure: Fourier transform converting a time-domain signal to frequency domain</div>
+                </div>
+                
+                <div class="topic-card" id="2-4">
+                    <h3>2.4 Analog and Digital Transmission, Transmission Mode, Transmission Impairments</h3>
+                    <p><strong>Analog Transmission:</strong> Transmission of analog signals without regard to their content. Can be used to transmit analog or digital data. Analog transmission of digital data requires modulation.</p>
+                    
+                    <p><strong>Digital Transmission:</strong> Transmission of digital signals (discrete values). Requires digital data to be transmitted as digital signals. Generally more robust against noise.</p>
+                    
+                    <p><strong>Transmission Modes:</strong> (Also covered in Chapter 1)</p>
+                    <ul>
+                        <li>Simplex: One direction only</li>
+                        <li>Half-duplex: Both directions, but not simultaneously</li>
+                        <li>Full-duplex: Both directions simultaneously</li>
+                    </ul>
+                    
+                    <p><strong>Transmission Impairments:</strong> Factors that degrade signal quality during transmission:</p>
+                    <ol>
+                        <li><strong>Attenuation:</strong> Loss of signal strength as it propagates through the medium. Can be compensated by amplifiers or repeaters.</li>
+                        <li><strong>Distortion:</strong> Change in the shape of the signal due to different frequency components traveling at different speeds (dispersion).</li>
+                        <li><strong>Noise:</strong> Unwanted signals interfering with the original signal. Types include thermal noise, intermodulation noise, crosstalk, and impulse noise.</li>
+                    </ol>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig3/AS:903533083217922@1592495699526/Transmission-Impairments.png" alt="Transmission Impairments">
+                    <div class="image-caption">Figure: Types of transmission impairments affecting signal quality</div>
+                </div>
+                
+                <div class="topic-card" id="2-5">
+                    <h3>2.5 Data Rate Limits, Nyquist and Shannon Formulas</h3>
+                    <p><strong>Nyquist Bandwidth Formula:</strong> For a noiseless channel, the maximum data rate is determined by bandwidth and number of signal levels.</p>
+                    <p>C = 2B log₂M</p>
+                    <p>Where:<br>
+                    C = Channel capacity (bits per second)<br>
+                    B = Bandwidth (Hz)<br>
+                    M = Number of signal levels</p>
+                    
+                    <p><strong>Shannon Capacity Formula:</strong> For a noisy channel, the maximum data rate is determined by bandwidth and signal-to-noise ratio.</p>
+                    <p>C = B log₂(1 + SNR)</p>
+                    <p>Where:<br>
+                    C = Channel capacity (bits per second)<br>
+                    B = Bandwidth (Hz)<br>
+                    SNR = Signal-to-Noise Ratio</p>
+                    
+                    <p>The Shannon formula gives the theoretical maximum data rate for a given bandwidth and noise level. In practice, actual data rates are lower due to various implementation limitations.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig4/AS:903533083217923@1592495699580/Nyquist-vs-Shannon.png" alt="Nyquist vs Shannon">
+                    <div class="image-caption">Figure: Comparison between Nyquist and Shannon capacity formulas</div>
+                </div>
+                
+                <div class="topic-card" id="2-6">
+                    <h3>2.6 Network Performance Metrics</h3>
+                    <p>Key metrics for evaluating network performance:</p>
+                    
+                    <p><strong>Bandwidth:</strong> The maximum data transfer rate of a network or Internet connection. Measured in bits per second (bps), typically Mbps or Gbps. Represents the capacity of the communication channel.</p>
+                    
+                    <p><strong>Throughput:</strong> The actual rate at which data is successfully transferred over a network. Usually lower than bandwidth due to protocol overhead, network congestion, and other factors.</p>
+                    
+                    <p><strong>Latency (Delay):</strong> The time it takes for a packet to travel from source to destination. Includes propagation delay, transmission delay, processing delay, and queuing delay. Critical for real-time applications.</p>
+                    
+                    <p><strong>Jitter:</strong> The variation in latency over time. High jitter can cause problems for real-time applications like VoIP and video conferencing, as packets may arrive at irregular intervals.</p>
+                    
+                    <p><strong>Other Metrics:</strong></p>
+                    <ul>
+                        <li><strong>Packet Loss:</strong> Percentage of packets that fail to reach their destination.</li>
+                        <li><strong>Error Rate:</strong> Number of corrupted bits divided by total number of bits sent.</li>
+                        <li><strong>Availability:</strong> Percentage of time the network is operational.</li>
+                        <li><strong>Reliability:</strong> Ability of the network to deliver packets without loss or corruption.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig5/AS:903533083217924@1592495699634/Network-Performance-Metrics.png" alt="Network Performance Metrics">
+                    <div class="image-caption">Figure: Key network performance metrics visualization</div>
+                </div>
+            </section>
 
-        <!-- CHAPTER 1 -->
-        <section class="content-section" id="chapter1">
-            <h2>Chapter 1: Introduction</h2>
-            <p>This chapter introduces foundational concepts of data communication systems, including terminology, models, network types, and the OSI reference model.</p>
-            
-            <h3>1.1 Analog Data Communication, Data Representation, Data Flows</h3>
-            <p>Data is the entity conveying meaning based on agreed rules. It exists in two forms:</p>
-            <ul>
-                <li><strong>Analog Data:</strong> Continuous values within an interval (e.g., sound, temperature).</li>
-                <li><strong>Digital Data:</strong> Discrete finite values (e.g., text, binary files).</li>
-            </ul>
-            <p>Data must be converted into signals (electrical/optical) for transmission. Common representations include ASCII/Unicode for text, pixel matrices for images, and PCM for audio.</p>
-            
-            <h3>1.2 Evolution of Data Communication</h3>
-            <p>From telegraph systems to modern high-speed digital networks, data communication has evolved through key milestones: analog telephony → digital switching → packet switching → broadband internet → mobile wireless → IoT/cloud integration.</p>
-            
-            <h3>1.3 Communication Model</h3>
-            <p>A data communication system consists of five components:</p>
-            <ol>
-                <li><strong>Message:</strong> Information to be transmitted (text, audio, video).</li>
-                <li><strong>Sender:</strong> Device generating data (computer, phone).</li>
-                <li><strong>Receiver:</strong> Device receiving data.</li>
-                <li><strong>Transmission Medium:</strong> Physical path (cable, air, fiber).</li>
-                <li><strong>Protocol:</strong> Rules governing data exchange (TCP/IP, HTTP).</li>
-            </ol>
-            
-            <h3>1.4 Networks and OSI Model</h3>
-            <p><strong>Network Types:</strong></p>
-            <ul>
-                <li><strong>PAN:</strong> Personal Area Network (Bluetooth, USB)</li>
-                <li><strong>LAN:</strong> Local Area Network (Home/office Wi-Fi)</li>
-                <li><strong>CAN:</strong> Campus Area Network (University)</li>
-                <li><strong>MAN:</strong> Metropolitan Area Network (City-wide)</li>
-                <li><strong>WAN:</strong> Wide Area Network (Internet)</li>
-            </ul>
-            
-            <p><strong>OSI Model (7 Layers):</strong></p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Layer</th>
-                        <th>Name</th>
-                        <th>Function</th>
-                        <th>Example Protocols</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>7</td>
-                        <td>Application</td>
-                        <td>User interface, services</td>
-                        <td>HTTP, FTP, SMTP</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Presentation</td>
-                        <td>Data translation, encryption, compression</td>
-                        <td>SSL/TLS, JPEG, ASCII</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Session</td>
-                        <td>Connection management, synchronization</td>
-                        <td>SIP, NetBIOS</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Transport</td>
-                        <td>End-to-end delivery, flow control</td>
-                        <td>TCP, UDP</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Network</td>
-                        <td>Logical addressing, routing</td>
-                        <td>IP, ICMP</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Data Link</td>
-                        <td>Physical addressing, framing</td>
-                        <td>Ethernet, MAC</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Physical</td>
-                        <td>Raw bit transmission</td>
-                        <td>UTP, Fiber, Wi-Fi</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>1.5 Data Communication in Today's Enterprise</h3>
-            <p>Modern enterprises rely on:</p>
-            <ul>
-                <li>Internal communication (email, Teams, Slack)</li>
-                <li>Cloud computing & remote access</li>
-                <li>Data storage & sharing</li>
-                <li>Real-time applications (VoIP, video conferencing)</li>
-                <li>IoT & automation systems</li>
-            </ul>
-            
-            <div class="highlight">
-                <strong>Key Exam Tip:</strong> Memorize the 7 OSI layers using the mnemonic: “Please Do Not Throw Sausage Pizza Away” (Physical → Application).
-            </div>
-        </section>
+            <!-- Chapter 3 -->
+            <section id="chapter3">
+                <h2>Chapter 3: Transmission Media and Data Compression</h2>
+                
+                <div class="topic-card" id="3-1">
+                    <h3>3.1 Guided Transmission Media</h3>
+                    <p>Guided transmission media (bounded media) provide a physical path for signal transmission. They include:</p>
+                    
+                    <p><strong>Twisted Pair Cable:</strong> Consists of pairs of insulated copper wires twisted together to reduce electromagnetic interference. Two types:</p>
+                    <ul>
+                        <li><strong>UTP (Unshielded Twisted Pair):</strong> Common in Ethernet installations. Categories: Cat 3 (10 Mbps), Cat 5 (100 Mbps), Cat 6 (1 Gbps), etc.</li>
+                        <li><strong>STP (Shielded Twisted Pair):</strong> Has additional shielding to reduce interference. Used in telephone networks and environments with high EMI.</li>
+                    </ul>
+                    
+                    <p><strong>Coaxial Cable:</strong> Copper cable with better shielding than twisted pair. Consists of central copper conductor, insulating material, braided mesh, and protective sheath. Used in cable TV and older Ethernet networks.</p>
+                    
+                    <p><strong>Optical Fiber:</strong> Thin glass or plastic threads that transmit data using light waves. Components: core, cladding, buffer coating. Types:</p>
+                    <ul>
+                        <li><strong>Single-mode:</strong> Narrow core, uses laser light source, low dispersion, long distances (up to 100 km).</li>
+                        <li><strong>Multi-mode step index:</strong> Wider core, uses LED source, higher dispersion, shorter distances.</li>
+                        <li><strong>Multi-mode graded index:</strong> Core with varying refractive index, reduces modal dispersion.</li>
+                    </ul>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>Twisted Pair</th>
+                                <th>Coaxial Cable</th>
+                                <th>Optical Fiber</th>
+                            </tr>
+                            <tr>
+                                <td>Bandwidth</td>
+                                <td>Moderate</td>
+                                <td>High</td>
+                                <td>Very High</td>
+                            </tr>
+                            <tr>
+                                <td>Distance</td>
+                                <td>Short</td>
+                                <td>Moderate</td>
+                                <td>Very Long</td>
+                            </tr>
+                            <tr>
+                                <td>EMI Immunity</td>
+                                <td>Poor (UTP), Moderate (STP)</td>
+                                <td>Good</td>
+                                <td>Excellent</td>
+                            </tr>
+                            <tr>
+                                <td>Security</td>
+                                <td>Poor</td>
+                                <td>Moderate</td>
+                                <td>Excellent</td>
+                            </tr>
+                            <tr>
+                                <td>Cost</td>
+                                <td>Low</td>
+                                <td>Moderate</td>
+                                <td>High</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig6/AS:903533083217925@1592495699690/Guided-Media.png" alt="Guided Transmission Media">
+                    <div class="image-caption">Figure: Different types of guided transmission media</div>
+                </div>
+                
+                <div class="topic-card" id="3-2">
+                    <h3>3.2 Unguided Transmission Media</h3>
+                    <p>Unguided transmission media (wireless) transmit signals through air without physical conductors. They include:</p>
+                    
+                    <p><strong>Radio Waves:</strong> Electromagnetic waves with frequencies between 3 KHz and 1 GHz. Omnidirectional propagation. Applications: AM/FM radio, television, cordless phones.</p>
+                    
+                    <p><strong>Microwaves:</strong> Electromagnetic waves with frequencies between 1 GHz and 300 GHz. Unidirectional, line-of-sight propagation. Two types:</p>
+                    <ul>
+                        <li><strong>Terrestrial Microwave:</strong> Ground-based transmission between towers. Used for long-distance telephone and data transmission.</li>
+                        <li><strong>Satellite Microwave:</strong> Communication via satellites orbiting Earth. Enables global communication.</li>
+                    </ul>
+                    
+                    <p><strong>Infrared:</strong> Waves with frequencies between 300 GHz and 400 THz. Short-distance, line-of-sight communication. Cannot penetrate walls. Applications: remote controls, short-range data transfer.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>Radio Waves</th>
+                                <th>Microwaves</th>
+                                <th>Infrared</th>
+                            </tr>
+                            <tr>
+                                <td>Frequency Range</td>
+                                <td>3 KHz - 1 GHz</td>
+                                <td>1 GHz - 300 GHz</td>
+                                <td>300 GHz - 400 THz</td>
+                            </tr>
+                            <tr>
+                                <td>Propagation</td>
+                                <td>Omnidirectional</td>
+                                <td>Directional, Line-of-sight</td>
+                                <td>Line-of-sight</td>
+                            </tr>
+                            <tr>
+                                <td>Distance</td>
+                                <td>Long</td>
+                                <td>Long (terrestrial), Global (satellite)</td>
+                                <td>Short</td>
+                            </tr>
+                            <tr>
+                                <td>Penetration</td>
+                                <td>Can penetrate walls</td>
+                                <td>Cannot penetrate walls</td>
+                                <td>Cannot penetrate walls</td>
+                            </tr>
+                            <tr>
+                                <td>Applications</td>
+                                <td>Radio, TV broadcasting</td>
+                                <td>Satellite comms, radar</td>
+                                <td>Remote controls, IrDA</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig7/AS:903533083217926@1592495699746/Unguided-Media.png" alt="Unguided Transmission Media">
+                    <div class="image-caption">Figure: Different types of unguided transmission media</div>
+                </div>
+                
+                <div class="topic-card" id="3-3">
+                    <h3>3.3 Antenna Basics, Satellite Communication</h3>
+                    <p><strong>Antenna:</strong> A transducer that converts electrical power into electromagnetic waves (transmitting) and vice versa (receiving).</p>
+                    
+                    <p><strong>Antenna Parameters:</strong></p>
+                    <ul>
+                        <li><strong>Frequency:</strong> Rate of wave repetition (Hz).</li>
+                        <li><strong>Wavelength:</strong> Distance between consecutive wave peaks (λ = c/f).</li>
+                        <li><strong>Impedance Matching:</strong> Ensuring transmitter and receiver impedances match for maximum power transfer.</li>
+                        <li><strong>VSWR (Voltage Standing Wave Ratio):</strong> Indicates how well antenna is matched to transmission line (ideal = 1:1).</li>
+                        <li><strong>Bandwidth:</strong> Range of frequencies over which antenna can operate effectively.</li>
+                        <li><strong>Radiation Pattern:</strong> Graphical representation of how antenna radiates energy in different directions.</li>
+                        <li><strong>Directivity:</strong> Measure of how focused antenna's radiation is in a particular direction.</li>
+                        <li><strong>Gain:</strong> Ratio of radiation intensity in a given direction to that of isotropic radiator.</li>
+                    </ul>
+                    
+                    <p><strong>Satellite Communication:</strong> Uses orbiting artificial satellites as relay stations to receive, amplify, and retransmit signals between ground stations.</p>
+                    
+                    <p><strong>Satellite Orbits:</strong></p>
+                    <ul>
+                        <li><strong>GEO (Geostationary Earth Orbit):</strong> ~35,786 km altitude, fixed position relative to Earth, 24-hour orbital period. Used for weather forecasting, TV broadcasting.</li>
+                        <li><strong>MEO (Medium Earth Orbit):</strong> ~2,000-20,000 km altitude, 2-12 hour orbital period. Used for GPS, navigation systems.</li>
+                        <li><strong>LEO (Low Earth Orbit):</strong> ~160-2,000 km altitude, 90-120 minute orbital period. Used for Earth observation, Starlink broadband.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig8/AS:903533083217927@1592495699802/Satellite-Orbits.png" alt="Satellite Orbits">
+                    <div class="image-caption">Figure: Different satellite orbits (GEO, MEO, LEO)</div>
+                </div>
+                
+                <div class="topic-card" id="3-4">
+                    <h3>3.4 Wireless Propagation</h3>
+                    <p>Three main modes of radio wave propagation:</p>
+                    
+                    <p><strong>Ground Wave Propagation:</strong> Waves travel along Earth's surface. Effective at low frequencies (30 kHz to 2 MHz). Used for AM radio broadcasting, maritime communication. Range: 100-1000 km.</p>
+                    
+                    <p><strong>Sky Wave Propagation:</strong> Waves reflected by ionosphere layer. Used in HF band (3-30 MHz). Long-range communication (300-3000+ km). Applications: international broadcasting, military communication.</p>
+                    
+                    <p><strong>Line-of-Sight (LOS) Propagation:</strong> Waves travel in straight line from transmitter to receiver. Requires unobstructed path. Works in VHF, UHF, SHF, EHF bands (>30 MHz). Applications: TV broadcasting, cellular telecom, radar.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Ground Wave</th>
+                                <th>Sky Wave</th>
+                                <th>Line-of-Sight</th>
+                            </tr>
+                            <tr>
+                                <td>Frequency Range</td>
+                                <td>30 kHz - 2 MHz</td>
+                                <td>3 MHz - 30 MHz</td>
+                                <td>> 30 MHz</td>
+                            </tr>
+                            <tr>
+                                <td>Distance</td>
+                                <td>100 - 500 km</td>
+                                <td>500 - 3000+ km</td>
+                                <td>Up to 70 km (terrestrial)</td>
+                            </tr>
+                            <tr>
+                                <td>Medium Interaction</td>
+                                <td>Follows Earth's surface</td>
+                                <td>Reflected by ionosphere</td>
+                                <td>Straight-line</td>
+                            </tr>
+                            <tr>
+                                <td>Main Use</td>
+                                <td>AM radio, maritime</td>
+                                <td>International radio, HF</td>
+                                <td>TV, satellite, Wi-Fi</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig9/AS:903533083217928@1592495699858/Wireless-Propagation-Modes.png" alt="Wireless Propagation Modes">
+                    <div class="image-caption">Figure: Ground wave, sky wave, and line-of-sight propagation</div>
+                </div>
+                
+                <div class="topic-card" id="3-5">
+                    <h3>3.5 Error Detection and Correction</h3>
+                    <p>Essential for ensuring data integrity during transmission over noisy channels.</p>
+                    
+                    <p><strong>Types of Errors:</strong></p>
+                    <ul>
+                        <li>Single-bit error: Only one bit corrupted</li>
+                        <li>Multiple-bit error: More than one bit corrupted</li>
+                        <li>Burst error: Consecutive bits corrupted</li>
+                    </ul>
+                    
+                    <p><strong>Error Detection Techniques:</strong></p>
+                    <ul>
+                        <li><strong>Parity Check:</strong> Adds extra bit to make number of 1s even (even parity) or odd (odd parity). Can detect single-bit errors.</li>
+                        <li><strong>Checksum:</strong> Divides data into segments, adds them, takes 1's complement. Receiver performs same operation to verify.</li>
+                        <li><strong>CRC (Cyclic Redundancy Check):</strong> Performs binary division using predetermined divisor, appends remainder to data. Most reliable method.</li>
+                    </ul>
+                    
+                    <p><strong>Error Correction Techniques:</strong></p>
+                    <ul>
+                        <li><strong>Hamming Code:</strong> Block code capable of detecting up to two simultaneous bit errors and correcting single-bit errors. Adds redundant bits at specific positions.</li>
+                        <li><strong>Backward Error Correction:</strong> Receiver requests retransmission when error detected.</li>
+                        <li><strong>Forward Error Correction:</strong> Receiver corrects errors using error-correcting codes without retransmission.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig10/AS:903533083217929@1592495699914/Error-Detection-and-Correction.png" alt="Error Detection and Correction">
+                    <div class="image-caption">Figure: Error detection and correction techniques</div>
+                </div>
+                
+                <div class="topic-card" id="3-6">
+                    <h3>3.6 Data Compression: Lossy and Lossless</h3>
+                    <p>Data compression reduces the number of bits needed to represent information, saving storage space and transmission bandwidth.</p>
+                    
+                    <p><strong>Lossless Compression:</strong> Allows exact reconstruction of original data. No information is lost. Used for text, program code, critical data.</p>
+                    <p><em>Techniques:</em> Run-length encoding, Lempel-Ziv-Welch (LZW), Huffman coding, Arithmetic encoding</p>
+                    <p><em>File Formats:</em> PNG, FLAC, ZIP, GIF</p>
+                    
+                    <p><strong>Lossy Compression:</strong> Discards some data during compression, typically imperceptible to humans. Used for audio, video, images where some quality loss is acceptable.</p>
+                    <p><em>Techniques:</em> Transform coding, Discrete Cosine Transform, Discrete Wavelet Transform</p>
+                    <p><em>File Formats:</em> JPEG, MP3, MP4, MPEG</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Lossless Compression</th>
+                                <th>Lossy Compression</th>
+                            </tr>
+                            <tr>
+                                <td>Data Recovery</td>
+                                <td>Original data fully recreated</td>
+                                <td>Original data cannot be fully recovered</td>
+                            </tr>
+                            <tr>
+                                <td>Quality</td>
+                                <td>No quality degradation</td>
+                                <td>Some quality degradation</td>
+                            </tr>
+                            <tr>
+                                <td>Compression Ratio</td>
+                                <td>Lower</td>
+                                <td>Higher</td>
+                            </tr>
+                            <tr>
+                                <td>Applications</td>
+                                <td>Text, code, critical data</td>
+                                <td>Audio, video, images</td>
+                            </tr>
+                            <tr>
+                                <td>Examples</td>
+                                <td>PNG, FLAC, ZIP</td>
+                                <td>JPEG, MP3, MP4</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig11/AS:903533083217930@1592495699970/Lossy-vs-Lossless-Compression.png" alt="Lossy vs Lossless Compression">
+                    <div class="image-caption">Figure: Comparison between lossy and lossless compression</div>
+                </div>
+            </section>
 
-        <!-- CHAPTER 2 -->
-        <section class="content-section" id="chapter2">
-            <h2>Chapter 2: Data Communication Fundamentals</h2>
-            <p>This chapter covers the mathematical and physical foundations of signal representation, analysis, and performance metrics.</p>
-            
-            <h3>2.1 Analog and Digital Data</h3>
-            <p><strong>Analog Data:</strong> Continuous variation over time (e.g., voice waveform).<br>
-            <strong>Digital Data:</strong> Discrete values represented as binary bits (0s and 1s).</p>
-            
-            <h3>2.2 Signals and Characteristics</h3>
-            <p><strong>Analog Signal:</strong> Continuous function x(t) representing voltage/current variation.<br>
-            <strong>Digital Signal:</strong> Discrete step-function with defined levels.</p>
-            
-            <p><strong>Periodic Signal:</strong> Repeats after fixed interval T: x(t) = x(t + T)<br>
-            <strong>Aperiodic Signal:</strong> Non-repeating (e.g., speech, noise).</p>
-            
-            <h3>2.3 Fourier Analysis</h3>
-            <p><strong>Fourier Series:</strong> Represents periodic signals as sum of sinusoids:<br>
-            <code>x(t) = a₀ + Σ[aₙ·cos(nω₀t) + bₙ·sin(nω₀t)]</code></p>
-            
-            <p><strong>Fourier Transform:</strong> Converts aperiodic signals to frequency domain:<br>
-            <code>X(ω) = ∫x(t)e⁻ʲʷᵗ dt</code></p>
-            
-            <p><strong>Dirichlet Conditions:</strong> Required for convergence:
-            <ul>
-                <li>Finitely many maxima/minima</li>
-                <li>Finitely many discontinuities</li>
-                <li>Absolute integrable: ∫|x(t)|dt < ∞</li>
-            </ul>
-            </p>
-            
-            <h3>2.4 Analog and Digital Transmission</h3>
-            <p><strong>Transmission Modes:</strong></p>
-            <ul>
-                <li><strong>Simplex:</strong> One-way (keyboard → monitor)</li>
-                <li><strong>Half-Duplex:</strong> Two-way, alternating (walkie-talkie)</li>
-                <li><strong>Full-Duplex:</strong> Simultaneous two-way (telephone)</li>
-            </ul>
-            
-            <p><strong>Transmission Impairments:</strong></p>
-            <ul>
-                <li><strong>Attenuation:</strong> Signal loss over distance</li>
-                <li><strong>Distortion:</strong> Change in signal shape</li>
-                <li><strong>Noise:</strong> Unwanted signals (thermal, intermodulation)</li>
-            </ul>
-            
-            <h3>2.5 Data Rate Limits</h3>
-            <p><strong>Nyquist Bit Rate (Noiseless Channel):</strong><br>
-            <code>C = 2B log₂L</code><br>
-            Where: B = bandwidth (Hz), L = number of signal levels</p>
-            
-            <p><strong>Shannon Capacity (Noisy Channel):</strong><br>
-            <code>C = B log₂(1 + SNR)</code><br>
-            Where: SNR = Signal-to-Noise Ratio (linear scale)</p>
-            
-            <p><strong>SNR(dB) to Linear:</strong><br>
-            <code>SNR_linear = 10^(SNR_dB / 10)</code></p>
-            
-            <h3>2.6 Network Performance Metrics</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Description</th>
-                        <th>Formula</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Bandwidth (Hz)</td>
-                        <td>Frequency range of channel</td>
-                        <td>f_max - f_min</td>
-                    </tr>
-                    <tr>
-                        <td>Throughput</td>
-                        <td>Actual data rate achieved</td>
-                        <td>Total bits / Time taken</td>
-                    </tr>
-                    <tr>
-                        <td>Latency</td>
-                        <td>Total delay from source to destination</td>
-                        <td>Propagation + Transmission + Queuing + Processing</td>
-                    </tr>
-                    <tr>
-                        <td>Propagation Time</td>
-                        <td>Time for bit to travel distance d</td>
-                        <td>t_p = d / v (v ≈ 2×10⁸ m/s)</td>
-                    </tr>
-                    <tr>
-                        <td>Transmission Time</td>
-                        <td>Time to push entire message onto link</td>
-                        <td>t_t = L / B (L = size in bits, B = bandwidth)</td>
-                    </tr>
-                    <tr>
-                        <td>Bandwidth-Delay Product</td>
-                        <td>Max bits "in flight" on link</td>
-                        <td>BDP = Bandwidth × Delay</td>
-                    </tr>
-                    <tr>
-                        <td>Jitter</td>
-                        <td>Variation in packet delay</td>
-                        <td>Standard deviation of inter-packet delays</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="highlight">
-                <strong>Exam Focus:</strong> Practice converting SNR from dB to linear and applying both Nyquist and Shannon formulas. Understand when each applies.
-            </div>
-        </section>
+            <!-- Chapter 4 -->
+            <section id="chapter4">
+                <h2>Chapter 4: Signal Encoding Techniques</h2>
+                
+                <div class="topic-card" id="4-1">
+                    <h3>4.1 Digital Data to Digital Signal Encoding</h3>
+                    <p>Encoding is the process of converting digital data into digital signals for transmission. Various encoding schemes exist:</p>
+                    
+                    <p><strong>Unipolar Encoding:</strong> Uses only one voltage level (positive). Binary 1 encoded as positive voltage, binary 0 as zero voltage. Problems: DC component and synchronization issues.</p>
+                    
+                    <p><strong>Polar Encoding:</strong> Uses two voltage levels (positive and negative).</p>
+                    <ul>
+                        <li><strong>NRZ-L (Non-Return-to-Zero Level):</strong> Signal level depends on bit value (positive for 0, negative for 1, or vice versa).</li>
+                        <li><strong>NRZ-I (Non-Return-to-Zero Invert):</strong> Signal inversion represents binary 1, no change represents binary 0.</li>
+                        <li><strong>RZ (Return-to-Zero):</strong> Signal returns to zero in the middle of each bit interval. Uses three voltage levels.</li>
+                    </ul>
+                    
+                    <p><strong>Biphase Encoding:</strong> Signal changes at middle of bit interval.</p>
+                    <ul>
+                        <li><strong>Manchester:</strong> Negative-to-positive transition = binary 1, positive-to-negative transition = binary 0.</li>
+                        <li><strong>Differential Manchester:</strong> Transition at beginning of interval = binary 0, no transition = binary 1. Transition at middle used for synchronization.</li>
+                    </ul>
+                    
+                    <p><strong>Bipolar Encoding:</strong> Uses three voltage levels (positive, negative, zero).</p>
+                    <ul>
+                        <li><strong>AMI (Alternate Mark Inversion):</strong> Binary 0 = zero voltage, binary 1 = alternating positive and negative voltages.</li>
+                        <li><strong>B8ZS (Bipolar 8-Zero Substitution):</strong> Replaces eight consecutive zeros with a special pattern to maintain synchronization.</li>
+                        <li><strong>HDB3 (High-Density Bipolar 3):</strong> Replaces four consecutive zeros with a special pattern based on polarity of previous 1 and number of 1s since last substitution.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig12/AS:903533083217931@1592495700026/Digital-Data-to-Digital-Signal-Encoding.png" alt="Digital Encoding Techniques">
+                    <div class="image-caption">Figure: Various digital data to digital signal encoding techniques</div>
+                </div>
+            </section>
 
-        <!-- CHAPTER 3 -->
-        <section class="content-section" id="chapter3">
-            <h2>Chapter 3: Transmission Media and Data Compression</h2>
-            <p>This chapter explores physical transmission mediums and techniques to reduce data size efficiently.</p>
-            
-            <h3>3.1 Guided Transmission Media</h3>
-            <p><strong>Twisted Pair:</strong> Copper wires twisted to cancel EMI. Categories: Cat 5 (100 Mbps), Cat 6 (1 Gbps+). UTP (unshielded) common; STP (shielded) for noisy environments.</p>
-            
-            <p><strong>Coaxial Cable:</strong> Central conductor, insulator, braided shield, outer jacket. Used in cable TV and legacy LANs. Bandwidth up to 2 Gbps over 1 km.</p>
-            
-            <p><strong>Optical Fiber:</strong> Glass/plastic strands transmitting light. Three types:</p>
-            <ul>
-                <li><strong>Single-mode:</strong> Narrow core (8–10 μm), laser source, long-distance (>100 km), high bandwidth (>100 Gbps)</li>
-                <li><strong>Multi-mode Step Index:</strong> Wider core, LED source, short distance (<2 km), modal dispersion</li>
-                <li><strong>Multi-mode Graded Index:</strong> Gradually decreasing refractive index, reduces modal dispersion, supports up to 2 Gbps over 100 km</li>
-            </ul>
-            
-            <h3>3.2 Unguided Transmission Media</h3>
-            <p><strong>Radio Waves (3 kHz – 1 GHz):</strong> Omnidirectional, penetrates walls. Used in AM/FM radio, cellular sub-6GHz.</p>
-            
-            <p><strong>Microwaves (1 GHz – 300 GHz):</strong> Directional, line-of-sight. Used in terrestrial microwave links and satellite comms.</p>
-            
-            <p><strong>Infrared (300 GHz – 400 GHz):</strong> Short-range, unidirectional, secure. Used in remotes, IrDA.</p>
-            
-            <h3>3.3 Antenna Basics and Satellite Communication</h3>
-            <p><strong>Antenna Parameters:</strong></p>
-            <ul>
-                <li>Frequency (f), Wavelength (λ = c/f)</li>
-                <li>Impedance Matching (Z = √(R² + (X_L - X_C)²))</li>
-                <li>VSWR = (1 + |Γ|)/(1 - |Γ|) — Ideal = 1:1</li>
-                <li>Directivity D = 4π·U_max / P_rad</li>
-                <li>Gain G = η_e · D (η_e = efficiency)</li>
-            </ul>
-            
-            <p><strong>Satellite Orbits:</strong></p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Altitude</th>
-                        <th>Orbital Period</th>
-                        <th>Latency</th>
-                        <th>Use Case</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>GEO</td>
-                        <td>35,786 km</td>
-                        <td>24 hrs</td>
-                        <td>~600 ms</td>
-                        <td>TV broadcasting, weather</td>
-                    </tr>
-                    <tr>
-                        <td>MEO</td>
-                        <td>2,000–20,000 km</td>
-                        <td>2–12 hrs</td>
-                        <td>~100–200 ms</td>
-                        <td>GPS, Galileo</td>
-                    </tr>
-                    <tr>
-                        <td>LEO</td>
-                        <td>160–2,000 km</td>
-                        <td>90–120 min</td>
-                        <td>~30–50 ms</td>
-                        <td>Starlink, Earth imaging</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>3.4 Wireless Propagation</h3>
-            <p><strong>Ground Wave:</strong> Follows Earth’s curvature. Frequencies: 30 kHz – 2 MHz. Used in AM radio.</p>
-            
-            <p><strong>Sky Wave:</strong> Reflected by ionosphere. Frequencies: 3–30 MHz. Used in international HF radio.</p>
-            
-            <p><strong>Line-of-Sight (LOS):</strong> Direct path. Frequencies: >30 MHz. Used in cellular, Wi-Fi, satellite.</p>
-            
-            <p><strong>LOS Distance Formula:</strong><br>
-            <code>d = √(2hₜ) + √(2hᵣ)</code> (d in km, h in meters)</p>
-            
-            <h3>3.5 Error Detection and Correction</h3>
-            <p><strong>Parity Check:</strong> Adds one bit to make number of 1s even/odd. Detects single-bit errors only.</p>
-            
-            <p><strong>Checksum:</strong> Sum segments, take 1’s complement. Used in IP/TCP headers.</p>
-            
-            <p><strong>Cyclic Redundancy Check (CRC):</strong> Uses polynomial division. Most reliable for burst error detection.</p>
-            
-            <p><strong>Hamming Code:</strong> Corrects single-bit errors. For m data bits, need r parity bits where 2ʳ ≥ m + r + 1.</p>
-            
-            <h3>3.6 Data Compression</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Lossless Compression</th>
-                        <th>Lossy Compression</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Reversibility</td>
-                        <td>Yes</td>
-                        <td>No</td>
-                    </tr>
-                    <tr>
-                        <td>Quality</td>
-                        <td>No degradation</td>
-                        <td>Reduced quality</td>
-                    </tr>
-                    <tr>
-                        <td>Compression Ratio</td>
-                        <td>Low (2:1 to 5:1)</td>
-                        <td>High (10:1 to 100:1)</td>
-                    </tr>
-                    <tr>
-                        <td>Applications</td>
-                        <td>Text, programs, medical images</td>
-                        <td>Audio, video, photos</td>
-                    </tr>
-                    <tr>
-                        <td>Algorithms</td>
-                        <td>Huffman, LZW, Run-Length</td>
-                        <td>JPEG, MP3, MPEG, DCT</td>
-                    </tr>
-                    <tr>
-                        <td>Examples</td>
-                        <td>PNG, ZIP, FLAC, FFV1</td>
-                        <td>JPEG, MP3, MP4</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="highlight">
-                <strong>Exam Tip:</strong> Know Hamming code encoding steps (find r, assign positions, calculate parity bits, detect/correct errors). Master difference between lossy and lossless.
-            </div>
-        </section>
+            <!-- Chapter 5 -->
+            <section id="chapter5">
+                <h2>Chapter 5: Multiplexing and Switching</h2>
+                
+                <div class="topic-card" id="5-1">
+                    <h3>5.1 Introduction to Multiplexing</h3>
+                    <p>Multiplexing combines multiple signals into one signal over a shared medium to efficiently use bandwidth.</p>
+                    
+                    <p><strong>Types of Multiplexing:</strong></p>
+                    <ul>
+                        <li><strong>FDM (Frequency Division Multiplexing):</strong> Divides bandwidth into frequency bands, each assigned to a different signal.</li>
+                        <li><strong>WDM (Wavelength Division Multiplexing):</strong> Similar to FDM but used in optical fiber, where different wavelengths carry different signals.</li>
+                        <li><strong>TDM (Time Division Multiplexing):</strong> Divides time into slots, each signal gets a specific time slot for transmission.</li>
+                        <li><strong>CDM (Code Division Multiplexing):</strong> Uses unique codes to differentiate between signals transmitted simultaneously on same frequency.</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig13/AS:903533083217932@1592495700082/Multiplexing-Techniques.png" alt="Multiplexing Techniques">
+                    <div class="image-caption">Figure: Different multiplexing techniques (FDM, TDM, WDM, CDM)</div>
+                </div>
+                
+                <div class="topic-card" id="5-2">
+                    <h3>5.2 Frequency Division Multiple Access (FDMA)</h3>
+                    <p>FDMA allocates different frequency sub-bands to different users. Each user has exclusive access to their assigned frequency band.</p>
+                    
+                    <p><strong>Characteristics:</strong></p>
+                    <ul>
+                        <li>Continuous transmission</li>
+                        <li>No synchronization required</li>
+                        <li>Uses duplexers since transmitter and receiver operate simultaneously</li>
+                        <li>Used in 1G systems like AMPS (Advanced Mobile Phone System)</li>
+                        <li>Frequency Division Duplexing (FDD) - different frequencies for uplink and downlink</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig14/AS:903533083217933@1592495700138/FDMA.png" alt="FDMA">
+                    <div class="image-caption">Figure: Frequency Division Multiple Access (FDMA)</div>
+                </div>
+                
+                <div class="topic-card" id="5-3">
+                    <h3>5.3 Time Division Multiple Access (TDMA)</h3>
+                    <p>TDMA shares a single carrier frequency among multiple users by assigning non-overlapping time slots to each user.</p>
+                    
+                    <p><strong>Characteristics:</strong></p>
+                    <ul>
+                        <li>Discontinuous transmission (bursts)</li>
+                        <li>Lower battery consumption (transmitter can be turned off)</li>
+                        <li>Requires synchronization</li>
+                        <li>Uses Time Division Duplexing (TDD) - different time slots for transmission and reception</li>
+                        <li>Used in 2G systems like GSM</li>
+                    </ul>
+                    
+                    <p><strong>Synchronous vs Statistical TDMA:</strong></p>
+                    <ul>
+                        <li><strong>Synchronous TDMA:</strong> Fixed time slot allocation regardless of activity (inefficient if users are idle)</li>
+                        <li><strong>Statistical TDMA:</strong> Dynamic time slot allocation based on actual data transmission needs (more efficient)</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig15/AS:903533083217934@1592495700194/TDMA.png" alt="TDMA">
+                    <div class="image-caption">Figure: Time Division Multiple Access (TDMA)</div>
+                </div>
+                
+                <div class="topic-card" id="5-4">
+                    <h3>5.4 Asymmetric Digital Subscriber Line (ADSL)</h3>
+                    <p>ADSL is a type of DSL technology that provides faster download speeds than upload speeds over existing copper telephone lines.</p>
+                    
+                    <p><strong>Characteristics:</strong></p>
+                    <ul>
+                        <li>Asymmetric bandwidth (higher downstream than upstream)</li>
+                        <li>Uses FDM to separate voice (0-4 kHz) and data (25 kHz - 1.1 MHz)</li>
+                        <li>Typical speeds: 1.5-8 Mbps downstream, 16-640 Kbps upstream</li>
+                        <li>Distance sensitive (performance degrades with distance from central office)</li>
+                        <li>Uses DMT (Discrete Multi-Tone) modulation</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig16/AS:903533083217935@1592495700250/ADSL.png" alt="ADSL">
+                    <div class="image-caption">Figure: Asymmetric Digital Subscriber Line (ADSL) technology</div>
+                </div>
+                
+                <div class="topic-card" id="5-5">
+                    <h3>5.5 Spread Spectrum: DSSS, FHSS, CDMA</h3>
+                    <p>Spread spectrum techniques spread the signal over a wider bandwidth than necessary, providing resistance to interference and improved security.</p>
+                    
+                    <p><strong>DSSS (Direct Sequence Spread Spectrum):</strong> Multiplies original data with high-rate pseudo-random noise code. Used in IEEE 802.11b Wi-Fi, GPS, CDMA cellular networks.</p>
+                    
+                    <p><strong>FHSS (Frequency Hopping Spread Spectrum):</strong> Carrier frequency changes according to pseudo-random sequence. Used in Bluetooth, military communications.</p>
+                    <ul>
+                        <li><strong>Fast-FHSS:</strong> One data bit spread over multiple frequencies</li>
+                        <li><strong>Slow-FHSS:</strong> Multiple bits transmitted before frequency hop</li>
+                    </ul>
+                    
+                    <p><strong>CDMA (Code Division Multiple Access):</strong> Multiple users share same frequency band simultaneously, differentiated by unique codes. Each user's signal appears as noise to others.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig17/AS:903533083217936@1592495700306/Spread-Spectrum.png" alt="Spread Spectrum">
+                    <div class="image-caption">Figure: Spread spectrum techniques (DSSS, FHSS, CDMA)</div>
+                </div>
+                
+                <div class="topic-card" id="5-6">
+                    <h3>5.6 Introduction to Switched Communication Networks</h3>
+                    <p>Switched networks establish temporary connections between communicating devices. Two main approaches:</p>
+                    
+                    <p><strong>Connection-Oriented:</strong> Establishes a dedicated path before data transfer (circuit switching, virtual circuit packet switching). Guarantees bandwidth and order of delivery.</p>
+                    
+                    <p><strong>Connectionless:</strong> Each packet contains full addressing information and is routed independently (datagram packet switching). More flexible but no delivery guarantees.</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig18/AS:903533083217937@1592495700362/Switched-Networks.png" alt="Switched Networks">
+                    <div class="image-caption">Figure: Connection-oriented vs connectionless networks</div>
+                </div>
+                
+                <div class="topic-card" id="5-7">
+                    <h3>5.7 Switching Devices</h3>
+                    <p>Devices that direct data packets between network devices:</p>
+                    
+                    <p><strong>Hub:</strong> Physical layer device that broadcasts data to all ports. No intelligence, causes collisions.</p>
+                    
+                    <p><strong>Switch:</strong> Data link layer device that forwards data only to intended recipient using MAC addresses. Reduces collisions, improves performance.</p>
+                    
+                    <p><strong>Router:</strong> Network layer device that routes packets between different networks using IP addresses. Maintains routing tables.</p>
+                    
+                    <p><strong>Gateway:</strong> Device that connects networks with different protocols, performing protocol conversion.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Feature/Device</th>
+                                <th>Hub</th>
+                                <th>Switch</th>
+                                <th>Router</th>
+                            </tr>
+                            <tr>
+                                <td>OSI Layer</td>
+                                <td>Layer 1 (Physical)</td>
+                                <td>Layer 2 (Data Link)</td>
+                                <td>Layer 3 (Network)</td>
+                            </tr>
+                            <tr>
+                                <td>Function</td>
+                                <td>Broadcasts to all devices</td>
+                                <td>Forwards to specific MAC</td>
+                                <td>Routes between networks</td>
+                            </tr>
+                            <tr>
+                                <td>Intelligence</td>
+                                <td>None</td>
+                                <td>Medium (MAC filtering)</td>
+                                <td>High (routing logic)</td>
+                            </tr>
+                            <tr>
+                                <td>Security</td>
+                                <td>None</td>
+                                <td>Moderate (VLAN, port security)</td>
+                                <td>High (ACLs, NAT, Firewall)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig19/AS:903533083217938@1592495700418/Switching-Devices.png" alt="Switching Devices">
+                    <div class="image-caption">Figure: Network switching devices (hub, switch, router)</div>
+                </div>
+                
+                <div class="topic-card" id="5-8">
+                    <h3>5.8 Circuit Switching and Message Switching</h3>
+                    <p><strong>Circuit Switching:</strong> Establishes a dedicated physical path between sender and receiver before communication begins. Path remains dedicated until connection is terminated.</p>
+                    <p><em>Advantages:</em> Guaranteed bandwidth, predictable performance</p>
+                    <p><em>Disadvantages:</em> Inefficient (channel unused when idle), long setup time, expensive</p>
+                    <p><em>Example:</em> Traditional telephone network</p>
+                    
+                    <p><strong>Message Switching:</strong> No dedicated path. Messages stored and forwarded at each node. Entire message received before forwarding (store-and-forward).</p>
+                    <p><em>Advantages:</em> Efficient channel usage, traffic congestion reduction, message prioritization</p>
+                    <p><em>Disadvantages:</em> Not suitable for interactive applications, requires large storage at nodes, delays due to store-and-forward</p>
+                    <p><em>Example:</em> Email systems</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig20/AS:903533083217939@1592495700474/Circuit-and-Message-Switching.png" alt="Circuit and Message Switching">
+                    <div class="image-caption">Figure: Circuit switching vs message switching</div>
+                </div>
+                
+                <div class="topic-card" id="5-9">
+                    <h3>5.9 Packet Switching</h3>
+                    <p>Packet switching divides messages into smaller packets for transmission. Combines advantages of circuit and message switching.</p>
+                    
+                    <p><strong>Datagram Switching:</strong> Each packet (datagram) treated independently. Packets may take different paths and arrive out of order. Connectionless service.</p>
+                    
+                    <p><strong>Virtual Circuit Switching:</strong> Establishes logical path before data transfer. All packets follow same path and arrive in order. Connection-oriented service.</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Datagram Network</th>
+                                <th>Virtual Circuit Network</th>
+                            </tr>
+                            <tr>
+                                <td>Connection</td>
+                                <td>Connectionless</td>
+                                <td>Connection-oriented</td>
+                            </tr>
+                            <tr>
+                                <td>Path</td>
+                                <td>Each packet chooses own path</td>
+                                <td>All packets follow same path</td>
+                            </tr>
+                            <tr>
+                                <td>Order</td>
+                                <td>Packets may arrive out of order</td>
+                                <td>Packets arrive in order</td>
+                            </tr>
+                            <tr>
+                                <td>Reliability</td>
+                                <td>Less reliable</td>
+                                <td>Highly reliable</td>
+                            </tr>
+                            <tr>
+                                <td>Efficiency</td>
+                                <td>High efficiency</td>
+                                <td>Lower efficiency</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <p><strong>Advantages of Packet Switching:</strong></p>
+                    <ul>
+                        <li>Cost-effective (no need for massive storage)</li>
+                        <li>Improved delay characteristics</li>
+                        <li>Packets can be rerouted if problems occur</li>
+                        <li>Multiple users can share same channel</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig21/AS:903533083217940@1592495700530/Packet-Switching.png" alt="Packet Switching">
+                    <div class="image-caption">Figure: Packet switching (datagram and virtual circuit)</div>
+                </div>
+            </section>
 
-        <!-- CHAPTER 4 -->
-        <section class="content-section" id="chapter4">
-            <h2>Chapter 4: Signal Encoding Techniques</h2>
-            <p>This chapter details how data is encoded into signals for transmission across various media.</p>
-            
-            <h3>4.1 Digital Data to Digital Signal (Line Coding)</h3>
-            <p><strong>Unipolar:</strong> 1 = positive voltage, 0 = zero. Problem: DC component, poor sync.</p>
-            
-            <p><strong>NRZ-L:</strong> 0 = high, 1 = low (or vice versa). No transition at bit boundary.</p>
-            
-            <p><strong>NRZ-I:</strong> 0 = no change, 1 = transition. Better synchronization.</p>
-            
-            <p><strong>RZ:</strong> Transition in middle of bit. Double bandwidth required.</p>
-            
-            <p><strong>Manchester:</strong> 1 = low-to-high transition, 0 = high-to-low. Self-clocking, no DC.</p>
-            
-            <p><strong>Differential Manchester:</strong> Always transition in middle. 0 = transition at start, 1 = no transition.</p>
-            
-            <p><strong>AMI (Alternate Mark Inversion):</strong> 0 = zero, 1 = alternating + and - pulses. Eliminates DC.</p>
-            
-            <p><strong>B8ZS (North America):</strong> Replaces 8 consecutive zeros with pattern: 000+-0-+ or 000-+0+- depending on last 1 polarity.</p>
-            
-            <p><strong>HDB3 (Europe):</strong> Replaces 4 consecutive zeros with pattern based on count of 1s since last substitution.</p>
-            
-            <h3>4.2 Analog Data to Analog Signals (Modulation)</h3>
-            <p><strong>Amplitude Modulation (AM):</strong> s(t) = A_c[1 + μ·m(t)]·cos(2πf_c t)<br>
-            Bandwidth = 2f_m<br>
-            Power: P_AM = P_c(1 + μ²/2)<br>
-            μ = 1 → 100% modulation</p>
-            
-            <p><strong>DSB-SC:</strong> Suppresses carrier. Power saved: 2/3 of AM.</p>
-            
-            <p><strong>SSB-SC:</strong> Transmits only one sideband. Bandwidth = f_m. Highest efficiency.</p>
-            
-            <p><strong>VSB-SC:</strong> Transmits one sideband + vestige of other. Used in TV broadcasting.</p>
-            
-            <p><strong>FM:</strong> f_i = f_c + k_f·m(t)<br>
-            β = Δf / f_m<br>
-            NBFM: β << 1, BW ≈ 2f_m<br>
-            WBFM: β >> 1, BW ≈ 2(β+1)f_m</p>
-            
-            <p><strong>PM:</strong> φ_i = k_p·m(t)<br>
-            s(t) = A_c cos(2πf_c t + k_p·m(t))</p>
-            
-            <h3>4.3 Analog Data to Digital Signals (PCM)</h3>
-            <p>Three Steps:</p>
-            <ol>
-                <li><strong>Sampling:</strong> f_s ≥ 2f_m (Nyquist theorem)</li>
-                <li><strong>Quantization:</strong> Map infinite amplitudes to discrete levels (n bits → 2ⁿ levels)</li>
-                <li><strong>Encoding:</strong> Convert quantized levels to binary</li>
-            </ol>
-            <p>Bit rate = f_s × n. For voice: 8 kHz × 8 bits = 64 kbps.</p>
-            
-            <h3>4.4 Digital Data to Analog Signals (Digital Modulation)</h3>
-            <p><strong>ASK:</strong> Amplitude varies (0 = off, 1 = on). Simple but noise-sensitive.</p>
-            
-            <p><strong>FSK:</strong> Frequency shifts (f₁ for 1, f₀ for 0). Better noise immunity than ASK.</p>
-            
-            <p><strong>PSK:</strong> Phase changes. BPSK: 0° = 0, 180° = 1. Robust, low BER.</p>
-            
-            <p><strong>QPSK:</strong> 4 phases → 2 bits per symbol. Bandwidth efficient.</p>
-            
-            <p><strong>QAM:</strong> Combines amplitude and phase. Higher order = more bits/symbol:</p>
-            <ul>
-                <li>4-QAM = 2 bits</li>
-                <li>16-QAM = 4 bits</li>
-                <li>64-QAM = 6 bits</li>
-                <li>256-QAM = 8 bits</li>
-            </ul>
-            <p>Used in Wi-Fi 6/7, 5G, cable modems.</p>
-            
-            <h3>4.5 Pulse Modulation</h3>
-            <p><strong>PAM:</strong> Pulse amplitude varies with analog signal. Basis for PCM.</p>
-            
-            <p><strong>PWM/PDM:</strong> Pulse width/duration varies. Used in motor control.</p>
-            
-            <p><strong>PPM:</strong> Pulse position varies. Used in optical comms, low-power applications.</p>
-            
-            <h3>4.6 Spread Spectrum</h3>
-            <p><strong>DSSS:</strong> Multiplies data with pseudo-random chip sequence. Used in CDMA, Wi-Fi 802.11b.</p>
-            
-            <p><strong>FHSS:</strong> Jumps between frequencies. Used in Bluetooth, military comms.</p>
-            
-            <p><strong>Fast FHSS:</strong> Multiple hops per bit → better security</p>
-            <p><strong>Slow FHSS:</strong> One hop per byte → simpler implementation</p>
-            
-            <div class="highlight">
-                <strong>Exam Focus:</strong> Be able to encode/decode Hamming code. Know formulas for AM, FM, Nyquist, Shannon. Compare modulation schemes (ASK vs FSK vs PSK). Understand constellation diagrams for QAM.
-            </div>
-        </section>
-
-        <!-- CHAPTER 5 -->
-        <section class="content-section" id="chapter5">
-            <h2>Chapter 5: Multiplexing and Switching</h2>
-            <p>This chapter covers methods for sharing communication channels and directing data traffic.</p>
-            
-            <h3>5.1 Multiplexing Overview</h3>
-            <p>Multiplexing combines multiple signals into one for shared medium use.</p>
-            <ul>
-                <li><strong>FDM:</strong> Frequency Division Multiplexing — separate frequency bands</li>
-                <li><strong>TDM:</strong> Time Division Multiplexing — separate time slots</li>
-                <li><strong>WDM:</strong> Wavelength Division Multiplexing — optical fiber version of FDM</li>
-            </ul>
-            
-            <h3>5.2 FDMA</h3>
-            <p>Each user gets dedicated frequency band. Continuous transmission. Used in 1G (AMPS).</p>
-            <p>Advantages: Simple, low overhead, no sync needed.</p>
-            <p>Disadvantages: Inefficient bandwidth use, requires duplexers, prone to adjacent channel interference.</p>
-            
-            <h3>5.3 TDMA</h3>
-            <p>Multiple users share same frequency using time slots. Burst transmission. Used in 2G (GSM).</p>
-            <p>Advantages: Efficient bandwidth use, enables MAHO, lower power consumption.</p>
-            <p>Disadvantages: Requires precise synchronization, guard times reduce efficiency.</p>
-            
-            <h3>5.4 Asymmetric DSL (ADSL/XDSL)</h3>
-            <p>Uses existing telephone lines. Separates voice (0–4 kHz) and data (>25 kHz) via filters.</p>
-            <p>Asymmetric: Download speed > Upload speed.</p>
-            
-            <h3>5.5 Spread Spectrum (CDMA)</h3>
-            <p>All users transmit simultaneously over full spectrum using unique spreading codes.</p>
-            <p>Key Features:</p>
-            <ul>
-                <li>Soft capacity limit — performance degrades gradually with more users</li>
-                <li>Soft handoff — seamless transition between base stations</li>
-                <li>RAKE receiver combats multipath</li>
-                <li>Self-jamming due to imperfect orthogonality</li>
-                <li>Near-far problem — requires precise power control</li>
-            </ul>
-            
-            <p><strong>CDMA Example:</strong> Four stations with orthogonal codes [1,1,-1,-1], [1,-1,-1,1], etc. Transmit: multiply data by code, sum results. Receive: multiply received signal by own code, divide by N.</p>
-            
-            <h3>5.6 Switching Concepts</h3>
-            <p><strong>Connection-Oriented:</strong> Path established before data transfer (virtual circuit)</p>
-            <p><strong>Connectionless:</strong> Each packet routed independently (datagram)</p>
-            
-            <h3>5.7 Switching Devices</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Device</th>
-                        <th>OSI Layer</th>
-                        <th>Function</th>
-                        <th>Intelligence</th>
-                        <th>Security</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Hub</td>
-                        <td>1 (Physical)</td>
-                        <td>Broadcasts to all ports</td>
-                        <td>None</td>
-                        <td>None</td>
-                    </tr>
-                    <tr>
-                        <td>Switch</td>
-                        <td>2 (Data Link)</td>
-                        <td>Forwards by MAC address</td>
-                        <td>Medium</td>
-                        <td>Moderate (VLAN)</td>
-                    </tr>
-                    <tr>
-                        <td>Router</td>
-                        <td>3 (Network)</td>
-                        <td>Routes by IP address</td>
-                        <td>High</td>
-                        <td>High (ACL, Firewall)</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>5.8 Circuit Switching</h3>
-            <p>Dedicated path established end-to-end before communication. Used in traditional telephony.</p>
-            <p>Advantages: Constant latency, guaranteed bandwidth.</p>
-            <p>Disadvantages: Long setup time, inefficient resource use, expensive.</p>
-            
-            <h3>5.9 Packet Switching</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Datagram Network</th>
-                        <th>Virtual Circuit Network</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Connection Type</td>
-                        <td>Connectionless</td>
-                        <td>Connection-oriented</td>
-                    </tr>
-                    <tr>
-                        <td>Routing</td>
-                        <td>Per-packet, dynamic</td>
-                        <td>Pre-established path</td>
-                    </tr>
-                    <tr>
-                        <td>Packet Order</td>
-                        <td>May arrive out of order</td>
-                        <td>Arrive in order</td>
-                    </tr>
-                    <tr>
-                        <td>Header Size</td>
-                        <td>Larger (full addresses)</td>
-                        <td>Smaller (VCI only)</td>
-                    </tr>
-                    <tr>
-                        <td>Reliability</td>
-                        <td>Lower</td>
-                        <td>Higher</td>
-                    </tr>
-                    <tr>
-                        <td>Delay</td>
-                        <td>Higher</td>
-                        <td>Lower</td>
-                    </tr>
-                    <tr>
-                        <td>Implementation Cost</td>
-                        <td>Low</td>
-                        <td>High</td>
-                    </tr>
-                    <tr>
-                        <td>Example</td>
-                        <td>IP (Internet)</td>
-                        <td>X.25, ATM, Frame Relay</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="highlight">
-                <strong>Exam Tip:</strong> Compare FDMA, TDMA, CDMA thoroughly. Know TDM hierarchy (T1, E1, T3). Understand why packet switching dominates Internet. Memorize differences between datagram and virtual circuit.
-            </div>
-        </section>
-
-        <!-- CHAPTER 6 -->
-        <section class="content-section" id="chapter6">
-            <h2>Chapter 6: Cellular Wireless Communications and Latest Trends</h2>
-            <p>This chapter explores mobile communication evolution and modern trends like 5G and IoT.</p>
-            
-            <h3>6.1 Evolution of Wireless Generations</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Generation</th>
-                        <th>Technology</th>
-                        <th>Data Rate</th>
-                        <th>Key Feature</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1G</td>
-                        <td>AMPS, NMTS</td>
-                        <td>Analog Voice</td>
-                        <td>FDMA, voice-only</td>
-                    </tr>
-                    <tr>
-                        <td>2G</td>
-                        <td>GSM, CDMA</td>
-                        <td>14.4–64 kbps</td>
-                        <td>Digital, SMS, roaming</td>
-                    </tr>
-                    <tr>
-                        <td>2.5G</td>
-                        <td>GPRS</td>
-                        <td>Up to 171 kbps</td>
-                        <td>Packet-switched data</td>
-                    </tr>
-                    <tr>
-                        <td>2.75G</td>
-                        <td>EDGE</td>
-                        <td>Up to 473.6 kbps</td>
-                        <td>Enhanced data rates</td>
-                    </tr>
-                    <tr>
-                        <td>3G</td>
-                        <td>UMTS, CDMA2000</td>
-                        <td>384 kbps</td>
-                        <td>Video calling, mobile internet</td>
-                    </tr>
-                    <tr>
-                        <td>3.5G</td>
-                        <td>HSPA</td>
-                        <td>Up to 2 Mbps</td>
-                        <td>High-speed downlink</td>
-                    </tr>
-                    <tr>
-                        <td>4G</td>
-                        <td>LTE, LTE-A</td>
-                        <td>Up to 1 Gbps</td>
-                        <td>All-IP network, VoLTE</td>
-                    </tr>
-                    <tr>
-                        <td>5G</td>
-                        <td>NR (New Radio)</td>
-                        <td>≥20 Gbps</td>
-                        <td>Ultra-low latency, massive IoT</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>6.2 Cellular Technology Fundamentals</h3>
-            <p><strong>Cell:</strong> Coverage area around base station. Hexagonal geometry used for optimal coverage without gaps.</p>
-            
-            <p><strong>Cluster:</strong> Group of cells that collectively use all available frequencies once. Cluster size N = i² + ij + j² (i,j ≥ 0).</p>
-            
-            <p><strong>Frequency Reuse:</strong> Same frequencies reused in non-adjacent cells. Reuse factor = 1/N.</p>
-            
-            <p><strong>Reuse Distance D:</strong> Minimum distance between cells using same frequency. For N=7, D≈4.6R.</p>
-            
-            <p><strong>Interference Types:</strong></p>
-            <ul>
-                <li><strong>Co-Channel Interference (CCI):</strong> Same frequency used in nearby cells</li>
-                <li><strong>Adjacent Channel Interference (ACI):</strong> Leakage from neighboring channels</li>
-            </ul>
-            
-            <p><strong>Handoff Strategies:</strong></p>
-            <ul>
-                <li><strong>Guard Channels:</strong> Reserve some channels exclusively for handoffs</li>
-                <li><strong>Queuing:</strong> Queue handoff requests if no channel available</li>
-                <li><strong>Mobile Assisted Handoff (MAHO):</strong> Mobile measures neighbor signals → faster decisions</li>
-                <li><strong>Umbrella Cell Concept:</strong> Macrocell covers high-speed users, microcells cover low-speed users</li>
-            </ul>
-            
-            <h3>6.3 5G Technologies</h3>
-            <p><strong>Millimeter Waves (mmWave):</strong> 24–100 GHz. High bandwidth, short range, blocked by obstacles.</p>
-            
-            <p><strong>Massive MIMO:</strong> Uses dozens of antennas at base station to serve multiple users simultaneously → increases capacity.</p>
-            
-            <p><strong>Beamforming:</strong> Focuses RF energy directionally toward users → improves signal strength and reduces interference.</p>
-            
-            <p><strong>Deployment Modes:</strong></p>
-            <ul>
-                <li><strong>Non-Standalone (NSA):</strong> Uses LTE core + 5G-NR radio</li>
-                <li><strong>Standalone (SA):</strong> Dedicated 5G core network</li>
-            </ul>
-            
-            <h3>6.4 IoT Communication</h3>
-            <p><strong>Types:</strong></p>
-            <ul>
-                <li><strong>H2M:</strong> Human to Machine (voice recognition)</li>
-                <li><strong>M2M:</strong> Machine to Machine (smart meter sending data)</li>
-                <li><strong>M2H:</strong> Machine to Human (fire alarm triggering)</li>
-                <li><strong>M2C:</strong> Machine to Cloud (sensor uploading to cloud)</li>
-            </ul>
-            
-            <p><strong>Communication Technologies:</strong></p>
-            <ul>
-                <li><strong>Short-range:</strong> Bluetooth BLE, Zigbee, Wi-Fi, NFC</li>
-                <li><strong>Long-range:</strong> Cellular (NB-IoT, LTE-M), LoRaWAN</li>
-            </ul>
-            
-            <p><strong>Features:</strong> Low power, low bandwidth, scalability, reliability, security, interoperability.</p>
-            
-            <h3>6.5 Emerging Trends</h3>
-            <p><strong>Software Defined Networking (SDN):</strong> Separates control plane (software) from data plane (hardware) → centralized network management.</p>
-            
-            <p><strong>Network Function Virtualization (NFV):</strong> Replaces hardware appliances (routers, firewalls) with software running on standard servers.</p>
-            
-            <p><strong>Cloud Computing:</strong> Enables remote access to computing resources, storage, and applications via internet.</p>
-            
-            <div class="highlight">
-                <strong>Final Exam Focus:</strong> Memorize 1G→5G features. Understand cellular concepts (cluster, reuse, handoff). Know 5G key tech (mmWave, Massive MIMO, beamforming). Be able to explain IoT types and technologies. SDN/NFV are critical for future exams!
-            </div>
-        </section>
-
-        <!-- TUTORIALS AND PRACTICAL -->
-        <section class="content-section">
-            <h2>Tutorial Details (15 hours)</h2>
-            <ul>
-                <li>Tutorials on different protocols in data communication: TCP/IP, HTTP/HTTPS, FTP</li>
-                <li>Explore the function of Open Systems Interconnection (OSI) model — define seven layers</li>
-                <li>Discover data communication devices and their applications (hub, switch, router, modem)</li>
-                <li>Identify the application of used network topologies in real-world scenarios</li>
-                <li>Collect ideas on security aspects of communication in present enterprise systems</li>
-            </ul>
-        </section>
-
-        <section class="content-section">
-            <h2>Practical Sessions (22.5 hours)</h2>
-            <ul>
-                <li>Signal analysis using MATLAB simulation environment</li>
-                <li>Analog modulation generation and reconstruction (AM, FM)</li>
-                <li>Pulse modulation generation and reconstruction (PAM, PWM, PPM)</li>
-                <li>Conversion of given binary sequence into different line coding (NRZ, Manchester, AMI)</li>
-                <li>Digital modulation (ASK, FSK, PSK) generation and reconstruction</li>
-            </ul>
-        </section>
-
-        <!-- FINAL EXAM PATTERN -->
-        <section class="content-section">
-            <h2>Final Exam Pattern</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Chapter</th>
-                        <th>Hours</th>
-                        <th>Marks Distribution</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>4</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>5</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>9</td>
-                        <td>11</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>15</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>8</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>4</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Total</strong></td>
-                        <td><strong>45</strong></td>
-                        <td><strong>60</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="highlight">Note: There may be minor deviation in marks distribution. Chapter 4 (Signal Encoding) carries highest weightage — focus here!</p>
-        </section>
-
-        <!-- REFERENCES -->
-        <section class="references">
-            <h2>References</h2>
-            <div class="reference-item">Stallings, W. (2007). Data and Computer Communications. India: Pearson Education.</div>
-            <div class="reference-item">Forouzan, B. A., Fegan, S. C. (2007). Data Communications and Networking (McGraw-Hill Forouzan Networking). United Kingdom: McGraw Hill Higher Education.</div>
-            <div class="reference-item">Tanenbaum, A. S., Wetherall, D. (2011). Computer Networks. India: Pearson Prentice Hall.</div>
-            <div class="reference-item">Rappaport, T. S. (2024). Wireless Communications: Principles and Practice. United Kingdom: Cambridge University Press.</div>
-        </section>
+            <!-- Chapter 6 -->
+            <section id="chapter6">
+                <h2>Chapter 6: Cellular Wireless Communications and Latest Trends</h2>
+                
+                <div class="topic-card" id="6-1">
+                    <h3>6.1 Overview of 1G, 2G, 3G and 4G</h3>
+                    <p><strong>1G (First Generation):</strong> Analog cellular systems introduced in 1980s.</p>
+                    <p><em>Technologies:</em> AMPS, NMTS, TACS</p>
+                    <p><em>Features:</em> Voice only, FM modulation, FDMA, poor voice quality, limited security</p>
+                    
+                    <p><strong>2G (Second Generation):</strong> Digital systems introduced in 1990s.</p>
+                    <p><em>Technologies:</em> GSM (TDMA), CDMA</p>
+                    <p><em>Features:</em> Digital switching, SMS support, encrypted voice, roaming capability</p>
+                    
+                    <p><strong>2.5G/2.75G:</strong> Enhancements to support higher data rates.</p>
+                    <p><em>Technologies:</em> GPRS (171 Kbps), EDGE (473 Kbps), CDMA2000 (384 Kbps)</p>
+                    
+                    <p><strong>3G (Third Generation):</strong> Introduced in early 2000s with higher data rates supporting multimedia.</p>
+                    <p><em>Technologies:</em> UMTS (384 Kbps), supporting video calling, mobile internet, apps</p>
+                    
+                    <p><strong>3.5G/3.75G:</strong> Further enhancements to 3G.</p>
+                    <p><em>Technologies:</em> HSDPA/HSUPA (2 Mbps), HSPA+ (evolving to LTE)</p>
+                    
+                    <p><strong>4G (Fourth Generation):</strong> IP-based networks with much higher data rates.</p>
+                    <p><em>Technologies:</em> LTE, LTE Advanced (up to 1 Gbps)</p>
+                    <p><em>Features:</em> VoLTE, reduced latency, HD video streaming, high-quality gaming</p>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig22/AS:903533083217941@1592495700586/Cellular-Generations.png" alt="Cellular Generations">
+                    <div class="image-caption">Figure: Evolution from 1G to 4G cellular technologies</div>
+                </div>
+                
+                <div class="topic-card" id="6-2">
+                    <h3>6.2 Cellular Technology Fundamentals</h3>
+                    <p><strong>Cell:</strong> Hexagonal area covered by a low-power transmitter (base station). Hexagonal shape used because it most closely approximates a circle while allowing complete coverage without gaps.</p>
+                    
+                    <p><strong>Cluster:</strong> Group of cells that together use all available channels. Cluster can be repeated to cover larger areas.</p>
+                    
+                    <p><strong>Frequency Reuse:</strong> Allocation and reuse of channels throughout coverage area. Same frequencies can be reused in non-adjacent cells to increase capacity.</p>
+                    <p>Frequency Reuse Factor = 1/N (where N is cluster size)</p>
+                    
+                    <p><strong>Interference:</strong></p>
+                    <ul>
+                        <li><strong>Co-channel Interference (CCI):</strong> Interference from cells using same frequency. Minimized by proper cell placement and frequency planning.</li>
+                        <li><strong>Adjacent Channel Interference (ACI):</strong> Interference from neighboring frequencies. Reduced by careful filtering and channel allocation.</li>
+                    </ul>
+                    
+                    <p><strong>Handoff (Handover):</strong> Process of transferring ongoing call/data session from one base station to another as user moves.</p>
+                    <ul>
+                        <li><strong>Intrasystem Handoff:</strong> Between cells within same system</li>
+                        <li><strong>Intersystem Handoff:</strong> Between different systems (different MSCs)</li>
+                    </ul>
+                    
+                    <p><strong>Handoff Strategies:</strong></p>
+                    <ul>
+                        <li><strong>Guard Channel Concept:</strong> Reserve channels exclusively for handoff requests</li>
+                        <li><strong>Queuing:</strong> Queue handoff requests when no channels available</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig23/AS:903533083217942@1592495700642/Cellular-Fundamentals.png" alt="Cellular Fundamentals">
+                    <div class="image-caption">Figure: Cellular concepts (cells, clusters, frequency reuse)</div>
+                </div>
+                
+                <div class="topic-card" id="6-3">
+                    <h3>6.3 Introduction to 5G, SDN, IoT, Cloud Computing</h3>
+                    <p><strong>5G (Fifth Generation):</strong> Next-generation cellular technology offering ultra-fast speeds, low latency, and massive device connectivity.</p>
+                    <p><em>Key Features:</em></p>
+                    <ul>
+                        <li>Ultra-fast mobile internet (up to 20 Gbps downlink)</li>
+                        <li>Ultra-low latency (4ms vs 20ms for LTE)</li>
+                        <li>Supports up to 1 million devices per square kilometer</li>
+                        <li>Optimized for IoT and lower power consumption</li>
+                    </ul>
+                    
+                    <p><strong>Key 5G Technologies:</strong></p>
+                    <ul>
+                        <li><strong>Millimeter Waves (mmWave):</strong> High-frequency bands (24-100 GHz) for high data rates</li>
+                        <li><strong>Massive MIMO:</strong> Multiple antennas at transmitter and receiver to increase capacity</li>
+                        <li><strong>Beamforming:</strong> Focusing radio signals in specific directions rather than broadcasting</li>
+                        <li><strong>Small Cells:</strong> Low-power base stations for dense urban areas</li>
+                    </ul>
+                    
+                    <p><strong>SDN (Software Defined Networking):</strong> Network architecture that separates control plane from data plane, enabling centralized network management and programmability.</p>
+                    
+                    <p><strong>IoT (Internet of Things) Communication:</strong> Exchange of data between smart devices.</p>
+                    <ul>
+                        <li><strong>Types:</strong> H2M (Human to Machine), M2M (Machine to Machine), M2H (Machine to Human), M2C (Machine to Cloud)</li>
+                        <li><strong>Technologies:</strong> Short-range (Bluetooth, Zigbee, Wi-Fi), Long-range (Cellular, LoRaWAN, NB-IoT)</li>
+                    </ul>
+                    
+                    <p><strong>Cloud Computing and Virtualization:</strong> Delivery of computing services over the Internet. Virtualization creates virtual versions of computing resources.</p>
+                    <ul>
+                        <li>Enables on-demand access to computing resources</li>
+                        <li>Reduces need for on-premises infrastructure</li>
+                        <li>Supports scalability and flexibility</li>
+                    </ul>
+                    
+                    <img src="https://www.researchgate.net/profile/Mohammad-Azim-8/publication/342578351/figure/fig24/AS:903533083217943@1592495700698/5G-and-Emerging-Technologies.png" alt="5G and Emerging Technologies">
+                    <div class="image-caption">Figure: 5G and emerging technologies (SDN, IoT, Cloud Computing)</div>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Department of Electronics and Computer Engineering, Pulchowk Campus</p>
-        <p>Designed for Engineering Students — Optimized for Mobile & Desktop Viewing</p>
-    </footer>
+    <!-- <footer>
+        <p>&copy; 2025 Data Communication and Networking Comprehensive Guide | Based on course materials by Er Chandra Shekhar and Er. Gopal Karn</p>
+    </footer> -->
+
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            // Toggle sidebar on menu button click
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                // Prevent body scrolling when sidebar is open
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Close sidebar when clicking on overlay
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close sidebar when clicking on a nav link (for mobile)
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+            
+            // Add active class to current section in navigation
+            function setActiveLink() {
+                const scrollPosition = window.scrollY;
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                document.querySelectorAll('section, .topic-card').forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        const id = section.id || section.parentElement.id;
+                        const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink(); // Set initial active link
+            
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
