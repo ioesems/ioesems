@@ -238,8 +238,25 @@
 </head>
 <body>
 
+    <div class="container">
 
-<div class="note-container">
+        <header>
+            <h1><i class="fas fa-sticky-note"></i> My Notes</h1>
+            <a href="create_and_upload_note.php" class="add-note-btn">
+                <i class="fas fa-plus"></i> Add Note
+            </a>
+        </header>
+
+        <form method="GET" action="" class="search-form">
+            <input type="text" name="search" class="search-box" placeholder="Search notes by title..." 
+                   value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                   aria-label="Search notes">
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+
+        <div class="note-container">
             <?php
             // Database connection
             $host = 'localhost:8081';
@@ -307,25 +324,6 @@
             }
             ?>
         </div>
-
-    <div class="container">
-
-        <header>
-            <h1><i class="fas fa-sticky-note"></i> My Notes</h1>
-            <a href="create_and_upload_note.php" class="add-note-btn">
-                <i class="fas fa-plus"></i> Add Note
-            </a>
-        </header>
-
-        <form method="GET" action="" class="search-form">
-            <input type="text" name="search" class="search-box" placeholder="Search notes by title..." 
-                   value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
-                   aria-label="Search notes">
-            <button type="submit" class="search-btn">
-                <i class="fas fa-search"></i> Search
-            </button>
-        </form>
-
 
     </div>
 

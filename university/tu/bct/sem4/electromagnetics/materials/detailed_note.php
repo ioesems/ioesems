@@ -1,5 +1,4 @@
 <!-- <==================chapter 1 ==================> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -227,20 +226,20 @@
                     <p>The magnitude of A is a scalar quantity and written as A or ||A||, and is given by:</p>
                     
                     <div class="equation">
-                        ||A|| = \sqrt{A_x^2 + A_y^2 + A_z^2}
+                        $$||\mathbf{A}|| = \sqrt{A_x^2 + A_y^2 + A_z^2}$$
                     </div>
                     
                     <p><strong>Unit Vector</strong></p>
                     <p>A unit vector aA along A is defined as a vector whose magnitude is unity (i.e., 1) and its direction is along A, that is:</p>
                     
                     <div class="equation">
-                        \mathbf{a}_A = \frac{\mathbf{A}}{||\mathbf{A}||}
+                        $$\mathbf{a}_A = \frac{\mathbf{A}}{||\mathbf{A}||}$$
                     </div>
                     
                     <p>Note that ||aA|| = 1. Thus we may write A as:</p>
                     
                     <div class="equation">
-                        \mathbf{A} = ||\mathbf{A}|| \mathbf{a}_A
+                        $$\mathbf{A} = ||\mathbf{A}|| \mathbf{a}_A$$
                     </div>
                     
                     <p>which completely specifies A in terms of its magnitude A and its direction aA.</p>
@@ -258,17 +257,17 @@
                     </ul>
                     
                     <div class="equation">
-                        \mathbf{C} = (A_x+B_x)\mathbf{a}_x + (A_y+B_y)\mathbf{a}_y + (A_z+B_z)\mathbf{a}_z
+                        $$\mathbf{C} = (A_x+B_x)\mathbf{a}_x + (A_y+B_y)\mathbf{a}_y + (A_z+B_z)\mathbf{a}_z$$
                     </div>
                     
                     <p>Vector subtraction is similarly carried out as:</p>
                     
                     <div class="equation">
-                        \mathbf{D} = \mathbf{A} - \mathbf{B} = \mathbf{A} + (-\mathbf{B})
+                        $$\mathbf{D} = \mathbf{A} - \mathbf{B} = \mathbf{A} + (-\mathbf{B})$$
                     </div>
                     
                     <div class="equation">
-                        \mathbf{D} = (A_x-B_x)\mathbf{a}_x + (A_y-B_y)\mathbf{a}_y + (A_z-B_z)\mathbf{a}_z
+                        $$\mathbf{D} = (A_x-B_x)\mathbf{a}_x + (A_y-B_y)\mathbf{a}_y + (A_z-B_z)\mathbf{a}_z$$
                     </div>
                     
                     <div class="image-container">
@@ -279,6 +278,7 @@
                     <p><strong>Laws of Vector Algebra</strong></p>
                     
                     <div class="equation">
+                        $$
                         \begin{array}{c|c|c}
                         \text{Law} & \text{Addition} & \text{Multiplication} \\
                         \hline
@@ -286,6 +286,7 @@
                         \text{Associative} & \mathbf{A} + (\mathbf{B} + \mathbf{C}) = (\mathbf{A} + \mathbf{B}) + \mathbf{C} & k(l\mathbf{A}) = (kl)\mathbf{A} \\
                         \text{Distributive} & k(\mathbf{A} + \mathbf{B}) = k\mathbf{A} + k\mathbf{B} & \\
                         \end{array}
+                        $$
                     </div>
                     
                     <p><strong>Position Vector</strong></p>
@@ -295,7 +296,7 @@
                     <p>The distance vector is the displacement from one point to another.</p>
                     
                     <div class="equation">
-                        \mathbf{r}_{PQ} = \mathbf{r}_Q - \mathbf{r}_P = (x_Q - x_P)\mathbf{a}_x + (y_Q - y_P)\mathbf{a}_y + (z_Q - z_P)\mathbf{a}_z
+                        $$\mathbf{r}_{PQ} = \mathbf{r}_Q - \mathbf{r}_P = (x_Q - x_P)\mathbf{a}_x + (y_Q - y_P)\mathbf{a}_y + (z_Q - z_P)\mathbf{a}_z$$
                     </div>
                     
                     <p><strong>Vector Multiplication</strong></p>
@@ -304,7 +305,7 @@
                     <p>The dot product of two vectors A and B, written as A·B, is defined geometrically as the product of the magnitudes of A and B and the cosine of the smaller angle between them when they are drawn tail to tail.</p>
                     
                     <div class="equation">
-                        \mathbf{A} \cdot \mathbf{B} = |\mathbf{A}||\mathbf{B}|\cos\theta_{AB}
+                        $$\mathbf{A} \cdot \mathbf{B} = |\mathbf{A}||\mathbf{B}|\cos\theta_{AB}$$
                     </div>
                     
                     <p>where θAB is the smaller angle between A and B. The result of A·B is called either the scalar product because it is scalar, or the dot product due to the dot sign.</p>
@@ -312,7 +313,7 @@
                     <p>Let A = (Ax, Ay, Az) and B = (Bx, By, Bz), then:</p>
                     
                     <div class="equation">
-                        \mathbf{A} \cdot \mathbf{B} = A_xB_x + A_yB_y + A_zB_z
+                        $$\mathbf{A} \cdot \mathbf{B} = A_xB_x + A_yB_y + A_zB_z$$
                     </div>
                     
                     <p>Two vectors A and B are said to be orthogonal (or perpendicular) with each other if A·B = 0.</p>
@@ -320,8 +321,11 @@
                     <p>We know:</p>
                     
                     <div class="equation">
-                        \mathbf{a}_x \cdot \mathbf{a}_y = \mathbf{a}_y \cdot \mathbf{a}_z = \mathbf{a}_z \cdot \mathbf{a}_x = 0 \\
-                        \mathbf{a}_x \cdot \mathbf{a}_x = \mathbf{a}_y \cdot \mathbf{a}_y = \mathbf{a}_z \cdot \mathbf{a}_z = 1
+                        $$\mathbf{a}_x \cdot \mathbf{a}_y = \mathbf{a}_y \cdot \mathbf{a}_z = \mathbf{a}_z \cdot \mathbf{a}_x = 0$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\mathbf{a}_x \cdot \mathbf{a}_x = \mathbf{a}_y \cdot \mathbf{a}_y = \mathbf{a}_z \cdot \mathbf{a}_z = 1$$
                     </div>
                     
                     <p>Note that dot product obeys the following:</p>
@@ -335,7 +339,7 @@
                     <p>The cross product of two vectors A and B, written as A×B, is a vector quantity whose magnitude is the area of the parallelogram formed by A and B and is in the direction of advance of a right-handed screw as A is turned into B.</p>
                     
                     <div class="equation">
-                        \mathbf{A} \times \mathbf{B} = |\mathbf{A}||\mathbf{B}|\sin\theta_{AB} \mathbf{a}_n
+                        $$\mathbf{A} \times \mathbf{B} = |\mathbf{A}||\mathbf{B}|\sin\theta_{AB} \mathbf{a}_n$$
                     </div>
                     
                     <p>where an is a unit vector normal to the plane containing A and B. The direction of an is taken as the direction of the right thumb when the fingers of the right hand rotate from A to B.</p>
@@ -348,15 +352,21 @@
                     <p>Let A = (Ax, Ay, Az) and B = (Bx, By, Bz), then:</p>
                     
                     <div class="equation">
-                        \mathbf{A} \times \mathbf{B} = (A_yB_z - A_zB_y)\mathbf{a}_x + (A_zB_x - A_xB_z)\mathbf{a}_y + (A_xB_y - A_yB_x)\mathbf{a}_z
+                        $$\mathbf{A} \times \mathbf{B} = (A_yB_z - A_zB_y)\mathbf{a}_x + (A_zB_x - A_xB_z)\mathbf{a}_y + (A_xB_y - A_yB_x)\mathbf{a}_z$$
                     </div>
                     
                     <p>We know:</p>
                     
                     <div class="equation">
-                        \mathbf{a}_x \times \mathbf{a}_y = \mathbf{a}_z \\
-                        \mathbf{a}_y \times \mathbf{a}_z = \mathbf{a}_x \\
-                        \mathbf{a}_z \times \mathbf{a}_x = \mathbf{a}_y
+                        $$\mathbf{a}_x \times \mathbf{a}_y = \mathbf{a}_z$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\mathbf{a}_y \times \mathbf{a}_z = \mathbf{a}_x$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\mathbf{a}_z \times \mathbf{a}_x = \mathbf{a}_y$$
                     </div>
                     
                     <p>Properties of cross product:</p>
@@ -372,25 +382,25 @@
                     <p>Given three vectors A, B, and C, we define the scalar triple product as:</p>
                     
                     <div class="equation">
-                        \mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = \mathbf{B} \cdot (\mathbf{C} \times \mathbf{A}) = \mathbf{C} \cdot (\mathbf{A} \times \mathbf{B})
+                        $$\mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = \mathbf{B} \cdot (\mathbf{C} \times \mathbf{A}) = \mathbf{C} \cdot (\mathbf{A} \times \mathbf{B})$$
                     </div>
                     
                     <p>If A = (Ax, Ay, Az), B = (Bx, By, Bz), and C = (Cx, Cy, Cz), then A·(B×C) is the volume of a parallelogram having A, B, and C as edges and is easily obtained by finding the determinant of the 3×3 matrix formed by A, B, and C:</p>
                     
                     <div class="equation">
-                        \mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = 
+                        $$\mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = 
                         \begin{vmatrix}
                         A_x & A_y & A_z \\
                         B_x & B_y & B_z \\
                         C_x & C_y & C_z
-                        \end{vmatrix}
+                        \end{vmatrix}$$
                     </div>
                     
                     <p><strong>Vector Triple Product</strong></p>
                     <p>For vectors A, B, and C, we define the vector triple product as:</p>
                     
                     <div class="equation">
-                        \mathbf{A} \times (\mathbf{B} \times \mathbf{C}) = \mathbf{B}(\mathbf{A} \cdot \mathbf{C}) - \mathbf{C}(\mathbf{A} \cdot \mathbf{B})
+                        $$\mathbf{A} \times (\mathbf{B} \times \mathbf{C}) = \mathbf{B}(\mathbf{A} \cdot \mathbf{C}) - \mathbf{C}(\mathbf{A} \cdot \mathbf{B})$$
                     </div>
                     
                     <p>It should be noted that, (A·B)C ≠ A(B·C) But, (A·B)C = C(A·B)</p>
@@ -401,7 +411,7 @@
                     <p>Given a vector A, we define the scalar component AB of A along vector B as:</p>
                     
                     <div class="equation">
-                        A_B = \mathbf{A} \cdot \mathbf{a}_B
+                        $$A_B = \mathbf{A} \cdot \mathbf{a}_B$$
                     </div>
                     
                     <p>where θAB is the smaller angle between A and B</p>
@@ -409,7 +419,7 @@
                     <p>The vector component AB of A along B is simply the scalar component multiplied by a unit vector along B; that is:</p>
                     
                     <div class="equation">
-                        \mathbf{A}_B = A_B \mathbf{a}_B = (\mathbf{A} \cdot \mathbf{a}_B)\mathbf{a}_B
+                        $$\mathbf{A}_B = A_B \mathbf{a}_B = (\mathbf{A} \cdot \mathbf{a}_B)\mathbf{a}_B$$
                     </div>
                 </div>
             </div>
@@ -423,7 +433,7 @@
                     <p>The ranges of the coordinate variables x, y, and z are:</p>
                     
                     <div class="equation">
-                        -\infty < x < \infty, -\infty < y < \infty, -\infty < z < \infty
+                        $$-\infty < x < \infty, -\infty < y < \infty, -\infty < z < \infty$$
                     </div>
                     
                     <p><strong>Differential Length, Surface Area and Volume</strong></p>
@@ -431,21 +441,27 @@
                     <p><strong>Differential length:</strong></p>
                     
                     <div class="equation">
-                        d\mathbf{L} = dx\,\mathbf{a}_x + dy\,\mathbf{a}_y + dz\,\mathbf{a}_z
+                        $$d\mathbf{L} = dx\,\mathbf{a}_x + dy\,\mathbf{a}_y + dz\,\mathbf{a}_z$$
                     </div>
                     
                     <p><strong>Differential Surface Area</strong></p>
                     
                     <div class="equation">
-                        d\mathbf{S} = dx\,dy\,\mathbf{a}_z \\
-                        d\mathbf{S} = dy\,dz\,\mathbf{a}_x \\
-                        d\mathbf{S} = dx\,dz\,\mathbf{a}_y
+                        $$d\mathbf{S} = dx\,dy\,\mathbf{a}_z$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = dy\,dz\,\mathbf{a}_x$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = dx\,dz\,\mathbf{a}_y$$
                     </div>
                     
                     <p><strong>Differential Volume</strong></p>
                     
                     <div class="equation">
-                        dv = dx\,dy\,dz
+                        $$dv = dx\,dy\,dz$$
                     </div>
                     
                     <div class="image-container">
@@ -476,24 +492,36 @@
                     <p><strong>Relationship between Rectangular and Cylindrical Coordinate System</strong></p>
                     
                     <div class="equation">
-                        x = \rho \cos\phi \\
-                        y = \rho \sin\phi \\
-                        z = z
+                        $$x = \rho \cos\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$y = \rho \sin\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$z = z$$
                     </div>
                     
                     <p>The cylindrical variables in terms of x, y, and z are:</p>
                     
                     <div class="equation">
-                        \rho = \sqrt{x^2 + y^2}  \quad (\rho \geq 0) \\
-                        \phi = \tan^{-1}(y/x) \\
-                        z = z
+                        $$\rho = \sqrt{x^2 + y^2} \quad (\rho \geq 0)$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\phi = \tan^{-1}(y/x)$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$z = z$$
                     </div>
                     
                     <p><strong>Vector A in cylindrical coordinate system</strong></p>
                     <p>The vector A(Aρ, Aφ, Az) in cylindrical coordinate system is represented as:</p>
                     
                     <div class="equation">
-                        \mathbf{A} = A_\rho \mathbf{a}_\rho + A_\phi \mathbf{a}_\phi + A_z \mathbf{a}_z
+                        $$\mathbf{A} = A_\rho \mathbf{a}_\rho + A_\phi \mathbf{a}_\phi + A_z \mathbf{a}_z$$
                     </div>
                     
                     <p><strong>Differential Length, Area, and Volume in cylindrical co-ordinate system</strong></p>
@@ -505,22 +533,28 @@
                     <p>Differential Displacement is given as:</p>
                     
                     <div class="equation">
-                        d\mathbf{L} = d\rho\,\mathbf{a}_\rho + \rho\,d\phi\,\mathbf{a}_\phi + dz\,\mathbf{a}_z
+                        $$d\mathbf{L} = d\rho\,\mathbf{a}_\rho + \rho\,d\phi\,\mathbf{a}_\phi + dz\,\mathbf{a}_z$$
                     </div>
                     
                     <p><strong>Differential Surface Area</strong></p>
                     <p>Differential normal surface area is given by,</p>
                     
                     <div class="equation">
-                        d\mathbf{S} = \rho\,d\phi\,dz\,\mathbf{a}_\rho \\
-                        d\mathbf{S} = d\rho\,dz\,\mathbf{a}_\phi \\
-                        d\mathbf{S} = d\rho\,d\phi\,\mathbf{a}_z
+                        $$d\mathbf{S} = \rho\,d\phi\,dz\,\mathbf{a}_\rho$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = d\rho\,dz\,\mathbf{a}_\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = d\rho\,d\phi\,\mathbf{a}_z$$
                     </div>
                     
                     <p><strong>Differential Volume</strong></p>
                     
                     <div class="equation">
-                        dv = \rho\,d\rho\,d\phi\,dz
+                        $$dv = \rho\,d\rho\,d\phi\,dz$$
                     </div>
                     
                     <div class="image-container">
@@ -548,15 +582,27 @@
                     <p><strong>Relationship between Cartesian and Spherical Coordinates</strong></p>
                     
                     <div class="equation">
-                        x = r \sin\theta \cos\phi \\
-                        y = r \sin\theta \sin\phi \\
-                        z = r \cos\theta
+                        $$x = r \sin\theta \cos\phi$$
                     </div>
                     
                     <div class="equation">
-                        r = \sqrt{x^2 + y^2 + z^2} \\
-                        \theta = \cos^{-1}\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right) \\
-                        \phi = \tan^{-1}(y/x)
+                        $$y = r \sin\theta \sin\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$z = r \cos\theta$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$r = \sqrt{x^2 + y^2 + z^2}$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\theta = \cos^{-1}\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right)$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\phi = \tan^{-1}(y/x)$$
                     </div>
                     
                     <p><strong>Differential Length, Surface area and Volume in Spherical Coordinates</strong></p>
@@ -564,21 +610,27 @@
                     <p><strong>Differential Displacement (Length)</strong></p>
                     
                     <div class="equation">
-                        d\mathbf{L} = dr\,\mathbf{a}_r + r\,d\theta\,\mathbf{a}_\theta + r \sin\theta\,d\phi\,\mathbf{a}_\phi
+                        $$d\mathbf{L} = dr\,\mathbf{a}_r + r\,d\theta\,\mathbf{a}_\theta + r \sin\theta\,d\phi\,\mathbf{a}_\phi$$
                     </div>
                     
                     <p><strong>Differential Volume</strong></p>
                     
                     <div class="equation">
-                        dv = r^2 \sin\theta\,dr\,d\theta\,d\phi
+                        $$dv = r^2 \sin\theta\,dr\,d\theta\,d\phi$$
                     </div>
                     
                     <p><strong>Differential Surface area</strong></p>
                     
                     <div class="equation">
-                        d\mathbf{S} = r^2 \sin\theta\,d\theta\,d\phi\,\mathbf{a}_r \\
-                        d\mathbf{S} = r \sin\theta\,dr\,d\phi\,\mathbf{a}_\theta \\
-                        d\mathbf{S} = r\,dr\,d\theta\,\mathbf{a}_\phi
+                        $$d\mathbf{S} = r^2 \sin\theta\,d\theta\,d\phi\,\mathbf{a}_r$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = r \sin\theta\,dr\,d\phi\,\mathbf{a}_\theta$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$d\mathbf{S} = r\,dr\,d\theta\,\mathbf{a}_\phi$$
                     </div>
                     
                     <div class="image-container">
@@ -591,17 +643,29 @@
                     <p><strong>Cylindrical to Spherical</strong></p>
                     
                     <div class="equation">
-                        r = \sqrt{\rho^2 + z^2} \\
-                        \theta = \cos^{-1}\left(\frac{z}{\sqrt{\rho^2 + z^2}}\right) \\
-                        \phi = \phi
+                        $$r = \sqrt{\rho^2 + z^2}$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\theta = \cos^{-1}\left(\frac{z}{\sqrt{\rho^2 + z^2}}\right)$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\phi = \phi$$
                     </div>
                     
                     <p><strong>Spherical to Cylindrical</strong></p>
                     
                     <div class="equation">
-                        \rho = r \sin\theta \\
-                        \phi = \phi \\
-                        z = r \cos\theta
+                        $$\rho = r \sin\theta$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$\phi = \phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$z = r \cos\theta$$
                     </div>
                     
                     <p><strong>Vector Component Conversion</strong></p>
@@ -609,33 +673,57 @@
                     <p><strong>Cylindrical to Cartesian</strong></p>
                     
                     <div class="equation">
-                        A_x = A_\rho \cos\phi - A_\phi \sin\phi \\
-                        A_y = A_\rho \sin\phi + A_\phi \cos\phi \\
-                        A_z = A_z
+                        $$A_x = A_\rho \cos\phi - A_\phi \sin\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_y = A_\rho \sin\phi + A_\phi \cos\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_z = A_z$$
                     </div>
                     
                     <p><strong>Cartesian to Cylindrical</strong></p>
                     
                     <div class="equation">
-                        A_\rho = A_x \cos\phi + A_y \sin\phi \\
-                        A_\phi = -A_x \sin\phi + A_y \cos\phi \\
-                        A_z = A_z
+                        $$A_\rho = A_x \cos\phi + A_y \sin\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_\phi = -A_x \sin\phi + A_y \cos\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_z = A_z$$
                     </div>
                     
                     <p><strong>Spherical to Cartesian</strong></p>
                     
                     <div class="equation">
-                        A_x = A_r \sin\theta \cos\phi + A_\theta \cos\theta \cos\phi - A_\phi \sin\phi \\
-                        A_y = A_r \sin\theta \sin\phi + A_\theta \cos\theta \sin\phi + A_\phi \cos\phi \\
-                        A_z = A_r \cos\theta - A_\theta \sin\theta
+                        $$A_x = A_r \sin\theta \cos\phi + A_\theta \cos\theta \cos\phi - A_\phi \sin\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_y = A_r \sin\theta \sin\phi + A_\theta \cos\theta \sin\phi + A_\phi \cos\phi$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_z = A_r \cos\theta - A_\theta \sin\theta$$
                     </div>
                     
                     <p><strong>Cartesian to Spherical</strong></p>
                     
                     <div class="equation">
-                        A_r = A_x \sin\theta \cos\phi + A_y \sin\theta \sin\phi + A_z \cos\theta \\
-                        A_\theta = A_x \cos\theta \cos\phi + A_y \cos\theta \sin\phi - A_z \sin\theta \\
-                        A_\phi = -A_x \sin\phi + A_y \cos\phi
+                        $$A_r = A_x \sin\theta \cos\phi + A_y \sin\theta \sin\phi + A_z \cos\theta$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_\theta = A_x \cos\theta \cos\phi + A_y \cos\theta \sin\phi - A_z \sin\theta$$
+                    </div>
+                    
+                    <div class="equation">
+                        $$A_\phi = -A_x \sin\phi + A_y \cos\phi$$
                     </div>
                 </div>
             </div>
@@ -643,8 +731,6 @@
     </div>
 </body>
 </html>
-
-
 <!-- <==================chapter 2 ==================> -->
 
 <!DOCTYPE html>
@@ -2235,12 +2321,15 @@
 
 <!-- <==================chapter 3 ==================> -->
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 3: Magnetic Field</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2299,6 +2388,7 @@
             margin: 10px 0;
             font-family: 'Courier New', Courier, monospace;
             overflow-x: auto;
+            white-space: pre-wrap;
         }
         
         .example {
@@ -2438,13 +2528,13 @@
                     <p>Biot-Savart's law describes the magnetic field produced by a steady current. It is analogous to Coulomb's law for electric fields. The law states that the magnetic field intensity dH at a point P due to a current element Idl is:</p>
                     
                     <div class="equation">
-                        d\mathbf{H} = \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}
+                        $$d\mathbf{H} = \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
                     </div>
                     
                     <p>or equivalently:</p>
                     
                     <div class="equation">
-                        d\mathbf{B} = \frac{\mu_0 I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}
+                        $$d\mathbf{B} = \frac{\mu_0 I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
                     </div>
                     
                     <p>where:</p>
@@ -2459,7 +2549,7 @@
                     <p>The total magnetic field at point P due to a current-carrying conductor is obtained by integrating over the entire conductor:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \int \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}
+                        $$\mathbf{H} = \int \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
                     </div>
                     
                     <p><strong>Physical Significance</strong></p>
@@ -2470,7 +2560,7 @@
                     </ul>
                     
                     <div class="image-container">
-                        <img src="https://i.imgur.com/8XJYzFz.png" alt="Biot-Savart Law" width="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Biot-Savart Law" width="400">
                         <div class="image-caption">Figure: Current element Idl producing magnetic field at point P</div>
                     </div>
                     
@@ -2479,13 +2569,13 @@
                     <p>For an infinitely long straight wire carrying current I, the magnetic field at a distance ρ from the wire is:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p>or in terms of magnetic flux density:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \frac{\mu_0 I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{B} = \frac{\mu_0 I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p>This is derived by integrating Biot-Savart's law over the entire length of the wire.</p>
@@ -2502,7 +2592,7 @@
                     <p>The relationship between magnetic field intensity H and magnetic flux density B is:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \mu \mathbf{H}
+                        $$\mathbf{B} = \mu \mathbf{H}$$
                     </div>
                     
                     <p>where μ is the permeability of the medium, given by μ = μ<sub>0</sub>μ<sub>r</sub>, with μ<sub>0</sub> being the permeability of free space and μ<sub>r</sub> being the relative permeability of the medium.</p>
@@ -2520,7 +2610,7 @@
                     <p><strong>1. Infinitely Long Straight Wire:</strong></p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p><strong>2. Circular Loop of Current:</strong></p>
@@ -2528,13 +2618,13 @@
                     <p>At the center of a circular loop of radius a carrying current I:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I}{2a} \mathbf{a}_z
+                        $$\mathbf{H} = \frac{I}{2a} \mathbf{a}_z$$
                     </div>
                     
                     <p>At a point along the axis of the loop at distance z from the center:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z
+                        $$\mathbf{H} = \frac{I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
                     </div>
                     
                     <p><strong>3. Solenoid:</strong></p>
@@ -2542,7 +2632,7 @@
                     <p>Inside a long solenoid with n turns per unit length carrying current I:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = nI \mathbf{a}_z
+                        $$\mathbf{H} = nI \mathbf{a}_z$$
                     </div>
                     
                     <p>Outside the solenoid, H ≈ 0.</p>
@@ -2552,11 +2642,11 @@
                     <p>Inside a toroid with N turns carrying current I and radius r:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{NI}{2\pi r} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{NI}{2\pi r} \mathbf{a}_\phi$$
                     </div>
                     
                     <div class="image-container">
-                        <img src="https://i.imgur.com/7yJqWUz.png" alt="Magnetic Field of a Solenoid" width="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Field of a Solenoid" width="400">
                         <div class="image-caption">Figure: Magnetic field lines of a solenoid</div>
                     </div>
                 </div>
@@ -2570,7 +2660,7 @@
                     <p>Ampere's circuital law states that the line integral of the magnetic field intensity H around any closed path is equal to the total current enclosed by that path:</p>
                     
                     <div class="equation">
-                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{\text{enc}}
+                        $$\oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc}$$
                     </div>
                     
                     <p>where:</p>
@@ -2583,7 +2673,7 @@
                     <p>In differential form, Ampere's law is:</p>
                     
                     <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J}
+                        $$\nabla \times \mathbf{H} = \mathbf{J}$$
                     </div>
                     
                     <p>where J is the current density.</p>
@@ -2597,13 +2687,13 @@
                     <p>For an infinitely long straight wire carrying current I, we choose a circular path of radius ρ centered on the wire:</p>
                     
                     <div class="equation">
-                        \oint \mathbf{H} \cdot d\mathbf{l} = H_\phi \cdot 2\pi\rho = I
+                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H_\phi \cdot 2\pi\rho = I$$
                     </div>
                     
                     <p>Solving for H:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p><strong>2. Infinite Current Sheet</strong></p>
@@ -2611,14 +2701,14 @@
                     <p>For an infinite current sheet with surface current density K (A/m) in the y-direction:</p>
                     
                     <div class="equation">
-                        \oint \mathbf{H} \cdot d\mathbf{l} = 2H_x L = K L
+                        $$\oint \mathbf{H} \cdot d\mathbf{l} = 2H_x L = K L$$
                     </div>
                     
                     <p>Solving for H:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{K}{2} \mathbf{a}_x \quad \text{(above the sheet)} \\
-                        \mathbf{H} = -\frac{K}{2} \mathbf{a}_x \quad \text{(below the sheet)}
+                        $$\mathbf{H} = \frac{K}{2} \mathbf{a}_x \quad \text{(above the sheet)} \\
+                        \mathbf{H} = -\frac{K}{2} \mathbf{a}_x \quad \text{(below the sheet)}$$
                     </div>
                     
                     <p><strong>3. Solenoid</strong></p>
@@ -2626,13 +2716,13 @@
                     <p>For a solenoid with n turns per unit length carrying current I:</p>
                     
                     <div class="equation">
-                        \oint \mathbf{H} \cdot d\mathbf{l} = H L = n I L
+                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H L = n I L$$
                     </div>
                     
                     <p>Solving for H:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = n I \mathbf{a}_z
+                        $$\mathbf{H} = n I \mathbf{a}_z$$
                     </div>
                     
                     <p><strong>4. Toroid</strong></p>
@@ -2640,17 +2730,17 @@
                     <p>For a toroid with N turns carrying current I and radius r:</p>
                     
                     <div class="equation">
-                        \oint \mathbf{H} \cdot d\mathbf{l} = H \cdot 2\pi r = N I
+                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H \cdot 2\pi r = N I$$
                     </div>
                     
                     <p>Solving for H:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{N I}{2\pi r} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{N I}{2\pi r} \mathbf{a}_\phi$$
                     </div>
                     
                     <div class="image-container">
-                        <img src="https://i.imgur.com/4mQYjLk.png" alt="Ampere's Law Application" width="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Ampere's Law Application" width="400">
                         <div class="image-caption">Figure: Ampere's circuital law applied to a toroid</div>
                     </div>
                 </div>
@@ -2666,7 +2756,7 @@
                     <p>The relationship between magnetic flux density B and magnetic field intensity H is:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \mu \mathbf{H}
+                        $$\mathbf{B} = \mu \mathbf{H}$$
                     </div>
                     
                     <p>where μ is the permeability of the medium (μ = μ<sub>0</sub>μ<sub>r</sub>), μ<sub>0</sub> = 4π × 10<sup>-7</sup> H/m is the permeability of free space, and μ<sub>r</sub> is the relative permeability of the medium.</p>
@@ -2676,7 +2766,7 @@
                     <p>Magnetic flux Φ through a surface S is defined as:</p>
                     
                     <div class="equation">
-                        \Phi = \int_S \mathbf{B} \cdot d\mathbf{S}
+                        $$\Phi = \int_S \mathbf{B} \cdot d\mathbf{S}$$
                     </div>
                     
                     <p>The unit of magnetic flux is weber (Wb).</p>
@@ -2686,13 +2776,13 @@
                     <p>Gauss's law for magnetism states that the net magnetic flux through any closed surface is zero:</p>
                     
                     <div class="equation">
-                        \oint_S \mathbf{B} \cdot d\mathbf{S} = 0
+                        $$\oint_S \mathbf{B} \cdot d\mathbf{S} = 0$$
                     </div>
                     
                     <p>In differential form:</p>
                     
                     <div class="equation">
-                        \nabla \cdot \mathbf{B} = 0
+                        $$\nabla \cdot \mathbf{B} = 0$$
                     </div>
                     
                     <p>This implies that magnetic monopoles do not exist - magnetic field lines always form closed loops.</p>
@@ -2704,7 +2794,7 @@
                     <p><strong>Solution:</strong></p>
                     
                     <div class="equation">
-                        \Phi = \int_S \mathbf{B} \cdot d\mathbf{S} = B \cdot w \cdot l
+                        $$\Phi = \int_S \mathbf{B} \cdot d\mathbf{S} = B \cdot w \cdot l$$
                     </div>
                     
                     <p>since B is perpendicular to the surface and uniform.</p>
@@ -2718,13 +2808,13 @@
                     <p>The magnetic field due to the wire at distance ρ is:</p>
                     
                     <div class="equation">
-                        B = \frac{\mu_0 I}{2\pi\rho}
+                        $$B = \frac{\mu_0 I}{2\pi\rho}$$
                     </div>
                     
                     <p>The magnetic flux through the loop is:</p>
                     
                     <div class="equation">
-                        \Phi = \int_{a}^{a+w} \frac{\mu_0 I l}{2\pi\rho} d\rho = \frac{\mu_0 I l}{2\pi} \ln\left(\frac{a+w}{a}\right)
+                        $$\Phi = \int_{a}^{a+w} \frac{\mu_0 I l}{2\pi\rho} d\rho = \frac{\mu_0 I l}{2\pi} \ln\left(\frac{a+w}{a}\right)$$
                     </div>
                 </div>
             </div>
@@ -2737,7 +2827,7 @@
                     <p>The curl of a vector field is a measure of the rotation or circulation of the field at a point. For magnetic fields, the curl of H is related to the current density:</p>
                     
                     <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J}
+                        $$\nabla \times \mathbf{H} = \mathbf{J}$$
                     </div>
                     
                     <p>This means:</p>
@@ -2752,13 +2842,13 @@
                     <p>Stoke's theorem relates the surface integral of the curl of a vector field to the line integral of the vector field around the boundary of the surface:</p>
                     
                     <div class="equation">
-                        \oint_C \mathbf{F} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S}
+                        $$\oint_C \mathbf{F} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S}$$
                     </div>
                     
                     <p>For magnetic fields, this becomes:</p>
                     
                     <div class="equation">
-                        \oint_C \mathbf{H} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{H}) \cdot d\mathbf{S} = \int_S \mathbf{J} \cdot d\mathbf{S} = I_{\text{enc}}
+                        $$\oint_C \mathbf{H} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{H}) \cdot d\mathbf{S} = \int_S \mathbf{J} \cdot d\mathbf{S} = I_{enc}$$
                     </div>
                     
                     <p>which is Ampere's circuital law.</p>
@@ -2774,11 +2864,11 @@
                     <p>For a vector field F = x²a<sub>x</sub> + y²a<sub>y</sub> + z²a<sub>z</sub>:</p>
                     
                     <div class="equation">
-                        \nabla \times \mathbf{F} = \begin{vmatrix}
+                        $$\nabla \times \mathbf{F} = \begin{vmatrix}
                         \mathbf{a}_x & \mathbf{a}_y & \mathbf{a}_z \\
                         \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\
                         x^2 & y^2 & z^2
-                        \end{vmatrix} = 0
+                        \end{vmatrix} = 0$$
                     </div>
                     
                     <p>This makes sense because there is no circulation in this field.</p>
@@ -2788,17 +2878,17 @@
                     <p>For a straight wire along the z-axis carrying current I, the magnetic field is:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p>The curl in cylindrical coordinates is:</p>
                     
                     <div class="equation">
-                        \nabla \times \mathbf{H} = \frac{1}{\rho} \begin{vmatrix}
+                        $$\nabla \times \mathbf{H} = \frac{1}{\rho} \begin{vmatrix}
                         \mathbf{a}_\rho & \rho\mathbf{a}_\phi & \mathbf{a}_z \\
                         \frac{\partial}{\partial \rho} & \frac{\partial}{\partial \phi} & \frac{\partial}{\partial z} \\
                         0 & \frac{I}{2\pi} & 0
-                        \end{vmatrix} = \frac{I}{2\pi\rho^2} \mathbf{a}_z
+                        \end{vmatrix} = \frac{I}{2\pi\rho^2} \mathbf{a}_z$$
                     </div>
                     
                     <p>But since J = I/(πρ²) for uniform current density, we have ∇×H = J, which satisfies Ampere's law.</p>
@@ -2813,7 +2903,7 @@
                     <p>Since ∇·B = 0, we can define a magnetic vector potential A such that:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \nabla \times \mathbf{A}
+                        $$\mathbf{B} = \nabla \times \mathbf{A}$$
                     </div>
                     
                     <p>The magnetic vector potential A has the following properties:</p>
@@ -2827,7 +2917,7 @@
                     <p>For magnetostatics, the vector potential A satisfies:</p>
                     
                     <div class="equation">
-                        \nabla^2 \mathbf{A} = -\mu \mathbf{J}
+                        $$\nabla^2 \mathbf{A} = -\mu \mathbf{J}$$
                     </div>
                     
                     <p>where J is the current density.</p>
@@ -2837,13 +2927,13 @@
                     <p>For regions where J = 0, we can define a scalar magnetic potential V<sub>m</sub> such that:</p>
                     
                     <div class="equation">
-                        \mathbf{H} = -\nabla V_m
+                        $$\mathbf{H} = -\nabla V_m$$
                     </div>
                     
                     <p>In regions with no current, the scalar magnetic potential satisfies Laplace's equation:</p>
                     
                     <div class="equation">
-                        \nabla^2 V_m = 0
+                        $$\nabla^2 V_m = 0$$
                     </div>
                     
                     <p>However, V<sub>m</sub> is not single-valued in regions with current, so it is only used in current-free regions.</p>
@@ -2853,7 +2943,7 @@
                     <p>For a current distribution, the vector potential can be calculated as:</p>
                     
                     <div class="equation">
-                        \mathbf{A} = \frac{\mu}{4\pi} \int \frac{\mathbf{J} dV}{R}
+                        $$\mathbf{A} = \frac{\mu}{4\pi} \int \frac{\mathbf{J} dV}{R}$$
                     </div>
                     
                     <p>where R is the distance from the current element to the point of interest.</p>
@@ -2863,13 +2953,13 @@
                     <p>For an infinitely long straight wire along the z-axis carrying current I:</p>
                     
                     <div class="equation">
-                        \mathbf{A} = -\frac{\mu I}{2\pi} \ln\rho \mathbf{a}_z
+                        $$\mathbf{A} = -\frac{\mu I}{2\pi} \ln\rho \mathbf{a}_z$$
                     </div>
                     
                     <p>From this, we can calculate B = ∇×A:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \nabla \times \mathbf{A} = \frac{\mu I}{2\pi\rho} \mathbf{a}_\phi
+                        $$\mathbf{B} = \nabla \times \mathbf{A} = \frac{\mu I}{2\pi\rho} \mathbf{a}_\phi$$
                     </div>
                     
                     <p>which matches the known result for the magnetic field of a straight wire.</p>
@@ -2882,13 +2972,13 @@
                         <p>For a circular loop in the xy-plane:</p>
                         
                         <div class="equation">
-                            \mathbf{A} = \frac{\mu I a}{4\pi} \int_0^{2\pi} \frac{a d\phi \mathbf{a}_\phi}{\sqrt{a^2+z^2}} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z
+                            $$\mathbf{A} = \frac{\mu I a}{4\pi} \int_0^{2\pi} \frac{a d\phi \mathbf{a}_\phi}{\sqrt{a^2+z^2}} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
                         </div>
                         
                         <p>Then B = ∇×A:</p>
                         
                         <div class="equation">
-                            \mathbf{B} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z
+                            $$\mathbf{B} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
                         </div>
                     </div>
                 </div>
@@ -2931,7 +3021,7 @@
                     <p>Magnetization M is defined as the magnetic moment per unit volume:</p>
                     
                     <div class="equation">
-                        \mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}
+                        $$\mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}$$
                     </div>
                     
                     <p>where m<sub>i</sub> is the magnetic moment of the i-th dipole.</p>
@@ -2939,13 +3029,13 @@
                     <p>The relationship between B, H, and M is:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \mu_0 (\mathbf{H} + \mathbf{M})
+                        $$\mathbf{B} = \mu_0 (\mathbf{H} + \mathbf{M})$$
                     </div>
                     
                     <p>For linear isotropic materials:</p>
                     
                     <div class="equation">
-                        \mathbf{M} = \chi_m \mathbf{H}
+                        $$\mathbf{M} = \chi_m \mathbf{H}$$
                     </div>
                     
                     <p>where χ<sub>m</sub> is the magnetic susceptibility (dimensionless).</p>
@@ -2953,7 +3043,7 @@
                     <p>Then:</p>
                     
                     <div class="equation">
-                        \mathbf{B} = \mu_0 (1 + \chi_m) \mathbf{H} = \mu_0 \mu_r \mathbf{H}
+                        $$\mathbf{B} = \mu_0 (1 + \chi_m) \mathbf{H} = \mu_0 \mu_r \mathbf{H}$$
                     </div>
                     
                     <p>where μ<sub>r</sub> = 1 + χ<sub>m</sub> is the relative permeability.</p>
@@ -2968,7 +3058,7 @@
                     </ul>
                     
                     <div class="image-container">
-                        <img src="https://i.imgur.com/2qYjKcD.png" alt="Magnetic Properties of Materials" width="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Properties of Materials" width="400">
                         <div class="image-caption">Figure: Magnetic field lines in different materials</div>
                     </div>
                 </div>
@@ -2982,19 +3072,19 @@
                     <p>The magnetic force on a moving charge is given by the Lorentz force equation:</p>
                     
                     <div class="equation">
-                        \mathbf{F} = q(\mathbf{v} \times \mathbf{B})
+                        $$\mathbf{F} = q(\mathbf{v} \times \mathbf{B})$$
                     </div>
                     
                     <p>For a current-carrying conductor of length L carrying current I:</p>
                     
                     <div class="equation">
-                        \mathbf{F} = I \int d\mathbf{l} \times \mathbf{B}
+                        $$\mathbf{F} = I \int d\mathbf{l} \times \mathbf{B}$$
                     </div>
                     
                     <p>For a straight conductor of length L in a uniform magnetic field B:</p>
                     
                     <div class="equation">
-                        \mathbf{F} = I \mathbf{L} \times \mathbf{B}
+                        $$\mathbf{F} = I \mathbf{L} \times \mathbf{B}$$
                     </div>
                     
                     <p><strong>Magnetic Torque</strong></p>
@@ -3002,7 +3092,7 @@
                     <p>The torque on a current loop in a magnetic field is given by:</p>
                     
                     <div class="equation">
-                        \mathbf{\tau} = \mathbf{m} \times \mathbf{B}
+                        $$\mathbf{\tau} = \mathbf{m} \times \mathbf{B}$$
                     </div>
                     
                     <p>where m is the magnetic moment of the loop.</p>
@@ -3010,7 +3100,7 @@
                     <p>For a planar loop of area A carrying current I:</p>
                     
                     <div class="equation">
-                        \mathbf{m} = I \mathbf{A}
+                        $$\mathbf{m} = I \mathbf{A}$$
                     </div>
                     
                     <p>where A is the vector area of the loop (magnitude A, direction normal to the loop surface).</p>
@@ -3020,7 +3110,7 @@
                     <p>The magnetic moment of a current loop is defined as:</p>
                     
                     <div class="equation">
-                        \mathbf{m} = I \mathbf{A}
+                        $$\mathbf{m} = I \mathbf{A}$$
                     </div>
                     
                     <p>where I is the current and A is the vector area of the loop.</p>
@@ -3028,7 +3118,7 @@
                     <p>For a solenoid with N turns and area A:</p>
                     
                     <div class="equation">
-                        \mathbf{m} = N I \mathbf{A}
+                        $$\mathbf{m} = N I \mathbf{A}$$
                     </div>
                     
                     <p><strong>Magnetization</strong></p>
@@ -3036,19 +3126,19 @@
                     <p>Magnetization M is defined as the magnetic moment per unit volume:</p>
                     
                     <div class="equation">
-                        \mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}
+                        $$\mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}$$
                     </div>
                     
                     <p>For a material with uniform magnetization, the bound surface current density is:</p>
                     
                     <div class="equation">
-                        \mathbf{K}_b = \mathbf{M} \times \mathbf{a}_n
+                        $$\mathbf{K}_b = \mathbf{M} \times \mathbf{a}_n$$
                     </div>
                     
                     <p>and the bound volume current density is:</p>
                     
                     <div class="equation">
-                        \mathbf{J}_b = \nabla \times \mathbf{M}
+                        $$\mathbf{J}_b = \nabla \times \mathbf{M}$$
                     </div>
                     
                     <p><strong>Example: Force on a Current-Carrying Conductor</strong></p>
@@ -3058,7 +3148,7 @@
                     <p><strong>Solution:</strong></p>
                     
                     <div class="equation">
-                        F = I L B = 10 \times 0.5 \times 0.2 = 1 \, \text{N}
+                        $$F = I L B = 10 \times 0.5 \times 0.2 = 1 \, \text{N}$$
                     </div>
                     
                     <p>The direction is given by the right-hand rule.</p>
@@ -3072,13 +3162,13 @@
                     <p>Magnetic moment:</p>
                     
                     <div class="equation">
-                        m = I A = 5 \times \pi (0.1)^2 = 0.05\pi \, \text{A}\cdot\text{m}^2
+                        $$m = I A = 5 \times \pi (0.1)^2 = 0.05\pi \, \text{A}\cdot\text{m}^2$$
                     </div>
                     
                     <p>Maximum torque (when θ = 90°):</p>
                     
                     <div class="equation">
-                        \tau = m B = 0.05\pi \times 0.3 = 0.015\pi \approx 0.047 \, \text{N}\cdot\text{m}
+                        $$\tau = m B = 0.05\pi \times 0.3 = 0.015\pi \approx 0.047 \, \text{N}\cdot\text{m}$$
                     </div>
                 </div>
             </div>
@@ -3095,13 +3185,13 @@
                     <p>The normal component of magnetic flux density B is continuous across the boundary:</p>
                     
                     <div class="equation">
-                        B_{n1} = B_{n2}
+                        $$B_{n1} = B_{n2}$$
                     </div>
                     
                     <p>or equivalently:</p>
                     
                     <div class="equation">
-                        \mu_1 H_{n1} = \mu_2 H_{n2}
+                        $$\mu_1 H_{n1} = \mu_2 H_{n2}$$
                     </div>
                     
                     <p>This can be derived from Gauss's law for magnetism: ∇·B = 0.</p>
@@ -3111,19 +3201,19 @@
                     <p>The tangential component of magnetic field intensity H is continuous across the boundary if there is no surface current:</p>
                     
                     <div class="equation">
-                        H_{t1} = H_{t2}
+                        $$H_{t1} = H_{t2}$$
                     </div>
                     
                     <p>or equivalently:</p>
                     
                     <div class="equation">
-                        \frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2}
+                        $$\frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2}$$
                     </div>
                     
                     <p>If there is a surface current K (A/m), then:</p>
                     
                     <div class="equation">
-                        H_{t1} - H_{t2} = K
+                        $$H_{t1} - H_{t2} = K$$
                     </div>
                     
                     <p>This can be derived from Ampere's circuital law: ∮H·dl = I<sub>enc</sub>.</p>
@@ -3144,13 +3234,13 @@
                     <p>When a magnetic field crosses a boundary between two media, it refracts according to:</p>
                     
                     <div class="equation">
-                        \tan\theta_1 = \frac{\mu_1}{\mu_2} \tan\theta_2
+                        $$\tan\theta_1 = \frac{\mu_1}{\mu_2} \tan\theta_2$$
                     </div>
                     
                     <p>where θ<sub>1</sub> and θ<sub>2</sub> are the angles between the magnetic field and the normal to the interface in the two media.</p>
                     
                     <div class="image-container">
-                        <img src="https://i.imgur.com/2qYjKcD.png" alt="Magnetic Boundary Conditions" width="400">
+                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Boundary Conditions" width="400">
                         <div class="image-caption">Figure: Refraction of magnetic field at a dielectric interface</div>
                     </div>
                     
@@ -3168,25 +3258,25 @@
                     <p>Normal component of B<sub>1</sub>:</p>
                     
                     <div class="equation">
-                        B_{n1} = B_1 \cdot \mathbf{a}_z = 70 \, \text{mT}
+                        $$B_{n1} = \mathbf{B}_1 \cdot \mathbf{a}_z = 70 \, \text{mT}$$
                     </div>
                     
                     <p>Since B<sub>n1</sub> = B<sub>n2</sub>:</p>
                     
                     <div class="equation">
-                        B_{n2} = 70 \, \text{mT}
+                        $$B_{n2} = 70 \, \text{mT}$$
                     </div>
                     
                     <p>Tangential component of B<sub>1</sub>:</p>
                     
                     <div class="equation">
-                        B_{t1} = -30\mathbf{a}_x + 50\mathbf{a}_y \, \text{mT}
+                        $$B_{t1} = -30\mathbf{a}_x + 50\mathbf{a}_y \, \text{mT}$$
                     </div>
                     
                     <p>Since H<sub>t</sub> is continuous (no surface current):</p>
                     
                     <div class="equation">
-                        \frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2} \quad \Rightarrow \quad B_{t2} = B_{t1} \frac{\mu_2}{\mu_1} = (-30\mathbf{a}_x + 50\mathbf{a}_y) \frac{2}{5} = (-12\mathbf{a}_x + 20\mathbf{a}_y) \, \text{mT}
+                        $$\frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2} \quad \Rightarrow \quad B_{t2} = B_{t1} \frac{\mu_2}{\mu_1} = (-30\mathbf{a}_x + 50\mathbf{a}_y) \frac{2}{5} = (-12\mathbf{a}_x + 20\mathbf{a}_y) \, \text{mT}$$
                     </div>
                     
                     <p>So B<sub>2</sub> = -12a<sub>x</sub> + 20a<sub>y</sub> + 70a<sub>z</sub> mT</p>
@@ -3194,13 +3284,13 @@
                     <p>Angle between B<sub>1</sub> and normal:</p>
                     
                     <div class="equation">
-                        \theta_1 = \cos^{-1}\left(\frac{B_{n1}}{|B_1|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-30)^2 + 50^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{91.1}\right) = 39.79^\circ
+                        $$\theta_1 = \cos^{-1}\left(\frac{B_{n1}}{|\mathbf{B}_1|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-30)^2 + 50^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{91.1}\right) = 39.79^\circ$$
                     </div>
                     
                     <p>Angle between B<sub>2</sub> and normal:</p>
                     
                     <div class="equation">
-                        \theta_2 = \cos^{-1}\left(\frac{B_{n2}}{|B_2|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-12)^2 + 20^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{74.3}\right) = 20.21^\circ
+                        $$\theta_2 = \cos^{-1}\left(\frac{B_{n2}}{|\mathbf{B}_2|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-12)^2 + 20^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{74.3}\right) = 20.21^\circ$$
                     </div>
                 </div>
             </div>
@@ -3208,5 +3298,6 @@
     </div>
 </body>
 </html>
+
 
 <!-- <==========================chapter 4 ==========================> -->
