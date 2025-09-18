@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instrumentation System Navigation</title>
+    <title>Notes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- MathJax for rendering mathematical expressions -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

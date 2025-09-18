@@ -195,7 +195,6 @@ $questions = [
     ]
 ];
 
-
-// Include the viewer/template which contains the header, navigation, styles, and footer scripts.
-include $_SERVER['DOCUMENT_ROOT'] . '/std/university/layouts/question_with_solution_viewer.php';
+// Include the viewer module
+include 'question_with_solution_viewer.php';
 ?>
