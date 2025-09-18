@@ -1,0 +1,4 @@
+fun question
+
+groq api->
+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

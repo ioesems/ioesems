@@ -1,6 +1,6 @@
 <?php
 // Database connection settings
-$host = 'localhost:8081';
+$host = 'localhost:8081'; // ← Removed port 8081 — MySQL usually runs on 3306
 $dbname = 'ioesems';
 $username = 'root';
 $password = '';
@@ -8,24 +8,24 @@ $password = '';
 // Initialize variables
 $title = '';
 $content = '';
-$link_id = null;
+$note_id = null;
 $error = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // If editing, fetch existing link
+    // If editing, fetch existing note
     if (isset($_GET['id'])) {
-        $link_id = (int)$_GET['id'];
-        $stmt = $pdo->prepare("SELECT title, content FROM links WHERE id = ?");
-        $stmt->execute([$link_id]);
-        $link = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($link) {
-            $title = $link['title'];
-            $content = $link['content'];
+        $note_id = (int)$_GET['id'];
+        $stmt = $pdo->prepare("SELECT title, content FROM notes WHERE id = ?");
+        $stmt->execute([$note_id]);
+        $note = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($note) {
+            $title = $note['title'];
+            $content = $note['content'];
         } else {
-            $error = "Link not found.";
+            $error = "Note not found.";
         }
     }
 
@@ -35,15 +35,15 @@ try {
         $content = trim($_POST['content']);
 
         if (empty($title) || empty($content)) {
-            $error = "Title and URL are required.";
+            $error = "Title and content are required.";
         } else {
-            if ($link_id) {
-                // Update existing link
-                $stmt = $pdo->prepare("UPDATE links SET title = ?, content = ? WHERE id = ?");
-                $stmt->execute([$title, $content, $link_id]);
+            if ($note_id) {
+                // Update existing note
+                $stmt = $pdo->prepare("UPDATE notes SET title = ?, content = ? WHERE id = ?");
+                $stmt->execute([$title, $content, $note_id]);
             } else {
-                // Insert new link
-                $stmt = $pdo->prepare("INSERT INTO links (title, content) VALUES (?, ?)");
+                // Insert new note
+                $stmt = $pdo->prepare("INSERT INTO notes (title, content) VALUES (?, ?)");
                 $stmt->execute([$title, $content]);
             }
             // Redirect to index after save
@@ -62,7 +62,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $link_id ? 'Edit Link' : 'Create Link'; ?></title>
+    <title><?php echo $note_id ? 'Edit Note' : 'Create Note'; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
@@ -165,7 +165,7 @@ try {
         }
 
         textarea {
-            min-height: 120px;
+            min-height: 200px;
             resize: vertical;
             line-height: 1.6;
         }
@@ -229,12 +229,12 @@ try {
 
         <div class="header">
             <a href="index.php" class="back-link">
-                <i class="fas fa-arrow-left"></i> Back to Links
+                <i class="fas fa-arrow-left"></i> Back to Notes
             </a>
         </div>
 
-        <h1><i class="fas fa-<?php echo $link_id ? 'edit' : 'plus'; ?>"></i> <?php echo $link_id ? 'Edit Link' : 'Create New Link'; ?></h1>
-        <p class="subtitle">Save and organize your important URLs for quick access.</p>
+        <h1><i class="fas fa-<?php echo $note_id ? 'edit' : 'plus'; ?>"></i> <?php echo $note_id ? 'Edit Note' : 'Create New Note'; ?></h1>
+        <p class="subtitle">Manage your thoughts, ideas, and reminders in one place.</p>
 
         <?php if (!empty($error)): ?>
             <div class="error">
@@ -245,31 +245,29 @@ try {
 
         <form method="POST">
             <div class="form-group">
-                <label for="title"><i class="fas fa-heading"></i> Link Title</label>
+                <label for="title"><i class="fas fa-heading"></i> Note Title</label>
                 <input 
                     type="text" 
                     id="title" 
                     name="title" 
                     value="<?php echo htmlspecialchars($title); ?>" 
-                    placeholder="e.g., Google, My Portfolio, API Docs..."
+                    placeholder="Enter a meaningful title..."
                     required
                     autofocus>
             </div>
 
             <div class="form-group">
-                <label for="content"><i class="fas fa-link"></i> URL</label>
-                <input 
-                    type="url"
+                <label for="content"><i class="fas fa-align-left"></i> Note Content</label>
+                <textarea 
                     id="content" 
                     name="content" 
-                    value="<?php echo htmlspecialchars($content); ?>"
-                    placeholder="https://example.com"
-                    required>
+                    placeholder="Write your note here..." 
+                    required><?php echo htmlspecialchars($content); ?></textarea>
             </div>
 
             <button type="submit" class="btn-submit">
                 <i class="fas fa-save"></i>
-                <?php echo $link_id ? 'Save Changes' : 'Create Link'; ?>
+                <?php echo $note_id ? 'Save Changes' : 'Create Note'; ?>
             </button>
         </form>
 

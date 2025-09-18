@@ -232,3 +232,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </body>
 </html>   that work . my suggestion to braek this projest file into send_to_ai.php , receive_from_ai.php and user_interface.php . in send_to_ai.php write code for define any subjest(eg operating system) + "add your message in such a manner to ai give response (fun question with four opption )" . after that these prompt send  to ai. then after receiving  those data sent to received_from_ai.php that convet those response into proper format (question with 4 opption ). than it send to user_interface.php that display those content with proper layout (that is question in heading and answers with  check box so user can select any one). then after user any choice selection . the selected choice goes to send_to_ai.php . then send_to_ai.php  send this "option" + previous ai response that is "question + option 4 " +" message to check this option selected by the user  + "provide  short answer" + "long answer"  ". then after that the received response sent to the received+from+ai.php that convert this response into ""short answer" and "detailed answer" " then send to user_interface.php that show these answer to the user . then end . break more file as you need but only when needed
+
+
+
+
+
+
+
+
+fun_question/
+├── index.php
+├── send_to_ai.php
+├── receive_from_ai.php
+├── user_interface.php
+├── score.php
+├── profile.php
+└── assets/
+    └── style.css

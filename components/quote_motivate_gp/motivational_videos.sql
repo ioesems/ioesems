@@ -9,3 +9,7 @@ CREATE TABLE IF NOT EXISTS motivational_videos (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- then implemented
+ALTER TABLE motivational_videos ADD UNIQUE INDEX ux_youtube_link (youtube_link);
