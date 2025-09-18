@@ -285,8 +285,10 @@
             gap: 5px;
             margin: 0;
             padding: 0;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            overflow-x: auto;   /* Allow horizontal scroll */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
+            justify-content: flex-start; /* Align to start */
         }
 
         #nav-header li {
@@ -310,6 +312,7 @@
             cursor: pointer;
             min-width: 40px;
             font-size: 14px;
+            white-space: nowrap;
         }
 
         #nav-header button:hover,
@@ -320,6 +323,13 @@
 
         #nav-header button i {
             font-size: 1.2em;
+        }
+
+        /* Style for dynamic chapter links */
+        #dynamic-chapter-links a {
+            white-space: nowrap;
+            padding: 4px 6px;
+            font-size: 12px;
         }
 
         /* ========== CRITICAL FIX: Force horizontal layout for dynamic chapter links ========== */
@@ -398,11 +408,6 @@
                 padding: 8px 0;
             }
 
-            #nav-header ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
             #nav-header button,
             #nav-header a {
                 padding: 6px 8px;
@@ -413,14 +418,46 @@
 
         @media (max-width: 480px) {
             #nav-header {
-                padding: 6px 0;
+                padding: 4px 0;
+                font-size: 12px;
             }
 
             #nav-header button,
             #nav-header a {
-                padding: 5px 6px;
-                font-size: 12px;
-                min-width: 30px;
+                padding: 4px 6px;
+                font-size: 11px;
+                min-width: 28px;
+            }
+
+            #nav-header button i {
+                font-size: 1em;
+            }
+
+            #dynamic-chapter-links a {
+                font-size: 11px;
+                padding: 4px 5px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            #nav-header {
+                padding: 3px 0;
+            }
+
+            #nav-header button,
+            #nav-header a {
+                padding: 3px 5px;
+                font-size: 10px;
+                min-width: 24px;
+            }
+
+            #nav-header button i {
+                font-size: 0.9em;
+            }
+
+            #dynamic-chapter-links a {
+                font-size: 10px;
+                padding: 3px 4px;
             }
         }
 
@@ -461,6 +498,15 @@
     </style>
 </head>
 <body>
+    <!-- Optional: Uncomment below to add Android-specific class -->
+    <!--
+    <script>
+        if (navigator.userAgent.match(/Android/i)) {
+            document.body.classList.add('android');
+        }
+    </script>
+    -->
+
     <!-- Floating Navigation -->
     <div id="nav-header">
         <ul id="nav-list">

@@ -196,5 +196,5 @@ $questions = [
 ];
 
 // Include the viewer module
-include 'question_with_solution_viewer.php';
+include '../question_with_solution_viewer.php';
 ?>

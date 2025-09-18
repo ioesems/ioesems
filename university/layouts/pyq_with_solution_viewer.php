@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($subject_title) ? $subject_title : 'Question Bank with Solutions'; ?></title>
+    <title><?php echo isset($subject_title) ? $subject_title : 'Previous Year Questions with Solutions'; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- MathJax for rendering mathematical expressions -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -183,8 +183,8 @@
             font-size: 1.2em;
         }
 
-        /* ========== CRITICAL FIX: Force horizontal layout for dynamic chapter links ========== */
-        #dynamic-chapter-links {
+        /* ========== CRITICAL FIX: Force horizontal layout for dynamic year links ========== */
+        #dynamic-year-links {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -193,7 +193,7 @@
             padding-left: 15px;
         }
 
-        #dynamic-chapter-links li {
+        #dynamic-year-links li {
             display: flex;
             margin: 0;
             padding: 0;
@@ -275,8 +275,8 @@
             font-weight: bold;
         }
 
-        /* ========== CHAPTER SECTION ========== */
-        .chapter-section {
+        /* ========== YEAR SECTION ========== */
+        .year-section {
             margin-bottom: 40px;
             background: white;
             padding: 25px;
@@ -285,21 +285,37 @@
             transition: all 0.3s ease;
         }
 
-        .dark-mode .chapter-section {
+        .dark-mode .year-section {
             background: #1e1e1e;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .chapter-section h2 {
+        .year-section h2 {
             color: #2980b9;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
             margin-top: 0;
             font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .dark-mode .chapter-section h2 {
+        .dark-mode .year-section h2 {
             color: #03dac6;
+        }
+
+        .year-stats {
+            font-size: 14px;
+            background: #e3f2fd;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: #1976d2;
+        }
+
+        .dark-mode .year-stats {
+            background: #213145;
+            color: #42a5f5;
         }
 
         /* ========== QUESTION BOX ========== */
@@ -364,9 +380,9 @@
             font-weight: 500;
         }
 
-        .question .year {
+        .question .chapter {
             font-weight: bold;
-            color: #d9534f;
+            color: #8e44ad;
             float: right;
             background: #fff;
             padding: 3px 10px;
@@ -375,9 +391,9 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .dark-mode .question .year {
+        .dark-mode .question .chapter {
             background: #333;
-            color: #ff6b6b;
+            color: #bb86fc;
         }
 
         /* ========== SOLUTION STYLES ========== */
@@ -565,6 +581,55 @@
             color: #e3f2fd;
         }
 
+        /* ========== YEAR FILTER ========== */
+        .year-filter {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .year-filter {
+            background: #2d2d2d;
+        }
+
+        .year-filter h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .dark-mode .year-filter h3 {
+            color: #e0e0e0;
+        }
+
+        .year-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .year-btn {
+            padding: 8px 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .year-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .year-btn.active {
+            background: #e74c3c;
+            transform: translateY(-2px);
+        }
+
         /* ========== RESPONSIVE DESIGN ========== */
         @media (max-width: 768px) {
             .navbar-toggle {
@@ -606,10 +671,16 @@
                 right: 5%;
                 transform: none;
             }
+            
+            .year-buttons {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
         }
 
         @media (max-width: 480px) {
-            .chapter-section {
+            .year-section {
                 padding: 15px;
             }
 
@@ -622,7 +693,7 @@
                 font-size: 12px;
             }
             
-            #dynamic-chapter-links {
+            #dynamic-year-links {
                 margin-left: 10px;
                 padding-left: 10px;
             }
@@ -691,14 +762,14 @@
 <body>
     <!-- Mobile Navigation Toggle -->
     <div class="navbar-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i> Chapters
+        <i class="fas fa-bars"></i> Years
     </div>
 
     <!-- Sidebar Navigation -->
     <div class="sidebar" id="sidebar">
-        <h2>Chapters</h2>
-        <ul id="chapter-links">
-            <!-- Chapter links will be populated dynamically -->
+        <h2>Years</h2>
+        <ul id="year-links">
+            <!-- Year links will be populated dynamically -->
         </ul>
     </div>
 
@@ -708,7 +779,7 @@
             <li><button id="fullScreenBtn" title="Full Screen"><i class="fas fa-expand"></i></button></li>
             <li><button id="darkModeBtn" title="Dark Mode"><i class="fas fa-moon"></i></button></li>
             <li><button id="searchBtn" title="Search"><i class="fas fa-search"></i></button></li>
-            <span id="dynamic-chapter-links"></span>
+            <span id="dynamic-year-links"></span>
         </ul>
     </div>
 
@@ -730,35 +801,47 @@
 
     <!-- Main Content -->
     <div class="content">
-        <h1 style="text-align: center; display: none;"><?php echo isset($subject_title) ? $subject_title : 'Question Bank with Solutions'; ?></h1>
+        <h1 style="text-align: center; display: none;"><?php echo isset($subject_title) ? $subject_title : 'Previous Year Questions with Solutions'; ?></h1>
+        
+        <!-- Year Filter Section -->
+        <div class="year-filter">
+            <h3>Filter by Year</h3>
+            <div class="year-buttons" id="yearFilterButtons">
+                <!-- Year filter buttons will be populated dynamically -->
+            </div>
+        </div>
         
         <?php
-        // Check if $questions array is defined
-        if (!isset($questions) || !is_array($questions)) {
-            echo "<div class='chapter-section'>";
+        // Check if $questions_by_year array is defined
+        if (!isset($questions_by_year) || !is_array($questions_by_year)) {
+            echo "<div class='year-section'>";
             echo "<h2>Error</h2>";
-            echo "<p>No questions data found. Please make sure the \$questions array is properly defined in this file.</p>";
+            echo "<p>No questions data found. Please make sure the \$questions_by_year array is properly defined in this file.</p>";
             echo "</div>";
         } else {
-            // Generate chapter sections
-            foreach ($questions as $chapter) {
-                $chapter_id = "chapter_" . $chapter['chapter'];
-                echo "<div class='chapter-section' id='$chapter_id'>";
-                echo "<h2>" . $chapter['chapter'] . ". " . htmlspecialchars($chapter['title']) . "</h2>";
+            // Sort years in descending order (most recent first)
+            krsort($questions_by_year);
+            
+            // Generate year sections
+            foreach ($questions_by_year as $year => $questions) {
+                $year_id = "year_" . str_replace(" ", "_", $year);
+                $total_questions = count($questions);
                 
-                // Check if questions exist for this chapter
-                if (!isset($chapter['questions']) || !is_array($chapter['questions']) || count($chapter['questions']) == 0) {
-                    echo "<p>No questions available for this chapter.</p>";
+                echo "<div class='year-section' id='$year_id'>";
+                echo "<h2>" . htmlspecialchars($year) . " <span class='year-stats'>" . $total_questions . " Questions</span></h2>";
+                
+                if ($total_questions == 0) {
+                    echo "<p>No questions available for this year.</p>";
                 } else {
                     // Generate questions with solutions
-                    foreach ($chapter['questions'] as $index => $q) {
-                        $question_id = "q_" . $chapter['chapter'] . "_" . ($index + 1);
+                    foreach ($questions as $index => $q) {
+                        $question_id = "q_" . str_replace(" ", "_", $year) . "_" . ($index + 1);
                         echo "<div class='question-container'>";
                         echo "<div class='question-header' onclick='toggleQuestion(\"" . $question_id . "\")'>";
                         echo "<div><strong>Q" . ($index + 1) . ":</strong> " . htmlspecialchars(substr($q['text'], 0, 100)) . (strlen($q['text']) > 100 ? "..." : "") . "</div>";
                         echo "<div style='display: flex; align-items: center; gap: 10px;'>";
-                        if (isset($q['year']) && !empty($q['year'])) {
-                            echo "<span class='year'>" . htmlspecialchars($q['year']) . "</span>";
+                        if (isset($q['chapter']) && !empty($q['chapter'])) {
+                            echo "<span class='chapter'>" . htmlspecialchars($q['chapter']) . "</span>";
                         }
                         echo "<i class='fas fa-chevron-down question-toggle' id='toggle_" . $question_id . "'></i>";
                         echo "</div>";
@@ -841,13 +924,13 @@
                     }
                 }
                 
-                echo "</div>"; // Close chapter-section
+                echo "</div>"; // Close year-section
             }
         }
         ?>
 
         <div class="footer">
-            <p><?php echo isset($subject_title) ? $subject_title : 'Question Bank with Solutions'; ?> &copy; <?php echo date("Y"); ?></p>
+            <p><?php echo isset($subject_title) ? $subject_title : 'Previous Year Questions with Solutions'; ?> &copy; <?php echo date("Y"); ?></p>
             <p>Click on questions to expand/collapse. Click on images to view them in full size.</p>
         </div>
     </div>
@@ -896,6 +979,43 @@
             }
         }
 
+        // Year filtering functionality
+        function filterByYear(year) {
+            // Hide all year sections
+            document.querySelectorAll('.year-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show only the selected year
+            const yearSection = document.getElementById('year_' + year.replace(/ /g, '_'));
+            if (yearSection) {
+                yearSection.style.display = 'block';
+                
+                // Scroll to the year section
+                yearSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Update active state of buttons
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.year === year) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Show all years
+        function showAllYears() {
+            document.querySelectorAll('.year-section').forEach(section => {
+                section.style.display = 'block';
+            });
+            
+            // Remove active state from all buttons
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             // ========== WAIT FOR MathJax TO FINISH RENDERING ========== //
             if (window.MathJax) {
@@ -910,28 +1030,58 @@
             }
 
             function initApp() {
-                // ========== DYNAMIC CHAPTER NAVIGATION ========== //
-                const chapterDivs = document.querySelectorAll('.chapter-section');
-                const navPlaceholder = document.getElementById('dynamic-chapter-links');
-                const sidebarPlaceholder = document.getElementById('chapter-links');
+                // ========== DYNAMIC YEAR NAVIGATION ========== //
+                const yearDivs = document.querySelectorAll('.year-section');
+                const navPlaceholder = document.getElementById('dynamic-year-links');
+                const sidebarPlaceholder = document.getElementById('year-links');
+                const filterButtonsContainer = document.getElementById('yearFilterButtons');
 
-                chapterDivs.forEach(div => {
+                // Create arrays to store years
+                let years = [];
+                
+                yearDivs.forEach(div => {
                     const id = div.id;
-                    const match = id.match(/^chapter_(\d+)$/);
+                    const match = id.match(/^year_(.+)$/);
                     if (match) {
-                        const chapterNum = match[1];
-                        const chapterTitle = div.querySelector('h2').textContent;
+                        const year = match[1].replace(/_/g, ' ');
+                        years.push(year);
                         
                         // Add to floating nav
                         const navLinkItem = document.createElement('li');
-                        navLinkItem.innerHTML = `<a href="#${id}" title="Go to Chapter ${chapterNum}">Ch${chapterNum}</a>`;
+                        navLinkItem.innerHTML = `<a href="#${id}" title="Go to ${year}">${year}</a>`;
                         navPlaceholder.appendChild(navLinkItem);
                         
                         // Add to sidebar
                         const sidebarLinkItem = document.createElement('li');
-                        sidebarLinkItem.innerHTML = `<a href="#${id}">${chapterTitle}</a>`;
+                        sidebarLinkItem.innerHTML = `<a href="#${id}">${year}</a>`;
                         sidebarPlaceholder.appendChild(sidebarLinkItem);
                     }
+                });
+
+                // Create filter buttons
+                const allBtn = document.createElement('button');
+                allBtn.className = 'year-btn';
+                allBtn.textContent = 'All Years';
+                allBtn.onclick = showAllYears;
+                filterButtonsContainer.appendChild(allBtn);
+
+                // Sort years for filter buttons (most recent first)
+                years.sort((a, b) => {
+                    // Extract numeric parts for sorting
+                    const aNum = parseInt(a.match(/\d+/)) || 0;
+                    const bNum = parseInt(b.match(/\d+/)) || 0;
+                    return bNum - aNum;
+                });
+
+                years.forEach(year => {
+                    const btn = document.createElement('button');
+                    btn.className = 'year-btn';
+                    btn.dataset.year = year;
+                    btn.textContent = year;
+                    btn.onclick = function() {
+                        filterByYear(year);
+                    };
+                    filterButtonsContainer.appendChild(btn);
                 });
 
                 // ========== DARK MODE ========== //
@@ -1021,8 +1171,8 @@
                     });
 
                     if (!searchTerm.trim()) {
-                        document.querySelectorAll('.chapter-section').forEach(chapter => {
-                            chapter.style.display = 'block';
+                        document.querySelectorAll('.year-section').forEach(yearSection => {
+                            yearSection.style.display = 'block';
                         });
                         searchMatches = [];
                         updateNavigationButtons();
@@ -1030,20 +1180,20 @@
                     }
 
                     searchMatches = [];
-                    const chapters = document.querySelectorAll('.chapter-section');
+                    const years = document.querySelectorAll('.year-section');
 
-                    chapters.forEach(chapter => {
+                    years.forEach(yearSection => {
                         // Skip MathJax rendered elements to avoid breaking equations
                         const walker = document.createTreeWalker(
-                            chapter,
+                            yearSection,
                             NodeFilter.SHOW_TEXT,
                             {
                                 acceptNode: function(node) {
-                                    // Skip text inside MathJax containers, years, and diagram captions
+                                    // Skip text inside MathJax containers, chapters, and diagram captions
                                     if (node.parentNode.closest('.MathJax') || 
                                         node.parentNode.closest('.math') ||
                                         node.parentNode.closest('[class*="MJX"]') ||
-                                        node.parentNode.classList.contains('year') ||
+                                        node.parentNode.classList.contains('chapter') ||
                                         node.parentNode.classList.contains('diagram-caption')) {
                                         return NodeFilter.FILTER_REJECT;
                                     }
@@ -1083,7 +1233,7 @@
                             }
                         }
 
-                        chapter.style.display = searchMatches.length > 0 ? 'block' : 'none';
+                        yearSection.style.display = searchMatches.length > 0 ? 'block' : 'none';
                     });
 
                     currentMatchIndex = -1;
