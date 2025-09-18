@@ -1,3927 +1,2006 @@
+<?php
+// Include the viewer/template which contains the header, navigation, styles, and footer scripts.
+include $_SERVER['DOCUMENT_ROOT'] . '/std/university/layouts/detailed_note_viewer.php';
+?>
+
+
 <!-- <==================chapter 1 ==================> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 1: Introduction</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
+
+
+
+    <div id="chapter_1">
+        <h1>1. Introduction (4 hours)</h1>
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .chapter {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .chapter-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        
-        .section {
-            margin-bottom: 25px;
-        }
-        
-        .section-title {
-            font-size: 1.4em;
-            color: #2980b9;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        
-        .section-content {
-            margin-left: 15px;
-            padding-bottom: 15px;
-            display: block;
-        }
-        
-        .equation {
-            background: #f9f9f9;
-            border-left: 4px solid #3498db;
-            padding: 10px 15px;
-            margin: 10px 0;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-        
-        .example {
-            background: #e8f4fc;
-            border: 1px solid #bde0fe;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .navigation {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .nav-item {
-            display: inline-block;
-        }
-        
-        .nav-link {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            background: #3498db;
-        }
-        
-        .nav-link.active {
-            background: #3498db;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-        
-        .image-caption {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        .problem {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .problem-title {
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                font-size: 13px;
-            }
+        <li></li><a href="#1_1" class="topic-link">1.1 Scalar and vector fields</a></li>
+        <li></li><a href="#1_2" class="topic-link">1.2 Operations on scalar and vector fields</a></li>
+        <li></li><a href="#1_3" class="topic-link">1.3 Co-ordinate systems (Cartesian, cylindrical and spherical) and conversions</a></li>
+
+        <div id="1_1" class="section">
+            <h2>1.1 Scalar and vector fields</h2>
+            <p>In electromagnetics, physical quantities are often represented as fields — functions that assign a value to every point in space. These fields can be classified as scalar or vector fields.</p>
             
-            .container {
-                padding: 10px;
-            }
-            
-            .chapter-title {
-                font-size: 1.5em;
-            }
-            
-            .section-title {
-                font-size: 1.2em;
-            }
-            
-            .nav-list {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 12px;
-            }
-            
-            .equation {
-                font-size: 0.9em;
-            }
-            
-            .section-content {
-                margin-left: 5px;
-            }
-        }
-        
-        .math-inline {
-            font-family: 'Cambria Math', 'Segoe UI Symbol', serif;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="navigation">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="#section1" class="nav-link active">1.1 Scalar and vector fields</a></li>
-                <li class="nav-item"><a href="#section2" class="nav-link">1.2 Operations on scalar and vector fields</a></li>
-                <li class="nav-item"><a href="#section3" class="nav-link">1.3 Co-ordinate systems</a></li>
+            <h3>Scalar Quantity</h3>
+            <p>A scalar quantity is fully described by a single real number (positive or negative) representing its magnitude. Examples include:</p>
+            <ul>
+                <li>Temperature (T)</li>
+                <li>Mass</li>
+                <li>Density</li>
+                <li>Pressure</li>
+                <li>Volume</li>
+                <li>Voltage</li>
             </ul>
+            <p>Scalars are denoted by simple italic letters like \(T\), \(V\), \(\rho\).</p>
+            
+            <h3>Vector Quantity</h3>
+            <p>A vector quantity has both magnitude and direction in space. Examples include:</p>
+            <ul>
+                <li>Force</li>
+                <li>Velocity</li>
+                <li>Acceleration</li>
+                <li>Electric field \(\mathbf{E}\)</li>
+                <li>Magnetic field \(\mathbf{H}\)</li>
+            </ul>
+            <p>Vectors are typically denoted by boldface letters (\(\mathbf{A}\), \(\mathbf{B}\)) or with an arrow above (\(\vec{A}\)).</p>
+            
+            <h3>Vector Representation</h3>
+            <p>In Cartesian coordinates, a vector \(\mathbf{A}\) can be represented as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} = A_x \mathbf{a}_x + A_y \mathbf{a}_y + A_z \mathbf{a}_z
+                \]
+            </div>
+            <p>where \(A_x\), \(A_y\), and \(A_z\) are the components of \(\mathbf{A}\) along the x, y, and z axes, and \(\mathbf{a}_x\), \(\mathbf{a}_y\), \(\mathbf{a}_z\) are the unit vectors in those directions.</p>
+            
+            <h3>Magnitude of a Vector</h3>
+            <p>The magnitude (or norm) of vector \(\mathbf{A}\) is a scalar given by:</p>
+            <div class="math-container">
+                \[
+                |\mathbf{A}| = A = \sqrt{A_x^2 + A_y^2 + A_z^2}
+                \]
+            </div>
+            
+            <h3>Unit Vector</h3>
+            <p>A unit vector in the direction of \(\mathbf{A}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{a}_A = \frac{\mathbf{A}}{|\mathbf{A}|}
+                \]
+            </div>
+            <p>Unit vectors have magnitude 1 and indicate direction only.</p>
+            
+            <h3>Position and Distance Vectors</h3>
+            <p>A position vector \(\mathbf{r}_P\) describes the location of point P with coordinates (x, y, z):</p>
+            <div class="math-container">
+                \[
+                \mathbf{r}_P = x\mathbf{a}_x + y\mathbf{a}_y + z\mathbf{a}_z
+                \]
+            </div>
+            <p>The distance vector from point P to point Q is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{r}_{PQ} = \mathbf{r}_Q - \mathbf{r}_P = (x_Q - x_P)\mathbf{a}_x + (y_Q - y_P)\mathbf{a}_y + (z_Q - z_P)\mathbf{a}_z
+                \]
+            </div>
         </div>
-        
-        <div id="chapter_1" class="chapter">
-            <h1 class="chapter-title">1. Introduction (4 hours)</h1>
+
+        <div id="1_2" class="section">
+            <h2>1.2 Operations on scalar and vector fields</h2>
+            <p>Vector algebra defines several operations that can be performed on vectors and scalars.</p>
             
-            <div id="section1" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section1-content').style.display = 'block'">1.1 Scalar and vector fields</h2>
-                <div id="section1-content" class="section-content" style="display:block">
-                    <p><strong>Scalar Quantity</strong></p>
-                    <ul>
-                        <li>The term scalar refers to a quantity whose value may be represented by a single (positive or negative) real number.</li>
-                        <li>The x, y, and z used in basic algebra are scalars, and the quantities they represent are scalars</li>
-                        <li>A body falling a distance "L" in a time "t", or the temperature "T" at any point in a bowl of soup whose coordinates are x, y, and z, then L, t, T, x, y, and z are all scalars.</li>
-                        <li>Other scalar quantities are mass, density, pressure (but not force), volume, volume resistivity, and voltage.</li>
-                    </ul>
-                    
-                    <p><strong>Vector Quantity</strong></p>
-                    <ul>
-                        <li>A vector quantity has both a magnitude and a direction in space.</li>
-                        <li>Force, velocity, acceleration, and a straight line from the positive to the negative terminal of a storage battery are examples of vectors.</li>
-                        <li>Each quantity is characterized by both a magnitude and a direction.</li>
-                    </ul>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Vector Quantity Illustration" width="400">
-                        <div class="image-caption">Figure: Vector quantity showing magnitude and direction</div>
-                    </div>
-                    
-                    <p><strong>Vector Representation</strong></p>
-                    <p>A vector A in Cartesian (or rectangular) coordinates may be represented as (Ax, Ay, Az) or (Ax ax + Ay ay + Az az)</p>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Cartesian Vector Representation" width="400">
-                        <div class="image-caption">Figure: Vector representation in Cartesian coordinate system</div>
-                    </div>
-                    
-                    <p><strong>Magnitude of a Vector</strong></p>
-                    <p>The magnitude of A is a scalar quantity and written as A or ||A||, and is given by:</p>
-                    
-                    <div class="equation">
-                        $$||\mathbf{A}|| = \sqrt{A_x^2 + A_y^2 + A_z^2}$$
-                    </div>
-                    
-                    <p><strong>Unit Vector</strong></p>
-                    <p>A unit vector aA along A is defined as a vector whose magnitude is unity (i.e., 1) and its direction is along A, that is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_A = \frac{\mathbf{A}}{||\mathbf{A}||}$$
-                    </div>
-                    
-                    <p>Note that ||aA|| = 1. Thus we may write A as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} = ||\mathbf{A}|| \mathbf{a}_A$$
-                    </div>
-                    
-                    <p>which completely specifies A in terms of its magnitude A and its direction aA.</p>
-                </div>
+            <h3>Vector Addition and Subtraction</h3>
+            <p>Vector addition follows the parallelogram law or head-to-tail rule:</p>
+            <div class="math-container">
+                \[
+                \mathbf{C} = \mathbf{A} + \mathbf{B} = (A_x + B_x)\mathbf{a}_x + (A_y + B_y)\mathbf{a}_y + (A_z + B_z)\mathbf{a}_z
+                \]
+            </div>
+            <p>Vector subtraction is defined as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{D} = \mathbf{A} - \mathbf{B} = \mathbf{A} + (-\mathbf{B}) = (A_x - B_x)\mathbf{a}_x + (A_y - B_y)\mathbf{a}_y + (A_z - B_z)\mathbf{a}_z
+                \]
             </div>
             
-            <div id="section2" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section2-content').style.display = 'block'">1.2 Operations on scalar and vector fields</h2>
-                <div id="section2-content" class="section-content" style="display:block">
-                    <p><strong>Vector Addition and Subtraction</strong></p>
-                    <ul>
-                        <li>Two vectors A and B can be added together to give another vector C; that is, C = A + B</li>
-                        <li>Vector addition follow either parallelogram law of addition or head to tail rule</li>
-                        <li>Let A = (Ax, Ay, Az) and B = (Bx, By, Bz), then:</li>
-                    </ul>
-                    
-                    <div class="equation">
-                        $$\mathbf{C} = (A_x+B_x)\mathbf{a}_x + (A_y+B_y)\mathbf{a}_y + (A_z+B_z)\mathbf{a}_z$$
-                    </div>
-                    
-                    <p>Vector subtraction is similarly carried out as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = \mathbf{A} - \mathbf{B} = \mathbf{A} + (-\mathbf{B})$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = (A_x-B_x)\mathbf{a}_x + (A_y-B_y)\mathbf{a}_y + (A_z-B_z)\mathbf{a}_z$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Vector Addition" width="400">
-                        <div class="image-caption">Figure: Vector addition using parallelogram law</div>
-                    </div>
-                    
-                    <p><strong>Laws of Vector Algebra</strong></p>
-                    
-                    <div class="equation">
-                        $$
-                        \begin{array}{c|c|c}
-                        \text{Law} & \text{Addition} & \text{Multiplication} \\
-                        \hline
-                        \text{Commutative} & \mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A} & k\mathbf{A} = \mathbf{A}k \\
-                        \text{Associative} & \mathbf{A} + (\mathbf{B} + \mathbf{C}) = (\mathbf{A} + \mathbf{B}) + \mathbf{C} & k(l\mathbf{A}) = (kl)\mathbf{A} \\
-                        \text{Distributive} & k(\mathbf{A} + \mathbf{B}) = k\mathbf{A} + k\mathbf{B} & \\
-                        \end{array}
-                        $$
-                    </div>
-                    
-                    <p><strong>Position Vector</strong></p>
-                    <p>A point P in Cartesian coordinates may be represented by (x, y, z).</p>
-                    
-                    <p><strong>Distance Vector</strong></p>
-                    <p>The distance vector is the displacement from one point to another.</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{r}_{PQ} = \mathbf{r}_Q - \mathbf{r}_P = (x_Q - x_P)\mathbf{a}_x + (y_Q - y_P)\mathbf{a}_y + (z_Q - z_P)\mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>Vector Multiplication</strong></p>
-                    
-                    <p><strong>Scalar (or dot) product: A·B</strong></p>
-                    <p>The dot product of two vectors A and B, written as A·B, is defined geometrically as the product of the magnitudes of A and B and the cosine of the smaller angle between them when they are drawn tail to tail.</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \cdot \mathbf{B} = |\mathbf{A}||\mathbf{B}|\cos\theta_{AB}$$
-                    </div>
-                    
-                    <p>where θAB is the smaller angle between A and B. The result of A·B is called either the scalar product because it is scalar, or the dot product due to the dot sign.</p>
-                    
-                    <p>Let A = (Ax, Ay, Az) and B = (Bx, By, Bz), then:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \cdot \mathbf{B} = A_xB_x + A_yB_y + A_zB_z$$
-                    </div>
-                    
-                    <p>Two vectors A and B are said to be orthogonal (or perpendicular) with each other if A·B = 0.</p>
-                    
-                    <p>We know:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_x \cdot \mathbf{a}_y = \mathbf{a}_y \cdot \mathbf{a}_z = \mathbf{a}_z \cdot \mathbf{a}_x = 0$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_x \cdot \mathbf{a}_x = \mathbf{a}_y \cdot \mathbf{a}_y = \mathbf{a}_z \cdot \mathbf{a}_z = 1$$
-                    </div>
-                    
-                    <p>Note that dot product obeys the following:</p>
-                    <ul>
-                        <li>Commutative law: A·B = B·A</li>
-                        <li>Distributive law: A·(B + C) = A·B + A·C</li>
-                        <li>A·A = ||A||² = A²</li>
-                    </ul>
-                    
-                    <p><strong>Vector (or cross) product: A×B</strong></p>
-                    <p>The cross product of two vectors A and B, written as A×B, is a vector quantity whose magnitude is the area of the parallelogram formed by A and B and is in the direction of advance of a right-handed screw as A is turned into B.</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \times \mathbf{B} = |\mathbf{A}||\mathbf{B}|\sin\theta_{AB} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>where an is a unit vector normal to the plane containing A and B. The direction of an is taken as the direction of the right thumb when the fingers of the right hand rotate from A to B.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Cross Product Illustration" width="400">
-                        <div class="image-caption">Figure: Cross product direction using right-hand rule</div>
-                    </div>
-                    
-                    <p>Let A = (Ax, Ay, Az) and B = (Bx, By, Bz), then:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \times \mathbf{B} = (A_yB_z - A_zB_y)\mathbf{a}_x + (A_zB_x - A_xB_z)\mathbf{a}_y + (A_xB_y - A_yB_x)\mathbf{a}_z$$
-                    </div>
-                    
-                    <p>We know:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_x \times \mathbf{a}_y = \mathbf{a}_z$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_y \times \mathbf{a}_z = \mathbf{a}_x$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_z \times \mathbf{a}_x = \mathbf{a}_y$$
-                    </div>
-                    
-                    <p>Properties of cross product:</p>
-                    <ul>
-                        <li>It is not commutative: A×B ≠ B×A</li>
-                        <li>It is anti-commutative: A×B = -B×A</li>
-                        <li>It is not associative: A×(B×C) ≠ (A×B)×C</li>
-                        <li>It is distributive: A×(B+C) = A×B + A×C</li>
-                        <li>A×A = 0</li>
-                    </ul>
-                    
-                    <p><strong>Scalar Triple Product</strong></p>
-                    <p>Given three vectors A, B, and C, we define the scalar triple product as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = \mathbf{B} \cdot (\mathbf{C} \times \mathbf{A}) = \mathbf{C} \cdot (\mathbf{A} \times \mathbf{B})$$
-                    </div>
-                    
-                    <p>If A = (Ax, Ay, Az), B = (Bx, By, Bz), and C = (Cx, Cy, Cz), then A·(B×C) is the volume of a parallelogram having A, B, and C as edges and is easily obtained by finding the determinant of the 3×3 matrix formed by A, B, and C:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = 
-                        \begin{vmatrix}
-                        A_x & A_y & A_z \\
-                        B_x & B_y & B_z \\
-                        C_x & C_y & C_z
-                        \end{vmatrix}$$
-                    </div>
-                    
-                    <p><strong>Vector Triple Product</strong></p>
-                    <p>For vectors A, B, and C, we define the vector triple product as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} \times (\mathbf{B} \times \mathbf{C}) = \mathbf{B}(\mathbf{A} \cdot \mathbf{C}) - \mathbf{C}(\mathbf{A} \cdot \mathbf{B})$$
-                    </div>
-                    
-                    <p>It should be noted that, (A·B)C ≠ A(B·C) But, (A·B)C = C(A·B)</p>
-                    
-                    <p><strong>Components of a Vector</strong></p>
-                    <p>A direct application of scalar product is its use in determining the projection (or component) of a vector in a given direction. The projection can be scalar or vector.</p>
-                    
-                    <p>Given a vector A, we define the scalar component AB of A along vector B as:</p>
-                    
-                    <div class="equation">
-                        $$A_B = \mathbf{A} \cdot \mathbf{a}_B$$
-                    </div>
-                    
-                    <p>where θAB is the smaller angle between A and B</p>
-                    
-                    <p>The vector component AB of A along B is simply the scalar component multiplied by a unit vector along B; that is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A}_B = A_B \mathbf{a}_B = (\mathbf{A} \cdot \mathbf{a}_B)\mathbf{a}_B$$
-                    </div>
-                </div>
+            <h3>Laws of Vector Algebra</h3>
+            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Law</th>
+                    <th>Addition</th>
+                    <th>Multiplication</th>
+                </tr>
+                <tr>
+                    <td>Commutative</td>
+                    <td>\(\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}\)</td>
+                    <td>\(k\mathbf{A} = \mathbf{A}k\)</td>
+                </tr>
+                <tr>
+                    <td>Associative</td>
+                    <td>\(\mathbf{A} + (\mathbf{B} + \mathbf{C}) = (\mathbf{A} + \mathbf{B}) + \mathbf{C}\)</td>
+                    <td>\(k(l\mathbf{A}) = (kl)\mathbf{A}\)</td>
+                </tr>
+                <tr>
+                    <td>Distributive</td>
+                    <td>\(k(\mathbf{A} + \mathbf{B}) = k\mathbf{A} + k\mathbf{B}\)</td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <h3>Scalar (Dot) Product</h3>
+            <p>The dot product of two vectors \(\mathbf{A}\) and \(\mathbf{B}\) is a scalar:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \cdot \mathbf{B} = AB\cos\theta_{AB}
+                \]
+            </div>
+            <p>where \(\theta_{AB}\) is the angle between the vectors. In component form:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \cdot \mathbf{B} = A_xB_x + A_yB_y + A_zB_z
+                \]
+            </div>
+            <p>Properties:</p>
+            <ul>
+                <li>Commutative: \(\mathbf{A} \cdot \mathbf{B} = \mathbf{B} \cdot \mathbf{A}\)</li>
+                <li>Distributive: \(\mathbf{A} \cdot (\mathbf{B} + \mathbf{C}) = \mathbf{A} \cdot \mathbf{B} + \mathbf{A} \cdot \mathbf{C}\)</li>
+                <li>\(\mathbf{A} \cdot \mathbf{A} = A^2\)</li>
+            </ul>
+            <p>Two vectors are orthogonal (perpendicular) if \(\mathbf{A} \cdot \mathbf{B} = 0\).</p>
+            
+            <h3>Vector (Cross) Product</h3>
+            <p>The cross product of two vectors \(\mathbf{A}\) and \(\mathbf{B}\) is a vector:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \times \mathbf{B} = AB\sin\theta_{AB} \mathbf{a}_n
+                \]
+            </div>
+            <p>where \(\mathbf{a}_n\) is a unit vector perpendicular to the plane containing \(\mathbf{A}\) and \(\mathbf{B}\), following the right-hand rule. In component form:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \times \mathbf{B} = \begin{vmatrix}
+                \mathbf{a}_x & \mathbf{a}_y & \mathbf{a}_z \\
+                A_x & A_y & A_z \\
+                B_x & B_y & B_z
+                \end{vmatrix} = (A_yB_z - A_zB_y)\mathbf{a}_x + (A_zB_x - A_xB_z)\mathbf{a}_y + (A_xB_y - A_yB_x)\mathbf{a}_z
+                \]
+            </div>
+            <p>Properties:</p>
+            <ul>
+                <li>Anti-commutative: \(\mathbf{A} \times \mathbf{B} = -\mathbf{B} \times \mathbf{A}\)</li>
+                <li>Distributive: \(\mathbf{A} \times (\mathbf{B} + \mathbf{C}) = \mathbf{A} \times \mathbf{B} + \mathbf{A} \times \mathbf{C}\)</li>
+                <li>\(\mathbf{A} \times \mathbf{A} = \mathbf{0}\)</li>
+            </ul>
+            
+            <h3>Scalar Triple Product</h3>
+            <p>The scalar triple product of three vectors \(\mathbf{A}\), \(\mathbf{B}\), and \(\mathbf{C}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = \mathbf{B} \cdot (\mathbf{C} \times \mathbf{A}) = \mathbf{C} \cdot (\mathbf{A} \times \mathbf{B})
+                \]
+            </div>
+            <p>This represents the volume of the parallelepiped formed by the three vectors and can be calculated as the determinant:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \cdot (\mathbf{B} \times \mathbf{C}) = \begin{vmatrix}
+                A_x & A_y & A_z \\
+                B_x & B_y & B_z \\
+                C_x & C_y & C_z
+                \end{vmatrix}
+                \]
             </div>
             
-            <div id="section3" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section3-content').style.display = 'block'">1.3 Co-ordinate systems (Cartesian, cylindrical and spherical) and conversions</h2>
-                <div id="section3-content" class="section-content" style="display:block">
-                    <p><strong>Rectangular or Cartesian Co-ordinate system</strong></p>
-                    <p>If F be the vector with components Fx, Fy and Fz, the vector F in Cartesian coordinate system can be written as: F = Fx ax + Fy ay + Fz az.</p>
-                    
-                    <p>The ranges of the coordinate variables x, y, and z are:</p>
-                    
-                    <div class="equation">
-                        $$-\infty < x < \infty, -\infty < y < \infty, -\infty < z < \infty$$
-                    </div>
-                    
-                    <p><strong>Differential Length, Surface Area and Volume</strong></p>
-                    
-                    <p><strong>Differential length:</strong></p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{L} = dx\,\mathbf{a}_x + dy\,\mathbf{a}_y + dz\,\mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>Differential Surface Area</strong></p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = dx\,dy\,\mathbf{a}_z$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = dy\,dz\,\mathbf{a}_x$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = dx\,dz\,\mathbf{a}_y$$
-                    </div>
-                    
-                    <p><strong>Differential Volume</strong></p>
-                    
-                    <div class="equation">
-                        $$dv = dx\,dy\,dz$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Cartesian Coordinate System" width="600">
-                        <div class="image-caption">Figure: Cartesian coordinate system showing differential elements</div>
-                    </div>
-                    
-                    <p><strong>Cylindrical Coordinate System (ρ, φ, z)</strong></p>
-                    <ul>
-                        <li>Here, ρ is radius of cylinder, varies from 0 ≤ ρ ≤ ∞</li>
-                        <li>Here, φ is an angle between the x-axis and the projection of line joining origin and point P in the z=0 plane, varies from 0 ≤ φ ≤ 2π</li>
-                        <li>Here, z is height of the cylinder</li>
-                    </ul>
-                    
-                    <p><strong>Unit Vectors</strong></p>
-                    <p>The three unit vectors in cylindrical coordinates system are: aρ, aφ, and az.</p>
-                    <ul>
-                        <li>The unit vector aρ at a point P(ρ1, φ1, z1) is directed radially outward, normal to the cylindrical surface ρ = ρ1. It lies in the planes φ = φ1 and z = z1.</li>
-                        <li>The unit vector aφ is normal to the plane φ = φ1, points in the direction of increasing φ, lies in the plane z = z1, and is tangent to the cylindrical surface ρ = ρ1.</li>
-                        <li>The unit vector az is the same as the unit vector az of the rectangular coordinate system.</li>
-                    </ul>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Cylindrical Coordinate System" width="600">
-                        <div class="image-caption">Figure: Cylindrical coordinate system showing unit vectors</div>
-                    </div>
-                    
-                    <p><strong>Relationship between Rectangular and Cylindrical Coordinate System</strong></p>
-                    
-                    <div class="equation">
-                        $$x = \rho \cos\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$y = \rho \sin\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$z = z$$
-                    </div>
-                    
-                    <p>The cylindrical variables in terms of x, y, and z are:</p>
-                    
-                    <div class="equation">
-                        $$\rho = \sqrt{x^2 + y^2} \quad (\rho \geq 0)$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\phi = \tan^{-1}(y/x)$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$z = z$$
-                    </div>
-                    
-                    <p><strong>Vector A in cylindrical coordinate system</strong></p>
-                    <p>The vector A(Aρ, Aφ, Az) in cylindrical coordinate system is represented as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} = A_\rho \mathbf{a}_\rho + A_\phi \mathbf{a}_\phi + A_z \mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>Differential Length, Area, and Volume in cylindrical co-ordinate system</strong></p>
-                    <p>The differential volume unit in the cylindrical coordinate system.</p>
-                    
-                    <p>Here, dρ, ρ dφ, and dz are all elements of length.</p>
-                    
-                    <p><strong>Differential Length</strong></p>
-                    <p>Differential Displacement is given as:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{L} = d\rho\,\mathbf{a}_\rho + \rho\,d\phi\,\mathbf{a}_\phi + dz\,\mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>Differential Surface Area</strong></p>
-                    <p>Differential normal surface area is given by,</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = \rho\,d\phi\,dz\,\mathbf{a}_\rho$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = d\rho\,dz\,\mathbf{a}_\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = d\rho\,d\phi\,\mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>Differential Volume</strong></p>
-                    
-                    <div class="equation">
-                        $$dv = \rho\,d\rho\,d\phi\,dz$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Cylindrical Differential Elements" width="600">
-                        <div class="image-caption">Figure: Cylindrical differential elements showing differential volume</div>
-                    </div>
-                    
-                    <p><strong>The Spherical Coordinate System (r, θ, φ)</strong></p>
-                    <p>Any point P(r, θ, φ) and the point is the intersection of three mutually perpendicular surfaces namely a sphere, a cone and a plane.</p>
-                    
-                    <ul>
-                        <li>r = radius of sphere, varies from 0 ≤ r ≤ ∞</li>
-                        <li>θ = angle between the line joining origin and point P, and the z-axis, varies from 0 ≤ θ ≤ π</li>
-                        <li>φ = angle between the x-axis and the projection of line joining origin and point P in the z=0 plane, varies from 0 ≤ φ ≤ 2π</li>
-                    </ul>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Spherical Coordinate System" width="600">
-                        <div class="image-caption">Figure: Spherical coordinate system showing unit vectors</div>
-                    </div>
-                    
-                    <p><strong>Vector A in spherical coordinates</strong></p>
-                    <p>A vector A in spherical coordinates may be written as (Ar, Aθ, Aφ) or Ar ar + Aθ aθ + Aφ aφ</p>
-                    
-                    <p><strong>Relationship between Cartesian and Spherical Coordinates</strong></p>
-                    
-                    <div class="equation">
-                        $$x = r \sin\theta \cos\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$y = r \sin\theta \sin\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$z = r \cos\theta$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$r = \sqrt{x^2 + y^2 + z^2}$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\theta = \cos^{-1}\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right)$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\phi = \tan^{-1}(y/x)$$
-                    </div>
-                    
-                    <p><strong>Differential Length, Surface area and Volume in Spherical Coordinates</strong></p>
-                    
-                    <p><strong>Differential Displacement (Length)</strong></p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{L} = dr\,\mathbf{a}_r + r\,d\theta\,\mathbf{a}_\theta + r \sin\theta\,d\phi\,\mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p><strong>Differential Volume</strong></p>
-                    
-                    <div class="equation">
-                        $$dv = r^2 \sin\theta\,dr\,d\theta\,d\phi$$
-                    </div>
-                    
-                    <p><strong>Differential Surface area</strong></p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = r^2 \sin\theta\,d\theta\,d\phi\,\mathbf{a}_r$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = r \sin\theta\,dr\,d\phi\,\mathbf{a}_\theta$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$d\mathbf{S} = r\,dr\,d\theta\,\mathbf{a}_\phi$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Spherical Differential Elements" width="600">
-                        <div class="image-caption">Figure: Spherical differential elements showing differential volume</div>
-                    </div>
-                    
-                    <p><strong>Conversion between Coordinate Systems</strong></p>
-                    
-                    <p><strong>Cylindrical to Spherical</strong></p>
-                    
-                    <div class="equation">
-                        $$r = \sqrt{\rho^2 + z^2}$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\theta = \cos^{-1}\left(\frac{z}{\sqrt{\rho^2 + z^2}}\right)$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\phi = \phi$$
-                    </div>
-                    
-                    <p><strong>Spherical to Cylindrical</strong></p>
-                    
-                    <div class="equation">
-                        $$\rho = r \sin\theta$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\phi = \phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$z = r \cos\theta$$
-                    </div>
-                    
-                    <p><strong>Vector Component Conversion</strong></p>
-                    
-                    <p><strong>Cylindrical to Cartesian</strong></p>
-                    
-                    <div class="equation">
-                        $$A_x = A_\rho \cos\phi - A_\phi \sin\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_y = A_\rho \sin\phi + A_\phi \cos\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_z = A_z$$
-                    </div>
-                    
-                    <p><strong>Cartesian to Cylindrical</strong></p>
-                    
-                    <div class="equation">
-                        $$A_\rho = A_x \cos\phi + A_y \sin\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_\phi = -A_x \sin\phi + A_y \cos\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_z = A_z$$
-                    </div>
-                    
-                    <p><strong>Spherical to Cartesian</strong></p>
-                    
-                    <div class="equation">
-                        $$A_x = A_r \sin\theta \cos\phi + A_\theta \cos\theta \cos\phi - A_\phi \sin\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_y = A_r \sin\theta \sin\phi + A_\theta \cos\theta \sin\phi + A_\phi \cos\phi$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_z = A_r \cos\theta - A_\theta \sin\theta$$
-                    </div>
-                    
-                    <p><strong>Cartesian to Spherical</strong></p>
-                    
-                    <div class="equation">
-                        $$A_r = A_x \sin\theta \cos\phi + A_y \sin\theta \sin\phi + A_z \cos\theta$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_\theta = A_x \cos\theta \cos\phi + A_y \cos\theta \sin\phi - A_z \sin\theta$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$A_\phi = -A_x \sin\phi + A_y \cos\phi$$
-                    </div>
-                </div>
+            <h3>Vector Triple Product</h3>
+            <p>The vector triple product is given by:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \times (\mathbf{B} \times \mathbf{C}) = \mathbf{B}(\mathbf{A} \cdot \mathbf{C}) - \mathbf{C}(\mathbf{A} \cdot \mathbf{B})
+                \]
             </div>
+            
+            <h3>Component of a Vector</h3>
+            <p>The scalar component of vector \(\mathbf{A}\) along vector \(\mathbf{B}\) is:</p>
+            <div class="math-container">
+                \[
+                A_B = \mathbf{A} \cdot \mathbf{a}_B
+                \]
+            </div>
+            <p>where \(\mathbf{a}_B\) is the unit vector in the direction of \(\mathbf{B}\). The vector component of \(\mathbf{A}\) along \(\mathbf{B}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A}_B = (\mathbf{A} \cdot \mathbf{a}_B)\mathbf{a}_B
+                \]
+            </div>
+        </div>
+
+        <div id="1_3" class="section">
+            <h2>1.3 Co-ordinate systems (Cartesian, cylindrical and spherical) and conversions</h2>
+            <p>Three coordinate systems are commonly used in electromagnetics: Cartesian, cylindrical, and spherical. Each is suited to problems with specific symmetries.</p>
+            
+            <h3>Cartesian (Rectangular) Coordinate System</h3>
+            <p>In the Cartesian system, a point is represented by coordinates \((x, y, z)\), where:</p>
+            <ul>
+                <li>\(-\infty < x < \infty\)</li>
+                <li>\(-\infty < y < \infty\)</li>
+                <li>\(-\infty < z < \infty\)</li>
+            </ul>
+            <p>A vector \(\mathbf{F}\) is expressed as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{F} = F_x \mathbf{a}_x + F_y \mathbf{a}_y + F_z \mathbf{a}_z
+                \]
+            </div>
+            <p>Differential elements:</p>
+            <ul>
+                <li>Differential length: \(d\mathbf{l} = dx\,\mathbf{a}_x + dy\,\mathbf{a}_y + dz\,\mathbf{a}_z\)</li>
+                <li>Differential surface area: \(d\mathbf{S} = dy\,dz\,\mathbf{a}_x\) or \(dx\,dz\,\mathbf{a}_y\) or \(dx\,dy\,\mathbf{a}_z\)</li>
+                <li>Differential volume: \(dv = dx\,dy\,dz\)</li>
+            </ul>
+            
+            <h3>Cylindrical Coordinate System</h3>
+            <p>In the cylindrical system, a point is represented by \((\rho, \phi, z)\), where:</p>
+            <ul>
+                <li>\(\rho\): radial distance from z-axis (\(0 \leq \rho < \infty\))</li>
+                <li>\(\phi\): azimuthal angle from x-axis (\(0 \leq \phi < 2\pi\))</li>
+                <li>\(z\): height (\(-\infty < z < \infty\))</li>
+            </ul>
+            <p>A vector \(\mathbf{A}\) is expressed as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} = A_\rho \mathbf{a}_\rho + A_\phi \mathbf{a}_\phi + A_z \mathbf{a}_z
+                \]
+            </div>
+            <p>Relationship with Cartesian coordinates:</p>
+            <div class="math-container">
+                \[
+                x = \rho \cos\phi, \quad y = \rho \sin\phi, \quad z = z
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \rho = \sqrt{x^2 + y^2}, \quad \phi = \tan^{-1}\left(\frac{y}{x}\right), \quad z = z
+                \]
+            </div>
+            <p>Differential elements:</p>
+            <ul>
+                <li>Differential length: \(d\mathbf{l} = d\rho\,\mathbf{a}_\rho + \rho\,d\phi\,\mathbf{a}_\phi + dz\,\mathbf{a}_z\)</li>
+                <li>Differential surface area: \(d\mathbf{S} = \rho\,d\phi\,dz\,\mathbf{a}_\rho\) or \(d\rho\,dz\,\mathbf{a}_\phi\) or \(\rho\,d\rho\,d\phi\,\mathbf{a}_z\)</li>
+                <li>Differential volume: \(dv = \rho\,d\rho\,d\phi\,dz\)</li>
+            </ul>
+            
+            <h3>Spherical Coordinate System</h3>
+            <p>In the spherical system, a point is represented by \((r, \theta, \phi)\), where:</p>
+            <ul>
+                <li>\(r\): radial distance from origin (\(0 \leq r < \infty\))</li>
+                <li>\(\theta\): polar angle from z-axis (\(0 \leq \theta \leq \pi\))</li>
+                <li>\(\phi\): azimuthal angle from x-axis (\(0 \leq \phi < 2\pi\))</li>
+            </ul>
+            <p>A vector \(\mathbf{A}\) is expressed as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} = A_r \mathbf{a}_r + A_\theta \mathbf{a}_\theta + A_\phi \mathbf{a}_\phi
+                \]
+            </div>
+            <p>Relationship with Cartesian coordinates:</p>
+            <div class="math-container">
+                \[
+                x = r \sin\theta \cos\phi, \quad y = r \sin\theta \sin\phi, \quad z = r \cos\theta
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                r = \sqrt{x^2 + y^2 + z^2}, \quad \theta = \cos^{-1}\left(\frac{z}{\sqrt{x^2 + y^2 + z^2}}\right), \quad \phi = \tan^{-1}\left(\frac{y}{x}\right)
+                \]
+            </div>
+            <p>Differential elements:</p>
+            <ul>
+                <li>Differential length: \(d\mathbf{l} = dr\,\mathbf{a}_r + r\,d\theta\,\mathbf{a}_\theta + r\sin\theta\,d\phi\,\mathbf{a}_\phi\)</li>
+                <li>Differential surface area: \(d\mathbf{S} = r^2\sin\theta\,d\theta\,d\phi\,\mathbf{a}_r\) or \(r\sin\theta\,dr\,d\phi\,\mathbf{a}_\theta\) or \(r\,dr\,d\theta\,\mathbf{a}_\phi\)</li>
+                <li>Differential volume: \(dv = r^2\sin\theta\,dr\,d\theta\,d\phi\)</li>
+            </ul>
+            
+            <h3>Coordinate Conversions</h3>
+            <h4>Cylindrical to Spherical</h4>
+            <div class="math-container">
+                \[
+                r = \sqrt{\rho^2 + z^2}, \quad \theta = \cos^{-1}\left(\frac{z}{\sqrt{\rho^2 + z^2}}\right), \quad \phi = \phi
+                \]
+            </div>
+            
+            <h4>Spherical to Cylindrical</h4>
+            <div class="math-container">
+                \[
+                \rho = r \sin\theta, \quad \phi = \phi, \quad z = r \cos\theta
+                \]
+            </div>
+            
+            <h3>Vector Component Conversions</h3>
+            <p>When converting vectors between coordinate systems, both the components and unit vectors must be transformed.</p>
+            <p><strong>Example:</strong> Convert unit vector \(\mathbf{a}_x\) to spherical coordinates:</p>
+            <div class="math-container">
+                \[
+                \mathbf{a}_x = (\mathbf{a}_x \cdot \mathbf{a}_r)\mathbf{a}_r + (\mathbf{a}_x \cdot \mathbf{a}_\theta)\mathbf{a}_\theta + (\mathbf{a}_x \cdot \mathbf{a}_\phi)\mathbf{a}_\phi
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \mathbf{a}_x = \sin\theta \cos\phi\,\mathbf{a}_r + \cos\theta \cos\phi\,\mathbf{a}_\theta - \sin\phi\,\mathbf{a}_\phi
+                \]
+            </div>
+            
+            <h3>Numerical Examples</h3>
+            <p><strong>Example 1:</strong> Given vectors \(\mathbf{A} = 3\mathbf{a}_x + 4\mathbf{a}_y + \mathbf{a}_z\) and \(\mathbf{B} = 2\mathbf{a}_y - 5\mathbf{a}_z\), find the angle between them.</p>
+            <p>Solution: Use the dot product formula:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} \cdot \mathbf{B} = (3)(0) + (4)(2) + (1)(-5) = 8 - 5 = 3
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                |\mathbf{A}| = \sqrt{3^2 + 4^2 + 1^2} = \sqrt{26}, \quad |\mathbf{B}| = \sqrt{0^2 + 2^2 + (-5)^2} = \sqrt{29}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \cos\theta = \frac{\mathbf{A} \cdot \mathbf{B}}{|\mathbf{A}||\mathbf{B}|} = \frac{3}{\sqrt{26}\sqrt{29}} \approx 0.109
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \theta \approx \cos^{-1}(0.109) \approx 83.7^\circ
+                \]
+            </div>
+            
+            <p><strong>Example 2:</strong> Transform vector \(\mathbf{A} = y\mathbf{a}_x + (x+y)\mathbf{a}_z\) at point P(-2, 6, 3) to cylindrical coordinates.</p>
+            <p>Solution: First find cylindrical coordinates of P:</p>
+            <div class="math-container">
+                \[
+                \rho = \sqrt{(-2)^2 + 6^2} = \sqrt{40} \approx 6.32, \quad \phi = \tan^{-1}\left(\frac{6}{-2}\right) = 180^\circ - \tan^{-1}(3) \approx 108.43^\circ, \quad z = 3
+                \]
+            </div>
+            <p>At P, \(\mathbf{A} = 6\mathbf{a}_x + 4\mathbf{a}_z\). Now find components:</p>
+            <div class="math-container">
+                \[
+                A_\rho = \mathbf{A} \cdot \mathbf{a}_\rho = 6\mathbf{a}_x \cdot \mathbf{a}_\rho + 4\mathbf{a}_z \cdot \mathbf{a}_\rho = 6\cos\phi + 0 = 6\cos(108.43^\circ) \approx -1.897
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                A_\phi = \mathbf{A} \cdot \mathbf{a}_\phi = 6\mathbf{a}_x \cdot \mathbf{a}_\phi + 4\mathbf{a}_z \cdot \mathbf{a}_\phi = -6\sin\phi + 0 = -6\sin(108.43^\circ) \approx -5.69
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                A_z = 4
+                \]
+            </div>
+            <p>So, \(\mathbf{A} \approx -1.897\mathbf{a}_\rho - 5.69\mathbf{a}_\phi + 4\mathbf{a}_z\) in cylindrical coordinates.</p>
         </div>
     </div>
-</body>
-</html>
+
 <!-- <==================chapter 2 ==================> -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 2: Electric Field</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
+
+    <div id="chapter_2">
+        <h1>2. Electric Field (15 hours)</h1>
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .chapter {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .chapter-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        
-        .section {
-            margin-bottom: 25px;
-        }
-        
-        .section-title {
-            font-size: 1.4em;
-            color: #2980b9;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        
-        .section-content {
-            margin-left: 15px;
-            padding-bottom: 15px;
-            display: block;
-        }
-        
-        .equation {
-            background: #f9f9f9;
-            border-left: 4px solid #3498db;
-            padding: 10px 15px;
-            margin: 10px 0;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-        
-        .example {
-            background: #e8f4fc;
-            border: 1px solid #bde0fe;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .navigation {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .nav-item {
-            display: inline-block;
-        }
-        
-        .nav-link {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            background: #3498db;
-        }
-        
-        .nav-link.active {
-            background: #3498db;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-        
-        .image-caption {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        .problem {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .problem-title {
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                font-size: 13px;
-            }
+        <li><a href="#2_1" class="topic-link">2.1 Coulomb's law</a></li>
+        <li><a href="#2_2" class="topic-link">2.2 Electric field intensity</a></li>
+        <li><a href="#2_3" class="topic-link">2.3 Electric flux density</a></li>
+        <li><a href="#2_4" class="topic-link">2.4 Gauss's law and applications</a></li>
+        <li><a href="#2_5" class="topic-link">2.5 Physical significance of divergence, divergence theorem</a></li>
+        <li><a href="#2_6" class="topic-link">2.6 Electric potential, potential gradient</a></li>
+        <li><a href="#2_7" class="topic-link">2.7 Energy density in electrostatic field</a></li>
+        <li><a href="#2_8" class="topic-link">2.8 Electric properties of material medium</a></li>
+        <li><a href="#2_9" class="topic-link">2.9 Free and bound charges, polarization, relative permittivity, electric dipole, electric boundary conditions</a></li>
+        <li><a href="#2_10" class="topic-link">2.10 Current, current density, conservation of charge, relaxation time continuity equation</a></li>
+        <li><a href="#2_11" class="topic-link">2.11 Boundary value problems, Laplace and Poisson equations and their solutions, uniqueness theorem</a></li>
+
+        <div id="2_1" class="section">
+            <h2>2.1 Coulomb's law</h2>
+            <p>Coulomb's law describes the electrostatic force between two point charges. It states that the force between two stationary point charges is directly proportional to the product of their magnitudes and inversely proportional to the square of the distance between them.</p>
             
-            .container {
-                padding: 10px;
-            }
+            <h3>Scalar Form</h3>
+            <p>The scalar form of Coulomb's law is:</p>
+            <div class="math-container">
+                \[
+                F = \frac{1}{4\pi\varepsilon_0} \frac{Q_1 Q_2}{R^2}
+                \]
+            </div>
+            <p>where \(F\) is the magnitude of the force, \(Q_1\) and \(Q_2\) are the magnitudes of the charges, \(R\) is the distance between them, and \(\varepsilon_0\) is the permittivity of free space (\(\varepsilon_0 = 8.854 \times 10^{-12}\) F/m).</p>
             
-            .chapter-title {
-                font-size: 1.5em;
-            }
+            <h3>Vector Form</h3>
+            <p>The vector form of Coulomb's law gives the force on charge \(Q_2\) due to charge \(Q_1\):</p>
+            <div class="math-container">
+                \[
+                \mathbf{F}_2 = \frac{1}{4\pi\varepsilon_0} \frac{Q_1 Q_2}{R^2} \mathbf{a}_{12}
+                \]
+            </div>
+            <p>where \(\mathbf{a}_{12}\) is the unit vector pointing from \(Q_1\) to \(Q_2\).</p>
             
-            .section-title {
-                font-size: 1.2em;
-            }
+            <h3>Force Between Multiple Charges</h3>
+            <p>For a system of multiple point charges, the total force on a charge is the vector sum of the forces due to each of the other charges (superposition principle).</p>
+        </div>
+
+        <div id="2_2" class="section">
+            <h2>2.2 Electric field intensity</h2>
+            <p>Electric field intensity \(\mathbf{E}\) is defined as the force per unit charge experienced by a small test charge placed at a point in space.</p>
             
-            .nav-list {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 12px;
-            }
+            <h3>Definition</h3>
+            <div class="math-container">
+                \[
+                \mathbf{E} = \lim_{Q_t \to 0} \frac{\mathbf{F}}{Q_t}
+                \]
+            </div>
+            <p>where \(Q_t\) is the test charge. The unit of electric field intensity is N/C or V/m.</p>
             
-            .equation {
-                font-size: 0.9em;
-            }
+            <h3>Electric Field Due to a Point Charge</h3>
+            <p>For a point charge \(Q\) located at the origin, the electric field at a distance \(r\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{E} = \frac{Q}{4\pi\varepsilon_0 r^2} \mathbf{a}_r
+                \]
+            </div>
+            <p>For a point charge located at position \(\mathbf{r}'\), the electric field at position \(\mathbf{r}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{E}(\mathbf{r}) = \frac{Q}{4\pi\varepsilon_0 |\mathbf{r} - \mathbf{r}'|^3} (\mathbf{r} - \mathbf{r}')
+                \]
+            </div>
             
-            .section-content {
-                margin-left: 5px;
-            }
-        }
-        
-        .math-inline {
-            font-family: 'Cambria Math', 'Segoe UI Symbol', serif;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="navigation">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="#section1" class="nav-link active">2.1 Coulomb's law</a></li>
-                <li class="nav-item"><a href="#section2" class="nav-link">2.2 Electric field intensity</a></li>
-                <li class="nav-item"><a href="#section3" class="nav-link">2.3 Electric flux density</a></li>
-                <li class="nav-item"><a href="#section4" class="nav-link">2.4 Gauss's law and applications</a></li>
-                <li class="nav-item"><a href="#section5" class="nav-link">2.5 Physical significance of divergence</a></li>
-                <li class="nav-item"><a href="#section6" class="nav-link">2.6 Electric potential</a></li>
-                <li class="nav-item"><a href="#section7" class="nav-link">2.7 Energy density in electrostatic field</a></li>
-                <li class="nav-item"><a href="#section8" class="nav-link">2.8 Electric properties of material medium</a></li>
-                <li class="nav-item"><a href="#section9" class="nav-link">2.9 Free and bound charges</a></li>
-                <li class="nav-item"><a href="#section10" class="nav-link">2.10 Current and continuity equation</a></li>
-                <li class="nav-item"><a href="#section11" class="nav-link">2.11 Boundary value problems</a></li>
+            <h3>Electric Field Due to Continuous Charge Distributions</h3>
+            <p>For continuous charge distributions, the electric field is obtained by integration:</p>
+            <ul>
+                <li><strong>Line charge:</strong> \(\mathbf{E} = \int \frac{\rho_L dL}{4\pi\varepsilon_0 R^2} \mathbf{a}_R\)</li>
+                <li><strong>Surface charge:</strong> \(\mathbf{E} = \int \frac{\rho_S dS}{4\pi\varepsilon_0 R^2} \mathbf{a}_R\)</li>
+                <li><strong>Volume charge:</strong> \(\mathbf{E} = \int \frac{\rho_V dV}{4\pi\varepsilon_0 R^2} \mathbf{a}_R\)</li>
+            </ul>
+            
+            <h3>Electric Field Due to an Infinite Line Charge</h3>
+            <p>For an infinite line charge with density \(\rho_L\), the electric field at a perpendicular distance \(\rho\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{E} = \frac{\rho_L}{2\pi\varepsilon_0 \rho} \mathbf{a}_\rho
+                \]
+            </div>
+            
+            <h3>Electric Field Due to an Infinite Sheet of Charge</h3>
+            <p>For an infinite sheet of charge with density \(\rho_S\), the electric field is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{E} = \frac{\rho_S}{2\varepsilon_0} \mathbf{a}_N
+                \]
+            </div>
+            <p>where \(\mathbf{a}_N\) is the unit vector normal to the sheet and directed away from it.</p>
+        </div>
+
+        <div id="2_3" class="section">
+            <h2>2.3 Electric flux density</h2>
+            <p>Electric flux density \(\mathbf{D}\) is defined as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{D} = \varepsilon_0 \mathbf{E}
+                \]
+            </div>
+            <p>in free space. The unit of \(\mathbf{D}\) is C/m². Electric flux density is useful because it is independent of the medium (in the absence of dielectric materials).</p>
+            
+            <h3>Relation to Electric Field</h3>
+            <p>In a dielectric medium, the relationship is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{D} = \varepsilon \mathbf{E} = \varepsilon_0 \varepsilon_r \mathbf{E}
+                \]
+            </div>
+            <p>where \(\varepsilon_r\) is the relative permittivity of the medium.</p>
+            
+            <h3>Electric Flux</h3>
+            <p>The electric flux through a surface is given by:</p>
+            <div class="math-container">
+                \[
+                \Psi = \int_S \mathbf{D} \cdot d\mathbf{S}
+                \]
+            </div>
+            <p>The unit of electric flux is coulombs (C).</p>
+        </div>
+
+        <div id="2_4" class="section">
+            <h2>2.4 Gauss's law and applications</h2>
+            <p>Gauss's law states that the total electric flux through any closed surface is equal to the total charge enclosed by that surface.</p>
+            
+            <h3>Integral Form</h3>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{D} \cdot d\mathbf{S} = Q_{\text{enclosed}}
+                \]
+            </div>
+            
+            <h3>Differential Form</h3>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{D} = \rho_V
+                \]
+            </div>
+            
+            <h3>Applications</h3>
+            <p>Gauss's law is particularly useful for calculating electric fields when there is symmetry:</p>
+            <ul>
+                <li><strong>Point charge:</strong> Use a spherical Gaussian surface.</li>
+                <li><strong>Infinite line charge:</strong> Use a cylindrical Gaussian surface.</li>
+                <li><strong>Infinite sheet of charge:</strong> Use a pillbox Gaussian surface.</li>
+                <li><strong>Uniformly charged sphere:</strong> Use spherical Gaussian surfaces inside and outside the sphere.</li>
+            </ul>
+            
+            <h3>Example: Electric Field Due to a Uniformly Charged Sphere</h3>
+            <p>For a sphere of radius \(a\) with uniform volume charge density \(\rho_V\):</p>
+            <ul>
+                <li>Inside the sphere (\(r < a\)): \(E = \frac{\rho_V r}{3\varepsilon_0}\)</li>
+                <li>Outside the sphere (\(r > a\)): \(E = \frac{\rho_V a^3}{3\varepsilon_0 r^2}\)</li>
             </ul>
         </div>
-        
-        <div id="chapter_2" class="chapter">
-            <h1 class="chapter-title">2. Electric Field (15 hours)</h1>
+
+        <div id="2_5" class="section">
+            <h2>2.5 Physical significance of divergence, divergence theorem</h2>
+            <p>The divergence of a vector field represents the net outward flux per unit volume at a point.</p>
             
-            <div id="section1" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section1-content').style.display = 'block'">2.1 Coulomb's law</h2>
-                <div id="section1-content" class="section-content" style="display:block">
-                    <p><strong>Coulomb's Law</strong></p>
-                    
-                    <p>Coulomb stated that the force between two very small objects (like charges) separated in a vacuum or free space by a distance, which is large compared to their size, is proportional to the product of charges on each and inversely proportional to the square of the distance between them:</p>
-                    
-                    <div class="equation">
-                        $$F \propto \frac{Q_1 Q_2}{R^2}$$
-                    </div>
-                    
-                    <p>Combining both:</p>
-                    
-                    <div class="equation">
-                        $$F = K\frac{Q_1 Q_2}{R^2}$$
-                    </div>
-                    
-                    <p>where K is a proportionality constant:</p>
-                    
-                    <div class="equation">
-                        $$K = \frac{1}{4\pi\epsilon_0} \quad \text{where} \quad \epsilon_0 = 8.854 \times 10^{-12} \, \text{F/m}$$
-                    </div>
-                    
-                    <p>For any other medium:</p>
-                    
-                    <div class="equation">
-                        $$K = \frac{1}{4\pi\epsilon} \quad \text{where} \quad \epsilon = \epsilon_r \epsilon_0$$
-                    </div>
-                    
-                    <p>The final scalar expression for Coulomb's law in vacuum or free space is:</p>
-                    
-                    <div class="equation">
-                        $$F = \frac{Q_1 Q_2}{4\pi\epsilon_0 R^2}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>$Q_1$ and $Q_2$ are the positive or negative quantities of charge</li>
-                        <li>$R$ is the separation between the charges</li>
-                        <li>$K$ is a proportionality constant</li>
-                    </ul>
-                    
-                    <p>Also, $K = 9 \times 10^9 \frac{N\cdot m^2}{C^2}$</p>
-                    
-                    <p><strong>Vector Form of Coulomb's Law</strong></p>
-                    
-                    <p>Let us consider that the force acts along the line joining the two charges and is repulsive if the charges are alike in sign or attractive if they are of opposite sign. Let the vector $\mathbf{r}_1$ locate $Q_1$, whereas $\mathbf{r}_2$ locates $Q_2$.</p>
-                    
-                    <p>Then the vector $\mathbf{R}_{12} = \mathbf{r}_2 - \mathbf{r}_1$ represents the directed line segment from $Q_1$ to $Q_2$, as shown in figure below. The vector $\mathbf{F}_2$ is the force on $Q_2$ and is shown for the case where $Q_1$ and $Q_2$ have the same sign.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/9zXjD0a.png" alt="Coulomb's Law Diagram" width="400">
-                        <div class="image-caption">Figure: If $Q_1$ and $Q_2$ have like signs, the vector force $\mathbf{F}_2$ on $Q_2$ is in the same direction as the vector $\mathbf{R}_{12}$</div>
-                    </div>
-                    
-                    <p>The vector form of Coulomb's law is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F}_2 = \frac{Q_1 Q_2}{4\pi\epsilon_0 R^2} \mathbf{a}_{R_{12}}$$
-                    </div>
-                    
-                    <p>where $\mathbf{a}_{R_{12}}$ is a unit vector in the direction of $\mathbf{R}_{12}$, given as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{a}_{R_{12}} = \frac{\mathbf{r}_2 - \mathbf{r}_1}{|\mathbf{r}_2 - \mathbf{r}_1|}$$
-                    </div>
-                    
-                    <p>Thus:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F}_2 = \frac{Q_1 Q_2}{4\pi\epsilon_0 R^2} \frac{\mathbf{r}_2 - \mathbf{r}_1}{|\mathbf{r}_2 - \mathbf{r}_1|}$$
-                    </div>
-                </div>
+            <h3>Physical Significance</h3>
+            <p>For the electric flux density \(\mathbf{D}\), \(\nabla \cdot \mathbf{D}\) represents the volume charge density \(\rho_V\) at that point. Positive divergence indicates a source of flux (positive charge), while negative divergence indicates a sink (negative charge).</p>
+            
+            <h3>Divergence Theorem</h3>
+            <p>The divergence theorem (also known as Gauss's theorem) states that the flux of a vector field through a closed surface is equal to the volume integral of the divergence of the field over the region enclosed by the surface:</p>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{A} \cdot d\mathbf{S} = \int_V (\nabla \cdot \mathbf{A})  dV
+                \]
+            </div>
+            <p>This theorem is fundamental in converting between integral and differential forms of physical laws.</p>
+        </div>
+
+        <div id="2_6" class="section">
+            <h2>2.6 Electric potential, potential gradient</h2>
+            <p>Electric potential is the work done per unit charge to bring a test charge from infinity to a point in an electric field.</p>
+            
+            <h3>Definition</h3>
+            <div class="math-container">
+                \[
+                V = -\int_{\infty}^P \mathbf{E} \cdot d\mathbf{l}
+                \]
+            </div>
+            <p>The potential difference between two points A and B is:</p>
+            <div class="math-container">
+                \[
+                V_{AB} = V_A - V_B = -\int_B^A \mathbf{E} \cdot d\mathbf{l}
+                \]
             </div>
             
-            <div id="section2" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section2-content').style.display = 'block'">2.2 Electric field intensity</h2>
-                <div id="section2-content" class="section-content" style="display:block">
-                    <p><strong>Electric Field Intensity</strong></p>
-                    
-                    <p>If we now consider one charge fixed in position, say $Q_1$, and move a second charge named "test charge" $Q$ slowly around the first charge. There exists everywhere a force on this second charge; in other words, this second charge is displaying the existence of a force field that is associated with charge, $Q_1$. The force on it is given by Coulomb's law as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F} = \frac{Q_1 Q}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p>Electric Field Intensity is defined as a force per unit charge $\mathbf{E}_1$ arising from $Q_1$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\mathbf{F}}{Q} = \frac{Q_1}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/1jLqUwH.png" alt="Electric Field Intensity" width="400">
-                        <div class="image-caption">Figure: Defining an Electric Field Intensity "$\mathbf{E}$"</div>
-                    </div>
-                    
-                    <p>$\mathbf{E}_1$ is interpreted as the vector force, arising from charge $Q_1$ that acts on a unit positive test charge. More generally, we write the defining expression:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \lim_{Q \to 0} \frac{\mathbf{F}}{Q}$$
-                    </div>
-                    
-                    <p>Thus, "$\mathbf{E}$" is a vector function, also known as the electric field intensity and is evaluated at the test charge location that arises from all other charges in the vicinity—meaning the electric field arising from the test charge itself is not included in $\mathbf{E}$. The unit of Electric field intensity is "N/C"or"V/m". Thus, the electric field intensity in general would be,</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{Q}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p>Here, $R$ is the magnitude of the vector $\mathbf{R}$, the directed line segment from the point at which the point charge $Q$ is located to the point at which $\mathbf{E}$ is desired, and $\mathbf{a}_R$ is a unit vector in the $\mathbf{R}$ direction</p>
-                    
-                    <p><strong>Electric Field Intensity in Spherical Coordinate system</strong></p>
-                    
-                    <p>If we arbitrarily locate $Q$ at the center of a spherical coordinate system then the unit vector $\mathbf{a}_R$ becomes the radial unit vector $\mathbf{a}_r$, and $R$ becomes $r$ (radius of the sphere). Hence:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{Q}{4\pi\epsilon_0 r^2} \mathbf{a}_r$$
-                    </div>
-                    
-                    <p><strong>Electric Field Intensity due to a point charge</strong></p>
-                    
-                    <p>Let us consider a point charge "$Q$" is located at $(x', y', z')$ and $(x, y, z)$ be the point where electric field intensity is to be determined.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/4dWYc6T.png" alt="Point Charge Diagram" width="400">
-                        <div class="image-caption">Figure: The vector $\mathbf{r}'$ locates the point charge $Q$, the vector $\mathbf{r}$ identifies the general point in space $P(x,y,z)$, and the vector $\mathbf{R}$ from $Q$ to $P(x,y,z)$ is then $\mathbf{R} = \mathbf{r} - \mathbf{r}'$</div>
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{Q}{4\pi\epsilon_0 R^2} \mathbf{a}_R = \frac{Q}{4\pi\epsilon_0 R^2} \frac{\mathbf{R}}{R} = \frac{Q}{4\pi\epsilon_0 |\mathbf{R}|^3} \mathbf{R}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{r}' = x'\mathbf{a}_x + y'\mathbf{a}_y + z'\mathbf{a}_z, \quad \mathbf{r} = x\mathbf{a}_x + y\mathbf{a}_y + z\mathbf{a}_z$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{R} = \mathbf{r} - \mathbf{r}' = (x - x')\mathbf{a}_x + (y - y')\mathbf{a}_y + (z - z')\mathbf{a}_z$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$|\mathbf{R}| = \sqrt{(x - x')^2 + (y - y')^2 + (z - z')^2}$$
-                    </div>
-                    
-                    <p>Thus, the expression of electric field intensity is reduced to:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E}(\mathbf{r}) = \frac{Q}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}'|^3} (\mathbf{r} - \mathbf{r}')$$
-                    </div>
-                    
-                    <p>Electric Field Intensity for a charge "$Q$" at the origin, since $(x', y', z')$ would be $(0, 0, 0)$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E}(\mathbf{r}) = \frac{Q}{4\pi\epsilon_0 (x^2 + y^2 + z^2)^{3/2}} (x\mathbf{a}_x + y\mathbf{a}_y + z\mathbf{a}_z)$$
-                    </div>
-                    
-                    <p><strong>Electric Field Intensity due to "n" point charges</strong></p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/4dWYc6T.png" alt="Multiple Charges Diagram" width="400">
-                        <div class="image-caption">Figure: The vector addition of the total electric field intensity at P due to $Q_1$ and $Q_2$ is made possible by the linearity of Coulomb's law</div>
-                    </div>
-                    
-                    <p>For simplicity, we have shown two point charges in the figure. First we determine "$\mathbf{E}$" at P due to these charges and then generalized for "n" number of charges:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E}_1 = \frac{Q_1}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_1|^2} \mathbf{a}_{R_{1p}}$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{E}_2 = \frac{Q_2}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_2|^2} \mathbf{a}_{R_{2p}}$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \mathbf{E}_1 + \mathbf{E}_2 = \frac{Q_1}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_1|^2} \mathbf{a}_{R_{1p}} + \frac{Q_2}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_2|^2} \mathbf{a}_{R_{2p}}$$
-                    </div>
-                    
-                    <p>If there are n point charges, then:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \sum_{m=1}^{n} \frac{Q_m}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_m|^2} \mathbf{a}_{R_{mp}}$$
-                    </div>
-                    
-                    <p><strong>Charge Distributions</strong></p>
-                    
-                    <p><strong>1. Line Charge Distributions</strong></p>
-                    
-                    <p>If charge is distributed over a finite or infinite line (Curved or Straight), this is called line charge distribution. Line charge density is defined as $\rho_L = \frac{dQ}{dL}$, and unit is "C/m". So, we can write as:</p>
-                    
-                    <div class="equation">
-                        $$dQ = \rho_L dL$$
-                    </div>
-                    
-                    <p>Each differential charge "$dQ$" along the line produces a differential electric field and is given by:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{\rho_L dL}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p><strong>2. Surface Charge Distributions</strong></p>
-                    
-                    <p>If charge is distributed over a finite or infinite sheet, this is called surface charge distribution. Surface charge density is defined as $\rho_s = \frac{dQ}{dS}$, and unit is "C/m$^2$". So, we can write as:</p>
-                    
-                    <div class="equation">
-                        $$dQ = \rho_s dS$$
-                    </div>
-                    
-                    <p>Each differential charge "$dQ$" along the surface produces a differential electric field and is given by:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{\rho_s dS}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p><strong>3. Volume Charge Distributions</strong></p>
-                    
-                    <p>If charge is distributed throughout a specified volume, this is called volume charge distribution. Volume charge density is defined as $\rho_v = \frac{dQ}{dV}$, and unit is "C/m$^3$". So, we can write as:</p>
-                    
-                    <div class="equation">
-                        $$dQ = \rho_v dV$$
-                    </div>
-                    
-                    <p>Each differential charge "$dQ$" along the volume produces a differential electric field and is given by:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{\rho_v dV}{4\pi\epsilon_0 R^2} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p><strong>Electric field due to an infinitely long line charge</strong></p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/4mQYjLk.png" alt="Infinite Line Charge" width="400">
-                        <div class="image-caption">Figure: A uniform infinite line charge extending along z-axis</div>
-                    </div>
-                    
-                    <p>Let us consider a uniform infinite line charge is placed on z-axis having line charge density "$\rho_L$". Let $P(0, y, 0)$ be the point on the y axis where the value of electric field intensity has to be calculated. Since the electric field does not vary with $\phi$ and $z$, "$P$" is a general point. Let "$\rho$" be the perpendicular distance from the point of interest "$P$" to the line charge.</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{dQ}{4\pi\epsilon_0 R^2} \mathbf{a}_R = \frac{dQ}{4\pi\epsilon_0 R^3} \mathbf{R}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{R} = \rho\mathbf{a}_\rho - z\mathbf{a}_z, \quad |\mathbf{R}| = \sqrt{\rho^2 + z^2}$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{dQ (\rho\mathbf{a}_\rho - z\mathbf{a}_z)}{4\pi\epsilon_0 (\rho^2 + z^2)^{3/2}}$$
-                    </div>
-                    
-                    <p>Similarly for another element:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{dQ (\rho\mathbf{a}_\rho + z\mathbf{a}_z)}{4\pi\epsilon_0 (\rho^2 + z^2)^{3/2}}$$
-                    </div>
-                    
-                    <p>So, total electric field intensity is sum of $d\mathbf{E}_1 + d\mathbf{E}_2$:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = d\mathbf{E}_1 + d\mathbf{E}_2 = \frac{dQ}{4\pi\epsilon_0 (\rho^2 + z^2)^{3/2}} [\rho\mathbf{a}_\rho - z\mathbf{a}_z + \rho\mathbf{a}_\rho + z\mathbf{a}_z] = \frac{2\rho dQ \mathbf{a}_\rho}{4\pi\epsilon_0 (\rho^2 + z^2)^{3/2}}$$
-                    </div>
-                    
-                    <p>Finally, electric field intensity at point $P$ due to infinitely long line charge can be obtained by integrating $d\mathbf{E}$ from $-\infty$ to $+\infty$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \int_{-\infty}^{\infty} d\mathbf{E} = \int_{-\infty}^{\infty} \frac{2\rho \rho_L dz \mathbf{a}_\rho}{4\pi\epsilon_0 (\rho^2 + z^2)^{3/2}} = \frac{\rho_L}{2\pi\epsilon_0 \rho} \mathbf{a}_\rho$$
-                    </div>
-                    
-                    <p>It should be noted that, if the line charge is not along Z-axis, $\rho$ is the perpendicular distance from the line to the point of interest, and $\mathbf{a}_\rho$ is a unit vector along that distance directed from the line charge to the field point.</p>
-                    
-                    <p><strong>Electric Field Intensity due to Infinite Sheet of Charge</strong></p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/3yJqWUz.png" alt="Infinite Sheet of Charge" width="400">
-                        <div class="image-caption">Figure: An infinite sheet of charge in the yz-plane</div>
-                    </div>
-                    
-                    <p>Let us consider an infinite sheet of charge having a uniform charge density $\rho_s$ (C/m$^2$) placed in yz plane, i.e, $x=0$ plane. Here, electric field varies along with x-axis only as y and z components arising from differential elements of charge symmetrically located with respect to the point will get canceled. Hence, only $E_x$ is present.</p>
-                    
-                    <p>Let $P(x, 0, 0)$ be the point on x-axis where the value of electric field intensity is to be determined. For this, we divide the sheet into differential width strip each having width "$dy$" and evaluate field at point $P$ due to a strip and then we integrate to find the electric field intensity due to the infinite sheet of charge.</p>
-                    
-                    <p>Small value of electric field due to the strip is:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{E} = \frac{\rho_s dy}{2\pi\epsilon_0 \sqrt{x^2 + y^2}} \mathbf{a}_R$$
-                    </div>
-                    
-                    <p>As only x-component is present:</p>
-                    
-                    <div class="equation">
-                        $$dE_x = d\mathbf{E} \cdot \mathbf{a}_x = \frac{\rho_s dy}{2\pi\epsilon_0 \sqrt{x^2 + y^2}} \cos\theta$$
-                    </div>
-                    
-                    <p>where:</p>
-                    
-                    <div class="equation">
-                        $$\cos\theta = \frac{x}{\sqrt{x^2 + y^2}}$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$dE_x = \frac{\rho_s x dy}{2\pi\epsilon_0 (x^2 + y^2)}$$
-                    </div>
-                    
-                    <p>Total electric field due to entire infinite sheet can be calculated as:</p>
-                    
-                    <div class="equation">
-                        $$E_x = \int_{-\infty}^{\infty} dE_x = \int_{-\infty}^{\infty} \frac{\rho_s x dy}{2\pi\epsilon_0 (x^2 + y^2)} = \frac{\rho_s}{2\epsilon_0}$$
-                    </div>
-                    
-                    <p>In vector form:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{2\epsilon_0} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>where $\mathbf{a}_n$ is unit vector normal to the sheet and directed away from it.</p>
-                    
-                    <p>If $P$ is at $(-x, 0, 0)$, then:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = -\frac{\rho_s}{2\epsilon_0} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>In general we can write as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{2\epsilon_0} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>where $\mathbf{a}_n$ is unit vector normal to the sheet and directed away from it.</p>
-                    
-                    <p><strong>Parallel Plate Capacitor</strong></p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/3yJqWUz.png" alt="Parallel Plate Capacitor" width="400">
-                        <div class="image-caption">Figure: Arrangement of two infinite sheets of charge resulting a capacitor</div>
-                    </div>
-                    
-                    <p>Let us consider two infinite sheets of charge placed on $x=0$ and $x=a$ plane as shown in figure above. Let $+\rho_s$ and $-\rho_s$ be the surface charge density on these sheets. This arrangement makes a parallel plate capacitor with air as a dielectric. Let $\mathbf{E}_+$ and $\mathbf{E}_-$ be the electric field due to infinite sheets having positive and negative charges respectively.</p>
-                    
-                    <p>In the region $x < 0$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{2\epsilon_0}(-\mathbf{a}_x) + \frac{\rho_s}{2\epsilon_0}(\mathbf{a}_x) = 0$$
-                    </div>
-                    
-                    <p>In the region $x > a$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{2\epsilon_0}(\mathbf{a}_x) + \frac{\rho_s}{2\epsilon_0}(-\mathbf{a}_x) = 0$$
-                    </div>
-                    
-                    <p>In the region $0 < x < a$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{2\epsilon_0}(\mathbf{a}_x) + \frac{\rho_s}{2\epsilon_0}(\mathbf{a}_x) = \frac{\rho_s}{\epsilon_0} \mathbf{a}_x$$
-                    </div>
-                    
-                    <p>Hence, the electric field exists only in between the capacitor.</p>
-                </div>
+            <h3>Potential Due to Point Charges</h3>
+            <p>For a point charge \(Q\):</p>
+            <div class="math-container">
+                \[
+                V = \frac{Q}{4\pi\varepsilon_0 r}
+                \]
+            </div>
+            <p>For multiple point charges:</p>
+            <div class="math-container">
+                \[
+                V = \sum_{m=1}^n \frac{Q_m}{4\pi\varepsilon_0 |\mathbf{r} - \mathbf{r}_m|}
+                \]
             </div>
             
-            <div id="section3" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section3-content').style.display = 'block'">2.3 Electric flux density</h2>
-                <div id="section3-content" class="section-content" style="display:block">
-                    <p><strong>Electric Flux Density</strong></p>
-                    
-                    <p>Electric flux density (D) is defined as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = \epsilon_0 \mathbf{E}$$
-                    </div>
-                    
-                    <p>For materials with permittivity $\epsilon$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = \epsilon \mathbf{E}$$
-                    </div>
-                    
-                    <p><strong>Gauss's Law</strong></p>
-                    
-                    <p>Gauss's law states that the total electric flux through a closed surface is equal to the total charge enclosed by that surface divided by the permittivity of free space:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = Q_{enc}$$
-                    </div>
-                    
-                    <p>or in terms of electric field intensity:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \epsilon_0 \mathbf{E} \cdot d\mathbf{S} = Q_{enc}$$
-                    </div>
-                    
-                    <p><strong>Physical Significance</strong></p>
-                    
-                    <ul>
-                        <li>Electric flux density $\mathbf{D}$ is a measure of the electric field in terms of charge distribution</li>
-                        <li>It is independent of the medium</li>
-                        <li>It is related to the free charges only</li>
-                        <li>It has units of C/m²</li>
-                    </ul>
-                    
-                    <p><strong>Gauss's Law Applications</strong></p>
-                    
-                    <p>Gauss's law is particularly useful for calculating electric fields for symmetric charge distributions:</p>
-                    
-                    <p><strong>1. Spherical Symmetry</strong></p>
-                    
-                    <p>For a point charge or uniformly charged sphere:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_r \cdot 4\pi r^2 = Q_{enc}$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_r = \frac{Q_{enc}}{4\pi r^2} \quad \text{and} \quad \mathbf{E} = \frac{Q_{enc}}{4\pi\epsilon_0 r^2} \mathbf{a}_r$$
-                    </div>
-                    
-                    <p><strong>2. Cylindrical Symmetry</strong></p>
-                    
-                    <p>For an infinite line charge with charge density $\rho_L$:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_\rho \cdot 2\pi \rho L = \rho_L L$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_\rho = \frac{\rho_L}{2\pi \rho} \quad \text{and} \quad \mathbf{E} = \frac{\rho_L}{2\pi\epsilon_0 \rho} \mathbf{a}_\rho$$
-                    </div>
-                    
-                    <p><strong>3. Planar Symmetry</strong></p>
-                    
-                    <p>For an infinite sheet of charge with surface charge density $\rho_s$:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_n \cdot 2A = \rho_s A$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_n = \frac{\rho_s}{2} \quad \text{and} \quad \mathbf{E} = \frac{\rho_s}{2\epsilon_0} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p><strong>Parallel Plate Capacitor</strong></p>
-                    
-                    <p>For two parallel plates with surface charge densities $+\rho_s$ and $-\rho_s$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{\epsilon_0} \mathbf{a}_n \quad \text{for} \quad 0 < x < a$$
-                    </div>
-                    
-                    <p>and zero outside the plates.</p>
-                    
-                    <p><strong>Example: Electric Field due to a Uniformly Charged Sphere</strong></p>
-                    
-                    <p>For a sphere of radius $a$ with uniform volume charge density $\rho_v$:</p>
-                    
-                    <ul>
-                        <li>Inside the sphere ($r < a$):
-                            <div class="equation">
-                                $$\mathbf{E} = \frac{\rho_v r}{3\epsilon_0} \mathbf{a}_r$$
-                            </div>
-                        </li>
-                        <li>Outside the sphere ($r > a$):
-                            <div class="equation">
-                                $$\mathbf{E} = \frac{\rho_v a^3}{3\epsilon_0 r^2} \mathbf{a}_r = \frac{Q}{4\pi\epsilon_0 r^2} \mathbf{a}_r$$
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <h3>Potential Gradient</h3>
+            <p>The electric field is the negative gradient of the potential:</p>
+            <div class="math-container">
+                \[
+                \mathbf{E} = -\nabla V
+                \]
             </div>
-            
-            <div id="section4" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section4-content').style.display = 'block'">2.4 Gauss's law and applications</h2>
-                <div id="section4-content" class="section-content" style="display:block">
-                    <p><strong>Gauss's Law</strong></p>
-                    
-                    <p>Gauss's law is one of Maxwell's equations and states that the total electric flux through a closed surface is equal to the total charge enclosed by that surface divided by the permittivity of free space:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = Q_{enc}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>$\mathbf{D}$ is the electric flux density (C/m²)</li>
-                        <li>$d\mathbf{S}$ is the differential surface element</li>
-                        <li>$Q_{enc}$ is the total charge enclosed by the surface</li>
-                    </ul>
-                    
-                    <p>In differential form, Gauss's law is:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{D} = \rho_v$$
-                    </div>
-                    
-                    <p>where $\rho_v$ is the volume charge density.</p>
-                    
-                    <p><strong>Applications of Gauss's Law</strong></p>
-                    
-                    <p>Gauss's law is particularly useful for calculating electric fields for symmetric charge distributions:</p>
-                    
-                    <p><strong>1. Spherical Symmetry</strong></p>
-                    
-                    <p>For a point charge or uniformly charged sphere:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_r \cdot 4\pi r^2 = Q_{enc}$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_r = \frac{Q_{enc}}{4\pi r^2} \quad \text{and} \quad \mathbf{E} = \frac{Q_{enc}}{4\pi\epsilon_0 r^2} \mathbf{a}_r$$
-                    </div>
-                    
-                    <p><strong>2. Cylindrical Symmetry</strong></p>
-                    
-                    <p>For an infinite line charge with charge density $\rho_L$:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_\rho \cdot 2\pi \rho L = \rho_L L$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_\rho = \frac{\rho_L}{2\pi \rho} \quad \text{and} \quad \mathbf{E} = \frac{\rho_L}{2\pi\epsilon_0 \rho} \mathbf{a}_\rho$$
-                    </div>
-                    
-                    <p><strong>3. Planar Symmetry</strong></p>
-                    
-                    <p>For an infinite sheet of charge with surface charge density $\rho_s$:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = D_n \cdot 2A = \rho_s A$$
-                    </div>
-                    
-                    <p>So:</p>
-                    
-                    <div class="equation">
-                        $$D_n = \frac{\rho_s}{2} \quad \text{and} \quad \mathbf{E} = \frac{\rho_s}{2\epsilon_0} \mathbf{a}_n$$
-                    </div>
-                    
-                    <p><strong>Parallel Plate Capacitor</strong></p>
-                    
-                    <p>For two parallel plates with surface charge densities $+\rho_s$ and $-\rho_s$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_s}{\epsilon_0} \mathbf{a}_n \quad \text{between the plates}$$
-                    </div>
-                    
-                    <p>and zero outside the plates.</p>
-                    
-                    <p><strong>Example Problem:</strong></p>
-                    
-                    <p>Given a uniform line charge of 20 nC/m along the z-axis, find the electric field at point $P(3,4,0)$.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Distance from line charge to point $P$:</p>
-                    
-                    <div class="equation">
-                        $$\rho = \sqrt{3^2 + 4^2} = 5 \, \text{m}$$
-                    </div>
-                    
-                    <p>Electric field magnitude:</p>
-                    
-                    <div class="equation">
-                        $$E = \frac{\rho_L}{2\pi\epsilon_0 \rho} = \frac{20 \times 10^{-9}}{2\pi \times 8.854 \times 10^{-12} \times 5} = 71.96 \, \text{V/m}$$
-                    </div>
-                    
-                    <p>Direction is radial from the z-axis to point $P$, so:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{3}{5}\mathbf{a}_x + \frac{4}{5}\mathbf{a}_y \times 71.96 = 43.18\mathbf{a}_x + 57.57\mathbf{a}_y \, \text{V/m}$$
-                    </div>
-                </div>
+            <p>In rectangular coordinates:</p>
+            <div class="math-container">
+                \[
+                \nabla V = \frac{\partial V}{\partial x} \mathbf{a}_x + \frac{\partial V}{\partial y} \mathbf{a}_y + \frac{\partial V}{\partial z} \mathbf{a}_z
+                \]
             </div>
-            
-            <div id="section5" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section5-content').style.display = 'block'">2.5 Physical significance of divergence, divergence theorem</h2>
-                <div id="section5-content" class="section-content" style="display:block">
-                    <p><strong>Physical Significance of Divergence</strong></p>
-                    
-                    <p>The divergence of a vector field at a point is a measure of the magnitude of a source or sink at that point. For electric fields, the divergence of the electric flux density $\mathbf{D}$ is equal to the volume charge density $\rho_v$:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{D} = \rho_v$$
-                    </div>
-                    
-                    <p>This means that:</p>
-                    <ul>
-                        <li>Positive divergence indicates a source of electric flux (positive charge)</li>
-                        <li>Negative divergence indicates a sink of electric flux (negative charge)</li>
-                        <li>Zero divergence indicates no net source or sink of electric flux (no charge)</li>
-                    </ul>
-                    
-                    <p><strong>Divergence Theorem</strong></p>
-                    
-                    <p>The divergence theorem relates the volume integral of the divergence of a vector field to the surface integral of the vector field over the closed surface bounding the volume:</p>
-                    
-                    <div class="equation">
-                        $$\int_V (\nabla \cdot \mathbf{F}) \, dV = \oint_S \mathbf{F} \cdot d\mathbf{S}$$
-                    </div>
-                    
-                    <p>For electric fields, this becomes:</p>
-                    
-                    <div class="equation">
-                        $$\int_V (\nabla \cdot \mathbf{D}) \, dV = \oint_S \mathbf{D} \cdot d\mathbf{S}$$
-                    </div>
-                    
-                    <p>which is equivalent to Gauss's law since $\nabla\cdot\mathbf{D} = \rho_v$ and $\int_V \rho_v \, dV = Q_{enc}$.</p>
-                    
-                    <p><strong>Physical Interpretation</strong></p>
-                    
-                    <p>The divergence theorem states that the total outward flux of a vector field through a closed surface is equal to the volume integral of the divergence of that field throughout the enclosed volume.</p>
-                    
-                    <p>In the context of electric fields, it means that the total electric flux leaving a closed surface is equal to the total charge enclosed within that surface.</p>
-                    
-                    <p><strong>Example: Calculating Divergence in Cartesian Coordinates</strong></p>
-                    
-                    <p>For a vector field $\mathbf{F} = x^2\mathbf{a}_x + y^2\mathbf{a}_y + z^2\mathbf{a}_z$:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{F} = \frac{\partial F_x}{\partial x} + \frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z} = 2x + 2y + 2z$$
-                    </div>
-                    
-                    <p><strong>Example: Using Divergence Theorem</strong></p>
-                    
-                    <p>Let $\mathbf{D} = 2xy \mathbf{a}_x + x^2 \mathbf{a}_y$ C/m². Find the total flux through a cube with sides of length 1 m centered at the origin.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Using divergence theorem:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{D} \cdot d\mathbf{S} = \int_V (\nabla \cdot \mathbf{D}) \, dV$$
-                    </div>
-                    
-                    <p>First, find divergence:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{D} = \frac{\partial}{\partial x}(2xy) + \frac{\partial}{\partial y}(x^2) = 2y + 0 = 2y$$
-                    </div>
-                    
-                    <p>Then integrate over the cube volume:</p>
-                    
-                    <div class="equation">
-                        $$\int_{-0.5}^{0.5} \int_{-0.5}^{0.5} \int_{-0.5}^{0.5} 2y \, dx\,dy\,dz = 2 \int_{-0.5}^{0.5} y \, dy \int_{-0.5}^{0.5} dx \int_{-0.5}^{0.5} dz = 2 \cdot 0 \cdot 1 \cdot 1 = 0$$
-                    </div>
-                    
-                    <p>This makes sense because the positive and negative contributions from the y-component cancel out.</p>
-                </div>
+            <p>In cylindrical coordinates:</p>
+            <div class="math-container">
+                \[
+                \nabla V = \frac{\partial V}{\partial \rho} \mathbf{a}_\rho + \frac{1}{\rho} \frac{\partial V}{\partial \phi} \mathbf{a}_\phi + \frac{\partial V}{\partial z} \mathbf{a}_z
+                \]
             </div>
-            
-            <div id="section6" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section6-content').style.display = 'block'">2.6 Electric potential, potential gradient</h2>
-                <div id="section6-content" class="section-content" style="display:block">
-                    <p><strong>Electric Potential</strong></p>
-                    
-                    <p>The electric potential at a point is defined as the work done per unit charge in bringing a positive test charge from infinity to that point without acceleration.</p>
-                    
-                    <p>For a point charge $Q$:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{Q}{4\pi\epsilon_0 r}$$
-                    </div>
-                    
-                    <p>For multiple point charges:</p>
-                    
-                    <div class="equation">
-                        $$V = \sum_{m=1}^{n} \frac{Q_m}{4\pi\epsilon_0 |\mathbf{r} - \mathbf{r}_m|}$$
-                    </div>
-                    
-                    <p>For continuous charge distributions:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{1}{4\pi\epsilon_0} \int \frac{\rho_v \, dV}{|\mathbf{r} - \mathbf{r}'|}$$
-                    </div>
-                    
-                    <p>For line charges:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{1}{4\pi\epsilon_0} \int \frac{\rho_L \, dL}{|\mathbf{r} - \mathbf{r}'|}$$
-                    </div>
-                    
-                    <p>For surface charges:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{1}{4\pi\epsilon_0} \int \frac{\rho_s \, dS}{|\mathbf{r} - \mathbf{r}'|}$$
-                    </div>
-                    
-                    <p><strong>Electric Potential Difference</strong></p>
-                    
-                    <p>The potential difference between two points $A$ and $B$ is:</p>
-                    
-                    <div class="equation">
-                        $$V_{AB} = V_A - V_B = -\int_B^A \mathbf{E} \cdot d\mathbf{l}$$
-                    </div>
-                    
-                    <p>where the integral is taken along any path from $B$ to $A$.</p>
-                    
-                    <p><strong>Potential Gradient</strong></p>
-                    
-                    <p>The electric field is related to the potential by the negative gradient:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = -\nabla V$$
-                    </div>
-                    
-                    <p>In Cartesian coordinates:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = -\left( \frac{\partial V}{\partial x} \mathbf{a}_x + \frac{\partial V}{\partial y} \mathbf{a}_y + \frac{\partial V}{\partial z} \mathbf{a}_z \right)$$
-                    </div>
-                    
-                    <p>In cylindrical coordinates:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = -\left( \frac{\partial V}{\partial \rho} \mathbf{a}_\rho + \frac{1}{\rho} \frac{\partial V}{\partial \phi} \mathbf{a}_\phi + \frac{\partial V}{\partial z} \mathbf{a}_z \right)$$
-                    </div>
-                    
-                    <p>In spherical coordinates:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = -\left( \frac{\partial V}{\partial r} \mathbf{a}_r + \frac{1}{r} \frac{\partial V}{\partial \theta} \mathbf{a}_\theta + \frac{1}{r \sin\theta} \frac{\partial V}{\partial \phi} \mathbf{a}_\phi \right)$$
-                    </div>
-                    
-                    <p><strong>Equipotential Surfaces</strong></p>
-                    
-                    <p>Equipotential surfaces are surfaces where the potential is constant. The electric field is always perpendicular to equipotential surfaces.</p>
-                    
-                    <p>For a point charge, equipotential surfaces are concentric spheres.</p>
-                    
-                    <p><strong>Example: Electric Potential due to a Dipole</strong></p>
-                    
-                    <p>For an electric dipole with charges $+Q$ and $-Q$ separated by distance $d$:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{Qd \cos\theta}{4\pi\epsilon_0 r^2} = \frac{\mathbf{p} \cdot \mathbf{a}_r}{4\pi\epsilon_0 r^2}$$
-                    </div>
-                    
-                    <p>where $\theta$ is the angle between the dipole axis and the line from the dipole center to the point of interest, and $r$ is the distance from the dipole center.</p>
-                    
-                    <p><strong>Example Problem:</strong></p>
-                    
-                    <p>Given a uniform line charge of 20 nC/m along the z-axis, find the potential difference between points $A(2,0,0)$ and $B(4,0,0)$.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Electric field due to line charge:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{\rho_L}{2\pi\epsilon_0 \rho} \mathbf{a}_\rho$$
-                    </div>
-                    
-                    <p>Potential difference:</p>
-                    
-                    <div class="equation">
-                        $$V_{AB} = -\int_B^A \mathbf{E} \cdot d\mathbf{l} = -\int_4^2 \frac{\rho_L}{2\pi\epsilon_0 \rho} d\rho = \frac{\rho_L}{2\pi\epsilon_0} \ln\left(\frac{4}{2}\right) = \frac{20 \times 10^{-9}}{2\pi \times 8.854 \times 10^{-12}} \ln(2) = 249.2 \, \text{V}$$
-                    </div>
-                </div>
-            </div>
-            
-            <div id="section7" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section7-content').style.display = 'block'">2.7 Energy density in electrostatic field</h2>
-                <div id="section7-content" class="section-content" style="display:block">
-                    <p><strong>Energy Density in Electrostatic Field</strong></p>
-                    
-                    <p>The energy stored in an electrostatic field is given by:</p>
-                    
-                    <div class="equation">
-                        $$W_E = \frac{1}{2} \int_V \mathbf{D} \cdot \mathbf{E} \, dV = \frac{1}{2} \int_V \epsilon E^2 \, dV$$
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>$\epsilon$ is the permittivity of the medium</li>
-                        <li>$E$ is the electric field intensity</li>
-                        <li>$\mathbf{D}$ is the electric flux density</li>
-                    </ul>
-                    
-                    <p>The energy density (energy per unit volume) is:</p>
-                    
-                    <div class="equation">
-                        $$w_E = \frac{1}{2} \mathbf{D} \cdot \mathbf{E} = \frac{1}{2} \epsilon E^2$$
-                    </div>
-                    
-                    <p><strong>Derivation of Energy Expression</strong></p>
-                    
-                    <p>Consider bringing charges from infinity to form a charge distribution. The work done in bringing each charge element $dQ$ to its position is:</p>
-                    
-                    <div class="equation">
-                        $$dW = V \, dQ$$
-                    </div>
-                    
-                    <p>where $V$ is the potential at that point due to all other charges.</p>
-                    
-                    <p>For a continuous charge distribution:</p>
-                    
-                    <div class="equation">
-                        $$W = \frac{1}{2} \int_V \rho_v V \, dV$$
-                    </div>
-                    
-                    <p>Using Gauss's law ($\nabla\cdot\mathbf{D} = \rho_v$) and vector identity:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot (V\mathbf{D}) = V(\nabla \cdot \mathbf{D}) + \mathbf{D} \cdot (\nabla V)$$
-                    </div>
-                    
-                    <p>and the fact that $\mathbf{E} = -\nabla V$, we get:</p>
-                    
-                    <div class="equation">
-                        $$W = \frac{1}{2} \int_V \mathbf{D} \cdot \mathbf{E} \, dV$$
-                    </div>
-                    
-                    <p><strong>Example: Energy Stored in a Parallel Plate Capacitor</strong></p>
-                    
-                    <p>For a parallel plate capacitor with plate area $S$, separation $d$, and potential difference $V$:</p>
-                    
-                    <div class="equation">
-                        $$E = \frac{V}{d} \quad \text{and} \quad \mathbf{D} = \epsilon \mathbf{E} = \frac{\epsilon V}{d}$$
-                    </div>
-                    
-                    <p>Energy stored:</p>
-                    
-                    <div class="equation">
-                        $$W_E = \frac{1}{2} \int_V \epsilon E^2 \, dV = \frac{1}{2} \epsilon \left(\frac{V}{d}\right)^2 S d = \frac{1}{2} \epsilon \frac{S}{d} V^2 = \frac{1}{2} C V^2$$
-                    </div>
-                    
-                    <p>where $C = \epsilon S/d$ is the capacitance of the parallel plate capacitor.</p>
-                    
-                    <p><strong>Example: Energy Stored in a Spherical Capacitor</strong></p>
-                    
-                    <p>For a spherical capacitor with inner radius $a$, outer radius $b$, and charge $Q$:</p>
-                    
-                    <div class="equation">
-                        $$E = \frac{Q}{4\pi\epsilon_0 r^2} \quad \text{for} \quad a < r < b$$
-                    </div>
-                    
-                    <p>Energy stored:</p>
-                    
-                    <div class="equation">
-                        $$W_E = \frac{1}{2} \int_a^b \epsilon_0 \left(\frac{Q}{4\pi\epsilon_0 r^2}\right)^2 4\pi r^2 dr = \frac{Q^2}{8\pi\epsilon_0} \int_a^b \frac{dr}{r^2} = \frac{Q^2}{8\pi\epsilon_0} \left(\frac{1}{a} - \frac{1}{b}\right)$$
-                    </div>
-                </div>
-            </div>
-            
-            <div id="section8" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section8-content').style.display = 'block'">2.8 Electric properties of material medium</h2>
-                <div id="section8-content" class="section-content" style="display:block">
-                    <p><strong>Electric Properties of Material Medium</strong></p>
-                    
-                    <p>When an electric field is applied to a material, the behavior depends on whether the material is a conductor or a dielectric.</p>
-                    
-                    <p><strong>Conductors</strong></p>
-                    
-                    <p>Properties of perfect conductors:</p>
-                    <ul>
-                        <li>No charge and no electric field may exist at any point within a conducting material</li>
-                        <li>The conductor surface is an equipotential surface</li>
-                        <li>The tangential component of an electric external field is zero</li>
-                        <li>The normal component of electric flux density is equal to surface charge density on the conductor surface</li>
-                    </ul>
-                    
-                    <p><strong>Dielectrics</strong></p>
-                    
-                    <p>Dielectric materials are insulators that can be polarized by an electric field. They store electric energy by means of a shift in the relative positions of the internal bound positive and negative charges against the normal molecular and atomic forces.</p>
-                    
-                    <p><strong>Polarization</strong></p>
-                    
-                    <p>Polarization is the phenomenon where the positive and negative charges in a dielectric shift positions slightly in response to an external electric field. The direction of polarization is from negative to positive charges.</p>
-                    
-                    <p>The dipole moment $\mathbf{p}$ is given by:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{p} = Q \mathbf{d}$$
-                    </div>
-                    
-                    <p>where $Q$ is the positive charge and $d$ is the vector from negative to positive charge.</p>
-                    
-                    <p>The polarization vector $\mathbf{P}$ is defined as the dipole moment per unit volume:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{P} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{p}_i}{\Delta V}$$
-                    </div>
-                    
-                    <p>For isotropic dielectric materials, the linear relationship between $\mathbf{P}$ and $\mathbf{E}$ is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{P} = \chi_e \epsilon_0 \mathbf{E}$$
-                    </div>
-                    
-                    <p>where $\chi_e$ (chi) is the electric susceptibility of the material (dimensionless).</p>
-                    
-                    <p><strong>Electric Displacement Field</strong></p>
-                    
-                    <p>The electric displacement field $\mathbf{D}$ is defined as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = \epsilon_0 \mathbf{E} + \mathbf{P}$$
-                    </div>
-                    
-                    <p>Substituting the expression for $\mathbf{P}$:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{D} = \epsilon_0 \mathbf{E} + \chi_e \epsilon_0 \mathbf{E} = \epsilon_0 (1 + \chi_e) \mathbf{E} = \epsilon \mathbf{E}$$
-                    </div>
-                    
-                    <p>where $\epsilon = \epsilon_r \epsilon_0$ is the permittivity of the material, and $\epsilon_r = 1 + \chi_e$ is the relative permittivity or dielectric constant.</p>
-                    
-                    <p><strong>Relative Permittivity</strong></p>
-                    
-                    <p>Relative permittivity ($\epsilon_r$) is a dimensionless quantity that measures how much the electric field is reduced inside the material compared to vacuum.</p>
-                    
-                    <p>For vacuum, $\epsilon_r = 1$</p>
-                    <p>For air, $\epsilon_r \approx 1$</p>
-                    <p>For glass, $\epsilon_r \approx 5-10$</p>
-                    <p>For water, $\epsilon_r \approx 80$</p>
-                    
-                    <p><strong>Electric Dipole</strong></p>
-                    
-                    <p>An electric dipole consists of two equal and opposite charges separated by a small distance. The dipole moment $\mathbf{p} = Q\mathbf{d}$ points from the negative charge to the positive charge.</p>
-                    
-                    <p>For a dipole at the origin, the potential at a point $(r, \theta)$ is:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{Qd \cos\theta}{4\pi\epsilon_0 r^2} = \frac{\mathbf{p} \cdot \mathbf{a}_r}{4\pi\epsilon_0 r^2}$$
-                    </div>
-                    
-                    <p>and the electric field is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{E} = \frac{p}{4\pi\epsilon_0 r^3} (2\cos\theta \mathbf{a}_r + \sin\theta \mathbf{a}_\theta)$$
-                    </div>
-                </div>
-            </div>
-            
-            <div id="section9" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section9-content').style.display = 'block'">2.9 Free and bound charges, polarization, relative permittivity, electric dipole, electric boundary conditions</h2>
-                <div id="section9-content" class="section-content" style="display:block">
-                    <p><strong>Free and Bound Charges</strong></p>
-                    
-                    <p><strong>Free charges</strong> are charges that can move freely within a material (e.g., electrons in a conductor).</p>
-                    
-                    <p><strong>Bound charges</strong> are charges that are bound to atoms or molecules and cannot move freely (e.g., charges in a dielectric material).</p>
-                    
-                    <p>In dielectric materials, bound charges are responsible for polarization when an electric field is applied.</p>
-                    
-                    <p><strong>Polarization</strong></p>
-                    
-                    <p>Polarization is the process by which a dielectric material becomes polarized in the presence of an electric field. The polarization vector $\mathbf{P}$ is defined as the dipole moment per unit volume.</p>
-                    
-                    <p><strong>Bound Surface Charge Density</strong></p>
-                    
-                    <p>When a dielectric is polarized, bound charges appear on the surface of the dielectric:</p>
-                    
-                    <div class="equation">
-                        $$\rho_{s,b} = \mathbf{P} \cdot \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>where $\mathbf{a}_n$ is the unit normal vector pointing outward from the dielectric.</p>
-                    
-                    <p><strong>Bound Volume Charge Density</strong></p>
-                    
-                    <p>Bound charges can also appear in the volume of the dielectric:</p>
-                    
-                    <div class="equation">
-                        $$\rho_{v,b} = -\nabla \cdot \mathbf{P}$$
-                    </div>
-                    
-                    <p><strong>Relative Permittivity</strong></p>
-                    
-                    <p>Relative permittivity ($\epsilon_r$) is a measure of how much the electric field is reduced inside the material compared to vacuum. It is related to the susceptibility by:</p>
-                    
-                    <div class="equation">
-                        $$\epsilon_r = 1 + \chi_e$$
-                    </div>
-                    
-                    <p>It is also called the dielectric constant.</p>
-                    
-                    <p><strong>Electric Dipole</strong></p>
-                    
-                    <p>An electric dipole consists of two equal and opposite charges separated by a small distance. The dipole moment $\mathbf{p} = Q\mathbf{d}$ points from the negative charge to the positive charge.</p>
-                    
-                    <p><strong>Electric Boundary Conditions</strong></p>
-                    
-                    <p><strong>Boundary Conditions at Dielectric-Dielectric Interface</strong></p>
-                    
-                    <p>At the interface between two dielectrics with permittivities $\epsilon_1$ and $\epsilon_2$:</p>
-                    
-                    <p><strong>Tangential Components:</strong></p>
-                    
-                    <div class="equation">
-                        $$E_{t1} = E_{t2}$$
-                    </div>
-                    
-                    <p>or</p>
-                    
-                    <div class="equation">
-                        $$\frac{D_{t1}}{\epsilon_1} = \frac{D_{t2}}{\epsilon_2}$$
-                    </div>
-                    
-                    <p><strong>Normal Components:</strong></p>
-                    
-                    <div class="equation">
-                        $$D_{n1} = D_{n2} \quad \text{(if no free surface charge)}$$
-                    </div>
-                    
-                    <p>or</p>
-                    
-                    <div class="equation">
-                        $$\epsilon_1 E_{n1} = \epsilon_2 E_{n2}$$
-                    </div>
-                    
-                    <p><strong>Boundary Conditions at Conductor-Free Space Interface</strong></p>
-                    
-                    <p>At the interface between a conductor and free space:</p>
-                    
-                    <ul>
-                        <li>Tangential component of $\mathbf{E}$: $E_t = 0$</li>
-                        <li>Normal component of $\mathbf{D}$: $D_n = \rho_s$</li>
-                        <li>Normal component of $\mathbf{E}$: $E_n = \rho_s/\epsilon_0$</li>
-                    </ul>
-                    
-                    <p><strong>Refraction of Electric Field at Dielectric Interface</strong></p>
-                    
-                    <p>When an electric field crosses a dielectric interface, it refracts according to:</p>
-                    
-                    <div class="equation">
-                        $$\tan\theta_1 = \frac{\epsilon_1}{\epsilon_2} \tan\theta_2$$
-                    </div>
-                    
-                    <p>where $\theta_1$ and $\theta_2$ are the angles between the electric field and the normal to the interface in the two media.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://i.imgur.com/2qYjKcD.png" alt="Refraction of Electric Field" width="400">
-                        <div class="image-caption">Figure: Refraction of $\mathbf{D}$ at a dielectric interface</div>
-                    </div>
-                    
-                    <p><strong>Example Problem:</strong></p>
-                    
-                    <p>Consider two dielectric regions with $\epsilon_1 = 3.2\epsilon_0$ for $z < 0$ and $\epsilon_2 = 2\epsilon_0$ for $z > 0$. Given $\mathbf{D}_1 = -30\mathbf{a}_x + 50\mathbf{a}_y + 70\mathbf{a}_z$ nC/m², find:</p>
-                    <ul>
-                        <li>$\mathbf{D}_2$</li>
-                        <li>Angle between $\mathbf{D}_1$ and normal</li>
-                        <li>Angle between $\mathbf{D}_2$ and normal</li>
-                    </ul>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Normal component of $\mathbf{D}_1$:</p>
-                    
-                    <div class="equation">
-                        $$D_{n1} = \mathbf{D}_1 \cdot \mathbf{a}_z = 70 \, \text{nC/m}^2$$
-                    </div>
-                    
-                    <p>Since $D_{n1} = D_{n2}$:</p>
-                    
-                    <div class="equation">
-                        $$D_{n2} = 70 \, \text{nC/m}^2$$
-                    </div>
-                    
-                    <p>Tangential component of $\mathbf{D}_1$:</p>
-                    
-                    <div class="equation">
-                        $$D_{t1} = -30\mathbf{a}_x + 50\mathbf{a}_y \, \text{nC/m}^2$$
-                    </div>
-                    
-                    <p>Since $\mathbf{D}_t = \epsilon\mathbf{E}_t$ and $\mathbf{E}_t$ is continuous:</p>
-                    
-                    <div class="equation">
-                        $$\frac{D_{t1}}{\epsilon_1} = \frac{D_{t2}}{\epsilon_2} \quad \Rightarrow \quad D_{t2} = D_{t1} \frac{\epsilon_2}{\epsilon_1} = (-30\mathbf{a}_x + 50\mathbf{a}_y) \frac{2}{3.2} = (-18.75\mathbf{a}_x + 31.25\mathbf{a}_y) \, \text{nC/m}^2$$
-                    </div>
-                    
-                    <p>So $\mathbf{D}_2 = -18.75\mathbf{a}_x + 31.25\mathbf{a}_y + 70\mathbf{a}_z$ nC/m²</p>
-                    
-                    <p>Angle between $\mathbf{D}_1$ and normal:</p>
-                    
-                    <div class="equation">
-                        $$\theta_1 = \cos^{-1}\left(\frac{D_{n1}}{|\mathbf{D}_1|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-30)^2 + 50^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{91.1}\right) = 39.79^\circ$$
-                    </div>
-                    
-                    <p>Angle between $\mathbf{D}_2$ and normal:</p>
-                    
-                    <div class="equation">
-                        $$\theta_2 = \cos^{-1}\left(\frac{D_{n2}}{|\mathbf{D}_2|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-18.75)^2 + 31.25^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{78.9}\right) = 27.47^\circ$$
-                    </div>
-                </div>
-            </div>
-            
-            <div id="section10" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section10-content').style.display = 'block'">2.10 Current, current density, conservation of charge, relaxation time continuity equation</h2>
-                <div id="section10-content" class="section-content" style="display:block">
-                    <p><strong>Current and Current Density</strong></p>
-                    
-                    <p><strong>Electric Current</strong> is the rate of movement of charge passing a given reference point. The unit of current is the ampere (A), defined as one coulomb per second.</p>
-                    
-                    <div class="equation">
-                        $$I = \frac{dQ}{dt}$$
-                    </div>
-                    
-                    <p><strong>Current Density</strong> is defined as the current passing through a unit surface area. It is a vector quantity with direction of current flow and unit A/m².</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{J} = \rho_v \mathbf{v}$$
-                    </div>
-                    
-                    <p>where $\rho_v$ is the volume charge density and $\mathbf{v}$ is the velocity of charges.</p>
-                    
-                    <p>The total current is:</p>
-                    
-                    <div class="equation">
-                        $$I = \int_S \mathbf{J} \cdot d\mathbf{S}$$
-                    </div>
-                    
-                    <p><strong>Principle of Conservation of Charge</strong></p>
-                    
-                    <p>The principle of conservation of charge states that charges can be neither created nor destroyed, although equal amounts of positive and negative charge may be simultaneously created or lost.</p>
-                    
-                    <p><strong>Continuity Equation</strong></p>
-                    
-                    <p>The continuity equation is based on the principle of conservation of charge. For a closed surface:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{J} \cdot d\mathbf{S} = -\frac{dQ}{dt}$$
-                    </div>
-                    
-                    <p>In differential form:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{J} = -\frac{\partial \rho_v}{\partial t}$$
-                    </div>
-                    
-                    <p><strong>Relaxation Time Constant</strong></p>
-                    
-                    <p>For a conductor, any charge placed inside the conductor moves toward the surface and eventually appears on the surface. The time constant that shows how fast the charges decay at a point within the conductor is called the relaxation time constant (RTC).</p>
-                    
-                    <p>For a conductor with conductivity $\sigma$ and permittivity $\epsilon$:</p>
-                    
-                    <div class="equation">
-                        $$\tau = \frac{\epsilon}{\sigma}$$
-                    </div>
-                    
-                    <p>When $t = \tau$, the charge density decays to 37% of its initial value.</p>
-                    
-                    <p><strong>Point Form of Ohm's Law</strong></p>
-                    
-                    <p>Ohm's law in point form relates current density to electric field:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{J} = \sigma \mathbf{E}$$
-                    </div>
-                    
-                    <p>where $\sigma$ is the conductivity of the material.</p>
-                    
-                    <p><strong>Example: Relaxation Time Constant</strong></p>
-                    
-                    <p>For copper ($\sigma = 5.8 \times 10^7$ S/m, $\epsilon = \epsilon_0 = 8.854 \times 10^{-12}$ F/m):</p>
-                    
-                    <div class="equation">
-                        $$\tau = \frac{\epsilon_0}{\sigma} = \frac{8.854 \times 10^{-12}}{5.8 \times 10^7} = 1.53 \times 10^{-19} \, \text{s}$$
-                    </div>
-                    
-                    <p>This extremely short time constant shows that charges in a conductor quickly redistribute to the surface.</p>
-                    
-                    <p><strong>Example: Current Density</strong></p>
-                    
-                    <p>Consider a wire of cross-sectional area $A = 1$ mm² carrying a current $I = 10$ A. The current density is:</p>
-                    
-                    <div class="equation">
-                        $$J = \frac{I}{A} = \frac{10}{1 \times 10^{-6}} = 10^7 \, \text{A/m}^2$$
-                    </div>
-                    
-                    <p>If the wire is made of copper with conductivity $\sigma = 5.8 \times 10^7$ S/m, the electric field is:</p>
-                    
-                    <div class="equation">
-                        $$E = \frac{J}{\sigma} = \frac{10^7}{5.8 \times 10^7} = 0.172 \, \text{V/m}$$
-                    </div>
-                </div>
-            </div>
-            
-            <div id="section11" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section11-content').style.display = 'block'">2.11 Boundary value problems, Laplace and Poisson equations and their solutions, uniqueness theorem</h2>
-                <div id="section11-content" class="section-content" style="display:block">
-                    <p><strong>Poisson's and Laplace's Equations</strong></p>
-                    
-                    <p><strong>Poisson's Equation</strong></p>
-                    
-                    <p>From the point form of Gauss's law ($\nabla\cdot\mathbf{D} = \rho_v$) and $\mathbf{D} = \epsilon\mathbf{E}$, and $\mathbf{E} = -\nabla V$:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot (\epsilon \mathbf{E}) = \rho_v$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot (-\epsilon \nabla V) = \rho_v$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$-\epsilon \nabla^2 V = \rho_v$$
-                    </div>
-                    
-                    <div class="equation">
-                        $$\nabla^2 V = -\frac{\rho_v}{\epsilon}$$
-                    </div>
-                    
-                    <p>This is Poisson's equation, which is true for a homogeneous region in which $\epsilon$ is constant.</p>
-                    
-                    <p><strong>Laplace's Equation</strong></p>
-                    
-                    <p>If there is no volume charge density ($\rho_v = 0$), Poisson's equation reduces to Laplace's equation:</p>
-                    
-                    <div class="equation">
-                        $$\nabla^2 V = 0$$
-                    </div>
-                    
-                    <p><strong>Laplace's Equation in Different Coordinate Systems</strong></p>
-                    
-                    <p><strong>Cartesian Coordinates:</strong></p>
-                    
-                    <div class="equation">
-                        $$\frac{\partial^2 V}{\partial x^2} + \frac{\partial^2 V}{\partial y^2} + \frac{\partial^2 V}{\partial z^2} = 0$$
-                    </div>
-                    
-                    <p><strong>Cylindrical Coordinates:</strong></p>
-                    
-                    <div class="equation">
-                        $$\frac{1}{\rho} \frac{\partial}{\partial \rho} \left(\rho \frac{\partial V}{\partial \rho}\right) + \frac{1}{\rho^2} \frac{\partial^2 V}{\partial \phi^2} + \frac{\partial^2 V}{\partial z^2} = 0$$
-                    </div>
-                    
-                    <p><strong>Spherical Coordinates:</strong></p>
-                    
-                    <div class="equation">
-                        $$\frac{1}{r^2} \frac{\partial}{\partial r} \left(r^2 \frac{\partial V}{\partial r}\right) + \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left(\sin\theta \frac{\partial V}{\partial \theta}\right) + \frac{1}{r^2 \sin^2\theta} \frac{\partial^2 V}{\partial \phi^2} = 0$$
-                    </div>
-                    
-                    <p><strong>Uniqueness Theorem</strong></p>
-                    
-                    <p>The uniqueness theorem states that the solution to Laplace's or Poisson's equation is unique if the potential is specified on all boundaries of the region.</p>
-                    
-                    <p><strong>Proof for Laplace's Equation</strong></p>
-                    
-                    <p>Assume two solutions $V_1$ and $V_2$ exist for Laplace's equation with the same boundary conditions.</p>
-                    
-                    <p>Let $V = V_1 - V_2$. Then $\nabla^2 V = 0$ and $V = 0$ on all boundaries.</p>
-                    
-                    <p>Using vector identity:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot (V \nabla V) = V \nabla^2 V + (\nabla V) \cdot (\nabla V)$$
-                    </div>
-                    
-                    <p>Integrating over volume:</p>
-                    
-                    <div class="equation">
-                        $$\int_V \nabla \cdot (V \nabla V) \, dV = \int_V V \nabla^2 V \, dV + \int_V (\nabla V) \cdot (\nabla V) \, dV$$
-                    </div>
-                    
-                    <p>Using divergence theorem on left side and $\nabla^2 V = 0$:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S V \nabla V \cdot d\mathbf{S} = \int_V |\nabla V|^2 \, dV$$
-                    </div>
-                    
-                    <p>Since $V = 0$ on all boundaries, left side is zero:</p>
-                    
-                    <div class="equation">
-                        $$\int_V |\nabla V|^2 \, dV = 0$$
-                    </div>
-                    
-                    <p>This implies $\nabla V = 0$ everywhere, so $V = \text{constant}$. But since $V = 0$ on boundaries, the constant must be zero, so $V_1 = V_2$.</p>
-                    
-                    <p><strong>Boundary Value Problems</strong></p>
-                    
-                    <p><strong>One-Dimensional Boundary Value Problems</strong></p>
-                    
-                    <p><strong>Parallel Plate Capacitor</strong></p>
-                    
-                    <p>Consider a parallel plate capacitor with potential $V_0$ on one plate and zero on the other. Laplace's equation in one dimension:</p>
-                    
-                    <div class="equation">
-                        $$\frac{d^2 V}{dx^2} = 0$$
-                    </div>
-                    
-                    <p>Integrating twice:</p>
-                    
-                    <div class="equation">
-                        $$V = Ax + B$$
-                    </div>
-                    
-                    <p>Applying boundary conditions $V(0) = 0$ and $V(d) = V_0$:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{V_0}{d} x$$
-                    </div>
-                    
-                    <p><strong>Coaxial Capacitor</strong></p>
-                    
-                    <p>For a coaxial capacitor with inner radius $a$, outer radius $b$, and potential $V_0$ between them:</p>
-                    
-                    <div class="equation">
-                        $$\frac{1}{\rho} \frac{d}{d\rho} \left(\rho \frac{dV}{d\rho}\right) = 0$$
-                    </div>
-                    
-                    <p>Solving:</p>
-                    
-                    <div class="equation">
-                        $$V = A \ln \rho + B$$
-                    </div>
-                    
-                    <p>Applying boundary conditions $V(a) = V_0$ and $V(b) = 0$:</p>
-                    
-                    <div class="equation">
-                        $$V = V_0 \frac{\ln(b/\rho)}{\ln(b/a)}$$
-                    </div>
-                    
-                    <p><strong>Spherical Capacitor</strong></p>
-                    
-                    <p>For a spherical capacitor with inner radius $a$, outer radius $b$, and potential $V_0$ between them:</p>
-                    
-                    <div class="equation">
-                        $$\frac{1}{r^2} \frac{d}{dr} \left(r^2 \frac{dV}{dr}\right) = 0$$
-                    </div>
-                    
-                    <p>Solving:</p>
-                    
-                    <div class="equation">
-                        $$V = \frac{A}{r} + B$$
-                    </div>
-                    
-                    <p>Applying boundary conditions $V(a) = V_0$ and $V(b) = 0$:</p>
-                    
-                    <div class="equation">
-                        $$V = V_0 \frac{(1/r - 1/b)}{(1/a - 1/b)}$$
-                    </div>
-                    
-                    <p><strong>Capacitance Calculation</strong></p>
-                    
-                    <p>For a parallel plate capacitor:</p>
-                    
-                    <div class="equation">
-                        $$C = \frac{\epsilon S}{d}$$
-                    </div>
-                    
-                    <p>For a coaxial capacitor:</p>
-                    
-                    <div class="equation">
-                        $$C = \frac{2\pi \epsilon L}{\ln(b/a)}$$
-                    </div>
-                    
-                    <p>For a spherical capacitor:</p>
-                    
-                    <div class="equation">
-                        $$C = \frac{4\pi \epsilon}{(1/a - 1/b)}$$
-                    </div>
-                    
-                    <p><strong>Example Problem: Parallel Plate Capacitor</strong></p>
-                    
-                    <p>Find the capacitance of a parallel plate capacitor with plate area 0.1 m², separation 1 mm, and dielectric with $\epsilon_r = 5$.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <div class="equation">
-                        $$C = \frac{\epsilon S}{d} = \frac{5 \times 8.854 \times 10^{-12} \times 0.1}{0.001} = 4.427 \times 10^{-9} \, \text{F} = 4.427 \, \text{nF}$$
-                    </div>
-                </div>
+            <p>In spherical coordinates:</p>
+            <div class="math-container">
+                \[
+                \nabla V = \frac{\partial V}{\partial r} \mathbf{a}_r + \frac{1}{r} \frac{\partial V}{\partial \theta} \mathbf{a}_\theta + \frac{1}{r \sin \theta} \frac{\partial V}{\partial \phi} \mathbf{a}_\phi
+                \]
             </div>
         </div>
+
+        <div id="2_7" class="section">
+            <h2>2.7 Energy density in electrostatic field</h2>
+            <p>The energy stored in an electrostatic field can be calculated by considering the work done to assemble the charge distribution.</p>
+            
+            <h3>Energy in Terms of Charge and Potential</h3>
+            <p>For a system of discrete point charges:</p>
+            <div class="math-container">
+                \[
+                W_E = \frac{1}{2} \sum_{m=1}^n Q_m V_m
+                \]
+            </div>
+            <p>For a continuous charge distribution:</p>
+            <div class="math-container">
+                \[
+                W_E = \frac{1}{2} \int_V \rho_V V  dV
+                \]
+            </div>
+            
+            <h3>Energy Density</h3>
+            <p>The energy can also be expressed in terms of the electric field:</p>
+            <div class="math-container">
+                \[
+                W_E = \frac{1}{2} \int_V \mathbf{D} \cdot \mathbf{E}  dV = \frac{1}{2} \int_V \varepsilon E^2  dV
+                \]
+            </div>
+            <p>The energy density (energy per unit volume) is:</p>
+            <div class="math-container">
+                \[
+                w_E = \frac{1}{2} \mathbf{D} \cdot \mathbf{E} = \frac{1}{2} \varepsilon E^2
+                \]
+            </div>
+        </div>
+
+        <div id="2_8" class="section">
+            <h2>2.8 Electric properties of material medium</h2>
+            <p>Materials can be classified based on their electrical properties:</p>
+            <ul>
+                <li><strong>Conductors:</strong> Materials with high conductivity (\(\sigma\)) that allow free movement of charges.</li>
+                <li><strong>Dielectrics (Insulators):</strong> Materials with low conductivity that can be polarized by an electric field.</li>
+                <li><strong>Semiconductors:</strong> Materials with intermediate conductivity that can be controlled.</li>
+            </ul>
+            
+            <h3>Conductivity</h3>
+            <p>Conductivity \(\sigma\) is a measure of a material's ability to conduct electric current. Ohm's law in point form is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{J} = \sigma \mathbf{E}
+                \]
+            </div>
+            <p>where \(\mathbf{J}\) is the current density.</p>
+        </div>
+
+        <div id="2_9" class="section">
+            <h2>2.9 Free and bound charges, polarization, relative permittivity, electric dipole, electric boundary conditions</h2>
+            
+            <h3>Free and Bound Charges</h3>
+            <p>Free charges are those that can move freely (e.g., electrons in a conductor). Bound charges are associated with atoms or molecules in dielectric materials and can only shift slightly under an electric field.</p>
+            
+            <h3>Polarization</h3>
+            <p>When a dielectric is placed in an electric field, the molecules become polarized, creating electric dipoles. The polarization \(\mathbf{P}\) is defined as the dipole moment per unit volume:</p>
+            <div class="math-container">
+                \[
+                \mathbf{P} = \lim_{\Delta v \to 0} \frac{\sum \mathbf{p}_i}{\Delta v}
+                \]
+            </div>
+            <p>where \(\mathbf{p}_i = Q \mathbf{d}\) is the dipole moment of an individual dipole.</p>
+            
+            <h3>Relative Permittivity</h3>
+            <p>For linear isotropic dielectrics, \(\mathbf{P} = \chi_e \varepsilon_0 \mathbf{E}\), where \(\chi_e\) is the electric susceptibility. The relative permittivity is:</p>
+            <div class="math-container">
+                \[
+                \varepsilon_r = 1 + \chi_e
+                \]
+            </div>
+            <p>The relationship between \(\mathbf{D}\), \(\mathbf{E}\), and \(\mathbf{P}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{D} = \varepsilon_0 \mathbf{E} + \mathbf{P} = \varepsilon_0 \varepsilon_r \mathbf{E}
+                \]
+            </div>
+            
+            <h3>Electric Dipole</h3>
+            <p>An electric dipole consists of two equal and opposite charges separated by a small distance. The dipole moment is \(\mathbf{p} = Q \mathbf{d}\), where \(\mathbf{d}\) is the vector from the negative to the positive charge.</p>
+            
+            <h3>Electric Boundary Conditions</h3>
+            <p>At the interface between two different media:</p>
+            <ul>
+                <li><strong>Tangential component of E:</strong> \(E_{t1} = E_{t2}\)</li>
+                <li><strong>Normal component of D:</strong> \(D_{n1} - D_{n2} = \rho_S\) (where \(\rho_S\) is the surface charge density)</li>
+                <li>If no free surface charge exists, \(D_{n1} = D_{n2}\)</li>
+            </ul>
+            <p>For the interface between a conductor and a dielectric, the tangential component of \(\mathbf{E}\) is zero, and the normal component of \(\mathbf{D}\) equals the surface charge density on the conductor.</p>
+        </div>
+
+        <div id="2_10" class="section">
+            <h2>2.10 Current, current density, conservation of charge, relaxation time continuity equation</h2>
+            
+            <h3>Current and Current Density</h3>
+            <p>Electric current is the rate of flow of charge: \(I = \frac{dQ}{dt}\). Current density \(\mathbf{J}\) is current per unit area: \(dI = \mathbf{J} \cdot d\mathbf{S}\). For convection current, \(\mathbf{J} = \rho_v \mathbf{v}\), where \(\mathbf{v}\) is the velocity of charge carriers.</p>
+            
+            <h3>Conservation of Charge</h3>
+            <p>Charge can neither be created nor destroyed. The continuity equation expresses this principle:</p>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{J} = -\frac{\partial \rho_v}{\partial t}
+                \]
+            </div>
+            <p>In integral form:</p>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{J} \cdot d\mathbf{S} = -\frac{dQ}{dt}
+                \]
+            </div>
+            <p>For steady currents, \(\frac{\partial \rho_v}{\partial t} = 0\), so \(\nabla \cdot \mathbf{J} = 0\).</p>
+            
+            <h3>Relaxation Time</h3>
+            <p>In a conductor, any charge placed inside will move to the surface. The relaxation time constant \(\tau\) is the time for the charge density to decay to \(1/e\) of its initial value:</p>
+            <div class="math-container">
+                \[
+                \tau = \frac{\varepsilon}{\sigma}
+                \]
+            </div>
+            <p>where \(\varepsilon\) is the permittivity and \(\sigma\) is the conductivity of the material.</p>
+        </div>
+
+        <div id="2_11" class="section">
+            <h2>2.11 Boundary value problems, Laplace and Poisson equations and their solutions, uniqueness theorem</h2>
+            
+            <h3>Poisson's and Laplace's Equations</h3>
+            <p>From Gauss's law and the relationship \(\mathbf{E} = -\nabla V\), we derive Poisson's equation:</p>
+            <div class="math-container">
+                \[
+                \nabla^2 V = -\frac{\rho_v}{\varepsilon}
+                \]
+            </div>
+            <p>When \(\rho_v = 0\), this reduces to Laplace's equation:</p>
+            <div class="math-container">
+                \[
+                \nabla^2 V = 0
+                \]
+            </div>
+            
+            <h3>Laplace's Equation in Different Coordinate Systems</h3>
+            <ul>
+                <li><strong>Rectangular:</strong> \(\nabla^2 V = \frac{\partial^2 V}{\partial x^2} + \frac{\partial^2 V}{\partial y^2} + \frac{\partial^2 V}{\partial z^2} = 0\)</li>
+                <li><strong>Cylindrical:</strong> \(\nabla^2 V = \frac{1}{\rho} \frac{\partial}{\partial \rho} \left( \rho \frac{\partial V}{\partial \rho} \right) + \frac{1}{\rho^2} \frac{\partial^2 V}{\partial \phi^2} + \frac{\partial^2 V}{\partial z^2} = 0\)</li>
+                <li><strong>Spherical:</strong> \(\nabla^2 V = \frac{1}{r^2} \frac{\partial}{\partial r} \left( r^2 \frac{\partial V}{\partial r} \right) + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial V}{\partial \theta} \right) + \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2 V}{\partial \phi^2} = 0\)</li>
+            </ul>
+            
+            <h3>Uniqueness Theorem</h3>
+            <p>The uniqueness theorem states that if a solution to Laplace's or Poisson's equation satisfies the given boundary conditions, it is the only solution. This is proven by assuming two solutions \(V_1\) and \(V_2\) and showing that their difference must be zero.</p>
+            
+            <h3>Boundary Value Problems</h3>
+            <p>Boundary value problems involve solving Laplace's or Poisson's equation subject to specified boundary conditions. Common types include:</p>
+            <ul>
+                <li><strong>Dirichlet problem:</strong> Potential is specified on the boundary.</li>
+                <li><strong>Neumann problem:</strong> Normal derivative of potential (related to surface charge density) is specified on the boundary.</li>
+            </ul>
+            
+            <h3>Examples</h3>
+            <p><strong>Parallel-plate capacitor:</strong> For plates at \(x=0\) (V=0) and \(x=d\) (V=V₀), the solution is \(V = \frac{V_0}{d} x\).</p>
+            <p><strong>Coaxial capacitor:</strong> For inner conductor at \(\rho=a\) (V=V₀) and outer conductor at \(\rho=b\) (V=0), the solution is \(V = V_0 \frac{\ln(b/\rho)}{\ln(b/a)}\).</p>
+            <p><strong>Spherical capacitor:</strong> For inner sphere at \(r=a\) (V=V₀) and outer sphere at \(r=b\) (V=0), the solution is \(V = V_0 \frac{(1/r - 1/b)}{(1/a - 1/b)}\).</p>
+        </div>
     </div>
-</body>
-</html>
+
 
 
 <!-- <==================chapter 3 ==================> -->
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 3: Magnetic Field</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
+
+    <div id="chapter_3">
+        <h1>3. Magnetic Field (9 hours)</h1>
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .chapter {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .chapter-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        
-        .section {
-            margin-bottom: 25px;
-        }
-        
-        .section-title {
-            font-size: 1.4em;
-            color: #2980b9;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        
-        .section-content {
-            margin-left: 15px;
-            padding-bottom: 15px;
-            display: block;
-        }
-        
-        .equation {
-            background: #f9f9f9;
-            border-left: 4px solid #3498db;
-            padding: 10px 15px;
-            margin: 10px 0;
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: auto;
-            white-space: pre-wrap;
-        }
-        
-        .example {
-            background: #e8f4fc;
-            border: 1px solid #bde0fe;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .navigation {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .nav-item {
-            display: inline-block;
-        }
-        
-        .nav-link {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            background: #3498db;
-        }
-        
-        .nav-link.active {
-            background: #3498db;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-        
-        .image-caption {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        .problem {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        
-        .problem-title {
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                font-size: 13px;
-            }
+        <li><a href="#3_1" class="topic-link">3.1 Biot-Savart's law</a></li>
+        <li><a href="#3_2" class="topic-link">3.2 Magnetic field intensity</a></li>
+        <li><a href="#3_3" class="topic-link">3.3 Ampere's circuital law and its application</a></li>
+        <li><a href="#3_4" class="topic-link">3.4 Magnetic flux density</a></li>
+        <li><a href="#3_5" class="topic-link">3.5 Physical significance of curl, Stoke's theorem</a></li>
+        <li><a href="#3_6" class="topic-link">3.6 Scalar and magnetic vector potential</a></li>
+        <li><a href="#3_7" class="topic-link">3.7 Magnetic properties of material medium</a></li>
+        <li><a href="#3_8" class="topic-link">3.8 Magnetic force, magnetic torque, magnetic moment, magnetization</a></li>
+        <li><a href="#3_9" class="topic-link">3.9 Magnetic boundary condition</a></li>
+
+        <div id="3_1" class="section">
+            <h2>3.1 Biot-Savart's law</h2>
+            <p>Biot-Savart's law describes the magnetic field generated by a steady current. It is fundamental for calculating the magnetic field due to various current distributions.</p>
             
-            .container {
-                padding: 10px;
-            }
+            <h3>Statement of Biot-Savart's Law</h3>
+            <p>The magnetic field intensity \(d\mathbf{H}\) at a point P due to a differential current element \(I d\mathbf{l}\) is:</p>
+            <div class="math-container">
+                \[
+                d\mathbf{H} = \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}
+                \]
+            </div>
+            <p>where:</p>
+            <ul>
+                <li>\(I\) is the steady current (A)</li>
+                <li>\(d\mathbf{l}\) is the differential length vector in the direction of current (m)</li>
+                <li>\(\mathbf{a}_R\) is the unit vector from the current element to point P</li>
+                <li>\(R\) is the distance from the current element to point P (m)</li>
+            </ul>
             
-            .chapter-title {
-                font-size: 1.5em;
-            }
+            <h3>Magnetic Field Due to an Infinitely Long Straight Conductor</h3>
+            <p>For an infinitely long straight conductor carrying current \(I\), the magnetic field intensity at a perpendicular distance \(\rho\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                \]
+            </div>
+            <p>This result is derived by integrating the Biot-Savart law along the entire length of the conductor.</p>
             
-            .section-title {
-                font-size: 1.2em;
-            }
+            <h3>Example Calculation</h3>
+            <p>A current filament of 5 A in the \(\mathbf{a}_y\) direction is parallel to the y-axis at \(x=2\) m, \(z=-2\) m. Find \(\mathbf{H}\) at the origin.</p>
+            <p>Solution:</p>
+            <div class="math-container">
+                \[
+                \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                \]
+            </div>
+            <p>where \(\rho = \sqrt{(0-2)^2 + (0-(-2))^2} = \sqrt{8} = 2\sqrt{2}\) m</p>
+            <div class="math-container">
+                \[
+                \mathbf{a}_\phi = \mathbf{a}_y \times \mathbf{a}_\rho = \mathbf{a}_y \times \frac{-2\mathbf{a}_x + 2\mathbf{a}_z}{2\sqrt{2}} = \frac{\mathbf{a}_x + \mathbf{a}_z}{\sqrt{2}}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \mathbf{H} = \frac{5}{2\pi \cdot 2\sqrt{2}} \cdot \frac{\mathbf{a}_x + \mathbf{a}_z}{\sqrt{2}} = \frac{5}{8\pi} (\mathbf{a}_x + \mathbf{a}_z) \, \text{A/m}
+                \]
+            </div>
+        </div>
+
+        <div id="3_2" class="section">
+            <h2>3.2 Magnetic field intensity</h2>
+            <p>Magnetic field intensity \(\mathbf{H}\) is a vector quantity that describes the strength and direction of a magnetic field at a point in space.</p>
             
-            .nav-list {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 12px;
-            }
+            <h3>Definition</h3>
+            <p>Magnetic field intensity \(\mathbf{H}\) is related to the source currents and is measured in amperes per meter (A/m). In free space, it is related to the magnetic flux density \(\mathbf{B}\) by:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \mu_0 \mathbf{H}
+                \]
+            </div>
+            <p>where \(\mu_0 = 4\pi \times 10^{-7}\) H/m is the permeability of free space.</p>
             
-            .equation {
-                font-size: 0.9em;
-            }
+            <h3>Magnetic Field Due to Various Current Distributions</h3>
+            <ul>
+                <li><strong>Infinitely long straight conductor:</strong> \(\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi\)</li>
+                <li><strong>Circular loop of radius \(a\) on xy-plane, centered at origin:</strong> At a point on the axis (z-axis), \(\mathbf{H} = \frac{Ia^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z\)</li>
+                <li><strong>Solenoid with \(n\) turns per unit length:</strong> Inside the solenoid, \(\mathbf{H} = nI \mathbf{a}_z\) (approximately uniform)</li>
+            </ul>
             
-            .section-content {
-                margin-left: 5px;
-            }
-        }
-        
-        .math-inline {
-            font-family: 'Cambria Math', 'Segoe UI Symbol', serif;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="navigation">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="#section1" class="nav-link active">3.1 Biot-Savart's law</a></li>
-                <li class="nav-item"><a href="#section2" class="nav-link">3.2 Magnetic field intensity</a></li>
-                <li class="nav-item"><a href="#section3" class="nav-link">3.3 Ampere's circuital law</a></li>
-                <li class="nav-item"><a href="#section4" class="nav-link">3.4 Magnetic flux density</a></li>
-                <li class="nav-item"><a href="#section5" class="nav-link">3.5 Physical significance of curl</a></li>
-                <li class="nav-item"><a href="#section6" class="nav-link">3.6 Scalar and magnetic vector potential</a></li>
-                <li class="nav-item"><a href="#section7" class="nav-link">3.7 Magnetic properties of material medium</a></li>
-                <li class="nav-item"><a href="#section8" class="nav-link">3.8 Magnetic force and torque</a></li>
-                <li class="nav-item"><a href="#section9" class="nav-link">3.9 Magnetic boundary condition</a></li>
+            <h3>Right-Hand Rule</h3>
+            <p>The direction of the magnetic field around a current-carrying conductor can be determined using the right-hand rule: if you grasp the conductor with your right hand such that your thumb points in the direction of current, your fingers curl in the direction of the magnetic field.</p>
+        </div>
+
+        <div id="3_3" class="section">
+            <h2>3.3 Ampere's circuital law and its application</h2>
+            <p>Ampere's circuital law relates the integrated magnetic field around a closed loop to the electric current passing through the loop.</p>
+            
+            <h3>Statement of Ampere's Circuital Law</h3>
+            <p>The line integral of the magnetic field intensity \(\mathbf{H}\) around any closed path is equal to the total current enclosed by that path:</p>
+            <div class="math-container">
+                \[
+                \oint \mathbf{H} \cdot d\mathbf{l} = I_{\text{enclosed}}
+                \]
+            </div>
+            <p>In differential form, this becomes:</p>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{H} = \mathbf{J}
+                \]
+            </div>
+            <p>where \(\mathbf{J}\) is the current density.</p>
+            
+            <h3>Applications of Ampere's Law</h3>
+            <h4>1. Infinitely Long Straight Conductor</h4>
+            <p>Consider a circular path of radius \(\rho\) centered on the conductor. By symmetry, \(\mathbf{H}\) is constant and tangential along this path:</p>
+            <div class="math-container">
+                \[
+                \oint \mathbf{H} \cdot d\mathbf{l} = H_\phi \cdot 2\pi\rho = I
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                H_\phi = \frac{I}{2\pi\rho} \quad \Rightarrow \quad \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi
+                \]
+            </div>
+            
+            <h4>2. Coaxial Cable</h4>
+            <p>Consider a coaxial cable with inner conductor radius \(a\), outer conductor inner radius \(b\), and outer radius \(c\). The inner conductor carries current \(I\) and the outer conductor carries current \(-I\).</p>
+            <ul>
+                <li><strong>Region 1 (\(\rho < a\)):</strong> \(H_\phi \cdot 2\pi\rho = I \frac{\rho^2}{a^2} \Rightarrow \mathbf{H} = \frac{I\rho}{2\pi a^2} \mathbf{a}_\phi\)</li>
+                <li><strong>Region 2 (\(a < \rho < b\)):</strong> \(H_\phi \cdot 2\pi\rho = I \Rightarrow \mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi\)</li>
+                <li><strong>Region 3 (\(b < \rho < c\)):</strong> \(H_\phi \cdot 2\pi\rho = I - I \frac{\rho^2-b^2}{c^2-b^2} \Rightarrow \mathbf{H} = \frac{I}{2\pi\rho} \frac{c^2-\rho^2}{c^2-b^2} \mathbf{a}_\phi\)</li>
+                <li><strong>Region 4 (\(\rho > c\)):</strong> \(H_\phi \cdot 2\pi\rho = 0 \Rightarrow \mathbf{H} = 0\)</li>
             </ul>
         </div>
-        
-        <div id="chapter_3" class="chapter">
-            <h1 class="chapter-title">3. Magnetic Field (9 hours)</h1>
+
+        <div id="3_4" class="section">
+            <h2>3.4 Magnetic flux density</h2>
+            <p>Magnetic flux density \(\mathbf{B}\) is a measure of the strength of the magnetic field and is related to the force experienced by a moving charge.</p>
             
-            <div id="section1" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section1-content').style.display = 'block'">3.1 Biot-Savart's law</h2>
-                <div id="section1-content" class="section-content" style="display:block">
-                    <p><strong>Biot-Savart's Law</strong></p>
-                    
-                    <p>Biot-Savart's law describes the magnetic field produced by a steady current. It is analogous to Coulomb's law for electric fields. The law states that the magnetic field intensity dH at a point P due to a current element Idl is:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{H} = \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
-                    </div>
-                    
-                    <p>or equivalently:</p>
-                    
-                    <div class="equation">
-                        $$d\mathbf{B} = \frac{\mu_0 I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>I is the current</li>
-                        <li>dl is the differential length vector of the current element</li>
-                        <li>R is the distance from the current element to point P</li>
-                        <li>a<sub>R</sub> is the unit vector in the direction from the current element to point P</li>
-                        <li>μ<sub>0</sub> is the permeability of free space (4π × 10<sup>-7</sup> H/m)</li>
-                    </ul>
-                    
-                    <p>The total magnetic field at point P due to a current-carrying conductor is obtained by integrating over the entire conductor:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \int \frac{I d\mathbf{l} \times \mathbf{a}_R}{4\pi R^2}$$
-                    </div>
-                    
-                    <p><strong>Physical Significance</strong></p>
-                    <ul>
-                        <li>The magnetic field is proportional to the current and inversely proportional to the square of the distance</li>
-                        <li>The direction of the field is perpendicular to both the current element and the line connecting the current element to the point of interest (right-hand rule)</li>
-                        <li>The law is applicable only for steady currents (magnetostatics)</li>
-                    </ul>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Biot-Savart Law" width="400">
-                        <div class="image-caption">Figure: Current element Idl producing magnetic field at point P</div>
-                    </div>
-                    
-                    <p><strong>Example: Magnetic Field due to an Infinitely Long Straight Wire</strong></p>
-                    
-                    <p>For an infinitely long straight wire carrying current I, the magnetic field at a distance ρ from the wire is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p>or in terms of magnetic flux density:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \frac{\mu_0 I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p>This is derived by integrating Biot-Savart's law over the entire length of the wire.</p>
-                </div>
+            <h3>Definition</h3>
+            <p>The magnetic flux density \(\mathbf{B}\) is defined by the Lorentz force law:</p>
+            <div class="math-container">
+                \[
+                \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})
+                \]
+            </div>
+            <p>where \(q\) is the charge, \(\mathbf{v}\) is its velocity, and \(\mathbf{E}\) is the electric field.</p>
+            
+            <h3>Relation to Magnetic Field Intensity</h3>
+            <p>In free space:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \mu_0 \mathbf{H}
+                \]
+            </div>
+            <p>In a magnetic material:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \mu \mathbf{H} = \mu_0 \mu_r \mathbf{H}
+                \]
+            </div>
+            <p>where \(\mu_r\) is the relative permeability of the material.</p>
+            
+            <h3>Magnetic Flux</h3>
+            <p>The magnetic flux \(\Phi\) through a surface is given by:</p>
+            <div class="math-container">
+                \[
+                \Phi = \int_S \mathbf{B} \cdot d\mathbf{S}
+                \]
+            </div>
+            <p>The unit of magnetic flux is the weber (Wb). The unit of magnetic flux density is tesla (T), where 1 T = 1 Wb/m².</p>
+            
+            <h3>Gauss's Law for Magnetism</h3>
+            <p>The net magnetic flux through any closed surface is zero:</p>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{B} \cdot d\mathbf{S} = 0
+                \]
+            </div>
+            <p>In differential form:</p>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{B} = 0
+                \]
+            </div>
+            <p>This implies that there are no magnetic monopoles; magnetic field lines always form closed loops.</p>
+        </div>
+
+        <div id="3_5" class="section">
+            <h2>3.5 Physical significance of curl, Stoke's theorem</h2>
+            
+            <h3>Physical Significance of Curl</h3>
+            <p>The curl of a vector field represents the circulation density or the tendency of the field to rotate about a point. For the magnetic field, \(\nabla \times \mathbf{H} = \mathbf{J}\) indicates that current density is the source of the "circulation" of the magnetic field.</p>
+            
+            <h3>Stoke's Theorem</h3>
+            <p>Stoke's theorem relates the surface integral of the curl of a vector field over a surface to the line integral of the vector field around the boundary of the surface:</p>
+            <div class="math-container">
+                \[
+                \int_S (\nabla \times \mathbf{A}) \cdot d\mathbf{S} = \oint_C \mathbf{A} \cdot d\mathbf{l}
+                \]
+            </div>
+            <p>This theorem is fundamental in converting between integral and differential forms of physical laws.</p>
+            
+            <h3>Application to Ampere's Law</h3>
+            <p>Applying Stoke's theorem to Ampere's law:</p>
+            <div class="math-container">
+                \[
+                \oint_C \mathbf{H} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{H}) \cdot d\mathbf{S} = \int_S \mathbf{J} \cdot d\mathbf{S} = I_{\text{enclosed}}
+                \]
+            </div>
+            <p>This shows the equivalence between the integral and differential forms of Ampere's law.</p>
+        </div>
+
+        <div id="3_6" class="section">
+            <h2>3.6 Scalar and magnetic vector potential</h2>
+            
+            <h3>Magnetic Vector Potential</h3>
+            <p>Since \(\nabla \cdot \mathbf{B} = 0\), we can define a magnetic vector potential \(\mathbf{A}\) such that:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \nabla \times \mathbf{A}
+                \]
+            </div>
+            <p>The magnetic vector potential \(\mathbf{A}\) for a current distribution is given by:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} = \frac{\mu}{4\pi} \int \frac{\mathbf{J}}{R} dv
+                \]
+            </div>
+            <p>For a line current:</p>
+            <div class="math-container">
+                \[
+                \mathbf{A} = \frac{\mu I}{4\pi} \int \frac{d\mathbf{l}}{R}
+                \]
             </div>
             
-            <div id="section2" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section2-content').style.display = 'block'">3.2 Magnetic field intensity</h2>
-                <div id="section2-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Field Intensity (H)</strong></p>
-                    
-                    <p>Magnetic field intensity H is a vector quantity that describes the magnetic field in terms of its ability to produce magnetic flux in a medium. Its unit is A/m.</p>
-                    
-                    <p>The relationship between magnetic field intensity H and magnetic flux density B is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \mu \mathbf{H}$$
-                    </div>
-                    
-                    <p>where μ is the permeability of the medium, given by μ = μ<sub>0</sub>μ<sub>r</sub>, with μ<sub>0</sub> being the permeability of free space and μ<sub>r</sub> being the relative permeability of the medium.</p>
-                    
-                    <p><strong>Properties of Magnetic Field Intensity</strong></p>
-                    <ul>
-                        <li>It is a vector quantity with both magnitude and direction</li>
-                        <li>Its direction follows the right-hand rule (thumb in direction of current, fingers curl in direction of H)</li>
-                        <li>It is independent of the medium</li>
-                        <li>It is measured in amperes per meter (A/m)</li>
-                    </ul>
-                    
-                    <p><strong>Magnetic Field due to Different Current Distributions</strong></p>
-                    
-                    <p><strong>1. Infinitely Long Straight Wire:</strong></p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p><strong>2. Circular Loop of Current:</strong></p>
-                    
-                    <p>At the center of a circular loop of radius a carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I}{2a} \mathbf{a}_z$$
-                    </div>
-                    
-                    <p>At a point along the axis of the loop at distance z from the center:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>3. Solenoid:</strong></p>
-                    
-                    <p>Inside a long solenoid with n turns per unit length carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = nI \mathbf{a}_z$$
-                    </div>
-                    
-                    <p>Outside the solenoid, H ≈ 0.</p>
-                    
-                    <p><strong>4. Toroid:</strong></p>
-                    
-                    <p>Inside a toroid with N turns carrying current I and radius r:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{NI}{2\pi r} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Field of a Solenoid" width="400">
-                        <div class="image-caption">Figure: Magnetic field lines of a solenoid</div>
-                    </div>
-                </div>
+            <h3>Scalar Magnetic Potential</h3>
+            <p>In regions where there is no current density (\(\mathbf{J} = 0\)), we can define a scalar magnetic potential \(V_m\) such that:</p>
+            <div class="math-container">
+                \[
+                \mathbf{H} = -\nabla V_m
+                \]
+            </div>
+            <p>This is analogous to the electric potential in electrostatics. However, it can only be used in current-free regions.</p>
+            
+            <h3>Poisson's Equation for Magnetic Vector Potential</h3>
+            <p>Starting from \(\mathbf{B} = \nabla \times \mathbf{A}\) and \(\nabla \times \mathbf{H} = \mathbf{J}\), and assuming \(\nabla \cdot \mathbf{A} = 0\) (Coulomb gauge), we get:</p>
+            <div class="math-container">
+                \[
+                \nabla^2 \mathbf{A} = -\mu \mathbf{J}
+                \]
+            </div>
+            <p>This is Poisson's equation for the magnetic vector potential.</p>
+        </div>
+
+        <div id="3_7" class="section">
+            <h2>3.7 Magnetic properties of material medium</h2>
+            <p>Materials can be classified based on their magnetic properties:</p>
+            <ul>
+                <li><strong>Diamagnetic:</strong> \(\mu_r < 1\), weakly repelled by magnetic fields</li>
+                <li><strong>Paramagnetic:</strong> \(\mu_r > 1\), weakly attracted by magnetic fields</li>
+                <li><strong>Ferromagnetic:</strong> \(\mu_r \gg 1\), strongly attracted by magnetic fields and can retain magnetization</li>
+            </ul>
+            
+            <h3>Magnetization</h3>
+            <p>When a magnetic material is placed in an external magnetic field, it becomes magnetized. The magnetization \(\mathbf{M}\) is defined as the magnetic dipole moment per unit volume:</p>
+            <div class="math-container">
+                \[
+                \mathbf{M} = \lim_{\Delta v \to 0} \frac{\sum \mathbf{m}_i}{\Delta v}
+                \]
+            </div>
+            <p>where \(\mathbf{m}_i\) is the magnetic dipole moment of individual atoms or molecules.</p>
+            
+            <h3>Relation Between B, H, and M</h3>
+            <p>The magnetic flux density \(\mathbf{B}\) is related to the magnetic field intensity \(\mathbf{H}\) and magnetization \(\mathbf{M}\) by:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \mu_0 (\mathbf{H} + \mathbf{M})
+                \]
+            </div>
+            <p>For linear isotropic materials, \(\mathbf{M} = \chi_m \mathbf{H}\), where \(\chi_m\) is the magnetic susceptibility. Then:</p>
+            <div class="math-container">
+                \[
+                \mathbf{B} = \mu_0 (1 + \chi_m) \mathbf{H} = \mu_0 \mu_r \mathbf{H}
+                \]
+            </div>
+            <p>where \(\mu_r = 1 + \chi_m\).</p>
+        </div>
+
+        <div id="3_8" class="section">
+            <h2>3.8 Magnetic force, magnetic torque, magnetic moment, magnetization</h2>
+            
+            <h3>Magnetic Force on a Moving Charge</h3>
+            <p>The magnetic force on a charge \(q\) moving with velocity \(\mathbf{v}\) in a magnetic field \(\mathbf{B}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{F}_m = q(\mathbf{v} \times \mathbf{B})
+                \]
+            </div>
+            <p>This force is perpendicular to both the velocity and the magnetic field, so it does no work on the charge.</p>
+            
+            <h3>Magnetic Force on a Current-Carrying Conductor</h3>
+            <p>For a differential current element \(I d\mathbf{l}\) in a magnetic field \(\mathbf{B}\), the force is:</p>
+            <div class="math-container">
+                \[
+                d\mathbf{F} = I d\mathbf{l} \times \mathbf{B}
+                \]
+            </div>
+            <p>For a straight conductor of length \(l\) carrying current \(I\) in a uniform magnetic field \(\mathbf{B}\):</p>
+            <div class="math-container">
+                \[
+                \mathbf{F} = I \mathbf{l} \times \mathbf{B}
+                \]
             </div>
             
-            <div id="section3" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section3-content').style.display = 'block'">3.3 Ampere's circuital law and its application</h2>
-                <div id="section3-content" class="section-content" style="display:block">
-                    <p><strong>Ampere's Circuital Law</strong></p>
-                    
-                    <p>Ampere's circuital law states that the line integral of the magnetic field intensity H around any closed path is equal to the total current enclosed by that path:</p>
-                    
-                    <div class="equation">
-                        $$\oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc}$$
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>H is the magnetic field intensity</li>
-                        <li>dl is the differential length vector along the closed path</li>
-                        <li>I<sub>enc</sub> is the total current enclosed by the path</li>
-                    </ul>
-                    
-                    <p>In differential form, Ampere's law is:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \times \mathbf{H} = \mathbf{J}$$
-                    </div>
-                    
-                    <p>where J is the current density.</p>
-                    
-                    <p><strong>Applications of Ampere's Law</strong></p>
-                    
-                    <p>Ampere's law is particularly useful for calculating magnetic fields for symmetric current distributions:</p>
-                    
-                    <p><strong>1. Infinitely Long Straight Wire</strong></p>
-                    
-                    <p>For an infinitely long straight wire carrying current I, we choose a circular path of radius ρ centered on the wire:</p>
-                    
-                    <div class="equation">
-                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H_\phi \cdot 2\pi\rho = I$$
-                    </div>
-                    
-                    <p>Solving for H:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p><strong>2. Infinite Current Sheet</strong></p>
-                    
-                    <p>For an infinite current sheet with surface current density K (A/m) in the y-direction:</p>
-                    
-                    <div class="equation">
-                        $$\oint \mathbf{H} \cdot d\mathbf{l} = 2H_x L = K L$$
-                    </div>
-                    
-                    <p>Solving for H:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{K}{2} \mathbf{a}_x \quad \text{(above the sheet)} \\
-                        \mathbf{H} = -\frac{K}{2} \mathbf{a}_x \quad \text{(below the sheet)}$$
-                    </div>
-                    
-                    <p><strong>3. Solenoid</strong></p>
-                    
-                    <p>For a solenoid with n turns per unit length carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H L = n I L$$
-                    </div>
-                    
-                    <p>Solving for H:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = n I \mathbf{a}_z$$
-                    </div>
-                    
-                    <p><strong>4. Toroid</strong></p>
-                    
-                    <p>For a toroid with N turns carrying current I and radius r:</p>
-                    
-                    <div class="equation">
-                        $$\oint \mathbf{H} \cdot d\mathbf{l} = H \cdot 2\pi r = N I$$
-                    </div>
-                    
-                    <p>Solving for H:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{N I}{2\pi r} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Ampere's Law Application" width="400">
-                        <div class="image-caption">Figure: Ampere's circuital law applied to a toroid</div>
-                    </div>
-                </div>
+            <h3>Magnetic Torque</h3>
+            <p>The torque on a current loop with magnetic moment \(\mathbf{m}\) in a magnetic field \(\mathbf{B}\) is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{T} = \mathbf{m} \times \mathbf{B}
+                \]
             </div>
             
-            <div id="section4" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section4-content').style.display = 'block'">3.4 Magnetic flux density</h2>
-                <div id="section4-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Flux Density (B)</strong></p>
-                    
-                    <p>Magnetic flux density B, also called magnetic induction, is the measure of the strength and direction of a magnetic field. Its unit is tesla (T) or weber per square meter (Wb/m²).</p>
-                    
-                    <p>The relationship between magnetic flux density B and magnetic field intensity H is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \mu \mathbf{H}$$
-                    </div>
-                    
-                    <p>where μ is the permeability of the medium (μ = μ<sub>0</sub>μ<sub>r</sub>), μ<sub>0</sub> = 4π × 10<sup>-7</sup> H/m is the permeability of free space, and μ<sub>r</sub> is the relative permeability of the medium.</p>
-                    
-                    <p><strong>Magnetic Flux</strong></p>
-                    
-                    <p>Magnetic flux Φ through a surface S is defined as:</p>
-                    
-                    <div class="equation">
-                        $$\Phi = \int_S \mathbf{B} \cdot d\mathbf{S}$$
-                    </div>
-                    
-                    <p>The unit of magnetic flux is weber (Wb).</p>
-                    
-                    <p><strong>Gauss's Law for Magnetism</strong></p>
-                    
-                    <p>Gauss's law for magnetism states that the net magnetic flux through any closed surface is zero:</p>
-                    
-                    <div class="equation">
-                        $$\oint_S \mathbf{B} \cdot d\mathbf{S} = 0$$
-                    </div>
-                    
-                    <p>In differential form:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \cdot \mathbf{B} = 0$$
-                    </div>
-                    
-                    <p>This implies that magnetic monopoles do not exist - magnetic field lines always form closed loops.</p>
-                    
-                    <p><strong>Example: Magnetic Flux through a Surface</strong></p>
-                    
-                    <p>Calculate the magnetic flux through a rectangular surface of width w and length l placed perpendicular to a uniform magnetic field B.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <div class="equation">
-                        $$\Phi = \int_S \mathbf{B} \cdot d\mathbf{S} = B \cdot w \cdot l$$
-                    </div>
-                    
-                    <p>since B is perpendicular to the surface and uniform.</p>
-                    
-                    <p><strong>Example: Magnetic Flux due to a Long Straight Wire</strong></p>
-                    
-                    <p>Find the magnetic flux through a rectangular loop of width w and length l placed near an infinitely long straight wire carrying current I.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>The magnetic field due to the wire at distance ρ is:</p>
-                    
-                    <div class="equation">
-                        $$B = \frac{\mu_0 I}{2\pi\rho}$$
-                    </div>
-                    
-                    <p>The magnetic flux through the loop is:</p>
-                    
-                    <div class="equation">
-                        $$\Phi = \int_{a}^{a+w} \frac{\mu_0 I l}{2\pi\rho} d\rho = \frac{\mu_0 I l}{2\pi} \ln\left(\frac{a+w}{a}\right)$$
-                    </div>
-                </div>
+            <h3>Magnetic Moment</h3>
+            <p>The magnetic moment \(\mathbf{m}\) of a planar current loop is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{m} = I \mathbf{S}
+                \]
+            </div>
+            <p>where \(\mathbf{S}\) is the vector area of the loop (magnitude equal to the area and direction given by the right-hand rule).</p>
+            
+            <h3>Magnetization (Revisited)</h3>
+            <p>As defined in section 3.7, magnetization \(\mathbf{M}\) is the magnetic dipole moment per unit volume. For a uniformly magnetized material, the equivalent surface current density is:</p>
+            <div class="math-container">
+                \[
+                \mathbf{K}_m = \mathbf{M} \times \mathbf{a}_n
+                \]
+            </div>
+            <p>where \(\mathbf{a}_n\) is the unit normal vector to the surface.</p>
+        </div>
+
+        <div id="3_9" class="section">
+            <h2>3.9 Magnetic boundary condition</h2>
+            <p>At the interface between two different magnetic media, the magnetic field must satisfy certain boundary conditions.</p>
+            
+            <h3>Boundary Conditions</h3>
+            <p>Consider the interface between medium 1 and medium 2 with permeabilities \(\mu_1\) and \(\mu_2\), respectively.</p>
+            
+            <h4>1. Tangential Component of H</h4>
+            <p>Applying Ampere's circuital law to a small rectangular loop straddling the boundary:</p>
+            <div class="math-container">
+                \[
+                H_{t1} - H_{t2} = K_n
+                \]
+            </div>
+            <p>where \(K_n\) is the surface current density normal to the plane of the loop. If there is no surface current (\(K_n = 0\)), then:</p>
+            <div class="math-container">
+                \[
+                H_{t1} = H_{t2}
+                \]
             </div>
             
-            <div id="section5" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section5-content').style.display = 'block'">3.5 Physical significance of curl, Stoke's theorem</h2>
-                <div id="section5-content" class="section-content" style="display:block">
-                    <p><strong>Physical Significance of Curl</strong></p>
-                    
-                    <p>The curl of a vector field is a measure of the rotation or circulation of the field at a point. For magnetic fields, the curl of H is related to the current density:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \times \mathbf{H} = \mathbf{J}$$
-                    </div>
-                    
-                    <p>This means:</p>
-                    <ul>
-                        <li>A non-zero curl indicates the presence of current density at that point</li>
-                        <li>The direction of the curl is given by the right-hand rule (fingers curl in direction of circulation, thumb points in direction of curl)</li>
-                        <li>The magnitude of the curl is proportional to the strength of the circulation</li>
-                    </ul>
-                    
-                    <p><strong>Stoke's Theorem</strong></p>
-                    
-                    <p>Stoke's theorem relates the surface integral of the curl of a vector field to the line integral of the vector field around the boundary of the surface:</p>
-                    
-                    <div class="equation">
-                        $$\oint_C \mathbf{F} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{F}) \cdot d\mathbf{S}$$
-                    </div>
-                    
-                    <p>For magnetic fields, this becomes:</p>
-                    
-                    <div class="equation">
-                        $$\oint_C \mathbf{H} \cdot d\mathbf{l} = \int_S (\nabla \times \mathbf{H}) \cdot d\mathbf{S} = \int_S \mathbf{J} \cdot d\mathbf{S} = I_{enc}$$
-                    </div>
-                    
-                    <p>which is Ampere's circuital law.</p>
-                    
-                    <p><strong>Physical Interpretation</strong></p>
-                    
-                    <p>Stoke's theorem states that the circulation of a vector field around a closed path is equal to the total flux of the curl of that field through any surface bounded by the path.</p>
-                    
-                    <p>In the context of magnetic fields, it means that the line integral of H around a closed path is equal to the total current passing through any surface bounded by that path.</p>
-                    
-                    <p><strong>Example: Calculating Curl in Cartesian Coordinates</strong></p>
-                    
-                    <p>For a vector field F = x²a<sub>x</sub> + y²a<sub>y</sub> + z²a<sub>z</sub>:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \times \mathbf{F} = \begin{vmatrix}
-                        \mathbf{a}_x & \mathbf{a}_y & \mathbf{a}_z \\
-                        \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\
-                        x^2 & y^2 & z^2
-                        \end{vmatrix} = 0$$
-                    </div>
-                    
-                    <p>This makes sense because there is no circulation in this field.</p>
-                    
-                    <p><strong>Example: Curl of Magnetic Field due to a Straight Wire</strong></p>
-                    
-                    <p>For a straight wire along the z-axis carrying current I, the magnetic field is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = \frac{I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p>The curl in cylindrical coordinates is:</p>
-                    
-                    <div class="equation">
-                        $$\nabla \times \mathbf{H} = \frac{1}{\rho} \begin{vmatrix}
-                        \mathbf{a}_\rho & \rho\mathbf{a}_\phi & \mathbf{a}_z \\
-                        \frac{\partial}{\partial \rho} & \frac{\partial}{\partial \phi} & \frac{\partial}{\partial z} \\
-                        0 & \frac{I}{2\pi} & 0
-                        \end{vmatrix} = \frac{I}{2\pi\rho^2} \mathbf{a}_z$$
-                    </div>
-                    
-                    <p>But since J = I/(πρ²) for uniform current density, we have ∇×H = J, which satisfies Ampere's law.</p>
-                </div>
+            <h4>2. Normal Component of B</h4>
+            <p>Applying Gauss's law for magnetism to a small pillbox straddling the boundary:</p>
+            <div class="math-container">
+                \[
+                B_{n1} = B_{n2}
+                \]
             </div>
+            <p>since \(\oint \mathbf{B} \cdot d\mathbf{S} = 0\).</p>
             
-            <div id="section6" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section6-content').style.display = 'block'">3.6 Scalar and magnetic vector potential</h2>
-                <div id="section6-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Vector Potential (A)</strong></p>
-                    
-                    <p>Since ∇·B = 0, we can define a magnetic vector potential A such that:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \nabla \times \mathbf{A}$$
-                    </div>
-                    
-                    <p>The magnetic vector potential A has the following properties:</p>
-                    <ul>
-                        <li>It is a vector quantity</li>
-                        <li>It is not unique (can add gradient of any scalar function to A without changing B)</li>
-                        <li>It is useful for calculating magnetic fields in complex geometries</li>
-                        <li>It has units of weber per meter (Wb/m)</li>
-                    </ul>
-                    
-                    <p>For magnetostatics, the vector potential A satisfies:</p>
-                    
-                    <div class="equation">
-                        $$\nabla^2 \mathbf{A} = -\mu \mathbf{J}$$
-                    </div>
-                    
-                    <p>where J is the current density.</p>
-                    
-                    <p><strong>Scalar Magnetic Potential (V<sub>m</sub>)</strong></p>
-                    
-                    <p>For regions where J = 0, we can define a scalar magnetic potential V<sub>m</sub> such that:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{H} = -\nabla V_m$$
-                    </div>
-                    
-                    <p>In regions with no current, the scalar magnetic potential satisfies Laplace's equation:</p>
-                    
-                    <div class="equation">
-                        $$\nabla^2 V_m = 0$$
-                    </div>
-                    
-                    <p>However, V<sub>m</sub> is not single-valued in regions with current, so it is only used in current-free regions.</p>
-                    
-                    <p><strong>Calculation of Vector Potential</strong></p>
-                    
-                    <p>For a current distribution, the vector potential can be calculated as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} = \frac{\mu}{4\pi} \int \frac{\mathbf{J} dV}{R}$$
-                    </div>
-                    
-                    <p>where R is the distance from the current element to the point of interest.</p>
-                    
-                    <p><strong>Example: Vector Potential of a Straight Wire</strong></p>
-                    
-                    <p>For an infinitely long straight wire along the z-axis carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{A} = -\frac{\mu I}{2\pi} \ln\rho \mathbf{a}_z$$
-                    </div>
-                    
-                    <p>From this, we can calculate B = ∇×A:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \nabla \times \mathbf{A} = \frac{\mu I}{2\pi\rho} \mathbf{a}_\phi$$
-                    </div>
-                    
-                    <p>which matches the known result for the magnetic field of a straight wire.</p>
-                    
-                    <div class="problem">
-                        <div class="problem-title">Example Problem:</div>
-                        <p>Calculate the vector potential and magnetic field due to a circular loop of radius a carrying current I at a point on the axis of the loop.</p>
-                        
-                        <p><strong>Solution:</strong></p>
-                        <p>For a circular loop in the xy-plane:</p>
-                        
-                        <div class="equation">
-                            $$\mathbf{A} = \frac{\mu I a}{4\pi} \int_0^{2\pi} \frac{a d\phi \mathbf{a}_\phi}{\sqrt{a^2+z^2}} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
-                        </div>
-                        
-                        <p>Then B = ∇×A:</p>
-                        
-                        <div class="equation">
-                            $$\mathbf{B} = \frac{\mu I a^2}{2(a^2+z^2)^{3/2}} \mathbf{a}_z$$
-                        </div>
-                    </div>
-                </div>
+            <h3>Refraction of Magnetic Field Lines</h3>
+            <p>Let \(\theta_1\) and \(\theta_2\) be the angles that \(\mathbf{B}_1\) and \(\mathbf{B}_2\) make with the normal to the interface. Then:</p>
+            <div class="math-container">
+                \[
+                \frac{\tan \theta_1}{\tan \theta_2} = \frac{\mu_1}{\mu_2}
+                \]
             </div>
+            <p>This shows that magnetic field lines bend when passing from one medium to another, similar to the refraction of light.</p>
             
-            <div id="section7" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section7-content').style.display = 'block'">3.7 Magnetic properties of material medium</h2>
-                <div id="section7-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Properties of Material Medium</strong></p>
-                    
-                    <p>When a magnetic field is applied to a material, the behavior depends on the type of material. Materials are classified based on their magnetic properties:</p>
-                    
-                    <p><strong>Diamagnetic Materials</strong></p>
-                    <ul>
-                        <li>Have relative permeability μ<sub>r</sub> slightly less than 1 (typically 0.9999 to 0.99999)</li>
-                        <li>Develop a magnetization opposite to the applied field</li>
-                        <li>Examples: copper, silver, gold, bismuth, water</li>
-                        <li>Weakly repelled by magnetic fields</li>
-                    </ul>
-                    
-                    <p><strong>Paramagnetic Materials</strong></p>
-                    <ul>
-                        <li>Have relative permeability μ<sub>r</sub> slightly greater than 1 (typically 1.00001 to 1.001)</li>
-                        <li>Develop a magnetization in the same direction as the applied field</li>
-                        <li>Examples: aluminum, platinum, oxygen, sodium</li>
-                        <li>Weakly attracted by magnetic fields</li>
-                    </ul>
-                    
-                    <p><strong>Ferromagnetic Materials</strong></p>
-                    <ul>
-                        <li>Have relative permeability μ<sub>r</sub> much greater than 1 (typically 100 to 100,000)</li>
-                        <li>Develop strong magnetization in the same direction as the applied field</li>
-                        <li>Exhibit hysteresis (magnetization lags behind applied field)</li>
-                        <li>Examples: iron, nickel, cobalt, and their alloys</li>
-                        <li>Strongly attracted by magnetic fields</li>
-                    </ul>
-                    
-                    <p><strong>Magnetization (M)</strong></p>
-                    
-                    <p>Magnetization M is defined as the magnetic moment per unit volume:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}$$
-                    </div>
-                    
-                    <p>where m<sub>i</sub> is the magnetic moment of the i-th dipole.</p>
-                    
-                    <p>The relationship between B, H, and M is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \mu_0 (\mathbf{H} + \mathbf{M})$$
-                    </div>
-                    
-                    <p>For linear isotropic materials:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{M} = \chi_m \mathbf{H}$$
-                    </div>
-                    
-                    <p>where χ<sub>m</sub> is the magnetic susceptibility (dimensionless).</p>
-                    
-                    <p>Then:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{B} = \mu_0 (1 + \chi_m) \mathbf{H} = \mu_0 \mu_r \mathbf{H}$$
-                    </div>
-                    
-                    <p>where μ<sub>r</sub> = 1 + χ<sub>m</sub> is the relative permeability.</p>
-                    
-                    <p><strong>Boundary Conditions for Magnetic Fields</strong></p>
-                    
-                    <p>At the interface between two media with permeabilities μ<sub>1</sub> and μ<sub>2</sub>:</p>
-                    
-                    <ul>
-                        <li>Normal component of B is continuous: B<sub>n1</sub> = B<sub>n2</sub></li>
-                        <li>Tangential component of H is continuous if no surface current: H<sub>t1</sub> = H<sub>t2</sub></li>
-                    </ul>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Properties of Materials" width="400">
-                        <div class="image-caption">Figure: Magnetic field lines in different materials</div>
-                    </div>
-                </div>
+            <h3>Example: Boundary Between Two Media</h3>
+            <p>Consider the region \(z<0\) with \(\mu_{r1} = 3.2\) and region \(z>0\) with \(\mu_{r2} = 2\). Let \(\mathbf{B}_1 = (-30\mathbf{a}_x + 50\mathbf{a}_y + 70\mathbf{a}_z) \times 10^{-9}\) T. Find \(\mathbf{B}_2\).</p>
+            <p>Solution:</p>
+            <p>Normal component: \(B_{n1} = B_{z1} = 70 \times 10^{-9}\) T, so \(B_{n2} = B_{z2} = 70 \times 10^{-9}\) T</p>
+            <p>Tangential component: \(H_{t1} = H_{t2}\), so \(\frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2}\)</p>
+            <div class="math-container">
+                \[
+                \mathbf{B}_{t1} = (-30\mathbf{a}_x + 50\mathbf{a}_y) \times 10^{-9} \, \text{T}
+                \]
             </div>
-            
-            <div id="section8" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section8-content').style.display = 'block'">3.8 Magnetic force, magnetic torque, magnetic moment, magnetization</h2>
-                <div id="section8-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Force</strong></p>
-                    
-                    <p>The magnetic force on a moving charge is given by the Lorentz force equation:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F} = q(\mathbf{v} \times \mathbf{B})$$
-                    </div>
-                    
-                    <p>For a current-carrying conductor of length L carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F} = I \int d\mathbf{l} \times \mathbf{B}$$
-                    </div>
-                    
-                    <p>For a straight conductor of length L in a uniform magnetic field B:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{F} = I \mathbf{L} \times \mathbf{B}$$
-                    </div>
-                    
-                    <p><strong>Magnetic Torque</strong></p>
-                    
-                    <p>The torque on a current loop in a magnetic field is given by:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{\tau} = \mathbf{m} \times \mathbf{B}$$
-                    </div>
-                    
-                    <p>where m is the magnetic moment of the loop.</p>
-                    
-                    <p>For a planar loop of area A carrying current I:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{m} = I \mathbf{A}$$
-                    </div>
-                    
-                    <p>where A is the vector area of the loop (magnitude A, direction normal to the loop surface).</p>
-                    
-                    <p><strong>Magnetic Moment</strong></p>
-                    
-                    <p>The magnetic moment of a current loop is defined as:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{m} = I \mathbf{A}$$
-                    </div>
-                    
-                    <p>where I is the current and A is the vector area of the loop.</p>
-                    
-                    <p>For a solenoid with N turns and area A:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{m} = N I \mathbf{A}$$
-                    </div>
-                    
-                    <p><strong>Magnetization</strong></p>
-                    
-                    <p>Magnetization M is defined as the magnetic moment per unit volume:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{M} = \lim_{\Delta V \to 0} \frac{\sum \mathbf{m}_i}{\Delta V}$$
-                    </div>
-                    
-                    <p>For a material with uniform magnetization, the bound surface current density is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{K}_b = \mathbf{M} \times \mathbf{a}_n$$
-                    </div>
-                    
-                    <p>and the bound volume current density is:</p>
-                    
-                    <div class="equation">
-                        $$\mathbf{J}_b = \nabla \times \mathbf{M}$$
-                    </div>
-                    
-                    <p><strong>Example: Force on a Current-Carrying Conductor</strong></p>
-                    
-                    <p>A straight conductor of length 0.5 m carrying current 10 A is placed in a uniform magnetic field of 0.2 T perpendicular to the conductor. Find the force on the conductor.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <div class="equation">
-                        $$F = I L B = 10 \times 0.5 \times 0.2 = 1 \, \text{N}$$
-                    </div>
-                    
-                    <p>The direction is given by the right-hand rule.</p>
-                    
-                    <p><strong>Example: Torque on a Current Loop</strong></p>
-                    
-                    <p>A circular loop of radius 0.1 m carrying current 5 A is placed in a uniform magnetic field of 0.3 T. Find the maximum torque on the loop.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Magnetic moment:</p>
-                    
-                    <div class="equation">
-                        $$m = I A = 5 \times \pi (0.1)^2 = 0.05\pi \, \text{A}\cdot\text{m}^2$$
-                    </div>
-                    
-                    <p>Maximum torque (when θ = 90°):</p>
-                    
-                    <div class="equation">
-                        $$\tau = m B = 0.05\pi \times 0.3 = 0.015\pi \approx 0.047 \, \text{N}\cdot\text{m}$$
-                    </div>
-                </div>
+            <div class="math-container">
+                \[
+                \mathbf{B}_{t2} = \frac{\mu_2}{\mu_1} \mathbf{B}_{t1} = \frac{2}{3.2} (-30\mathbf{a}_x + 50\mathbf{a}_y) \times 10^{-9} = (-18.75\mathbf{a}_x + 31.25\mathbf{a}_y) \times 10^{-9} \, \text{T}
+                \]
             </div>
-            
-            <div id="section9" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section9-content').style.display = 'block'">3.9 Magnetic boundary condition</h2>
-                <div id="section9-content" class="section-content" style="display:block">
-                    <p><strong>Magnetic Boundary Conditions</strong></p>
-                    
-                    <p>At the interface between two media with different magnetic properties, the magnetic field must satisfy certain boundary conditions derived from Maxwell's equations.</p>
-                    
-                    <p><strong>Normal Component of B</strong></p>
-                    
-                    <p>The normal component of magnetic flux density B is continuous across the boundary:</p>
-                    
-                    <div class="equation">
-                        $$B_{n1} = B_{n2}$$
-                    </div>
-                    
-                    <p>or equivalently:</p>
-                    
-                    <div class="equation">
-                        $$\mu_1 H_{n1} = \mu_2 H_{n2}$$
-                    </div>
-                    
-                    <p>This can be derived from Gauss's law for magnetism: ∇·B = 0.</p>
-                    
-                    <p><strong>Tangential Component of H</strong></p>
-                    
-                    <p>The tangential component of magnetic field intensity H is continuous across the boundary if there is no surface current:</p>
-                    
-                    <div class="equation">
-                        $$H_{t1} = H_{t2}$$
-                    </div>
-                    
-                    <p>or equivalently:</p>
-                    
-                    <div class="equation">
-                        $$\frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2}$$
-                    </div>
-                    
-                    <p>If there is a surface current K (A/m), then:</p>
-                    
-                    <div class="equation">
-                        $$H_{t1} - H_{t2} = K$$
-                    </div>
-                    
-                    <p>This can be derived from Ampere's circuital law: ∮H·dl = I<sub>enc</sub>.</p>
-                    
-                    <p><strong>Boundary Conditions Summary</strong></p>
-                    
-                    <p>For two media with permeabilities μ<sub>1</sub> and μ<sub>2</sub>:</p>
-                    
-                    <ul>
-                        <li>Normal component of B: B<sub>n1</sub> = B<sub>n2</sub></li>
-                        <li>Tangential component of H: H<sub>t1</sub> = H<sub>t2</sub> (if no surface current)</li>
-                        <li>Normal component of H: H<sub>n1</sub> ≠ H<sub>n2</sub> (generally)</li>
-                        <li>Tangential component of B: B<sub>t1</sub> ≠ B<sub>t2</sub> (generally)</li>
-                    </ul>
-                    
-                    <p><strong>Refraction of Magnetic Field at Interface</strong></p>
-                    
-                    <p>When a magnetic field crosses a boundary between two media, it refracts according to:</p>
-                    
-                    <div class="equation">
-                        $$\tan\theta_1 = \frac{\mu_1}{\mu_2} \tan\theta_2$$
-                    </div>
-                    
-                    <p>where θ<sub>1</sub> and θ<sub>2</sub> are the angles between the magnetic field and the normal to the interface in the two media.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x200" alt="Magnetic Boundary Conditions" width="400">
-                        <div class="image-caption">Figure: Refraction of magnetic field at a dielectric interface</div>
-                    </div>
-                    
-                    <p><strong>Example Problem</strong></p>
-                    
-                    <p>Consider two magnetic media with μ<sub>1</sub> = 5μ<sub>0</sub> for z < 0 and μ<sub>2</sub> = 2μ<sub>0</sub> for z > 0. Given B<sub>1</sub> = -30a<sub>x</sub> + 50a<sub>y</sub> + 70a<sub>z</sub> mT, find:</p>
-                    <ul>
-                        <li>B<sub>2</sub></li>
-                        <li>Angle between B<sub>1</sub> and normal</li>
-                        <li>Angle between B<sub>2</sub> and normal</li>
-                    </ul>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>Normal component of B<sub>1</sub>:</p>
-                    
-                    <div class="equation">
-                        $$B_{n1} = \mathbf{B}_1 \cdot \mathbf{a}_z = 70 \, \text{mT}$$
-                    </div>
-                    
-                    <p>Since B<sub>n1</sub> = B<sub>n2</sub>:</p>
-                    
-                    <div class="equation">
-                        $$B_{n2} = 70 \, \text{mT}$$
-                    </div>
-                    
-                    <p>Tangential component of B<sub>1</sub>:</p>
-                    
-                    <div class="equation">
-                        $$B_{t1} = -30\mathbf{a}_x + 50\mathbf{a}_y \, \text{mT}$$
-                    </div>
-                    
-                    <p>Since H<sub>t</sub> is continuous (no surface current):</p>
-                    
-                    <div class="equation">
-                        $$\frac{B_{t1}}{\mu_1} = \frac{B_{t2}}{\mu_2} \quad \Rightarrow \quad B_{t2} = B_{t1} \frac{\mu_2}{\mu_1} = (-30\mathbf{a}_x + 50\mathbf{a}_y) \frac{2}{5} = (-12\mathbf{a}_x + 20\mathbf{a}_y) \, \text{mT}$$
-                    </div>
-                    
-                    <p>So B<sub>2</sub> = -12a<sub>x</sub> + 20a<sub>y</sub> + 70a<sub>z</sub> mT</p>
-                    
-                    <p>Angle between B<sub>1</sub> and normal:</p>
-                    
-                    <div class="equation">
-                        $$\theta_1 = \cos^{-1}\left(\frac{B_{n1}}{|\mathbf{B}_1|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-30)^2 + 50^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{91.1}\right) = 39.79^\circ$$
-                    </div>
-                    
-                    <p>Angle between B<sub>2</sub> and normal:</p>
-                    
-                    <div class="equation">
-                        $$\theta_2 = \cos^{-1}\left(\frac{B_{n2}}{|\mathbf{B}_2|}\right) = \cos^{-1}\left(\frac{70}{\sqrt{(-12)^2 + 20^2 + 70^2}}\right) = \cos^{-1}\left(\frac{70}{74.3}\right) = 20.21^\circ$$
-                    </div>
-                </div>
+            <div class="math-container">
+                \[
+                \mathbf{B}_2 = \mathbf{B}_{t2} + \mathbf{B}_{n2} = (-18.75\mathbf{a}_x + 31.25\mathbf{a}_y + 70\mathbf{a}_z) \times 10^{-9} \, \text{T}
+                \]
             </div>
         </div>
     </div>
-</body>
-</html>
+
 
 
 <!-- <==========================chapter 4 ==========================> -->
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 4: Time Varying Fields</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
+
+
+    <div id="chapter_4">
+        <h1>4. Time Varying Fields (4 hours)</h1>
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .chapter {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .chapter-title {
-            font-size: 1.8em;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        
-        .section {
-            margin-bottom: 25px;
-        }
-        
-        .section-title {
-            font-size: 1.4em;
-            color: #2980b9;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        
-        .section-content {
-            margin-left: 15px;
-            padding-bottom: 15px;
-            display: block;
-        }
-        
-        .equation {
-            background: #f9f9f9;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 1.1em;
-            overflow-x: auto;
-            border-radius: 4px;
-        }
-        
-        .example {
-            background: #e8f4fc;
-            border: 1px solid #bde0fe;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .navigation {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .nav-item {
-            display: inline-block;
-        }
-        
-        .nav-link {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-        
-        .nav-link:hover {
-            background: #3498db;
-        }
-        
-        .nav-link.active {
-            background: #3498db;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .image-caption {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        .problem {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .problem-title {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 1.1em;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                font-size: 14px;
-            }
+        <li><a href="#4_1" class="topic-link">4.1 Faraday's law, transformer EMF, motional EMF</a></li>
+        <li><a href="#4_2" class="topic-link">4.2 Displacement current</a></li>
+        <li><a href="#4_3" class="topic-link">4.3 Maxwell's equations in integral and point forms</a></li>
+
+        <div id="4_1" class="section">
+            <h2>4.1 Faraday's law, transformer EMF, motional EMF</h2>
+            <p>Faraday's Law of Electromagnetic Induction describes how a time-varying magnetic field induces an electromotive force (EMF) in a closed circuit. This phenomenon is fundamental to the operation of transformers, generators, and many other electrical devices.</p>
             
-            .container {
-                padding: 15px;
-            }
+            <h3>Faraday's Law</h3>
+            <p>Faraday's law states that the induced electromotive force (EMF) in any closed circuit is equal to the negative rate of change of the magnetic flux through the circuit. Mathematically, it is expressed as:</p>
+            <div class="math-container">
+                \[
+                \mathcal{E} = -\frac{d\Phi_B}{dt}
+                \]
+            </div>
+            <p>where \(\mathcal{E}\) is the induced EMF and \(\Phi_B\) is the magnetic flux.</p>
             
-            .chapter-title {
-                font-size: 1.6em;
-            }
+            <h3>Motional EMF</h3>
+            <p>Motional EMF occurs when a conductor moves through a magnetic field. The motion causes the free charges in the conductor to experience a magnetic force, leading to charge separation and an induced EMF. This is commonly seen in electric generators.</p>
             
-            .section-title {
-                font-size: 1.3em;
-            }
+            <h3>Transformer EMF</h3>
+            <p>Transformer EMF is induced due to a time-varying magnetic field in a stationary conductor. Unlike motional EMF, the conductor itself does not move; instead, the magnetic field changes with time. This principle is the basis for transformers, where alternating current in one coil induces a voltage in a nearby coil.</p>
             
-            .equation {
-                font-size: 1em;
-                padding: 12px;
-            }
-            
-            .nav-list {
-                flex-direction: column;
-            }
-            
-            .nav-link {
-                font-size: 0.9em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 13px;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-            
-            .chapter {
-                padding: 15px;
-            }
-            
-            .chapter-title {
-                font-size: 1.4em;
-            }
-            
-            .section-title {
-                font-size: 1.2em;
-            }
-            
-            .equation {
-                font-size: 0.95em;
-                padding: 10px;
-                margin: 10px 0;
-            }
-            
-            .example, .problem {
-                padding: 10px;
-                margin: 10px 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="navigation">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="#section1" class="nav-link active">4.1 Faraday's law</a></li>
-                <li class="nav-item"><a href="#section2" class="nav-link">4.2 Displacement current</a></li>
-                <li class="nav-item"><a href="#section3" class="nav-link">4.3 Maxwell's equations</a></li>
-            </ul>
+            <h3>Net Induction</h3>
+            <p>In practical scenarios, both motional and transformer EMFs can occur simultaneously. The total induced EMF is the sum of both components. This comprehensive view is essential for analyzing complex electromagnetic systems.</p>
         </div>
-        
-        <div id="chapter_4" class="chapter">
-            <h1 class="chapter-title">4. Time Varying Fields (4 hours)</h1>
+
+        <div id="4_2" class="section">
+            <h2>4.2 Displacement current</h2>
+            <p>The concept of displacement current was introduced by James Clerk Maxwell to resolve a conflict between Ampere's circuital law and the continuity equation for time-varying fields.</p>
             
-            <div id="section1" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section1-content').style.display = 'block'">4.1 Faraday's law, transformer EMF, motional EMF</h2>
-                <div id="section1-content" class="section-content" style="display:block">
-                    <p><strong>Faraday's Law of Electromagnetic Induction</strong></p>
-                    
-                    <p>Faraday's law states that the induced electromotive force (EMF) in any closed circuit is equal to the negative of the time rate of change of the magnetic flux through the circuit.</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = -\frac{d\Phi_B}{dt}
-                    </div>
-                    
-                    <p>where:</p>
-                    <ul>
-                        <li>\(\mathcal{E}\) is the induced EMF</li>
-                        <li>\(\Phi_B\) is the magnetic flux through the circuit</li>
-                    </ul>
-                    
-                    <p>In integral form, Faraday's law is expressed as:</p>
-                    
-                    <div class="equation">
-                        \oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt} \int_S \mathbf{B} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p>In differential form, Faraday's law is:</p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Faraday's Law Diagram" width="100%">
-                        <div class="image-caption">Figure: Faraday's law of electromagnetic induction showing magnetic flux changing through a loop</div>
-                    </div>
-                    
-                    <p><strong>Motional EMF</strong></p>
-                    
-                    <p>Motional EMF is generated when a conductor moves through a magnetic field. When a conductor of length \(l\) moves with velocity \(\mathbf{v}\) perpendicular to a magnetic field \(\mathbf{B}\), the induced EMF is:</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = \int (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{l}
-                    </div>
-                    
-                    <p>For a straight conductor moving perpendicular to a uniform magnetic field:</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = B l v
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Motional EMF Diagram" width="100%">
-                        <div class="image-caption">Figure: Motional EMF in a conductor moving through a magnetic field</div>
-                    </div>
-                    
-                    <p><strong>Transformer EMF</strong></p>
-                    
-                    <p>Transformer EMF is generated when the magnetic field changes with time while the circuit is stationary. This is described by the second term in Faraday's law:</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = -\int_S \frac{\partial \mathbf{B}}{\partial t} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p>Transformer EMF is the principle behind transformers, where a changing current in the primary coil creates a changing magnetic field, which induces an EMF in the secondary coil.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Transformer EMF Diagram" width="100%">
-                        <div class="image-caption">Figure: Transformer EMF in a transformer setup</div>
-                    </div>
-                    
-                    <p><strong>Net Induction</strong></p>
-                    
-                    <p>When both motional and transformer EMF occur simultaneously, the total induced EMF is the sum of both effects:</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = \oint_C (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{l} - \int_S \frac{\partial \mathbf{B}}{\partial t} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p>This is the complete form of Faraday's law for a moving circuit in a time-varying magnetic field.</p>
-                    
-                    <p><strong>Example: Faraday's Law Application</strong></p>
-                    
-                    <p>A rectangular loop of wire with width \(w\) and length \(l\) is placed in a uniform magnetic field \(\mathbf{B} = B_0 \sin(\omega t) \mathbf{a}_z\). The loop is stationary. Find the induced EMF in the loop.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>The magnetic flux through the loop is:</p>
-                    
-                    <div class="equation">
-                        \Phi_B = \int_S \mathbf{B} \cdot d\mathbf{S} = B_0 \sin(\omega t) \cdot (w \cdot l)
-                    </div>
-                    
-                    <p>The induced EMF is:</p>
-                    
-                    <div class="equation">
-                        \mathcal{E} = -\frac{d\Phi_B}{dt} = -B_0 w l \omega \cos(\omega t)
-                    </div>
-                </div>
+            <h3>Conflict with Continuity Equation</h3>
+            <p>Ampere's original circuital law states:</p>
+            <div class="math-container">
+                \[
+                \oint \mathbf{H} \cdot d\mathbf{l} = I_{\text{enclosed}}
+                \]
             </div>
+            <p>However, taking the divergence of both sides and applying the divergence theorem leads to:</p>
+            <div class="math-container">
+                \[
+                \nabla \cdot (\nabla \times \mathbf{H}) = 0 = \nabla \cdot \mathbf{J}
+                \]
+            </div>
+            <p>This implies that \(\nabla \cdot \mathbf{J} = 0\), which contradicts the continuity equation for time-varying fields:</p>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{J} = -\frac{\partial \rho}{\partial t}
+                \]
+            </div>
+            <p>where \(\rho\) is the charge density.</p>
             
-            <div id="section2" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section2-content').style.display = 'block'">4.2 Displacement current</h2>
-                <div id="section2-content" class="section-content" style="display:block">
-                    <p><strong>Displacement Current</strong></p>
-                    
-                    <p>Displacement current is a concept introduced by James Clerk Maxwell to resolve the inconsistency between Ampere's circuital law and the continuity equation for time-varying fields.</p>
-                    
-                    <p>Ampere's circuital law for static fields states:</p>
-                    
-                    <div class="equation">
-                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc}
-                    </div>
-                    
-                    <p>In differential form:</p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J}
-                    </div>
-                    
-                    <p>However, this equation conflicts with the continuity equation:</p>
-                    
-                    <div class="equation">
-                        \nabla \cdot \mathbf{J} = -\frac{\partial \rho_v}{\partial t}
-                    </div>
-                    
-                    <p>Because taking the divergence of Ampere's law gives:</p>
-                    
-                    <div class="equation">
-                        \nabla \cdot (\nabla \times \mathbf{H}) = 0 = \nabla \cdot \mathbf{J}
-                    </div>
-                    
-                    <p>which conflicts with the continuity equation when \(\rho_v\) is changing with time.</p>
-                    
-                    <p>To resolve this conflict, Maxwell introduced the displacement current density \(\mathbf{J}_d\):</p>
-                    
-                    <div class="equation">
-                        \mathbf{J}_d = \frac{\partial \mathbf{D}}{\partial t}
-                    </div>
-                    
-                    <p>where \(\mathbf{D} = \epsilon \mathbf{E}\) is the electric flux density.</p>
-                    
-                    <p>With the displacement current included, Ampere's circuital law becomes:</p>
-                    
-                    <div class="equation">
-                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc} + I_d
-                    </div>
-                    
-                    <p>where \(I_d\) is the displacement current:</p>
-                    
-                    <div class="equation">
-                        I_d = \int_S \frac{\partial \mathbf{D}}{\partial t} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p>In differential form:</p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Displacement Current Diagram" width="100%">
-                        <div class="image-caption">Figure: Displacement current in a capacitor during charging</div>
-                    </div>
-                    
-                    <p><strong>Physical Significance</strong></p>
-                    <ul>
-                        <li>Displacement current is not a current of moving charges but a changing electric field</li>
-                        <li>It completes the circuit in capacitors where there is no actual current flow between plates</li>
-                        <li>It allows for the propagation of electromagnetic waves</li>
-                        <li>It is essential for the consistency of Maxwell's equations</li>
-                    </ul>
-                    
-                    <p><strong>Example: Displacement Current in a Parallel Plate Capacitor</strong></p>
-                    
-                    <p>Consider a parallel plate capacitor with plate area \(A\) and separation \(d\). The capacitor is charged with a time-varying voltage \(V(t) = V_0 \sin(\omega t)\). Find the displacement current between the plates.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>The electric field between the plates is:</p>
-                    
-                    <div class="equation">
-                        E = \frac{V(t)}{d} = \frac{V_0 \sin(\omega t)}{d}
-                    </div>
-                    
-                    <p>The electric flux density is:</p>
-                    
-                    <div class="equation">
-                        D = \epsilon E = \epsilon \frac{V_0 \sin(\omega t)}{d}
-                    </div>
-                    
-                    <p>The displacement current density is:</p>
-                    
-                    <div class="equation">
-                        J_d = \frac{\partial D}{\partial t} = \epsilon \frac{V_0 \omega \cos(\omega t)}{d}
-                    </div>
-                    
-                    <p>The total displacement current is:</p>
-                    
-                    <div class="equation">
-                        I_d = J_d A = \epsilon A \frac{V_0 \omega \cos(\omega t)}{d}
-                    </div>
-                    
-                    <p>Since the capacitance of a parallel plate capacitor is \(C = \frac{\epsilon A}{d}\), we have:</p>
-                    
-                    <div class="equation">
-                        I_d = C \frac{dV}{dt} = C V_0 \omega \cos(\omega t)
-                    </div>
-                </div>
+            <h3>Resolution: Displacement Current</h3>
+            <p>Maxwell resolved this conflict by modifying Ampere's law to include the displacement current term. The modified Ampere's law (also known as the Ampere-Maxwell law) is:</p>
+            <div class="math-container">
+                \[
+                \oint \mathbf{H} \cdot d\mathbf{l} = I_{\text{enclosed}} + \frac{d}{dt} \int \mathbf{D} \cdot d\mathbf{a}
+                \]
             </div>
+            <p>In differential form, this becomes:</p>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
+                \]
+            </div>
+            <p>Here, \(\frac{\partial \mathbf{D}}{\partial t}\) is the displacement current density. This term accounts for the "current" associated with changing electric fields, even in regions where no actual charge is moving. This modification ensures that the law is consistent with the continuity equation and allows for the propagation of electromagnetic waves.</p>
+        </div>
+
+        <div id="4_3" class="section">
+            <h2>4.3 Maxwell's equations in integral and point forms</h2>
+            <p>Maxwell's equations are a set of four fundamental equations that describe how electric and magnetic fields are generated and altered by each other and by charges and currents. They form the foundation of classical electromagnetism, optics, and electric circuits.</p>
             
-            <div id="section3" class="section">
-                <h2 class="section-title" onclick="document.getElementById('section3-content').style.display = 'block'">4.3 Maxwell's equations in integral and point forms</h2>
-                <div id="section3-content" class="section-content" style="display:block">
-                    <p><strong>Maxwell's Equations</strong></p>
-                    
-                    <p>Maxwell's equations are the fundamental equations of classical electromagnetism. They describe how electric and magnetic fields are generated and altered by each other and by charges and currents.</p>
-                    
-                    <p><strong>1. Gauss's Law for Electricity</strong></p>
-                    
-                    <p><em>Integral Form:</em></p>
-                    
-                    <div class="equation">
-                        \oint_S \mathbf{D} \cdot d\mathbf{S} = Q_{enc}
-                    </div>
-                    
-                    <p><em>Differential Form:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \cdot \mathbf{D} = \rho_v
-                    </div>
-                    
-                    <p>where \(\mathbf{D}\) is the electric flux density, \(Q_{enc}\) is the enclosed charge, and \(\rho_v\) is the volume charge density.</p>
-                    
-                    <p><strong>2. Gauss's Law for Magnetism</strong></p>
-                    
-                    <p><em>Integral Form:</em></p>
-                    
-                    <div class="equation">
-                        \oint_S \mathbf{B} \cdot d\mathbf{S} = 0
-                    </div>
-                    
-                    <p><em>Differential Form:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \cdot \mathbf{B} = 0
-                    </div>
-                    
-                    <p>where \(\mathbf{B}\) is the magnetic flux density. This law states that magnetic monopoles do not exist.</p>
-                    
-                    <p><strong>3. Faraday's Law of Induction</strong></p>
-                    
-                    <p><em>Integral Form:</em></p>
-                    
-                    <div class="equation">
-                        \oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt} \int_S \mathbf{B} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p><em>Differential Form:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
-                    </div>
-                    
-                    <p>where \(\mathbf{E}\) is the electric field intensity.</p>
-                    
-                    <p><strong>4. Ampere's Circuital Law with Maxwell's Correction</strong></p>
-                    
-                    <p><em>Integral Form:</em></p>
-                    
-                    <div class="equation">
-                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc} + \frac{d}{dt} \int_S \mathbf{D} \cdot d\mathbf{S}
-                    </div>
-                    
-                    <p><em>Differential Form:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
-                    </div>
-                    
-                    <p>where \(\mathbf{H}\) is the magnetic field intensity, \(\mathbf{J}\) is the current density, and \(\frac{\partial \mathbf{D}}{\partial t}\) is the displacement current density.</p>
-                    
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/600x400" alt="Maxwell's Equations Diagram" width="100%">
-                        <div class="image-caption">Figure: Maxwell's equations showing the relationship between electric and magnetic fields</div>
-                    </div>
-                    
-                    <p><strong>Maxwell's Equations in Phasor Form</strong></p>
-                    
-                    <p>For time-harmonic fields (sinusoidal steady state), Maxwell's equations can be expressed in phasor form:</p>
-                    
-                    <p><em>Gauss's Law for Electricity:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \cdot \mathbf{D} = \rho_v
-                    </div>
-                    
-                    <p><em>Gauss's Law for Magnetism:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \cdot \mathbf{B} = 0
-                    </div>
-                    
-                    <p><em>Faraday's Law:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{E} = -j\omega \mathbf{B}
-                    </div>
-                    
-                    <p><em>Ampere's Law:</em></p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{H} = \mathbf{J} + j\omega \mathbf{D}
-                    </div>
-                    
-                    <p>where \(j = \sqrt{-1}\) and \(\omega\) is the angular frequency.</p>
-                    
-                    <p><strong>Constitutive Relations</strong></p>
-                    
-                    <p>Maxwell's equations are often used with constitutive relations that relate the fields to material properties:</p>
-                    
-                    <div class="equation">
-                        \begin{aligned}
-                        \mathbf{D} &= \epsilon \mathbf{E} \\
-                        \mathbf{B} &= \mu \mathbf{H} \\
-                        \mathbf{J} &= \sigma \mathbf{E}
-                        \end{aligned}
-                    </div>
-                    
-                    <p>where \(\epsilon\) is the permittivity, \(\mu\) is the permeability, and \(\sigma\) is the conductivity of the medium.</p>
-                    
-                    <p><strong>Wave Equation</strong></p>
-                    
-                    <p>From Maxwell's equations, we can derive the wave equation for electromagnetic waves. In free space (\(\mathbf{J} = 0\), \(\rho_v = 0\)), the wave equations for \(\mathbf{E}\) and \(\mathbf{B}\) are:</p>
-                    
-                    <div class="equation">
-                        \begin{aligned}
-                        \nabla^2 \mathbf{E} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2} &= 0 \\
-                        \nabla^2 \mathbf{B} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{B}}{\partial t^2} &= 0
-                        \end{aligned}
-                    </div>
-                    
-                    <p>where \(\mu_0 \epsilon_0 = \frac{1}{c^2}\) and \(c\) is the speed of light in vacuum.</p>
-                    
-                    <p><strong>Example: Deriving the Wave Equation</strong></p>
-                    
-                    <p>Derive the wave equation for electric field in free space.</p>
-                    
-                    <p><strong>Solution:</strong></p>
-                    
-                    <p>From Faraday's law:</p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
-                    </div>
-                    
-                    <p>From Ampere's law in free space (\(\mathbf{J} = 0\)):</p>
-                    
-                    <div class="equation">
-                        \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t}
-                    </div>
-                    
-                    <p>Since \(\mathbf{D} = \epsilon_0 \mathbf{E}\) and \(\mathbf{B} = \mu_0 \mathbf{H}\) in free space:</p>
-                    
-                    <div class="equation">
-                        \begin{aligned}
-                        \nabla \times \mathbf{H} &= \epsilon_0 \frac{\partial \mathbf{E}}{\partial t} \\
-                        \nabla \times \mathbf{E} &= -\mu_0 \frac{\partial \mathbf{H}}{\partial t}
-                        \end{aligned}
-                    </div>
-                    
-                    <p>Take the curl of the first equation:</p>
-                    
-                    <div class="equation">
-                        \nabla \times (\nabla \times \mathbf{H}) = \epsilon_0 \frac{\partial}{\partial t} (\nabla \times \mathbf{E})
-                    </div>
-                    
-                    <p>Using the vector identity \(\nabla \times (\nabla \times \mathbf{H}) = \nabla(\nabla \cdot \mathbf{H}) - \nabla^2 \mathbf{H}\) and since \(\nabla \cdot \mathbf{H} = 0\) (Gauss's law for magnetism), we get:</p>
-                    
-                    <div class="equation">
-                        -\nabla^2 \mathbf{H} = \epsilon_0 \frac{\partial}{\partial t} (\nabla \times \mathbf{E})
-                    </div>
-                    
-                    <p>Substitute \(\nabla \times \mathbf{E} = -\mu_0 \frac{\partial \mathbf{H}}{\partial t}\):</p>
-                    
-                    <div class="equation">
-                        -\nabla^2 \mathbf{H} = \epsilon_0 \frac{\partial}{\partial t} \left(-\mu_0 \frac{\partial \mathbf{H}}{\partial t}\right)
-                    </div>
-                    
-                    <p>Which simplifies to:</p>
-                    
-                    <div class="equation">
-                        \nabla^2 \mathbf{H} = \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{H}}{\partial t^2}
-                    </div>
-                    
-                    <p>Similarly for \(\mathbf{E}\):</p>
-                    
-                    <div class="equation">
-                        \nabla^2 \mathbf{E} = \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2}
-                    </div>
-                </div>
+            <h3>Generalized Form of Maxwell's Equations</h3>
+            <p>For time-varying fields, Maxwell's equations in integral and differential (point) forms are as follows:</p>
+            
+            <h4>1. Gauss's Law for Electricity</h4>
+            <p><strong>Integral Form:</strong></p>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{D} \cdot d\mathbf{a} = Q_{\text{enclosed}} = \int_V \rho \, dv
+                \]
             </div>
+            <p><strong>Differential Form:</strong></p>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{D} = \rho
+                \]
+            </div>
+            <p>This law relates the electric flux through a closed surface to the charge enclosed within that surface.</p>
+            
+            <h4>2. Gauss's Law for Magnetism</h4>
+            <p><strong>Integral Form:</strong></p>
+            <div class="math-container">
+                \[
+                \oint_S \mathbf{B} \cdot d\mathbf{a} = 0
+                \]
+            </div>
+            <p><strong>Differential Form:</strong></p>
+            <div class="math-container">
+                \[
+                \nabla \cdot \mathbf{B} = 0
+                \]
+            </div>
+            <p>This law states that there are no magnetic monopoles; magnetic field lines are always closed loops.</p>
+            
+            <h4>3. Faraday's Law of Induction</h4>
+            <p><strong>Integral Form:</strong></p>
+            <div class="math-container">
+                \[
+                \oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt} \int_S \mathbf{B} \cdot d\mathbf{a}
+                \]
+            </div>
+            <p><strong>Differential Form:</strong></p>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
+                \]
+            </div>
+            <p>This law describes how a time-varying magnetic field induces an electric field.</p>
+            
+            <h4>4. Ampere-Maxwell Law</h4>
+            <p><strong>Integral Form:</strong></p>
+            <div class="math-container">
+                \[
+                \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{\text{enclosed}} + \frac{d}{dt} \int_S \mathbf{D} \cdot d\mathbf{a} = \int_S \mathbf{J} \cdot d\mathbf{a} + \frac{d}{dt} \int_S \mathbf{D} \cdot d\mathbf{a}
+                \]
+            </div>
+            <p><strong>Differential Form:</strong></p>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
+                \]
+            </div>
+            <p>This law shows that magnetic fields can be generated by electric currents and by changing electric fields (displacement current).</p>
+            
+            <h3>Lorentz Force Equation</h3>
+            <p>While not one of Maxwell's equations, the Lorentz force equation describes the force on a charged particle in an electromagnetic field and is essential for understanding the interaction of fields with matter:</p>
+            <div class="math-container">
+                \[
+                \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})
+                \]
+            </div>
+            <p>where \(q\) is the charge of the particle, \(\mathbf{E}\) is the electric field, \(\mathbf{v}\) is the velocity of the particle, and \(\mathbf{B}\) is the magnetic field.</p>
+            
+            <h3>Phasor Form (for Sinusoidal Steady State)</h3>
+            <p>For time-harmonic fields (fields varying sinusoidally with time), Maxwell's equations can be expressed in phasor form, which simplifies the analysis by converting differential equations in time to algebraic equations. In phasor notation, the time derivative \(\frac{\partial}{\partial t}\) is replaced by \(j\omega\), where \(\omega\) is the angular frequency.</p>
+            <p>The phasor forms of the curl equations become:</p>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{E} = -j\omega \mathbf{B}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \nabla \times \mathbf{H} = \mathbf{J} + j\omega \mathbf{D}
+                \]
+            </div>
+            <p>These equations are particularly useful in the analysis of electromagnetic waves and AC circuits.</p>
         </div>
     </div>
-</body>
-</html>
+
+
+<!-- <=-- <==========================chapter 5 ==========================> --> -->
+
+
+    <div id="chapter_5">
+        <h1>5. Plane Waves (9 hours)</h1>
+        
+        <li><a href="#5_1" class="topic-link">5.1 Wave propagation in lossless and lossy dielectric</a></li>
+        <li><a href="#5_2" class="topic-link">5.2 Plane waves in free space, lossless dielectric, good conductor</a></li>
+        <li><a href="#5_3" class="topic-link">5.3 Power and Poynting theorem average power density</a></li>
+        <li><a href="#5_4" class="topic-link">5.4 Reflection of plane wave at normal incidence</a></li>
+        <li><a href="#5_5" class="topic-link">5.5 Standing wave and SWR</a></li>
+        <li><a href="#5_6" class="topic-link">5.6 Input intrinsic impedance</a></li>
+
+        <div id="5_1" class="section">
+            <h2>5.1 Wave propagation in lossless and lossy dielectric</h2>
+            <p>Plane waves are fundamental solutions to Maxwell's equations in homogeneous, isotropic media. Their behavior varies significantly depending on whether the medium is lossless (perfect dielectric) or lossy (dissipative).</p>
+            
+            <h3>Propagation Constant</h3>
+            <p>The propagation constant, denoted by \(\gamma\), is a complex quantity that describes how a wave propagates through a medium. It is expressed as:</p>
+            <div class="math-container">
+                \[
+                \gamma = \alpha + j\beta
+                \]
+            </div>
+            <p>where \(\alpha\) is the attenuation constant (in Np/m) and \(\beta\) is the phase constant (in rad/m).</p>
+            
+            <h3>General Expression for Propagation Constant</h3>
+            <p>For a general medium, the propagation constant is given by:</p>
+            <div class="math-container">
+                \[
+                \gamma = \sqrt{j\omega\mu(\sigma + j\omega\varepsilon)}
+                \]
+            </div>
+            <p>From this, the general expressions for attenuation and phase constants are:</p>
+            <div class="math-container">
+                \[
+                \alpha = \omega \sqrt{\frac{\mu\varepsilon}{2} \left( \sqrt{1 + \left( \frac{\sigma}{\omega\varepsilon} \right)^2} - 1 \right)}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \beta = \omega \sqrt{\frac{\mu\varepsilon}{2} \left( \sqrt{1 + \left( \frac{\sigma}{\omega\varepsilon} \right)^2} + 1 \right)}
+                \]
+            </div>
+            
+            <h3>Wave Propagation in Lossless Dielectric</h3>
+            <p>In a lossless dielectric, \(\sigma = 0\). This simplifies the expressions to:</p>
+            <div class="math-container">
+                \[
+                \alpha = 0
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \beta = \omega \sqrt{\mu\varepsilon}
+                \]
+            </div>
+            <p>Since \(\alpha = 0\), there is no attenuation, and the wave propagates without loss. The phase constant \(\beta\) determines the wave's spatial frequency.</p>
+            
+            <h3>Wave Propagation in Lossy Dielectric</h3>
+            <p>In a lossy dielectric, \(\sigma \neq 0\). Both attenuation and phase constants are non-zero, leading to:</p>
+            <ul>
+                <li>Exponential decay of the wave amplitude as it propagates (\(e^{-\alpha z}\)).</li>
+                <li>Phase shift proportional to \(\beta z\).</li>
+            </ul>
+            <p>The electric field in a lossy dielectric can be expressed as:</p>
+            <div class="math-container">
+                \[
+                E_x = E_{xo} e^{-\alpha z} \cos(\omega t - \beta z)
+                \]
+            </div>
+        </div>
+
+        <div id="5_2" class="section">
+            <h2>5.2 Plane waves in free space, lossless dielectric, good conductor</h2>
+            
+            <h3>Plane Waves in Free Space</h3>
+            <p>Free space is characterized by \(\sigma = 0\), \(\varepsilon = \varepsilon_0\), and \(\mu = \mu_0\). The propagation parameters are:</p>
+            <div class="math-container">
+                \[
+                \alpha = 0, \quad \beta = \omega \sqrt{\mu_0 \varepsilon_0} = \frac{\omega}{c}
+                \]
+            </div>
+            <p>where \(c = \frac{1}{\sqrt{\mu_0 \varepsilon_0}}\) is the speed of light in vacuum. The intrinsic impedance of free space is:</p>
+            <div class="math-container">
+                \[
+                \eta_0 = \sqrt{\frac{\mu_0}{\varepsilon_0}} \approx 377 \, \Omega
+                \]
+            </div>
+            <p>The electric and magnetic fields are related by:</p>
+            <div class="math-container">
+                \[
+                H_y = \frac{E_x}{\eta_0}
+                \]
+            </div>
+            
+            <h3>Plane Waves in Lossless Dielectric</h3>
+            <p>For a lossless dielectric, \(\sigma = 0\), \(\varepsilon = \varepsilon_r \varepsilon_0\), \(\mu = \mu_r \mu_0\). The parameters are:</p>
+            <div class="math-container">
+                \[
+                \alpha = 0, \quad \beta = \omega \sqrt{\mu \varepsilon} = \omega \sqrt{\mu_r \mu_0 \varepsilon_r \varepsilon_0}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \eta = \sqrt{\frac{\mu}{\varepsilon}} = \sqrt{\frac{\mu_r \mu_0}{\varepsilon_r \varepsilon_0}} = \eta_0 \sqrt{\frac{\mu_r}{\varepsilon_r}}
+                \]
+            </div>
+            <p>The wave propagates without attenuation, and the intrinsic impedance depends on the relative permittivity and permeability.</p>
+            
+            <h3>Plane Waves in Good Conductors</h3>
+            <p>For good conductors, \(\sigma \gg \omega \varepsilon\). The propagation constant simplifies to:</p>
+            <div class="math-container">
+                \[
+                \alpha = \beta = \sqrt{\frac{\omega \mu \sigma}{2}}
+                \]
+            </div>
+            <p>The intrinsic impedance is complex:</p>
+            <div class="math-container">
+                \[
+                \eta = \sqrt{\frac{j\omega\mu}{\sigma + j\omega\varepsilon}} \approx \sqrt{\frac{j\omega\mu}{\sigma}} = (1 + j) \sqrt{\frac{\omega\mu}{2\sigma}}
+                \]
+            </div>
+            <p>Its magnitude and phase are:</p>
+            <div class="math-container">
+                \[
+                |\eta| = \sqrt{\frac{\omega\mu}{\sigma}}, \quad \angle \eta = 45^\circ
+                \]
+            </div>
+            <p>The electric field in a good conductor is:</p>
+            <div class="math-container">
+                \[
+                E_x = E_{xo} e^{-\alpha z} \cos(\omega t - \beta z)
+                \]
+            </div>
+            <p>and the magnetic field is:</p>
+            <div class="math-container">
+                \[
+                H_y = \frac{E_{xo}}{|\eta|} e^{-\alpha z} \cos(\omega t - \beta z - 45^\circ)
+                \]
+            </div>
+            <p>Notice the 45° phase difference between E and H fields in conductors.</p>
+        </div>
+
+        <div id="5_3" class="section">
+            <h2>5.3 Power and Poynting theorem average power density</h2>
+            
+            <h3>Poynting Vector</h3>
+            <p>The Poynting vector, denoted by \(\mathbf{S}\), represents the instantaneous power density (power per unit area) carried by an electromagnetic wave. It is defined as:</p>
+            <div class="math-container">
+                \[
+                \mathbf{S} = \mathbf{E} \times \mathbf{H} \quad \text{(W/m}^2\text{)}
+                \]
+            </div>
+            <p>The direction of \(\mathbf{S}\) indicates the direction of power flow.</p>
+            
+            <h3>Poynting's Theorem</h3>
+            <p>Poynting's theorem is a statement of energy conservation in electromagnetic fields. It can be derived from Maxwell's equations and is expressed as:</p>
+            <div class="math-container">
+                \[
+                -\nabla \cdot (\mathbf{E} \times \mathbf{H}) = \mathbf{J} \cdot \mathbf{E} + \mathbf{E} \cdot \frac{\partial \mathbf{D}}{\partial t} + \mathbf{H} \cdot \frac{\partial \mathbf{B}}{\partial t}
+                \]
+            </div>
+            <p>Integrating over a volume and applying the divergence theorem gives:</p>
+            <div class="math-container">
+                \[
+                -\oint_{\text{surface}} (\mathbf{E} \times \mathbf{H}) \cdot d\mathbf{s} = \int_{\text{volume}} \mathbf{J} \cdot \mathbf{E}  dv + \frac{\partial}{\partial t} \int_{\text{volume}} \left( \frac{1}{2} \mathbf{E} \cdot \mathbf{D} + \frac{1}{2} \mathbf{H} \cdot \mathbf{B} \right) dv
+                \]
+            </div>
+            <p>This states that the net power flowing out of a closed surface equals the power dissipated within the volume plus the rate of change of stored electromagnetic energy.</p>
+            
+            <h3>Time-Average Power Density</h3>
+            <p>For sinusoidal steady-state fields, we are often interested in the time-average power density. For a plane wave in a lossless medium:</p>
+            <div class="math-container">
+                \[
+                \langle S_z \rangle = \frac{1}{T} \int_0^T S_z  dt = \frac{1}{T} \int_0^T E_x H_y  dt
+                \]
+            </div>
+            <p>Substituting \(E_x = E_{xo} \cos(\omega t - \beta z)\) and \(H_y = \frac{E_{xo}}{\eta} \cos(\omega t - \beta z)\):</p>
+            <div class="math-container">
+                \[
+                \langle S_z \rangle = \frac{E_{xo}^2}{\eta} \cdot \frac{1}{T} \int_0^T \cos^2(\omega t - \beta z)  dt = \frac{E_{xo}^2}{2\eta}
+                \]
+            </div>
+            <p>For a lossy medium, where \(E_x = E_{xo} e^{-\alpha z} \cos(\omega t - \beta z)\) and \(H_y = \frac{E_{xo}}{|\eta|} e^{-\alpha z} \cos(\omega t - \beta z - \theta_\eta)\):</p>
+            <div class="math-container">
+                \[
+                \langle S_z \rangle = \frac{E_{xo}^2}{2|\eta|} e^{-2\alpha z} \cos \theta_\eta
+                \]
+            </div>
+            <p>where \(\theta_\eta\) is the phase angle of the complex intrinsic impedance.</p>
+            
+            <h3>Loss Tangent</h3>
+            <p>The loss tangent is a measure of how lossy a material is:</p>
+            <div class="math-container">
+                \[
+                \tan \delta = \frac{\sigma}{\omega \varepsilon}
+                \]
+            </div>
+            <p>It represents the ratio of conduction current density to displacement current density. A small loss tangent indicates a good dielectric, while a large loss tangent indicates a lossy material.</p>
+        </div>
+
+        <div id="5_4" class="section">
+            <h2>5.4 Reflection of plane wave at normal incidence</h2>
+            <p>When a uniform plane wave is incident normally on the boundary between two different media, part of the wave is reflected and part is transmitted.</p>
+            
+            <h3>Reflection and Transmission Coefficients</h3>
+            <p>Consider a wave incident from medium 1 to medium 2. The reflection coefficient (\(\Gamma\)) is the ratio of the reflected electric field amplitude to the incident electric field amplitude:</p>
+            <div class="math-container">
+                \[
+                \Gamma = \frac{E_{x01}^-}{E_{x01}^+} = \frac{\eta_2 - \eta_1}{\eta_2 + \eta_1}
+                \]
+            </div>
+            <p>The transmission coefficient (\(\tau\)) is the ratio of the transmitted electric field amplitude to the incident electric field amplitude:</p>
+            <div class="math-container">
+                \[
+                \tau = \frac{E_{x02}^+}{E_{x01}^+} = \frac{2\eta_2}{\eta_2 + \eta_1}
+                \]
+            </div>
+            <p>These coefficients satisfy the relation: \(\tau = 1 + \Gamma\).</p>
+            
+            <h3>Perfect Conductor Boundary</h3>
+            <p>When a wave is incident on a perfect conductor (\(\sigma \to \infty\)), the intrinsic impedance \(\eta_2 = 0\). Therefore:</p>
+            <div class="math-container">
+                \[
+                \Gamma = \frac{0 - \eta_1}{0 + \eta_1} = -1
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \tau = \frac{2 \cdot 0}{0 + \eta_1} = 0
+                \]
+            </div>
+            <p>This means the entire wave is reflected with a 180° phase shift, and no wave is transmitted into the conductor.</p>
+            
+            <h3>Field Expressions</h3>
+            <p>In medium 1, the total electric field is the sum of incident and reflected waves:</p>
+            <div class="math-container">
+                \[
+                E_{xs1} = E_{x01}^+ e^{-j\beta_1 z} + E_{x01}^- e^{+j\beta_1 z} = E_{x01}^+ (e^{-j\beta_1 z} + \Gamma e^{+j\beta_1 z})
+                \]
+            </div>
+            <p>For a perfect conductor (\(\Gamma = -1\)):</p>
+            <div class="math-container">
+                \[
+                E_{xs1} = E_{x01}^+ (e^{-j\beta_1 z} - e^{+j\beta_1 z}) = -2j E_{x01}^+ \sin(\beta_1 z)
+                \]
+            </div>
+            <p>In time domain:</p>
+            <div class="math-container">
+                \[
+                E_{x1} = 2 E_{x01}^+ \sin(\beta_1 z) \sin(\omega t)
+                \]
+            </div>
+        </div>
+
+        <div id="5_5" class="section">
+            <h2>5.5 Standing wave and SWR</h2>
+            <p>When a wave is reflected from a boundary, the interference between incident and reflected waves creates a standing wave pattern.</p>
+            
+            <h3>Standing Wave Formation</h3>
+            <p>As derived in section 5.4, for a wave incident on a perfect conductor:</p>
+            <div class="math-container">
+                \[
+                E_{x1} = 2 E_{x01}^+ \sin(\beta_1 z) \sin(\omega t)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                H_{y1} = \frac{2 E_{x01}^+}{\eta_1} \cos(\beta_1 z) \cos(\omega t)
+                \]
+            </div>
+            <p>These equations describe standing waves. The electric field is maximum where \(\sin(\beta_1 z) = \pm 1\) (at \(z = -\lambda/4, -3\lambda/4, \ldots\)) and zero where \(\sin(\beta_1 z) = 0\) (at \(z = 0, -\lambda/2, -\lambda, \ldots\)). Conversely, the magnetic field is maximum where \(\cos(\beta_1 z) = \pm 1\) and zero where \(\cos(\beta_1 z) = 0\). This shows that E and H fields are 90° out of phase in both time and space.</p>
+            
+            <h3>Standing Wave Ratio (SWR)</h3>
+            <p>For a general case with reflection coefficient \(\Gamma\), the maximum and minimum electric field magnitudes are:</p>
+            <div class="math-container">
+                \[
+                |E_{s1}|_{\text{max}} = |E_{x01}^+| (1 + |\Gamma|)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                |E_{s1}|_{\text{min}} = |E_{x01}^+| (1 - |\Gamma|)
+                \]
+            </div>
+            <p>The Standing Wave Ratio (SWR) is defined as:</p>
+            <div class="math-container">
+                \[
+                \text{SWR} = \frac{|E_{s1}|_{\text{max}}}{|E_{s1}|_{\text{min}}} = \frac{1 + |\Gamma|}{1 - |\Gamma|}
+                \]
+            </div>
+            <p>SWR ranges from 1 (no reflection, \(|\Gamma| = 0\)) to \(\infty\) (total reflection, \(|\Gamma| = 1\)).</p>
+            
+            <h3>Position of Maxima and Minima</h3>
+            <p>The positions of electric field maxima and minima can be found from the phase of \(\Gamma\). If \(\Gamma = |\Gamma| e^{j\theta}\), then:</p>
+            <div class="math-container">
+                \[
+                z_{\text{max}} = \frac{1}{2\beta_1} (\theta + 2n\pi) = \frac{\lambda}{4\pi} (\theta + 2n\pi) \quad (n = 0, \pm 1, \pm 2, \ldots)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                z_{\text{min}} = \frac{1}{2\beta_1} (\theta + (2n+1)\pi) = \frac{\lambda}{4\pi} (\theta + (2n+1)\pi) \quad (n = 0, \pm 1, \pm 2, \ldots)
+                \]
+            </div>
+        </div>
+
+        <div id="5_6" class="section">
+            <h2>5.6 Input intrinsic impedance</h2>
+            <p>The input intrinsic impedance at any point in a medium is the ratio of the total electric field to the total magnetic field at that point.</p>
+            
+            <h3>General Expression</h3>
+            <p>For a wave propagating in the z-direction in medium 1 with reflection at z=0:</p>
+            <div class="math-container">
+                \[
+                E_{xs1} = E_{x01}^+ e^{-j\beta_1 z} + E_{x01}^- e^{+j\beta_1 z}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                H_{ys1} = \frac{E_{x01}^+}{\eta_1} e^{-j\beta_1 z} - \frac{E_{x01}^-}{\eta_1} e^{+j\beta_1 z}
+                \]
+            </div>
+            <p>The input impedance at position z is:</p>
+            <div class="math-container">
+                \[
+                \eta_{\text{in}}(z) = \frac{E_{xs1}}{H_{ys1}} = \eta_1 \frac{E_{x01}^+ e^{-j\beta_1 z} + E_{x01}^- e^{+j\beta_1 z}}{E_{x01}^+ e^{-j\beta_1 z} - E_{x01}^- e^{+j\beta_1 z}}
+                \]
+            </div>
+            <p>Using \(\Gamma = E_{x01}^- / E_{x01}^+\):</p>
+            <div class="math-container">
+                \[
+                \eta_{\text{in}}(z) = \eta_1 \frac{e^{-j\beta_1 z} + \Gamma e^{+j\beta_1 z}}{e^{-j\beta_1 z} - \Gamma e^{+j\beta_1 z}}
+                \]
+            </div>
+            
+            <h3>At the Boundary (z=0)</h3>
+            <p>At the boundary between medium 1 and medium 2 (z=0), the input impedance equals the intrinsic impedance of medium 2 due to continuity of tangential fields:</p>
+            <div class="math-container">
+                \[
+                \eta_{\text{in}}(0) = \eta_2
+                \]
+            </div>
+            
+            <h3>For a Perfect Conductor</h3>
+            <p>When medium 2 is a perfect conductor, \(\eta_2 = 0\) and \(\Gamma = -1\). The input impedance at any point z is:</p>
+            <div class="math-container">
+                \[
+                \eta_{\text{in}}(z) = \eta_1 \frac{e^{-j\beta_1 z} - e^{+j\beta_1 z}}{e^{-j\beta_1 z} + e^{+j\beta_1 z}} = \eta_1 \frac{-2j\sin(\beta_1 z)}{2\cos(\beta_1 z)} = j\eta_1 \tan(\beta_1 z)
+                \]
+            </div>
+            <p>This is purely imaginary, indicating that no real power is dissipated (as expected for lossless medium and perfect conductor boundary). The impedance varies periodically with distance from the boundary.</p>
+            
+            <h3>Quarter-Wave Transformer</h3>
+            <p>At a distance \(z = -\lambda/4\) from the boundary:</p>
+            <div class="math-container">
+                \[
+                \eta_{\text{in}}(-\lambda/4) = j\eta_1 \tan\left(\beta_1 \cdot \frac{-\lambda}{4}\right) = j\eta_1 \tan\left(\frac{2\pi}{\lambda} \cdot \frac{-\lambda}{4}\right) = j\eta_1 \tan\left(-\frac{\pi}{2}\right) \to \infty
+                \]
+            </div>
+            <p>This corresponds to an open circuit. Similarly, at \(z = -\lambda/2\), \(\eta_{\text{in}} = 0\), corresponding to a short circuit.</p>
+        </div>
+    </div>
+
+
+<!-- <=-- <==========================chapter 6 ==========================> -->
+ 
+
+    <div id="chapter_6">
+        <h1>6. Transmission Lines (4 hours)</h1>
+        
+        <li><a href="#6_1" class="topic-link">6.1 Transmission line equations (Taking analogy from wave equations)</a></li>
+        <li><a href="#6_2" class="topic-link">6.2 Lossless, lossy and distortionless transmission lines</a></li>
+        <li><a href="#6_3" class="topic-link">6.3 Input impedance, reflection coefficient, standing wave ratio</a></li>
+
+        <div id="6_1" class="section">
+            <h2>6.1 Transmission line equations (Taking analogy from wave equations)</h2>
+            <p>Transmission lines are structures that guide electromagnetic waves from one point to another. They are used in various applications including connecting transmitters to antennas, computer network connections, and power transmission over long distances.</p>
+            
+            <h3>Distributed Parameter Model</h3>
+            <p>Unlike ordinary circuit analysis where physical dimensions are much smaller than the wavelength, transmission lines are characterized by distributed parameters because voltage and current can vary significantly in magnitude and phase over the length of the line. The distributed parameters per unit length are:</p>
+            <ul>
+                <li><strong>R</strong>: Resistance per unit length (Ω/m) - represents conductor losses</li>
+                <li><strong>L</strong>: Inductance per unit length (H/m) - due to magnetic fields surrounding the conductors</li>
+                <li><strong>G</strong>: Conductance per unit length (S/m) - represents dielectric losses</li>
+                <li><strong>C</strong>: Capacitance per unit length (F/m) - due to electric field between conductors</li>
+            </ul>
+            
+            <h3>Transmission Line Equations</h3>
+            <p>Consider an infinitesimal section of a transmission line of length \(\Delta z\). Applying Kirchhoff's voltage law to the loop:</p>
+            <div class="math-container">
+                \[
+                V(z,t) = R\Delta z \cdot I(z,t) + L\Delta z \cdot \frac{\partial I(z,t)}{\partial t} + V(z+\Delta z,t)
+                \]
+            </div>
+            <p>Rearranging and taking the limit as \(\Delta z \to 0\):</p>
+            <div class="math-container">
+                \[
+                \frac{\partial V(z,t)}{\partial z} = -RI(z,t) - L\frac{\partial I(z,t)}{\partial t}
+                \]
+            </div>
+            <p>Similarly, applying Kirchhoff's current law at the node:</p>
+            <div class="math-container">
+                \[
+                I(z,t) = G\Delta z \cdot V(z+\Delta z,t) + C\Delta z \cdot \frac{\partial V(z+\Delta z,t)}{\partial t} + I(z+\Delta z,t)
+                \]
+            </div>
+            <p>Rearranging and taking the limit as \(\Delta z \to 0\):</p>
+            <div class="math-container">
+                \[
+                \frac{\partial I(z,t)}{\partial z} = -GV(z,t) - C\frac{\partial V(z,t)}{\partial t}
+                \]
+            </div>
+            
+            <h3>Wave Equations for Transmission Lines</h3>
+            <p>Taking the derivative of the first equation with respect to \(z\) and substituting the second equation:</p>
+            <div class="math-container">
+                \[
+                \frac{\partial^2 V(z,t)}{\partial z^2} = -R\frac{\partial I(z,t)}{\partial z} - L\frac{\partial^2 I(z,t)}{\partial z \partial t}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \frac{\partial^2 V(z,t)}{\partial z^2} = -R(-GV - C\frac{\partial V}{\partial t}) - L\frac{\partial}{\partial t}(-GV - C\frac{\partial V}{\partial t})
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \frac{\partial^2 V(z,t)}{\partial z^2} = RG V + RC\frac{\partial V}{\partial t} + LG\frac{\partial V}{\partial t} + LC\frac{\partial^2 V}{\partial t^2}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \frac{\partial^2 V}{\partial z^2} = LC\frac{\partial^2 V}{\partial t^2} + (RC + LG)\frac{\partial V}{\partial t} + RGV
+                \]
+            </div>
+            <p>Similarly, for current:</p>
+            <div class="math-container">
+                \[
+                \frac{\partial^2 I}{\partial z^2} = LC\frac{\partial^2 I}{\partial t^2} + (RC + LG)\frac{\partial I}{\partial t} + RGI
+                \]
+            </div>
+            
+            <h3>Phasor Form</h3>
+            <p>For sinusoidal steady-state analysis, we use phasor notation where \(V(z,t) = \text{Re}[V_s(z)e^{j\omega t}]\) and \(I(z,t) = \text{Re}[I_s(z)e^{j\omega t}]\). The transmission line equations become:</p>
+            <div class="math-container">
+                \[
+                \frac{dV_s(z)}{dz} = -(R + j\omega L)I_s(z)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \frac{dI_s(z)}{dz} = -(G + j\omega C)V_s(z)
+                \]
+            </div>
+            <p>Taking derivatives and substituting, we get the wave equations in phasor form:</p>
+            <div class="math-container">
+                \[
+                \frac{d^2V_s(z)}{dz^2} = \gamma^2 V_s(z)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \frac{d^2I_s(z)}{dz^2} = \gamma^2 I_s(z)
+                \]
+            </div>
+            <p>where \(\gamma = \sqrt{(R + j\omega L)(G + j\omega C)}\) is the propagation constant.</p>
+            
+            <h3>General Solution</h3>
+            <p>The general solutions to the wave equations are:</p>
+            <div class="math-container">
+                \[
+                V_s(z) = V_0^+ e^{-\gamma z} + V_0^- e^{\gamma z}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                I_s(z) = I_0^+ e^{-\gamma z} + I_0^- e^{\gamma z}
+                \]
+            </div>
+            <p>where \(V_0^+\) and \(V_0^-\) are the amplitudes of the forward and backward traveling voltage waves, respectively.</p>
+        </div>
+
+        <div id="6_2" class="section">
+            <h2>6.2 Lossless, lossy and distortionless transmission lines</h2>
+            
+            <h3>Propagation Constant</h3>
+            <p>The propagation constant \(\gamma\) is a complex quantity:</p>
+            <div class="math-container">
+                \[
+                \gamma = \alpha + j\beta = \sqrt{(R + j\omega L)(G + j\omega C)}
+                \]
+            </div>
+            <p>where \(\alpha\) is the attenuation constant (Np/m) and \(\beta\) is the phase constant (rad/m).</p>
+            
+            <h3>Characteristic Impedance</h3>
+            <p>The characteristic impedance \(Z_0\) is the ratio of voltage to current for a wave traveling in one direction:</p>
+            <div class="math-container">
+                \[
+                Z_0 = \sqrt{\frac{R + j\omega L}{G + j\omega C}}
+                \]
+            </div>
+            
+            <h3>Lossless Transmission Lines</h3>
+            <p>For lossless transmission lines, \(R = 0\) and \(G = 0\). This simplifies the equations:</p>
+            <div class="math-container">
+                \[
+                \gamma = j\beta = j\omega\sqrt{LC}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                Z_0 = \sqrt{\frac{L}{C}}
+                \]
+            </div>
+            <p>The phase velocity is:</p>
+            <div class="math-container">
+                \[
+                v_p = \frac{\omega}{\beta} = \frac{1}{\sqrt{LC}}
+                \]
+            </div>
+            <p>For lossless lines, there is no attenuation (\(\alpha = 0\)), and signals propagate without loss.</p>
+            
+            <h3>Low-Loss Transmission Lines</h3>
+            <p>When \(R \ll \omega L\) and \(G \ll \omega C\), the line is considered low-loss. The propagation constant can be approximated as:</p>
+            <div class="math-container">
+                \[
+                \gamma \approx \frac{R}{2}\sqrt{\frac{C}{L}} + \frac{G}{2}\sqrt{\frac{L}{C}} + j\omega\sqrt{LC}
+                \]
+            </div>
+            <p>So the attenuation constant is:</p>
+            <div class="math-container">
+                \[
+                \alpha \approx \frac{R}{2}\sqrt{\frac{C}{L}} + \frac{G}{2}\sqrt{\frac{L}{C}}
+                \]
+            </div>
+            <p>And the characteristic impedance is approximately:</p>
+            <div class="math-container">
+                \[
+                Z_0 \approx \sqrt{\frac{L}{C}}\left(1 + \frac{R}{2\omega L} - \frac{G}{2\omega C}\right)
+                \]
+            </div>
+            
+            <h3>Distortionless Transmission Lines</h3>
+            <p>A distortionless line is one where the attenuation is independent of frequency and the phase shift is linearly dependent on frequency. This occurs when:</p>
+            <div class="math-container">
+                \[
+                \frac{R}{L} = \frac{G}{C}
+                \]
+            </div>
+            <p>Under this condition:</p>
+            <div class="math-container">
+                \[
+                \gamma = \sqrt{RG} + j\omega\sqrt{LC}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                \alpha = \sqrt{RG}, \quad \beta = \omega\sqrt{LC}
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                Z_0 = \sqrt{\frac{L}{C}}
+                \]
+            </div>
+            <p>The phase velocity is constant:</p>
+            <div class="math-container">
+                \[
+                v_p = \frac{\omega}{\beta} = \frac{1}{\sqrt{LC}}
+                \]
+            </div>
+            <p>This ensures that all frequency components travel at the same speed, preventing signal distortion.</p>
+        </div>
+
+        <div id="6_3" class="section">
+            <h2>6.3 Input impedance, reflection coefficient, standing wave ratio</h2>
+            
+            <h3>Reflection Coefficient</h3>
+            <p>When a transmission line is terminated with a load impedance \(Z_L\) that is different from the characteristic impedance \(Z_0\), part of the incident wave is reflected back. The voltage reflection coefficient \(\Gamma\) at the load (z=0) is defined as the ratio of the reflected voltage wave to the incident voltage wave:</p>
+            <div class="math-container">
+                \[
+                \Gamma = \frac{V_0^-}{V_0^+} = \frac{Z_L - Z_0}{Z_L + Z_0}
+                \]
+            </div>
+            <p>The magnitude of \(\Gamma\) ranges from 0 to 1. When \(|\Gamma| = 0\), there is no reflection (matched load). When \(|\Gamma| = 1\), there is total reflection (open or short circuit).</p>
+            
+            <h3>Input Impedance</h3>
+            <p>The input impedance \(Z_{in}\) at a distance \(l\) from the load is the ratio of total voltage to total current at that point:</p>
+            <div class="math-container">
+                \[
+                Z_{in}(l) = \frac{V_s(-l)}{I_s(-l)} = Z_0 \frac{Z_L + Z_0 \tanh(\gamma l)}{Z_0 + Z_L \tanh(\gamma l)}
+                \]
+            </div>
+            <p>For a lossless line (\(\gamma = j\beta\)):</p>
+            <div class="math-container">
+                \[
+                Z_{in}(l) = Z_0 \frac{Z_L + jZ_0 \tan(\beta l)}{Z_0 + jZ_L \tan(\beta l)}
+                \]
+            </div>
+            <p>Special cases:</p>
+            <ul>
+                <li><strong>Matched load</strong> (\(Z_L = Z_0\)): \(Z_{in} = Z_0\) (independent of length)</li>
+                <li><strong>Short circuit</strong> (\(Z_L = 0\)): \(Z_{in} = jZ_0 \tan(\beta l)\)</li>
+                <li><strong>Open circuit</strong> (\(Z_L = \infty\)): \(Z_{in} = -jZ_0 \cot(\beta l)\)</li>
+                <li><strong>Quarter-wave transformer</strong> (\(l = \lambda/4\)): \(Z_{in} = \frac{Z_0^2}{Z_L}\)</li>
+            </ul>
+            
+            <h3>Standing Waves</h3>
+            <p>When there is reflection, the interference between incident and reflected waves creates a standing wave pattern. The total voltage on a lossless line is:</p>
+            <div class="math-container">
+                \[
+                V_s(z) = V_0^+ (e^{-j\beta z} + \Gamma e^{j\beta z})
+                \]
+            </div>
+            <p>The magnitude of voltage varies with position:</p>
+            <div class="math-container">
+                \[
+                |V_s(z)| = |V_0^+| \sqrt{1 + |\Gamma|^2 + 2|\Gamma|\cos(2\beta z + \theta_\Gamma)}
+                \]
+            </div>
+            <p>where \(\theta_\Gamma\) is the phase angle of \(\Gamma\).</p>
+            
+            <h3>Standing Wave Ratio (SWR)</h3>
+            <p>The standing wave ratio (SWR) is defined as the ratio of maximum to minimum voltage magnitude on the line:</p>
+            <div class="math-container">
+                \[
+                \text{SWR} = \frac{|V_s|_{\text{max}}}{|V_s|_{\text{min}}} = \frac{1 + |\Gamma|}{1 - |\Gamma|}
+                \]
+            </div>
+            <p>SWR ranges from 1 (no reflection, \(|\Gamma| = 0\)) to \(\infty\) (total reflection, \(|\Gamma| = 1\)).</p>
+            <p>The positions of voltage maxima and minima can be found from:</p>
+            <div class="math-container">
+                \[
+                z_{\text{max}} = \frac{\theta_\Gamma}{2\beta} - \frac{n\pi}{\beta} \quad (n = 0, 1, 2, \ldots)
+                \]
+            </div>
+            <div class="math-container">
+                \[
+                z_{\text{min}} = \frac{\theta_\Gamma}{2\beta} - \frac{(2n+1)\pi}{2\beta} \quad (n = 0, 1, 2, \ldots)
+                \]
+            </div>
+            
+            <h3>Impedance Matching</h3>
+            <p>Impedance matching is important to maximize power transfer and minimize reflections. When the load is matched to the line (\(Z_L = Z_0\)), \(\Gamma = 0\) and SWR = 1, ensuring maximum power delivery to the load.</p>
+            <p>One common matching technique is the quarter-wave transformer, which uses a section of transmission line with length \(\lambda/4\) and characteristic impedance \(Z_{01} = \sqrt{Z_0 Z_L}\) to match a real load \(Z_L\) to a line with characteristic impedance \(Z_0\).</p>
+        </div>
+    </div>
