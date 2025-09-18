@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Database configuration
 $host = 'localhost:8081';
 $dbname = 'eng_proficiency';
@@ -13,7 +13,9 @@ try {
 }
 
 // Session configuration
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF']) !== 'login.php' && 

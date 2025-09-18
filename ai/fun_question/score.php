@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../components/login/config.php';
+include '../../components/login/config.php';
 
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {
     exit;

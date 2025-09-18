@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../components/login/config.php';
+include '../../components/login/config.php';
 
 // Handle flash message
 $flashMessage = null;
