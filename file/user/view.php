@@ -77,6 +77,40 @@ $conn->close();
             transition: all .3s ease;
         }
 
+        .top-toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+
+        .top-toolbar button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .top-toolbar button:hover {
+            background: #0056b3;
+        }
+
+        .top-toolbar button.download-btn {
+            background: #28a745;
+        }
+
+        .top-toolbar button.download-btn:hover {
+            background: #1e7e34;
+        }
+
         .pdf-container {
             text-align: center;
             margin-top: 20px;
@@ -95,15 +129,7 @@ $conn->close();
             flex-direction: column;
             align-items: center;
             padding: 10px 0;
-            transform-origin: top center;
-            transition: transform 0.1s ease-out;
-        }
-
-        .pdf-canvas-container.rendering {
-            opacity: 0.95;
-            pointer-events: none;
-            cursor: wait;
-            transition: opacity 0.1s ease;
+            transform-origin: center;
         }
 
         .pdf-page {
@@ -115,38 +141,41 @@ $conn->close();
             box-sizing: border-box;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
-            transform-origin: center top;
-            transition: transform 0.1s ease-out;
+            transform-origin: center;
         }
 
         .exit-fullscreen-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(244, 67, 54, 0.95);
+            background: rgba(244, 67, 54, 0.9);
             color: white;
             border: none;
             padding: 12px 16px;
-            border-radius: 50px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
             display: none;
             z-index: 10001;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
         }
 
         .exit-fullscreen-btn:hover {
-            transform: scale(1.03);
+            background: rgba(244, 67, 54, 1);
+            transform: scale(1.05);
         }
 
         body.fullscreen-mode {
             background: #000;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
-        body.fullscreen-mode .toolbar,
+        body.fullscreen-mode .top-toolbar,
         body.fullscreen-mode h1,
+        body.fullscreen-mode h2,
         body.fullscreen-mode .device-info,
         body.fullscreen-mode .page-navigation,
         body.fullscreen-mode .back-button,
@@ -167,6 +196,7 @@ $conn->close();
             padding: 0;
             border-radius: 0;
             box-shadow: none;
+            background: #000;
         }
 
         body.fullscreen-mode .pdf-container,
@@ -176,12 +206,15 @@ $conn->close();
             padding: 0;
             margin: 0;
             overflow: auto;
+            background: #000;
             -webkit-overflow-scrolling: touch;
             touch-action: pan-y pinch-zoom;
         }
 
         body.fullscreen-mode .exit-fullscreen-btn {
             display: flex !important;
+            align-items: center;
+            justify-content: center;
             z-index: 10002;
         }
 
@@ -227,6 +260,11 @@ $conn->close();
             margin: 0 5px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .page-navigation button:hover:not(:disabled) {
+            background: #e9ecef;
         }
 
         .page-navigation button:disabled {
@@ -239,10 +277,71 @@ $conn->close();
             margin: 0 10px;
         }
 
-        /* Ensure canvas container is on top in fullscreen */
-        body.fullscreen-mode .pdf-canvas-container {
-            z-index: 9999;
-            position: relative;
+        .zoom-controls {
+            margin: 10px 0;
+        }
+
+        .zoom-controls button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .zoom-controls button:hover {
+            background: #545b62;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .loading-percentage {
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 10px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            background: #f8d7da;
+            color: #721c24;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .top-toolbar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .top-toolbar button {
+                width: 200px;
+                margin: 2px 0;
+            }
         }
     </style>
 
@@ -260,6 +359,16 @@ $conn->close();
     <div class="container" id="main-container">
         <div class="pdf-container" id="pdf-container">
             <h2><?php echo htmlspecialchars($material['subject']); ?> - Semester <?php echo htmlspecialchars($material['semester']); ?></h2>
+
+            <!-- Top Toolbar - Visible in normal mode, hidden in fullscreen -->
+            <div class="top-toolbar" id="top-toolbar">
+                <button onclick="toggleFullscreen()" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button onclick="downloadPDF()" class="download-btn">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
 
             <?php if ($isAndroid): ?>
                 <div id="loading" class="loading">
@@ -284,10 +393,16 @@ $conn->close();
 
                 <div id="pdf-controls" style="display:none;">
                     <div class="page-navigation">
-                        <button id="prev-page" onclick="previousPage()"><i class="fas fa-chevron-left"></i></button>
+                        <button id="prev-page" onclick="previousPage()"><i class="fas fa-chevron-left"></i> Previous</button>
                         <span class="page-info">Page <span id="page-num">1</span> of <span id="page-count">-</span></span>
-                        <button id="next-page" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
+                        <button id="next-page" onclick="nextPage()">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
+                    
+                    <div class="zoom-controls">
+                        <button id="zoom-out" onclick="zoomOut()"><i class="fas fa-search-minus"></i> Zoom Out</button>
+                        <button id="zoom-in" onclick="zoomIn()"><i class="fas fa-search-plus"></i> Zoom In</button>
+                    </div>
+
                     <div class="progress-container">
                         <div class="progress-bar" id="progress-bar"></div>
                     </div>
@@ -303,26 +418,7 @@ $conn->close();
             <?php endif; ?>
         </div>
 
-        <div class="toolbar" id="toolbar">
-            <button onclick="toggleFullscreen()" id="fullscreen-btn">
-                <i class="fas fa-expand" id="fullscreen-icon"></i> 
-                <span id="fullscreen-text">Fullscreen</span>
-            </button>
-            <?php if ($isAndroid): ?>
-                <button id="zoom-out" onclick="zoomOut()"><i class="fas fa-search-minus"></i> Zoom Out</button>
-                <button id="zoom-in" onclick="zoomIn()"><i class="fas fa-search-plus"></i> Zoom In</button>
-                <button onclick="fitToWidth()"><i class="fas fa-expand-arrows-alt"></i> Fit Width</button>
-                <button onclick="rotatePage()" class="secondary"><i class="fas fa-redo"></i> Rotate</button>
-            <?php else: ?>
-                <button onclick="zoomInIframe()"><i class="fas fa-search-plus"></i> Zoom In</button>
-                <button onclick="zoomOutIframe()"><i class="fas fa-search-minus"></i> Zoom Out</button>
-            <?php endif; ?>
-            <button onclick="downloadPDF()"><i class="fas fa-download"></i> Download</button>
-            <button onclick="printPDF()"><i class="fas fa-print"></i> Print</button>
-        </div>
-
-        <a href="<?php echo htmlspecialchars($referrer); ?>" class="back-button"
-            style="display:inline-block;margin-top:20px;padding:12px 24px;background-color:#4CAF50;color:#fff;text-decoration:none;border-radius:6px;">
+        <a href="<?php echo htmlspecialchars($referrer); ?>" class="back-button">
             <i class="fas fa-arrow-left"></i> Back
         </a>
     </div>
@@ -334,7 +430,6 @@ $conn->close();
         let pdfDoc = null;
         let pageNum = 1;
         let scale = 1.0;
-        let rotation = 0;
         let isFullscreen = false;
         let totalPages = 0;
         let pagesRendered = 0;
@@ -347,8 +442,6 @@ $conn->close();
         let touchStartY = 0;
         let initialPinchDistance = 0;
         let pinchStartScale = 1.0;
-        let pinchStartX = 0;
-        let pinchStartY = 0;
 
         // Constants
         const SWIPE_COOLDOWN_MS = 450;
@@ -402,21 +495,13 @@ $conn->close();
             if (!pdfDoc) return;
             pagesRendered = 0;
             const canvasContainer = document.getElementById('pdf-canvas');
-            
-            // Clear container
             canvasContainer.innerHTML = '';
 
-            // Render all pages
             for (let i = 1; i <= totalPages; i++) {
                 renderPage(i, true);
             }
 
-            // After rendering, reset any CSS scale and remove loading state
             setTimeout(() => {
-                canvasContainer.style.transform = 'scale(1)';
-                canvasContainer.classList.remove('rendering');
-                
-                // Scroll to current page
                 const currentPage = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
                 if (currentPage) {
                     currentPage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -434,19 +519,19 @@ $conn->close();
                 const containerWidth = Math.max(container.clientWidth - 40, 320);
 
                 // Get original viewport
-                const viewport = page.getViewport({ scale: 1.0, rotation: rotation });
+                const viewport = page.getViewport({ scale: 1.0 });
 
-                // Calculate scale to fit width
+                // Calculate responsive scale
                 const responsiveScale = containerWidth / viewport.width;
 
-                // Apply device pixel ratio for sharpness
+                // Apply device pixel ratio for HD
                 const pixelRatio = window.devicePixelRatio || 1;
                 const finalScale = scale * responsiveScale * pixelRatio;
 
                 // Get scaled viewport
-                const scaledViewport = page.getViewport({ scale: finalScale, rotation: rotation });
+                const scaledViewport = page.getViewport({ scale: finalScale });
 
-                // Set canvas size (CSS + actual pixels)
+                // Set canvas dimensions
                 canvas.style.width = `${scaledViewport.width / pixelRatio}px`;
                 canvas.style.height = `${scaledViewport.height / pixelRatio}px`;
                 canvas.width = scaledViewport.width;
@@ -455,54 +540,74 @@ $conn->close();
                 canvas.className = 'pdf-page';
                 canvas.dataset.pagenumber = num;
 
-                // Render
+                // Render the page
                 const renderContext = {
                     canvasContext: ctx,
                     viewport: scaledViewport
                 };
 
-                page.render(renderContext).promise.then(function() {
+                return page.render(renderContext).promise.then(function() {
                     const canvasContainer = document.getElementById('pdf-canvas');
                     canvasContainer.appendChild(canvas);
 
                     pagesRendered++;
-                    if (totalPages > 0) {
-                        const progress = (pagesRendered / totalPages) * 100;
-                        const progressBar = document.getElementById('progress-bar');
-                        if (progressBar) progressBar.style.width = progress + '%';
-                    }
+                    updateProgress();
 
                     if (!isPartOfBatch) {
-                        canvas.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        document.getElementById('page-num').textContent = num;
+                        pageNum = num;
+                        updateNavigationButtons();
                     }
-                }).catch(console.error);
+                });
             }).catch(console.error);
+        }
 
-            if (!isPartOfBatch) {
-                document.getElementById('page-num').textContent = num;
-                pageNum = num;
-                updateNavigationButtons();
+        function updateProgress() {
+            if (totalPages > 0) {
+                const progress = (pagesRendered / totalPages) * 100;
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) progressBar.style.width = progress + '%';
             }
         }
         <?php endif; ?>
 
         // ======================
-        // GESTURE HANDLING — STABLE & FLAWLESS
+        // SIMPLE ZOOM - NO DISAPPEARING PDF
+        // ======================
+        function zoomIn() {
+            if (scale >= 3.0) return;
+            
+            const container = document.getElementById('pdf-canvas');
+            
+            // ✅ SIMPLE APPROACH: Just use CSS transform - PDF stays visible
+            scale += 0.25;
+            container.style.transform = `scale(${scale})`;
+            container.style.transformOrigin = 'center top';
+        }
+
+        function zoomOut() {
+            if (scale <= 0.5) return;
+            
+            const container = document.getElementById('pdf-canvas');
+            
+            // ✅ SIMPLE APPROACH: Just use CSS transform - PDF stays visible
+            scale -= 0.25;
+            container.style.transform = `scale(${scale})`;
+            container.style.transformOrigin = 'center top';
+        }
+
+        // ======================
+        // GESTURE HANDLING
         // ======================
         function setupEventListeners() {
             const pdfContainer = document.getElementById('pdf-canvas');
             if (!pdfContainer) return;
 
-            // Clone to remove old listeners
-            const newContainer = pdfContainer.cloneNode(true);
-            pdfContainer.parentNode.replaceChild(newContainer, pdfContainer);
+            pdfContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
+            pdfContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+            pdfContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
 
-            // Apply fresh listeners
-            newContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
-            newContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
-            newContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-            // Keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.target.tagName === 'INPUT') return;
                 switch(e.key) {
@@ -510,26 +615,34 @@ $conn->close();
                     case 'ArrowRight': nextPage(); break;
                     case 'Escape': if (isFullscreen) exitFullscreen(); break;
                     case 'f': case 'F': toggleFullscreen(); break;
-                    case ' ': nextPage(); break;
+                    case ' ': e.preventDefault(); nextPage(); break;
                     case '+': case '=': zoomIn(); break;
                     case '-': zoomOut(); break;
                 }
             });
+
+            // Listen for fullscreen changes
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+        }
+
+        function handleFullscreenChange() {
+            const isInFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
+                                     document.mozFullScreenElement || document.msFullscreenElement);
+            
+            if (!isInFullscreen && isFullscreen) {
+                exitFullscreen();
+            }
         }
 
         function handleTouchStart(e) {
             if (e.touches.length === 2) {
                 isPinching = true;
                 isSwiping = false;
-
-                // Store initial pinch distance and scale
                 initialPinchDistance = getDistance(e.touches[0], e.touches[1]);
                 pinchStartScale = scale;
-
-                // Store center point of pinch
-                pinchStartX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-                pinchStartY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-
                 if (window.navigator.vibrate) window.navigator.vibrate(5);
                 e.preventDefault();
             } else if (e.touches.length === 1 && !isPinching) {
@@ -545,14 +658,12 @@ $conn->close();
                 const currentDistance = getDistance(e.touches[0], e.touches[1]);
                 const zoomFactor = currentDistance / initialPinchDistance;
                 let newScale = pinchStartScale * zoomFactor;
-
-                // Clamp scale
                 newScale = Math.max(0.5, Math.min(3.0, newScale));
-
-                // Apply live CSS scale for smoothness (NO RE-RENDER)
+                
+                // ✅ SIMPLE: Just update transform immediately
                 const container = document.getElementById('pdf-canvas');
-                container.style.transform = `scale(${newScale / scale})`;
-
+                container.style.transform = `scale(${newScale})`;
+                
                 e.preventDefault();
             }
         }
@@ -560,32 +671,21 @@ $conn->close();
         function handleTouchEnd(e) {
             if (isPinching) {
                 isPinching = false;
-
+                
                 const container = document.getElementById('pdf-canvas');
                 const computedStyle = window.getComputedStyle(container);
                 const matrix = computedStyle.transform;
 
-                let cssScale = 1;
+                let newScale = scale;
                 if (matrix !== 'none' && matrix !== 'matrix(1, 0, 0, 1, 0, 0)') {
                     const values = matrix.split('(')[1].split(')')[0].split(',');
-                    cssScale = parseFloat(values[0]);
+                    newScale = parseFloat(values[0]);
                 }
 
-                // Calculate final scale
-                let newScale = scale * cssScale;
                 newScale = Math.max(0.5, Math.min(3.0, newScale));
-
-                // Update global scale
                 scale = newScale;
-
-                // Add loading state
-                container.classList.add('rendering');
-
-                // Re-render at new scale
-                if (typeof renderAllPages === 'function') {
-                    renderAllPages();
-                    if (window.navigator.vibrate) window.navigator.vibrate(10);
-                }
+                
+                if (window.navigator.vibrate) window.navigator.vibrate(10);
             } else if (isSwiping) {
                 isSwiping = false;
                 handleSwipeEnd(e);
@@ -613,10 +713,10 @@ $conn->close();
             lastSwipeTime = now;
 
             if (deltaY > 0) {
-                showIndicator('▼', 1000);
+                showIndicator('▼', 800);
                 previousPage();
             } else {
-                showIndicator('▲', 1000);
+                showIndicator('▲', 800);
                 nextPage();
             }
 
@@ -632,7 +732,7 @@ $conn->close();
                 bottom: text === '▼' ? '20px' : 'auto',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                background: 'rgba(0,0,0,0.7)',
+                background: 'rgba(0,0,0,0.8)',
                 color: 'white',
                 padding: '10px 20px',
                 borderRadius: '20px',
@@ -686,64 +786,36 @@ $conn->close();
         }
 
         // ======================
-        // ZOOM — STABLE & FLAWLESS
-        // ======================
-        function zoomIn() {
-            if (scale >= 3.0) return;
-            scale += 0.25;
-            const container = document.getElementById('pdf-canvas');
-            container.style.transform = 'scale(1.2)';
-            container.classList.add('rendering');
-            if (typeof renderAllPages === 'function') renderAllPages();
-        }
-
-        function zoomOut() {
-            if (scale <= 0.5) return;
-            scale -= 0.25;
-            const container = document.getElementById('pdf-canvas');
-            container.style.transform = 'scale(0.8)';
-            container.classList.add('rendering');
-            if (typeof renderAllPages === 'function') renderAllPages();
-        }
-
-        function fitToWidth() {
-            scale = 1.0;
-            const container = document.getElementById('pdf-canvas');
-            container.classList.add('rendering');
-            if (typeof renderAllPages === 'function') renderAllPages();
-        }
-
-        function rotatePage() {
-            rotation = (rotation + 90) % 360;
-            const container = document.getElementById('pdf-canvas');
-            container.classList.add('rendering');
-            if (typeof renderAllPages === 'function') renderAllPages();
-        }
-
-        // ======================
-        // FULLSCREEN — GESTURE COMPATIBLE
+        // FULLSCREEN
         // ======================
         function toggleFullscreen() {
-            const container = document.getElementById('main-container');
-            const exitBtn = document.getElementById('exit-fullscreen-btn');
-
             if (!isFullscreen) {
-                enterFullscreen(container);
+                enterFullscreen();
             } else {
                 exitFullscreen();
             }
         }
 
-        function enterFullscreen(element) {
-            const requestFS = element.requestFullscreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen;
+        function enterFullscreen() {
+            const container = document.getElementById('main-container');
+            const exitBtn = document.getElementById('exit-fullscreen-btn');
+
+            // Try native fullscreen API first
+            const requestFS = container.requestFullscreen || 
+                            container.webkitRequestFullscreen || 
+                            container.mozRequestFullScreen || 
+                            container.msRequestFullscreen;
+            
             if (requestFS) {
-                requestFS.call(element)
+                requestFS.call(container)
                     .then(() => {
                         isFullscreen = true;
+                        document.body.classList.add('fullscreen-mode');
                         exitBtn.style.display = 'flex';
-                        setTimeout(setupEventListeners, 100);
                     })
-                    .catch(fallbackFullscreen);
+                    .catch(() => {
+                        fallbackFullscreen();
+                    });
             } else {
                 fallbackFullscreen();
             }
@@ -753,20 +825,26 @@ $conn->close();
             document.body.classList.add('fullscreen-mode');
             document.getElementById('exit-fullscreen-btn').style.display = 'flex';
             isFullscreen = true;
-            setTimeout(setupEventListeners, 100);
-            if (typeof renderAllPages === 'function') setTimeout(renderAllPages, 100);
         }
 
         function exitFullscreen() {
-            const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
-            if (exitFS && (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement)) {
+            // Exit native fullscreen if active
+            const exitFS = document.exitFullscreen || 
+                         document.webkitExitFullscreen || 
+                         document.mozCancelFullScreen || 
+                         document.msExitFullscreen;
+            
+            if (exitFS && (document.fullscreenElement || 
+                          document.webkitFullscreenElement || 
+                          document.mozFullScreenElement || 
+                          document.msFullscreenElement)) {
                 exitFS.call(document);
             }
+            
+            // Always remove CSS fullscreen class
             document.body.classList.remove('fullscreen-mode');
             document.getElementById('exit-fullscreen-btn').style.display = 'none';
             isFullscreen = false;
-            setTimeout(setupEventListeners, 100);
-            if (typeof renderAllPages === 'function') setTimeout(renderAllPages, 100);
         }
 
         // ======================
@@ -786,20 +864,27 @@ $conn->close();
             document.body.removeChild(link);
         }
 
-        function printPDF() {
-            window.open("../user/<?php echo htmlspecialchars($material['material_file']); ?>", '_blank');
-        }
-
         <?php if (!$isAndroid): ?>
-        function zoomInIframe() {
+        // For non-Android devices using iframe
+        let iframeScale = 1.0;
+
+        function zoomIn() {
+            if (iframeScale >= 2.0) return;
+            iframeScale += 0.2;
             const iframe = document.getElementById('pdf-viewer');
-            if (iframe) iframe.style.width = (iframe.offsetWidth + 50) + 'px';
+            if (iframe) {
+                iframe.style.transform = `scale(${iframeScale})`;
+                iframe.style.transformOrigin = 'top left';
+            }
         }
 
-        function zoomOutIframe() {
+        function zoomOut() {
+            if (iframeScale <= 0.6) return;
+            iframeScale -= 0.2;
             const iframe = document.getElementById('pdf-viewer');
-            if (iframe && iframe.offsetWidth > 300) {
-                iframe.style.width = (iframe.offsetWidth - 50) + 'px';
+            if (iframe) {
+                iframe.style.transform = `scale(${iframeScale})`;
+                iframe.style.transformOrigin = 'top left';
             }
         }
         <?php endif; ?>

@@ -3302,3 +3302,626 @@
 
 <!-- <==========================chapter 4 ==========================> -->
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Time Varying Fields</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .chapter {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .chapter-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            color: #2980b9;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .section-content {
+            margin-left: 15px;
+            padding-bottom: 15px;
+            display: block;
+        }
+        
+        .equation {
+            background: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 1.1em;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        
+        .example {
+            background: #e8f4fc;
+            border: 1px solid #bde0fe;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .navigation {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-item {
+            display: inline-block;
+        }
+        
+        .nav-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        .nav-link:hover {
+            background: #3498db;
+        }
+        
+        .nav-link.active {
+            background: #3498db;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .image-caption {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .problem {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .problem-title {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .chapter-title {
+                font-size: 1.6em;
+            }
+            
+            .section-title {
+                font-size: 1.3em;
+            }
+            
+            .equation {
+                font-size: 1em;
+                padding: 12px;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+            }
+            
+            .nav-link {
+                font-size: 0.9em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .chapter {
+                padding: 15px;
+            }
+            
+            .chapter-title {
+                font-size: 1.4em;
+            }
+            
+            .section-title {
+                font-size: 1.2em;
+            }
+            
+            .equation {
+                font-size: 0.95em;
+                padding: 10px;
+                margin: 10px 0;
+            }
+            
+            .example, .problem {
+                padding: 10px;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#section1" class="nav-link active">4.1 Faraday's law</a></li>
+                <li class="nav-item"><a href="#section2" class="nav-link">4.2 Displacement current</a></li>
+                <li class="nav-item"><a href="#section3" class="nav-link">4.3 Maxwell's equations</a></li>
+            </ul>
+        </div>
+        
+        <div id="chapter_4" class="chapter">
+            <h1 class="chapter-title">4. Time Varying Fields (4 hours)</h1>
+            
+            <div id="section1" class="section">
+                <h2 class="section-title" onclick="document.getElementById('section1-content').style.display = 'block'">4.1 Faraday's law, transformer EMF, motional EMF</h2>
+                <div id="section1-content" class="section-content" style="display:block">
+                    <p><strong>Faraday's Law of Electromagnetic Induction</strong></p>
+                    
+                    <p>Faraday's law states that the induced electromotive force (EMF) in any closed circuit is equal to the negative of the time rate of change of the magnetic flux through the circuit.</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = -\frac{d\Phi_B}{dt}
+                    </div>
+                    
+                    <p>where:</p>
+                    <ul>
+                        <li>\(\mathcal{E}\) is the induced EMF</li>
+                        <li>\(\Phi_B\) is the magnetic flux through the circuit</li>
+                    </ul>
+                    
+                    <p>In integral form, Faraday's law is expressed as:</p>
+                    
+                    <div class="equation">
+                        \oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt} \int_S \mathbf{B} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p>In differential form, Faraday's law is:</p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/600x400" alt="Faraday's Law Diagram" width="100%">
+                        <div class="image-caption">Figure: Faraday's law of electromagnetic induction showing magnetic flux changing through a loop</div>
+                    </div>
+                    
+                    <p><strong>Motional EMF</strong></p>
+                    
+                    <p>Motional EMF is generated when a conductor moves through a magnetic field. When a conductor of length \(l\) moves with velocity \(\mathbf{v}\) perpendicular to a magnetic field \(\mathbf{B}\), the induced EMF is:</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = \int (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{l}
+                    </div>
+                    
+                    <p>For a straight conductor moving perpendicular to a uniform magnetic field:</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = B l v
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/600x400" alt="Motional EMF Diagram" width="100%">
+                        <div class="image-caption">Figure: Motional EMF in a conductor moving through a magnetic field</div>
+                    </div>
+                    
+                    <p><strong>Transformer EMF</strong></p>
+                    
+                    <p>Transformer EMF is generated when the magnetic field changes with time while the circuit is stationary. This is described by the second term in Faraday's law:</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = -\int_S \frac{\partial \mathbf{B}}{\partial t} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p>Transformer EMF is the principle behind transformers, where a changing current in the primary coil creates a changing magnetic field, which induces an EMF in the secondary coil.</p>
+                    
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/600x400" alt="Transformer EMF Diagram" width="100%">
+                        <div class="image-caption">Figure: Transformer EMF in a transformer setup</div>
+                    </div>
+                    
+                    <p><strong>Net Induction</strong></p>
+                    
+                    <p>When both motional and transformer EMF occur simultaneously, the total induced EMF is the sum of both effects:</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = \oint_C (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{l} - \int_S \frac{\partial \mathbf{B}}{\partial t} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p>This is the complete form of Faraday's law for a moving circuit in a time-varying magnetic field.</p>
+                    
+                    <p><strong>Example: Faraday's Law Application</strong></p>
+                    
+                    <p>A rectangular loop of wire with width \(w\) and length \(l\) is placed in a uniform magnetic field \(\mathbf{B} = B_0 \sin(\omega t) \mathbf{a}_z\). The loop is stationary. Find the induced EMF in the loop.</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    
+                    <p>The magnetic flux through the loop is:</p>
+                    
+                    <div class="equation">
+                        \Phi_B = \int_S \mathbf{B} \cdot d\mathbf{S} = B_0 \sin(\omega t) \cdot (w \cdot l)
+                    </div>
+                    
+                    <p>The induced EMF is:</p>
+                    
+                    <div class="equation">
+                        \mathcal{E} = -\frac{d\Phi_B}{dt} = -B_0 w l \omega \cos(\omega t)
+                    </div>
+                </div>
+            </div>
+            
+            <div id="section2" class="section">
+                <h2 class="section-title" onclick="document.getElementById('section2-content').style.display = 'block'">4.2 Displacement current</h2>
+                <div id="section2-content" class="section-content" style="display:block">
+                    <p><strong>Displacement Current</strong></p>
+                    
+                    <p>Displacement current is a concept introduced by James Clerk Maxwell to resolve the inconsistency between Ampere's circuital law and the continuity equation for time-varying fields.</p>
+                    
+                    <p>Ampere's circuital law for static fields states:</p>
+                    
+                    <div class="equation">
+                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc}
+                    </div>
+                    
+                    <p>In differential form:</p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{H} = \mathbf{J}
+                    </div>
+                    
+                    <p>However, this equation conflicts with the continuity equation:</p>
+                    
+                    <div class="equation">
+                        \nabla \cdot \mathbf{J} = -\frac{\partial \rho_v}{\partial t}
+                    </div>
+                    
+                    <p>Because taking the divergence of Ampere's law gives:</p>
+                    
+                    <div class="equation">
+                        \nabla \cdot (\nabla \times \mathbf{H}) = 0 = \nabla \cdot \mathbf{J}
+                    </div>
+                    
+                    <p>which conflicts with the continuity equation when \(\rho_v\) is changing with time.</p>
+                    
+                    <p>To resolve this conflict, Maxwell introduced the displacement current density \(\mathbf{J}_d\):</p>
+                    
+                    <div class="equation">
+                        \mathbf{J}_d = \frac{\partial \mathbf{D}}{\partial t}
+                    </div>
+                    
+                    <p>where \(\mathbf{D} = \epsilon \mathbf{E}\) is the electric flux density.</p>
+                    
+                    <p>With the displacement current included, Ampere's circuital law becomes:</p>
+                    
+                    <div class="equation">
+                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc} + I_d
+                    </div>
+                    
+                    <p>where \(I_d\) is the displacement current:</p>
+                    
+                    <div class="equation">
+                        I_d = \int_S \frac{\partial \mathbf{D}}{\partial t} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p>In differential form:</p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/600x400" alt="Displacement Current Diagram" width="100%">
+                        <div class="image-caption">Figure: Displacement current in a capacitor during charging</div>
+                    </div>
+                    
+                    <p><strong>Physical Significance</strong></p>
+                    <ul>
+                        <li>Displacement current is not a current of moving charges but a changing electric field</li>
+                        <li>It completes the circuit in capacitors where there is no actual current flow between plates</li>
+                        <li>It allows for the propagation of electromagnetic waves</li>
+                        <li>It is essential for the consistency of Maxwell's equations</li>
+                    </ul>
+                    
+                    <p><strong>Example: Displacement Current in a Parallel Plate Capacitor</strong></p>
+                    
+                    <p>Consider a parallel plate capacitor with plate area \(A\) and separation \(d\). The capacitor is charged with a time-varying voltage \(V(t) = V_0 \sin(\omega t)\). Find the displacement current between the plates.</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    
+                    <p>The electric field between the plates is:</p>
+                    
+                    <div class="equation">
+                        E = \frac{V(t)}{d} = \frac{V_0 \sin(\omega t)}{d}
+                    </div>
+                    
+                    <p>The electric flux density is:</p>
+                    
+                    <div class="equation">
+                        D = \epsilon E = \epsilon \frac{V_0 \sin(\omega t)}{d}
+                    </div>
+                    
+                    <p>The displacement current density is:</p>
+                    
+                    <div class="equation">
+                        J_d = \frac{\partial D}{\partial t} = \epsilon \frac{V_0 \omega \cos(\omega t)}{d}
+                    </div>
+                    
+                    <p>The total displacement current is:</p>
+                    
+                    <div class="equation">
+                        I_d = J_d A = \epsilon A \frac{V_0 \omega \cos(\omega t)}{d}
+                    </div>
+                    
+                    <p>Since the capacitance of a parallel plate capacitor is \(C = \frac{\epsilon A}{d}\), we have:</p>
+                    
+                    <div class="equation">
+                        I_d = C \frac{dV}{dt} = C V_0 \omega \cos(\omega t)
+                    </div>
+                </div>
+            </div>
+            
+            <div id="section3" class="section">
+                <h2 class="section-title" onclick="document.getElementById('section3-content').style.display = 'block'">4.3 Maxwell's equations in integral and point forms</h2>
+                <div id="section3-content" class="section-content" style="display:block">
+                    <p><strong>Maxwell's Equations</strong></p>
+                    
+                    <p>Maxwell's equations are the fundamental equations of classical electromagnetism. They describe how electric and magnetic fields are generated and altered by each other and by charges and currents.</p>
+                    
+                    <p><strong>1. Gauss's Law for Electricity</strong></p>
+                    
+                    <p><em>Integral Form:</em></p>
+                    
+                    <div class="equation">
+                        \oint_S \mathbf{D} \cdot d\mathbf{S} = Q_{enc}
+                    </div>
+                    
+                    <p><em>Differential Form:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \cdot \mathbf{D} = \rho_v
+                    </div>
+                    
+                    <p>where \(\mathbf{D}\) is the electric flux density, \(Q_{enc}\) is the enclosed charge, and \(\rho_v\) is the volume charge density.</p>
+                    
+                    <p><strong>2. Gauss's Law for Magnetism</strong></p>
+                    
+                    <p><em>Integral Form:</em></p>
+                    
+                    <div class="equation">
+                        \oint_S \mathbf{B} \cdot d\mathbf{S} = 0
+                    </div>
+                    
+                    <p><em>Differential Form:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \cdot \mathbf{B} = 0
+                    </div>
+                    
+                    <p>where \(\mathbf{B}\) is the magnetic flux density. This law states that magnetic monopoles do not exist.</p>
+                    
+                    <p><strong>3. Faraday's Law of Induction</strong></p>
+                    
+                    <p><em>Integral Form:</em></p>
+                    
+                    <div class="equation">
+                        \oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt} \int_S \mathbf{B} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p><em>Differential Form:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
+                    </div>
+                    
+                    <p>where \(\mathbf{E}\) is the electric field intensity.</p>
+                    
+                    <p><strong>4. Ampere's Circuital Law with Maxwell's Correction</strong></p>
+                    
+                    <p><em>Integral Form:</em></p>
+                    
+                    <div class="equation">
+                        \oint_C \mathbf{H} \cdot d\mathbf{l} = I_{enc} + \frac{d}{dt} \int_S \mathbf{D} \cdot d\mathbf{S}
+                    </div>
+                    
+                    <p><em>Differential Form:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}
+                    </div>
+                    
+                    <p>where \(\mathbf{H}\) is the magnetic field intensity, \(\mathbf{J}\) is the current density, and \(\frac{\partial \mathbf{D}}{\partial t}\) is the displacement current density.</p>
+                    
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/600x400" alt="Maxwell's Equations Diagram" width="100%">
+                        <div class="image-caption">Figure: Maxwell's equations showing the relationship between electric and magnetic fields</div>
+                    </div>
+                    
+                    <p><strong>Maxwell's Equations in Phasor Form</strong></p>
+                    
+                    <p>For time-harmonic fields (sinusoidal steady state), Maxwell's equations can be expressed in phasor form:</p>
+                    
+                    <p><em>Gauss's Law for Electricity:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \cdot \mathbf{D} = \rho_v
+                    </div>
+                    
+                    <p><em>Gauss's Law for Magnetism:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \cdot \mathbf{B} = 0
+                    </div>
+                    
+                    <p><em>Faraday's Law:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{E} = -j\omega \mathbf{B}
+                    </div>
+                    
+                    <p><em>Ampere's Law:</em></p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{H} = \mathbf{J} + j\omega \mathbf{D}
+                    </div>
+                    
+                    <p>where \(j = \sqrt{-1}\) and \(\omega\) is the angular frequency.</p>
+                    
+                    <p><strong>Constitutive Relations</strong></p>
+                    
+                    <p>Maxwell's equations are often used with constitutive relations that relate the fields to material properties:</p>
+                    
+                    <div class="equation">
+                        \begin{aligned}
+                        \mathbf{D} &= \epsilon \mathbf{E} \\
+                        \mathbf{B} &= \mu \mathbf{H} \\
+                        \mathbf{J} &= \sigma \mathbf{E}
+                        \end{aligned}
+                    </div>
+                    
+                    <p>where \(\epsilon\) is the permittivity, \(\mu\) is the permeability, and \(\sigma\) is the conductivity of the medium.</p>
+                    
+                    <p><strong>Wave Equation</strong></p>
+                    
+                    <p>From Maxwell's equations, we can derive the wave equation for electromagnetic waves. In free space (\(\mathbf{J} = 0\), \(\rho_v = 0\)), the wave equations for \(\mathbf{E}\) and \(\mathbf{B}\) are:</p>
+                    
+                    <div class="equation">
+                        \begin{aligned}
+                        \nabla^2 \mathbf{E} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2} &= 0 \\
+                        \nabla^2 \mathbf{B} - \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{B}}{\partial t^2} &= 0
+                        \end{aligned}
+                    </div>
+                    
+                    <p>where \(\mu_0 \epsilon_0 = \frac{1}{c^2}\) and \(c\) is the speed of light in vacuum.</p>
+                    
+                    <p><strong>Example: Deriving the Wave Equation</strong></p>
+                    
+                    <p>Derive the wave equation for electric field in free space.</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    
+                    <p>From Faraday's law:</p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
+                    </div>
+                    
+                    <p>From Ampere's law in free space (\(\mathbf{J} = 0\)):</p>
+                    
+                    <div class="equation">
+                        \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t}
+                    </div>
+                    
+                    <p>Since \(\mathbf{D} = \epsilon_0 \mathbf{E}\) and \(\mathbf{B} = \mu_0 \mathbf{H}\) in free space:</p>
+                    
+                    <div class="equation">
+                        \begin{aligned}
+                        \nabla \times \mathbf{H} &= \epsilon_0 \frac{\partial \mathbf{E}}{\partial t} \\
+                        \nabla \times \mathbf{E} &= -\mu_0 \frac{\partial \mathbf{H}}{\partial t}
+                        \end{aligned}
+                    </div>
+                    
+                    <p>Take the curl of the first equation:</p>
+                    
+                    <div class="equation">
+                        \nabla \times (\nabla \times \mathbf{H}) = \epsilon_0 \frac{\partial}{\partial t} (\nabla \times \mathbf{E})
+                    </div>
+                    
+                    <p>Using the vector identity \(\nabla \times (\nabla \times \mathbf{H}) = \nabla(\nabla \cdot \mathbf{H}) - \nabla^2 \mathbf{H}\) and since \(\nabla \cdot \mathbf{H} = 0\) (Gauss's law for magnetism), we get:</p>
+                    
+                    <div class="equation">
+                        -\nabla^2 \mathbf{H} = \epsilon_0 \frac{\partial}{\partial t} (\nabla \times \mathbf{E})
+                    </div>
+                    
+                    <p>Substitute \(\nabla \times \mathbf{E} = -\mu_0 \frac{\partial \mathbf{H}}{\partial t}\):</p>
+                    
+                    <div class="equation">
+                        -\nabla^2 \mathbf{H} = \epsilon_0 \frac{\partial}{\partial t} \left(-\mu_0 \frac{\partial \mathbf{H}}{\partial t}\right)
+                    </div>
+                    
+                    <p>Which simplifies to:</p>
+                    
+                    <div class="equation">
+                        \nabla^2 \mathbf{H} = \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{H}}{\partial t^2}
+                    </div>
+                    
+                    <p>Similarly for \(\mathbf{E}\):</p>
+                    
+                    <div class="equation">
+                        \nabla^2 \mathbf{E} = \mu_0 \epsilon_0 \frac{\partial^2 \mathbf{E}}{\partial t^2}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
