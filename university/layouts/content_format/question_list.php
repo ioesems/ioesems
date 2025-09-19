@@ -157,5 +157,6 @@ $questions = [
 ];
 
 // Include the viewer module
-include '../question_list_viewer.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/std/university/layouts/question_list_viewer.php';
+
 ?>

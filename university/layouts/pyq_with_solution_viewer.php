@@ -279,7 +279,7 @@
         .year-section {
             margin-bottom: 40px;
             background: white;
-            padding: 25px;
+            padding: 0px;           /* Critical fix: Removed padding to align with question boxes */
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -681,7 +681,7 @@
 
         @media (max-width: 480px) {
             .year-section {
-                padding: 15px;
+                padding: 0px;
             }
 
             .question-header {

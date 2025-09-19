@@ -196,5 +196,6 @@ $questions = [
 ];
 
 // Include the viewer module
-include '../question_with_solution_viewer.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/std/university/layouts/question_with_solution_viewer.php';
+
 ?>

@@ -314,5 +314,5 @@ $questions_by_year = [
 ];
 
 // Include the viewer module
-include '../pyq_collection_viewer.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/std/university/layouts/pyq_collection_viewer.php';
 ?>
