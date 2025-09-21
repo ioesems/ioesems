@@ -30,3 +30,11 @@ https://chat.qwen.ai/c/185920ca-e8f3-4174-b259-e830dcb6c396
 
 footer dynamic comment
 https://chat.qwen.ai/c/2c41e42b-fc61-4bc8-8726-541198147773
+
+
+
+
+ for langflow
+
+ php.ini  
+variables_order = "EGPCS"   
