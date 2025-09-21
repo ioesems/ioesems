@@ -585,5 +585,16 @@ setInterval(() => {
 }, 10000); // Change quote every 10 seconds
 <?php endif; ?>
 </script>
+
+
+ <!-- ai bot integrated  -->
+<script id="messenger-widget-b"
+        src="https://cdn.botpenguin.com/website-bot.js"
+        defer>
+68cfa321c61cda54b17dffa8,68cfa2baf990e84cc4891d98
+</script>
+
+
+
 </body>
 </html>
