@@ -99,67 +99,84 @@ function createRoom()
     }
 }
 
-function joinRoom()
-{
+function joinRoom() {
     global $pdo, $_SESSION;
-
+    
     $roomCode = $_POST['room_code'] ?? '';
-
+    
     if (empty($roomCode)) {
         echo json_encode(['success' => false, 'message' => 'Room code required']);
         exit();
     }
-
-    // Find room
-    $stmt = $pdo->prepare("SELECT * FROM game_rooms WHERE room_code = ? AND status = 'waiting'");
+    
+    // Find room (allow active/finished rooms too)
+    $stmt = $pdo->prepare("SELECT * FROM game_rooms WHERE room_code = ?");
     $stmt->execute([$roomCode]);
     $room = $stmt->fetch();
-
+    
     if (!$room) {
-        echo json_encode(['success' => false, 'message' => 'Room not found or game already started']);
+        echo json_encode(['success' => false, 'message' => 'Room not found']);
         exit();
     }
-
+    
     // Check if user is already in this room
-    $stmt = $pdo->prepare("SELECT id FROM game_players WHERE room_id = ? AND user_id = ?");
+    $stmt = $pdo->prepare("SELECT player_color, turn_order FROM game_players WHERE room_id = ? AND user_id = ?");
     $stmt->execute([$room['id'], $_SESSION['user_id']]);
-    if ($stmt->rowCount() > 0) {
-        echo json_encode(['success' => true, 'room_code' => $roomCode, 'already_joined' => true]);
+    $existingPlayer = $stmt->fetch();
+    
+    if ($existingPlayer) {
+        // Player already in room - just return their info
+        echo json_encode([
+            'success' => true, 
+            'room_code' => $roomCode,
+            'already_joined' => true,
+            'player_color' => $existingPlayer['player_color'],
+            'turn_order' => $existingPlayer['turn_order'],
+            'room_status' => $room['status'],
+            'message' => 'Already in room'
+        ]);
         exit();
     }
-
+    
+    // If room is not waiting, don't allow new players to join
+    if ($room['status'] !== 'waiting') {
+        echo json_encode(['success' => false, 'message' => 'Game already started or finished. Cannot join now.']);
+        exit();
+    }
+    
     // Check if room is full
     if ($room['current_players'] >= $room['max_players']) {
         echo json_encode(['success' => false, 'message' => 'Room is full']);
         exit();
     }
-
+    
     // Assign color and turn order
     $colors = ['red', 'blue', 'green', 'yellow'];
     $stmt = $pdo->prepare("SELECT player_color FROM game_players WHERE room_id = ? ORDER BY id ASC");
     $stmt->execute([$room['id']]);
     $usedColors = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
+    
     $availableColors = array_diff($colors, $usedColors);
     $playerColor = !empty($availableColors) ? reset($availableColors) : 'red'; // fallback
     $turnOrder = $room['current_players'] + 1;
-
+    
     // Add player to room
     $stmt = $pdo->prepare("
         INSERT INTO game_players (room_id, user_id, player_color, position, turn_order, is_ready) 
         VALUES (?, ?, ?, '[0,0,0,0]', ?, FALSE)
     ");
-
+    
     if ($stmt->execute([$room['id'], $_SESSION['user_id'], $playerColor, $turnOrder])) {
         // Update room player count
         $stmt = $pdo->prepare("UPDATE game_rooms SET current_players = current_players + 1 WHERE id = ?");
         $stmt->execute([$room['id']]);
-
+        
         echo json_encode([
-            'success' => true,
+            'success' => true, 
             'room_code' => $roomCode,
             'player_color' => $playerColor,
             'turn_order' => $turnOrder,
+            'room_status' => $room['status'],
             'message' => 'Joined room successfully'
         ]);
     } else {
