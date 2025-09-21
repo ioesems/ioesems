@@ -15,13 +15,30 @@ if ($conn === null || $conn->connect_error) {
 $material_id = isset($_GET['id']) ? intval($_GET['id']) : null;
 if ($material_id) {
     // Fetch the material details based on the ID
-    $sql_material = "SELECT * FROM materials WHERE id = $material_id";
-    $result_material = $conn->query($sql_material);
+    $sql_material = "SELECT * FROM materials WHERE id = ?";
+    $stmt = $conn->prepare($sql_material);
+    $stmt->bind_param("i", $material_id);
+    $stmt->execute();
+    $result_material = $stmt->get_result();
     if ($result_material->num_rows > 0) {
         $material = $result_material->fetch_assoc();
     } else {
         die("Material not found.");
     }
+    $stmt->close();
+
+    // Fetch bookmarks for this material
+    $sql_bookmarks = "SELECT * FROM bookmarks WHERE material_id = ? ORDER BY page_number ASC";
+    $stmt = $conn->prepare($sql_bookmarks);
+    $stmt->bind_param("i", $material_id);
+    $stmt->execute();
+    $result_bookmarks = $stmt->get_result();
+    $bookmarks = [];
+    while ($row = $result_bookmarks->fetch_assoc()) {
+        $bookmarks[] = $row;
+    }
+    $stmt->close();
+
 } else {
     die("Invalid material ID.");
 }
@@ -55,7 +72,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>View Material</title>
     <link rel="icon" type="image/png" href="../../images/logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,13 +92,120 @@ $conn->close();
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             transition: all .3s ease;
+            position: relative;
+        }
+
+        /* ✅ TOP HORIZONTAL BOOKMARK BAR — ONLY FOR ANDROID */
+        .bookmark-bar {
+            display: <?php echo $isAndroid && !empty($bookmarks) ? 'flex' : 'none'; ?>;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            overflow-x: auto;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            gap: 8px;
+        }
+
+        .bookmark-bar::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .bookmark-bar::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .bookmark-bar .label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #555;
+            padding: 4px 8px;
+            border-right: 1px solid #ddd;
+            margin-right: 8px;
+        }
+
+        .bookmark-bar a {
+            display: inline-flex;
+            align-items: center;
+            background: #f0f7ff;
+            color: #0056b3;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border: 1px solid #cce5ff;
+        }
+
+        .bookmark-bar a:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-1px);
+            border-color: #007bff;
+        }
+
+        .bookmark-bar a i {
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        /* Always show in fullscreen mode (Android only) */
+        body.fullscreen-mode .bookmark-bar {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        body.fullscreen-mode .bookmark-bar .label {
+            color: #eee;
+            border-right-color: rgba(255,255,255,0.2);
+        }
+
+        body.fullscreen-mode .bookmark-bar a {
+            background: rgba(255,255,255,0.15);
+            color: #bbdfff;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        body.fullscreen-mode .bookmark-bar a:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        /* Hide scrollbar on mobile for cleaner look */
+        @media (max-width: 768px) {
+            .bookmark-bar {
+                padding: 6px 8px;
+            }
+            .bookmark-bar .label {
+                font-size: 13px;
+                padding: 3px 6px;
+            }
+            .bookmark-bar a {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            .bookmark-bar a i {
+                margin-right: 4px;
+                font-size: 11px;
+            }
         }
 
         .top-toolbar {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin: 15px 0;
             padding: 10px;
             background: #f8f9fa;
             border-radius: 6px;
@@ -113,7 +237,7 @@ $conn->close();
 
         .pdf-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
             position: relative;
         }
 
@@ -155,10 +279,10 @@ $conn->close();
             border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
-            display: none;
             z-index: 10001;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: all 0.2s;
+            display: none;
         }
 
         .exit-fullscreen-btn:hover {
@@ -337,7 +461,6 @@ $conn->close();
                 flex-direction: column;
                 align-items: center;
             }
-
             .top-toolbar button {
                 width: 200px;
                 margin: 2px 0;
@@ -352,6 +475,7 @@ $conn->close();
 </head>
 
 <body>
+    <!-- ✅ Exit Fullscreen Button — Now properly shown/hidden -->
     <button class="exit-fullscreen-btn" id="exit-fullscreen-btn" onclick="exitFullscreen()">
         <i class="fas fa-times"></i> Exit Fullscreen
     </button>
@@ -360,7 +484,19 @@ $conn->close();
         <div class="pdf-container" id="pdf-container">
             <h2><?php echo htmlspecialchars($material['subject']); ?> - Semester <?php echo htmlspecialchars($material['semester']); ?></h2>
 
-            <!-- Top Toolbar - Visible in normal mode, hidden in fullscreen -->
+            <!-- ✅ BOOKMARK BAR — ONLY SHOWN ON ANDROID -->
+            <?php if ($isAndroid && !empty($bookmarks)): ?>
+            <div class="bookmark-bar">
+                <span class="label"><i class="fas fa-bookmark"></i> Contents</span>
+                <?php foreach ($bookmarks as $bm): ?>
+                    <a href="#" onclick="jumpToPage(<?php echo (int)$bm['page_number']; ?>); return false;" title="Go to page <?php echo (int)$bm['page_number']; ?>">
+                        <i class="fas fa-file-alt"></i> <?php echo htmlspecialchars($bm['title']); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
+            <!-- Top Toolbar -->
             <div class="top-toolbar" id="top-toolbar">
                 <button onclick="toggleFullscreen()" id="fullscreen-btn">
                     <i class="fas fa-expand"></i> Fullscreen
@@ -411,6 +547,7 @@ $conn->close();
                     </div>
                 </div>
             <?php else: ?>
+                <!-- DESKTOP: Use iframe with Google Drive-friendly behavior -->
                 <iframe id="pdf-viewer" src="../user/<?php echo htmlspecialchars($material['material_file']); ?>"
                     type="application/pdf" style="width:100%;height:80vh;border:none;border-radius:8px;">
                     Your browser does not support PDFs. <a href="../user/<?php echo htmlspecialchars($material['material_file']); ?>">Download the file</a>.
@@ -433,20 +570,6 @@ $conn->close();
         let isFullscreen = false;
         let totalPages = 0;
         let pagesRendered = 0;
-
-        // Gesture state
-        let isSwiping = false;
-        let isPinching = false;
-        let lastSwipeTime = 0;
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let initialPinchDistance = 0;
-        let pinchStartScale = 1.0;
-
-        // Constants
-        const SWIPE_COOLDOWN_MS = 450;
-        const MIN_SWIPE_VELOCITY = 0.6;
-        const MIN_SWIPE_DISTANCE = 70;
 
         // ======================
         // INIT
@@ -573,29 +696,188 @@ $conn->close();
         <?php endif; ?>
 
         // ======================
-        // SIMPLE ZOOM - NO DISAPPEARING PDF
+        // BOOKMARK JUMP FUNCTION — ANDROID ONLY
+        // ======================
+        function jumpToPage(targetPage) {
+            if (targetPage < 1 || targetPage > totalPages) return;
+
+            <?php if ($isAndroid): ?>
+                pageNum = targetPage;
+                scrollToPage();
+                updateNavigationButtons();
+            <?php endif; ?>
+        }
+
+        // ======================
+        // SIMPLE ZOOM
         // ======================
         function zoomIn() {
             if (scale >= 3.0) return;
-            
-            const container = document.getElementById('pdf-canvas');
-            
-            // ✅ SIMPLE APPROACH: Just use CSS transform - PDF stays visible
             scale += 0.25;
+            const container = document.getElementById('pdf-canvas');
             container.style.transform = `scale(${scale})`;
             container.style.transformOrigin = 'center top';
         }
 
         function zoomOut() {
             if (scale <= 0.5) return;
-            
-            const container = document.getElementById('pdf-canvas');
-            
-            // ✅ SIMPLE APPROACH: Just use CSS transform - PDF stays visible
             scale -= 0.25;
+            const container = document.getElementById('pdf-canvas');
             container.style.transform = `scale(${scale})`;
             container.style.transformOrigin = 'center top';
         }
+
+        // ======================
+        // PAGE NAVIGATION
+        // ======================
+        function previousPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            scrollToPage();
+            updateNavigationButtons();
+        }
+
+        function nextPage() {
+            if (pageNum >= totalPages) return;
+            pageNum++;
+            scrollToPage();
+            updateNavigationButtons();
+        }
+
+        function scrollToPage() {
+            const target = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.getElementById('page-num').textContent = pageNum;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            if (prevBtn) prevBtn.disabled = pageNum <= 1;
+            if (nextBtn) nextBtn.disabled = pageNum >= totalPages;
+        }
+
+        // ======================
+        // FULLSCREEN — FIXED & ROBUST
+        // ======================
+        function toggleFullscreen() {
+            if (!isFullscreen) {
+                enterFullscreen();
+            } else {
+                exitFullscreen();
+            }
+        }
+
+        function enterFullscreen() {
+            const container = document.getElementById('main-container');
+
+            // Try native fullscreen API
+            const requestFS = container.requestFullscreen || 
+                            container.webkitRequestFullscreen || 
+                            container.mozRequestFullScreen || 
+                            container.msRequestFullscreen;
+            
+            if (requestFS) {
+                requestFS.call(container)
+                    .then(() => {
+                        isFullscreen = true;
+                        document.body.classList.add('fullscreen-mode');
+                        document.getElementById('exit-fullscreen-btn').style.display = 'flex';
+                    })
+                    .catch((err) => {
+                        console.error("Fullscreen request failed:", err);
+                        fallbackFullscreen();
+                    });
+            } else {
+                fallbackFullscreen();
+            }
+        }
+
+        function fallbackFullscreen() {
+            document.body.classList.add('fullscreen-mode');
+            document.getElementById('exit-fullscreen-btn').style.display = 'flex';
+            isFullscreen = true;
+        }
+
+        function exitFullscreen() {
+            // Use the Document's exitFullscreen method
+            const exitFS = document.exitFullscreen || 
+                         document.webkitExitFullscreen || 
+                         document.mozCancelFullScreen || 
+                         document.msExitFullscreen;
+            
+            if (exitFS) {
+                exitFS.call(document).catch(err => {
+                    console.error("Exit fullscreen failed:", err);
+                });
+            }
+
+            // Always clean up CSS class and button
+            document.body.classList.remove('fullscreen-mode');
+            document.getElementById('exit-fullscreen-btn').style.display = 'none';
+            isFullscreen = false;
+        }
+
+        // Handle browser-native fullscreen exit (ESC key, etc.)
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        function handleFullscreenChange() {
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement && 
+                !document.msFullscreenElement) {
+                if (isFullscreen) {
+                    exitFullscreen(); // Sync our state
+                }
+            }
+        }
+
+        // ======================
+        // UTILITIES
+        // ======================
+        function tryGoogleViewer() {
+            const pdfUrl = encodeURIComponent(window.location.origin + '/../user/<?php echo htmlspecialchars($material['material_file']); ?>');
+            window.open(`https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`, '_blank');
+        }
+
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = "../user/<?php echo htmlspecialchars($material['material_file']); ?>";
+            link.download = "<?php echo htmlspecialchars($material['material_title']); ?>.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        <?php if (!$isAndroid): ?>
+        // For non-Android — no zoom needed if using Drive Viewer
+        let iframeScale = 1.0;
+
+        function zoomIn() {
+            if (iframeScale >= 2.0) return;
+            iframeScale += 0.2;
+            const iframe = document.getElementById('pdf-viewer');
+            if (iframe) {
+                iframe.style.transform = `scale(${iframeScale})`;
+                iframe.style.transformOrigin = 'top left';
+            }
+        }
+
+        function zoomOut() {
+            if (iframeScale <= 0.6) return;
+            iframeScale -= 0.2;
+            const iframe = document.getElementById('pdf-viewer');
+            if (iframe) {
+                iframe.style.transform = `scale(${iframeScale})`;
+                iframe.style.transformOrigin = 'top left';
+            }
+        }
+        <?php endif; ?>
 
         // ======================
         // GESTURE HANDLING
@@ -620,22 +902,19 @@ $conn->close();
                     case '-': zoomOut(); break;
                 }
             });
-
-            // Listen for fullscreen changes
-            document.addEventListener('fullscreenchange', handleFullscreenChange);
-            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
         }
 
-        function handleFullscreenChange() {
-            const isInFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || 
-                                     document.mozFullScreenElement || document.msFullscreenElement);
-            
-            if (!isInFullscreen && isFullscreen) {
-                exitFullscreen();
-            }
-        }
+        let isSwiping = false;
+        let isPinching = false;
+        let lastSwipeTime = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let initialPinchDistance = 0;
+        let pinchStartScale = 1.0;
+
+        const SWIPE_COOLDOWN_MS = 450;
+        const MIN_SWIPE_VELOCITY = 0.6;
+        const MIN_SWIPE_DISTANCE = 70;
 
         function handleTouchStart(e) {
             if (e.touches.length === 2) {
@@ -660,7 +939,6 @@ $conn->close();
                 let newScale = pinchStartScale * zoomFactor;
                 newScale = Math.max(0.5, Math.min(3.0, newScale));
                 
-                // ✅ SIMPLE: Just update transform immediately
                 const container = document.getElementById('pdf-canvas');
                 container.style.transform = `scale(${newScale})`;
                 
@@ -734,7 +1012,7 @@ $conn->close();
                 transform: 'translateX(-50%)',
                 background: 'rgba(0,0,0,0.8)',
                 color: 'white',
-                padding: '10px 20px',
+                padding: '8px 16px',
                 borderRadius: '20px',
                 fontSize: '24px',
                 fontWeight: 'bold',
@@ -752,142 +1030,6 @@ $conn->close();
                 }, 300);
             }, duration);
         }
-
-        // ======================
-        // PAGE NAVIGATION
-        // ======================
-        function previousPage() {
-            if (pageNum <= 1) return;
-            pageNum--;
-            scrollToPage();
-            updateNavigationButtons();
-        }
-
-        function nextPage() {
-            if (pageNum >= totalPages) return;
-            pageNum++;
-            scrollToPage();
-            updateNavigationButtons();
-        }
-
-        function scrollToPage() {
-            const target = document.querySelector(`.pdf-page[data-pagenumber="${pageNum}"]`);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            document.getElementById('page-num').textContent = pageNum;
-        }
-
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prev-page');
-            const nextBtn = document.getElementById('next-page');
-            if (prevBtn) prevBtn.disabled = pageNum <= 1;
-            if (nextBtn) nextBtn.disabled = pageNum >= totalPages;
-        }
-
-        // ======================
-        // FULLSCREEN
-        // ======================
-        function toggleFullscreen() {
-            if (!isFullscreen) {
-                enterFullscreen();
-            } else {
-                exitFullscreen();
-            }
-        }
-
-        function enterFullscreen() {
-            const container = document.getElementById('main-container');
-            const exitBtn = document.getElementById('exit-fullscreen-btn');
-
-            // Try native fullscreen API first
-            const requestFS = container.requestFullscreen || 
-                            container.webkitRequestFullscreen || 
-                            container.mozRequestFullScreen || 
-                            container.msRequestFullscreen;
-            
-            if (requestFS) {
-                requestFS.call(container)
-                    .then(() => {
-                        isFullscreen = true;
-                        document.body.classList.add('fullscreen-mode');
-                        exitBtn.style.display = 'flex';
-                    })
-                    .catch(() => {
-                        fallbackFullscreen();
-                    });
-            } else {
-                fallbackFullscreen();
-            }
-        }
-
-        function fallbackFullscreen() {
-            document.body.classList.add('fullscreen-mode');
-            document.getElementById('exit-fullscreen-btn').style.display = 'flex';
-            isFullscreen = true;
-        }
-
-        function exitFullscreen() {
-            // Exit native fullscreen if active
-            const exitFS = document.exitFullscreen || 
-                         document.webkitExitFullscreen || 
-                         document.mozCancelFullScreen || 
-                         document.msExitFullscreen;
-            
-            if (exitFS && (document.fullscreenElement || 
-                          document.webkitFullscreenElement || 
-                          document.mozFullScreenElement || 
-                          document.msFullscreenElement)) {
-                exitFS.call(document);
-            }
-            
-            // Always remove CSS fullscreen class
-            document.body.classList.remove('fullscreen-mode');
-            document.getElementById('exit-fullscreen-btn').style.display = 'none';
-            isFullscreen = false;
-        }
-
-        // ======================
-        // UTILITIES
-        // ======================
-        function tryGoogleViewer() {
-            const pdfUrl = encodeURIComponent(window.location.origin + '/../user/<?php echo htmlspecialchars($material['material_file']); ?>');
-            window.open(`https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`, '_blank');
-        }
-
-        function downloadPDF() {
-            const link = document.createElement('a');
-            link.href = "../user/<?php echo htmlspecialchars($material['material_file']); ?>";
-            link.download = "<?php echo htmlspecialchars($material['material_title']); ?>.pdf";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        <?php if (!$isAndroid): ?>
-        // For non-Android devices using iframe
-        let iframeScale = 1.0;
-
-        function zoomIn() {
-            if (iframeScale >= 2.0) return;
-            iframeScale += 0.2;
-            const iframe = document.getElementById('pdf-viewer');
-            if (iframe) {
-                iframe.style.transform = `scale(${iframeScale})`;
-                iframe.style.transformOrigin = 'top left';
-            }
-        }
-
-        function zoomOut() {
-            if (iframeScale <= 0.6) return;
-            iframeScale -= 0.2;
-            const iframe = document.getElementById('pdf-viewer');
-            if (iframe) {
-                iframe.style.transform = `scale(${iframeScale})`;
-                iframe.style.transformOrigin = 'top left';
-            }
-        }
-        <?php endif; ?>
     </script>
 </body>
 </html>
