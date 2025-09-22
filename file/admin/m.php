@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: login.php");
+    exit();
+
+    
+}
+
+include '../../components/head-foot/header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +21,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         :root {
-            --primary-green: #2E7D32;
-            --primary-yellow: #FBC02D;
-            --accent-green: #4CAF50;
-            --accent-yellow: #FFD54F;
-            --light-green: #E8F5E8;
-            --light-yellow: #FFF9C4;
-            --neutral-light: #F8F9FA;
-            --neutral-dark: #212529;
-            --neutral-medium: #6C757D;
-            --card-bg: #FFFFFF;
-            --shadow: 0 1px 4px rgba(0,0,0,0.1);
-            --border-radius: 6px;
+            /* Eye-friendly color palette */
+            --soft-green: #2E8B57;
+            --mint-green: #66CDAA;
+            --warm-yellow: #F0E68C;
+            --golden-yellow: #DAA520;
+            --sage-green: #87A96B;
+            --cream: #FFF8DC;
+            --light-cream: #FEFEF0;
+            --soft-gray: #708090;
+            --charcoal: #36454F;
+            --white: #FFFFFF;
+            --success-green: #32CD32;
+            --warning-orange: #FF8C00;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --border-radius: 8px;
             --transition: all 0.2s ease;
         }
 
@@ -29,9 +46,9 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--light-green) 0%, var(--light-yellow) 100%);
-            color: var(--neutral-dark);
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--light-cream) 0%, var(--cream) 50%, var(--warm-yellow) 100%);
+            color: var(--charcoal);
             font-size: 14px;
             line-height: 1.4;
             height: 100vh;
@@ -43,33 +60,36 @@
             padding: 8px;
             display: flex;
             flex-direction: column;
+            max-width: 100%;
         }
 
         .header {
-            background: var(--card-bg);
+            background: var(--white);
             padding: 12px 16px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             margin-bottom: 8px;
             text-align: center;
             flex-shrink: 0;
+            border: 1px solid rgba(46, 139, 87, 0.1);
         }
 
         .header h1 {
             font-size: 1.4rem;
             font-weight: 600;
-            color: var(--primary-green);
+            color: var(--soft-green);
             margin-bottom: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .header .subtitle {
             font-size: 0.8rem;
-            color: var(--neutral-medium);
+            color: var(--soft-gray);
             margin-bottom: 8px;
+            font-weight: 400;
         }
 
         .status-indicator {
@@ -77,16 +97,17 @@
             align-items: center;
             justify-content: center;
             padding: 6px 12px;
-            background: var(--light-green);
+            background: rgba(50, 205, 50, 0.1);
             border-radius: var(--border-radius);
             font-size: 0.75rem;
             font-weight: 500;
-            border: 1px solid var(--accent-green);
+            border: 1px solid var(--success-green);
+            color: var(--soft-green);
         }
 
         .status-indicator i {
             margin-right: 4px;
-            color: var(--accent-green);
+            color: var(--success-green);
             animation: pulse 2s infinite;
         }
 
@@ -122,10 +143,10 @@
             justify-content: flex-start;
             gap: 8px;
             box-shadow: var(--shadow);
-            color: white;
             position: relative;
             overflow: hidden;
             min-height: 44px;
+            border: 1px solid transparent;
         }
 
         .btn:active {
@@ -133,20 +154,51 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            background: linear-gradient(135deg, var(--soft-green), var(--mint-green));
+            color: var(--white);
+            border-color: var(--soft-green);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--mint-green), var(--sage-green));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 139, 87, 0.2);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, var(--primary-yellow), var(--accent-yellow));
-            color: var(--neutral-dark);
+            background: linear-gradient(135deg, var(--golden-yellow), var(--warm-yellow));
+            color: var(--charcoal);
+            border-color: var(--golden-yellow);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--warm-yellow), var(--golden-yellow));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.2);
         }
 
         .btn-accent {
-            background: linear-gradient(135deg, var(--accent-green), var(--primary-green));
+            background: linear-gradient(135deg, var(--sage-green), var(--mint-green));
+            color: var(--white);
+            border-color: var(--sage-green);
         }
 
-        .btn-future {
-            background: linear-gradient(135deg, var(--neutral-medium), #8E9AAF);
+        .btn-accent:hover {
+            background: linear-gradient(135deg, var(--mint-green), var(--soft-green));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(135, 169, 107, 0.2);
+        }
+
+        .btn-neutral {
+            background: linear-gradient(135deg, var(--cream), var(--light-cream));
+            color: var(--charcoal);
+            border-color: var(--soft-gray);
+        }
+
+        .btn-neutral:hover {
+            background: linear-gradient(135deg, var(--light-cream), var(--white));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(112, 128, 144, 0.15);
         }
 
         .btn i {
@@ -169,8 +221,8 @@
         .logout-btn {
             padding: 10px 20px;
             font-size: 0.8rem;
-            background: linear-gradient(135deg, #E57373, #F44336);
-            color: white;
+            background: linear-gradient(135deg, var(--warning-orange), #FF6347);
+            color: var(--white);
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
@@ -181,6 +233,13 @@
             gap: 6px;
             box-shadow: var(--shadow);
             font-weight: 500;
+            border: 1px solid var(--warning-orange);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #FF6347, var(--warning-orange));
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
         }
 
         .logout-btn:active {
@@ -192,25 +251,31 @@
             padding: 8px;
             text-align: center;
             font-size: 0.65rem;
-            color: var(--neutral-medium);
-            background: var(--card-bg);
+            color: var(--soft-gray);
+            background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             margin-top: 8px;
+            border: 1px solid rgba(112, 128, 144, 0.1);
         }
 
-        /* Scrollbar styling */
+        /* Custom scrollbar - eye-friendly */
         .main-content::-webkit-scrollbar {
-            width: 3px;
+            width: 4px;
         }
 
         .main-content::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(46, 139, 87, 0.1);
+            border-radius: 2px;
         }
 
         .main-content::-webkit-scrollbar-thumb {
-            background: var(--accent-green);
-            border-radius: 3px;
+            background: var(--sage-green);
+            border-radius: 2px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: var(--soft-green);
         }
 
         /* Very small screens */
@@ -241,7 +306,7 @@
         @media (min-width: 768px) {
             .dashboard-container {
                 padding: 12px;
-                max-width: 800px;
+                max-width: 900px;
                 margin: 0 auto;
             }
             
@@ -254,6 +319,14 @@
                 padding: 12px 14px;
                 font-size: 0.8rem;
             }
+            
+            .header {
+                padding: 16px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
         }
 
         /* Desktop optimizations */
@@ -263,14 +336,14 @@
             }
         }
 
-        /* Accessibility */
+        /* Accessibility - eye-friendly focus states */
         .btn:focus,
         .logout-btn:focus {
-            outline: 2px solid var(--accent-yellow);
-            outline-offset: 1px;
+            outline: 2px solid var(--golden-yellow);
+            outline-offset: 2px;
         }
 
-        /* Smooth animations */
+        /* Smooth loading animation */
         .btn::before {
             content: '';
             position: absolute;
@@ -278,23 +351,34 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.4s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
         }
 
         .btn:active::before {
             left: 100%;
         }
+
+        /* Loading spinner for buttons */
+        .btn-loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    
     <div class="dashboard-container">
         <div class="header">
             <h1>
                 <i class="fas fa-user-shield"></i>
                 <span>Admin Dashboard</span>
             </h1>
-            <p class="subtitle">Secure Content Management</p>
+            <p class="subtitle">Secure Content Management System</p>
             
             <div class="status-indicator">
                 <i class="fas fa-circle"></i>
@@ -324,77 +408,72 @@
                     <span>Add Link + Prompt</span>
                 </a>
                 
-                <a href="#" class="btn btn-secondary">
+                <a href="../../university/tu/news" class="btn btn-secondary">
                     <i class="fas fa-graduation-cap"></i>
                     <span>IOE + KEC News</span>
                 </a>
                 
-                <a href="#" class="btn btn-accent">
+                <a href="../../z/games/index.php" class="btn btn-accent">
                     <i class="fas fa-gamepad"></i>
                     <span>Games</span>
                 </a>
                 
-                <a href="#" class="btn btn-future">
-                    <i class="fas fa-quote-right"></i>
-                    <span>Hindi Quotes</span>
+                <a href="../../z/shayari/index.php" class="btn btn-neutral">
+                    <i class="fas fa-heart"></i>
+                    <span>Shayari & Quotes</span>
                 </a>
                 
-                <a href="#" class="btn btn-primary">
-                    <i class="fas fa-tags"></i>
-                    <span>Quote Categories</span>
-                </a>
-                
-                <a href="#" class="btn btn-secondary">
+                <a href="../../components/ioe_entrance_mcq_test/admin_files/admin.php" class="btn btn-primary">
                     <i class="fas fa-cog"></i>
                     <span>MCQ Admin Panel</span>
                 </a>
                 
-                <a href="#" class="btn btn-accent">
+                <a href="../../components/ioe_entrance_mcq_test/user_interface.php" class="btn btn-secondary">
                     <i class="fas fa-clipboard-list"></i>
-                    <span>MCQ Test</span>
+                    <span>IOE MCQ Test</span>
                 </a>
                 
-                <a href="#" class="btn btn-future">
+                <a href="./material_uploading_file/add_quote.php" class="btn btn-accent">
                     <i class="fas fa-file-alt"></i>
                     <span>Auto Upload Log</span>
                 </a>
                 
-                <a href="#" class="btn btn-primary">
+                <a href="./bookmark/admin_bookmark_creater.php" class="btn btn-neutral">
                     <i class="fas fa-bookmark"></i>
-                    <span>Bookmarks</span>
+                    <span>Admin Bookmarks</span>
                 </a>
                 
-                <a href="#" class="btn btn-secondary">
+                <a href="../../ai/fun_question/user_interface.php" class="btn btn-primary">
                     <i class="fas fa-question-circle"></i>
                     <span>Fun Questions</span>
                 </a>
                 
-                <a href="#" class="btn btn-accent">
+                <a href="../../ai/_testing/langflow/playground/frontend_langflow.php" class="btn btn-secondary">
                     <i class="fas fa-project-diagram"></i>
                     <span>Langflow</span>
                 </a>
                 
-                <a href="#" class="btn btn-future">
+                <a href="../../ai/_testing/langflow/playground/instrumentation/frontend.php" class="btn btn-accent">
                     <i class="fas fa-robot"></i>
                     <span>Instrumentation AI</span>
                 </a>
                 
-                <a href="#" class="btn btn-primary">
+                <a href="../../ai/eng_test/user_interface.php" class="btn btn-neutral">
                     <i class="fas fa-language"></i>
                     <span>English Test</span>
                 </a>
                 
-                <a href="#" class="btn btn-secondary">
+                <a href="../../components/public_channel/index.php" class="btn btn-primary">
                     <i class="fas fa-broadcast-tower"></i>
                     <span>Public Channel</span>
                 </a>
                 
-                <a href="#" class="btn btn-accent">
+                <a href="../../components/head-foot/comment/comment.php" class="btn btn-secondary">
                     <i class="fas fa-comment-dots"></i>
-                    <span>Comments</span>
+                    <span>Comment Session</span>
                 </a>
                 
-                <a href="#" class="btn btn-future">
+                <a href="#" class="btn btn-accent">
                     <i class="fas fa-plus-circle"></i>
                     <span>New Feature</span>
                 </a>
@@ -404,12 +483,12 @@
         <div class="logout-section">
             <a href="logout.php" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
+                <span>Secure Logout</span>
             </a>
         </div>
 
         <div class="footer">
-            <p>🔒 Secure Admin Panel • Professional Dashboard</p>
+            <p>🔒 Secure Admin Control Panel • Professional Dashboard</p>
         </div>
     </div>
 
@@ -421,11 +500,15 @@
                     e.preventDefault();
                     const icon = this.querySelector('i');
                     const originalClass = icon.className;
-                    icon.className = 'fas fa-spinner fa-spin';
+                    
+                    // Add loading class
+                    this.classList.add('btn-loading');
+                    icon.className = 'fas fa-spinner';
                     
                     setTimeout(() => {
+                        this.classList.remove('btn-loading');
                         icon.className = originalClass;
-                    }, 1000);
+                    }, 1200);
                 }
             });
         });
@@ -436,14 +519,26 @@
             mainContent.style.scrollBehavior = 'smooth';
         });
 
-        // Add haptic feedback for mobile
+        // Add haptic feedback for mobile devices
         if ('vibrate' in navigator) {
             document.querySelectorAll('.btn, .logout-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    navigator.vibrate(50);
+                    navigator.vibrate(30); // Gentle vibration
                 });
             });
         }
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey && e.key >= '1' && e.key <= '9') {
+                const index = parseInt(e.key) - 1;
+                const buttons = document.querySelectorAll('.btn');
+                if (buttons[index]) {
+                    buttons[index].focus();
+                    e.preventDefault();
+                }
+            }
+        });
     </script>
 </body>
 </html>
