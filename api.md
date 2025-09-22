@@ -2,3 +2,15 @@ fun question
 
 groq api->
 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
+
+openai api ->
+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
+
+ioemens datase of datastax ->
+AstraCS:XZbyuQlqoJcZHtzvkDrwcvIz:db8133ef30e707006d10c5d35f58a336ffb1ab76c9acf23f772f8e2746d1df43
+
+NVIDIA api key ->
+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
+
+cohere api key ->
+lPv6kWCVY4UY0VrsIHxbzP2R1RqUSMXb5TeAjyZU
