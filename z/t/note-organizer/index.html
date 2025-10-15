@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Organizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-sticky-note"></i> Note Organizer</h2>
+                <div class="btn-group">
+                    <button id="new-note-btn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Note
+                    </button>
+                    <button id="new-browser-btn" class="btn btn-secondary">
+                        <i class="fas fa-globe"></i> Browser
+                    </button>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search notes...">
+                <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="folders-section">
+                <h3><i class="fas fa-folder"></i> Folders</h3>
+                <ul id="folders-list">
+                    <!-- Folders will be loaded here -->
+                </ul>
+                <button id="new-folder-btn" class="btn btn-secondary">
+                    <i class="fas fa-folder-plus"></i> New Folder
+                </button>
+            </div>
+            
+            <div class="tags-section">
+                <h3><i class="fas fa-tags"></i> Tags</h3>
+                <div id="tags-container">
+                    <!-- Tags will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="recent-notes">
+                <h3><i class="fas fa-clock"></i> Recent Notes</h3>
+                <ul id="recent-notes-list">
+                    <!-- Recent notes will be loaded here -->
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Tab Bar -->
+            <div class="tab-bar" id="tab-bar">
+                <div class="tab active" data-tab="welcome">
+                    <span>Welcome</span>
+                    <i class="fas fa-times close-tab"></i>
+                </div>
+                <!-- Tabs will be added here dynamically -->
+            </div>
+            
+            <!-- Tab Content -->
+            <div class="tab-content" id="tab-content">
+                <!-- Welcome Tab -->
+                <div class="tab-pane active" id="welcome-tab">
+                    <div class="welcome-content">
+                        <h1>Welcome to Note Organizer</h1>
+                        <p>Create, organize, and manage your notes efficiently.</p>
+                        <div class="features">
+                            <div class="feature-card">
+                                <i class="fas fa-folder"></i>
+                                <h3>Organize with Folders</h3>
+                                <p>Create folders to categorize your notes</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-tags"></i>
+                                <h3>Tag Your Notes</h3>
+                                <p>Add tags for quick filtering and searching</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-link"></i>
+                                <h3>Embed Content</h3>
+                                <p>Embed websites, videos, PDFs and more</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-search"></i>
+                                <h3>Powerful Search</h3>
+                                <p>Find notes by title, content, tags or category</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-globe"></i>
+                                <h3>Integrated Browser</h3>
+                                <p>Browse the web in dedicated tabs</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-columns"></i>
+                                <h3>Multi-Tab Interface</h3>
+                                <p>Work with multiple notes and browsers simultaneously</p>
+                            </div>
+                        </div>
+                        <div class="welcome-actions">
+                            <button id="create-note-btn" class="btn btn-primary">Create Note</button>
+                            <button id="browse-web-btn" class="btn btn-secondary">Browse Web</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Note Editor Template (hidden) -->
+                <div class="tab-pane note-editor" id="note-template" style="display:none;">
+                    <div class="note-header">
+                        <input type="text" class="note-title" placeholder="Note Title">
+                        <div class="note-meta">
+                            <select class="note-category">
+                                <option value="">Select Category</option>
+                                <option value="Work">Work</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Study">Study</option>
+                                <option value="Ideas">Ideas</option>
+                            </select>
+                            <input type="text" class="note-tags" placeholder="Tags (comma separated)">
+                            <div class="note-actions">
+                                <button class="btn btn-sm btn-view"><i class="fas fa-eye"></i> View</button>
+                                <button class="btn btn-sm btn-save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <div class="toolbar">
+                            <button class="toolbar-btn" data-action="bold"><i class="fas fa-bold"></i></button>
+                            <button class="toolbar-btn" data-action="italic"><i class="fas fa-italic"></i></button>
+                            <button class="toolbar-btn" data-action="underline"><i class="fas fa-underline"></i></button>
+                            <button class="toolbar-btn" data-action="link"><i class="fas fa-link"></i></button>
+                            <button class="toolbar-btn" data-action="embed"><i class="fas fa-code"></i></button>
+                            <button class="toolbar-btn" data-action="image"><i class="fas fa-image"></i></button>
+                            <button class="toolbar-btn" data-action="list"><i class="fas fa-list"></i></button>
+                            <button class="toolbar-btn" data-action="code"><i class="fas fa-code"></i></button>
+                        </div>
+                        <div class="editor" contenteditable="true" placeholder="Start writing your note..."></div>
+                    </div>
+                </div>
+                
+                <!-- Browser Tab Template (hidden) -->
+                <div class="tab-pane browser-tab" id="browser-template" style="display:none;">
+                    <div class="browser-controls">
+                        <button class="btn btn-sm btn-back"><i class="fas fa-arrow-left"></i></button>
+                        <button class="btn btn-sm btn-forward"><i class="fas fa-arrow-right"></i></button>
+                        <button class="btn btn-sm btn-refresh"><i class="fas fa-sync"></i></button>
+                        <input type="text" class="browser-url" placeholder="Enter URL to browse...">
+                        <button class="btn btn-sm btn-go">Go</button>
+                        <button class="btn btn-sm btn-home"><i class="fas fa-home"></i></button>
+                    </div>
+                    <iframe class="browser-frame" src="about:blank" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="new-folder-modal" class="modal">
+        <div class="modal-content">
+            <h3>Create New Folder</h3>
+            <input type="text" id="folder-name" placeholder="Folder Name">
+            <div class="modal-actions">
+                <button id="create-folder-btn" class="btn btn-primary">Create</button>
+                <button id="cancel-folder-btn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="embed-modal" class="modal">
+        <div class="modal-content">
+            <h3>Embed Content</h3>
+            <select id="embed-type">
+                <option value="website">Website</option>
+                <option value="youtube">YouTube Video</option>
+                <option value="pdf">PDF Document</option>
+                <option value="video">Video File</option>
+                <option value="image">Image</option>
+            </select>
+            <input type="text" id="embed-url" placeholder="Enter URL">
+            <div class="modal-actions">
+                <button id="embed-btn" class="btn btn-primary">Embed</button>
+                <button id="cancel-embed-btn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
