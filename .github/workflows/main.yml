@@ -20,4 +20,11 @@ jobs:
           username: if0_38161098
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
+          protocol: ftp
+          local-dir: ./
           server-dir: /badri.name.np/htdocs/
+          exclude: |
+            **/.git*
+            **/.github*
+            **/README.md
+            **/LICENSE
