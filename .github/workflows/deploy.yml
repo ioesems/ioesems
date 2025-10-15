@@ -16,10 +16,8 @@ jobs:
       - name: 📂 Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: ftpupload.net        # ✅ no ftp:// prefix
+          server: ftpupload.net           # ✅ no  prefix
           username: if0_38161098
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          protocol: ftp
-          local-dir: ./
           server-dir: /badri.name.np/htdocs/
