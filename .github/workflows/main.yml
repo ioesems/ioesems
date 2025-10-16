@@ -22,7 +22,7 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./
-          server-dir: /badri.name.np/htdocs/
+          server-dir: /badri.name.np/htdocs/std/
           exclude: |
             **/.git*
             **/.github*
