@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true)
     exit();
 }
 
-include 'config.php';
+include '../database/config.php';
 
 // Check if user is admin
 $stmt = $pdo->prepare("SELECT is_admin FROM users WHERE id = ?");
@@ -15,7 +15,7 @@ if (!$user || !$user['is_admin']) {
     die("Access denied. Admin only.");
 }
 
-include 'syllabus.php';
+include '../contents_of_ioe_entrance/syllabus.php';
 
 $message = '';
 
